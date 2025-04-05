@@ -33,19 +33,26 @@
       </section>
 
       <section id="form-container">
-        <form id="form-cadastro" action="/login" method="post">
+        <form id="form-cadastro"  method="post">
           <h1>Login BlueWave</h1>
       
 
         <div>
           <label for="">Email</label>
-          <input type="text" name="email" required>
+          <input type="text" name="email" id="email" required>
         </div>
 
         <div>
             <label for="senha" >Senha</label>
             <input type="password" id="senha" name="senha" required>
           </div>
+
+
+  <label>Tipo de Usuário:</label>
+  <select id="tipo" name="tipo">
+    <option value="ong">ONG</option>
+    <option value="voluntario">Voluntário</option>
+  </select>
 
           <div><a href="/submitForm">Esqueceu a Senha?</a></div>
 
@@ -54,5 +61,6 @@
       </section>
 
   </body>
+  <script  src="/static/scripts/ong.js" th:src="@{/scripts/login.js}" ></script>
 
 </html>

@@ -21,9 +21,6 @@ public class siteController {
         return "/index";
     }
 
-    @GetMapping("/login")
-    public String login(){
-        return "/login";
-    }
+
 
 }

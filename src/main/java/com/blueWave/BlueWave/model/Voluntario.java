@@ -22,6 +22,7 @@ public class Voluntario {
 
     @NotBlank
     @Email(message = "Email inválido")
+    @Column(unique = true)
     private String email;
 
     @NotBlank
