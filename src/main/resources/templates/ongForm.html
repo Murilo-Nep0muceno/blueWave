@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blue Wave</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/style.css}" href="/static/css/style.css">
+</head>
+<body>
+    <div id="header-bg">
+        <header id="header">
+          <a id="logo" href="/">BLUE WAVE</a>
+          <nav id="nav">
+            <button id="btn-mobile">
+              <span id="hambuger"></span>
+            </button>
+           
+            <ul id="menu">
+              <li><a href="">Quem Somos?</a></li>
+              <li><a href="/ongForm">Sou um ONG</a></li>
+              <li><a href="/voluntarioForm">Quero ser voluntário</a></li>
+              <li><a href="/login">Entrar</a></li>
+            </ul>
+          </nav>
+        </header>
+      </div>
+      
+      <section id="img-back">
+        <img th:src="@{/css/images/praia1.jpeg}" src="/static/css/images/praia1.jpeg" alt="">
+      </section>
+
+      <section id="form-container">
+        <!-- onsubmit="send(event)" -->
+        <form onsubmit="form2(event)"  id="form-cadastro" >
+          <h1>Cadastro BlueWave</h1>
+      
+          <div>
+              <label id="error_name" class="error">Nome Ong Invalida</label>
+              <label class="label" for="nomeVoluntario">Nome Ong</label>
+              <input type="text" id="nomeVoluntario" name="nomeVoluntario" onchange="nomeValid()" placeholder="Digite seu nome completo">
+          </div>
+      
+          <div>
+              <label id="error_cnpj" class="error">Cnpj Invalido</label>
+              <label class="label" for="cnpj">Cnpj</label>
+              <input type="text" onchange="cnpjValid()" id="cnpj" name="cnpj"  placeholder="Ex: 12.345.678/0001-00" title="CPF inválido. Exemplo: 12.345.678/0001-00">
+          </div>
+      
+          <div>
+            <label id="error_email" class="error">Email Invalido</label>
+              <label class="label" for="email">Email</label>
+              <input type="email" onchange="emailValid()" id="email" name="email"  placeholder="Digite seu e-mail" maxlength="100">
+          </div>
+      
+          <div>
+            <label id="error_senha" class="error">senha Invalida</label>
+              <label class="label" for="senha">Senha</label>
+              <input onchange="senhaValid()"  type="password" id="senha" name="senha"  minlength="8" placeholder="Senha com no mínimo 8 caracteres">
+          </div>
+
+          <div>
+            <label id="error_senhaConfirmar" class="error">senha Diferente</label>
+              <label class="label" for="senha">Confirme sua Senha</label>
+              <input onchange="senhaConfirmaValid()" type="password" id="senhaConfirmar" name="senha"  minlength="8" placeholder="Senha com no mínimo 8 caracteres">
+          </div>
+      
+          <div>
+            <label id="error_telefone" class="error">Telefone Invalido</label>
+              <label class="label" for="telefone">Telefone</label>
+              <input onchange="telefoneValid()" type="tel" id="telefone" name="telefone"  placeholder="Ex: 11987654321" title="Número de telefone inválido. Exemplo: 11987654321">
+          </div>
+      
+          <div>
+            <label id="error_cep" class="error">cep</label>
+              <label class="label" for="cep">cep</label>
+              <input onchange="cepValid()" type="number" id="cep" name="cep" >
+          </div>
+      
+       
+      
+          <div>
+              <button  type="submit" id="btn-cadastro">Cadastrar</button>
+          </div>
+      </form>
+      
+        
+      </section>
+
+  </body>
+  <script  src="/static/scripts/ong.js" th:src="@{/scripts/ong.js}" ></script>
+
+</html>

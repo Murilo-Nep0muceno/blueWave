@@ -10,12 +10,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class siteController {
 
 
-    @GetMapping("/submitForm")
-    public String showForm(){
-        return "/submitForm";
-    }
-
-
     @GetMapping("/sucesso")
     public String sucesso(){
         return "sucesso";

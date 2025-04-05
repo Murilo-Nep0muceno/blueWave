@@ -3,41 +3,36 @@ package com.blueWave.BlueWave.controller;
 import com.blueWave.BlueWave.model.Voluntario;
 import com.blueWave.BlueWave.repository.VoluntarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
-@Controller
-@RequestMapping()
+@RequestMapping("/voluntarioForm")
+@RestController
 public class VoluntarioController {
 
     @Autowired
     private VoluntarioRepository vr;
 
+    @GetMapping
+    public ModelAndView form(){
+        ModelAndView mv = new ModelAndView("voluntarioForm");
+        return mv;
 
-    @PostMapping("/submitForm")
-    public  String submitForm(@ModelAttribute Voluntario voluntario){
+    }
 
+    @PostMapping()
+    public  Voluntario submitForm(@RequestBody Voluntario voluntario){
 
-        vr.save(voluntario);
+        BCryptPasswordEncoder bcript = new BCryptPasswordEncoder();
 
-        return "redirect:/login";
+        String senha = bcript.encode(voluntario.getSenha());
+        voluntario.setSenha(senha);
+        return vr.save(voluntario);
+
     }
 
 
-    @PostMapping("/login")
-    public String loginForm(@RequestParam("email") String email,
-                            @RequestParam("senha") String senha){
-
-        Voluntario voluntario = vr.findByEmail(email);
-
-        if (voluntario != null && voluntario.getSenha().equals(senha)){
-            return "redirect:/sucesso";
-        }else {
-            return "login";
-        }
-
-    }
 
 
 
