@@ -1,15 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
+<DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
+      <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blue Wave</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
 <body>
-
     <div id="header-bg">
         <header id="header">
           <a id="logo" href="/">BLUE WAVE</a>
@@ -19,17 +19,28 @@
             </button>
            
             <ul id="menu">
-              <li><a href="">Quem Somos?</a></li>
-              <li><a href="/ongForm">Sou um ONG</a></li>
-              <li><a href="/voluntarioForm">Quero ser voluntário</a></li>
-              <li><a href="/login">Entrar</a></li>
+              <li><a href="/vagas/listaVaga">Lista Vagas</a></li>
+              <li><a href="/vagas/homeOng">Cadastra Vaga</a></li>
+              
             </ul>
           </nav>
         </header>
       </div>
-
+    <h1>Vagas Disponíveis</h1>
     
-    
+    <table border="1">
+        <tr>
+            <th>ID</th>
+            <th>Nome</th>
+            <th>Descrição</th>
+            <th>Quantidade</th>
+        </tr>
+        <tr th:each="vaga : ${vagas}">
+            <td th:text="${vaga.id}"></td>
+            <td th:text="${vaga.nome}"></td>
+            <td th:text="${vaga.descri}"></td>
+            <td th:text="${vaga.quantidade}"></td>
+        </tr>
+    </table>
 </body>
-<script src="/js/main.js"></script>
 </html>

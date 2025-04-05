@@ -19,17 +19,62 @@
             </button>
            
             <ul id="menu">
-              <li><a href="">Quem Somos?</a></li>
-              <li><a href="/ongForm">Sou um ONG</a></li>
-              <li><a href="/voluntarioForm">Quero ser voluntário</a></li>
-              <li><a href="/login">Entrar</a></li>
+              <li><a href="/vagas/listaVaga">Lista Vagas</a></li>
+              <li><a href="/vagas/homeOng">Cadastra Vaga</a></li>
+              
             </ul>
           </nav>
         </header>
       </div>
 
+      <div>
+
+        <form onsubmit="vaga(event)">
+          <label for="nome" >Nome Da Vaga</label><br>
+          <input type="text" id="nome" placeholder="Nome"><br>
+          <label for="quatidade" >quantidade de vagas</label><br>
+          <input type="text" id="quatidade" placeholder="quatidade"><br>
+
+          <label for="quatidade" >Descrição da vagas</label><br>
+          <input type="text" id="desc" placeholder="descrição"><br>
+          <button type="submit">Cadastra Vaga</button>
+        </form>
+      </div>
     
     
 </body>
-<script src="/js/main.js"></script>
+<script>
+  async function vaga(event) {
+    event.preventDefault();
+
+    const nome = document.getElementById("nome").value;
+    const quantidade = document.getElementById("quatidade").value;
+    const descricao = document.getElementById("desc").value;
+
+    const vagaData = {
+      nome: nome,
+      quantidade: quantidade,
+      descri: descricao
+    };
+
+    try {
+      const response = await fetch("http://localhost:8080/vagas/homeOng", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(vagaData)
+      });
+
+      if (response.ok) {
+        alert("Vaga cadastrada com sucesso!");
+      } else {
+        alert("Erro ao cadastrar vaga.");
+      }
+    } catch (error) {
+      console.error("Erro na requisição:", error);
+      alert("Erro na requisição.");
+    }
+  }
+</script>
 </html>
