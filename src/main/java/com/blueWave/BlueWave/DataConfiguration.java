@@ -23,8 +23,6 @@ public class DataConfiguration {
         driverManagerDataSource.setPassword("root");
         return driverManagerDataSource;
     }
-
-
     @Bean
     public JpaVendorAdapter jpaVendorAdapter(){
         HibernateJpaVendorAdapter adapter = new HibernateJpaVendorAdapter();
