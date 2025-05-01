@@ -1,0 +1,1211 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blue Wave - Finalizar Cadastro</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', 'Roboto', sans-serif;
+        }
+
+        body {
+            height: 100vh;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        nav.menu-lateral {
+            width: 80px;
+            height: 100vh;
+            background: linear-gradient(180deg, #00A8FF 0%, #0078D4 100%);
+            padding: 20px 0;
+            box-shadow: 0 0 30px rgba(0, 168, 255, 0.3);
+            position: fixed;
+            top: 0;
+            left: 0;
+            overflow: hidden;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+        }
+
+        nav.menu-lateral:hover {
+            width: 280px;
+            box-shadow: 0 0 40px rgba(0, 168, 255, 0.4);
+        }
+
+        .title {
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+            margin-bottom: 30px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 20px;
+        }
+
+        .title h1 {
+            display: none;
+            margin-left: 15px;
+            color: white;
+            font-size: 20px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        nav.menu-lateral:hover .title h1 {
+            display: block;
+            animation: fadeInSlide 0.3s ease-out;
+        }
+
+        @keyframes fadeInSlide {
+            from {
+                opacity: 0;
+                transform: translateX(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .menu-items {
+            flex: 1;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0 10px;
+        }
+
+        ul li.item-menu {
+            margin-bottom: 8px;
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        ul li.item-menu:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateX(5px);
+        }
+
+        ul li.item-menu a {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            padding: 16px 20px;
+            display: flex;
+            align-items: center;
+            transition: all 0.3s ease;
+            border-radius: 12px;
+        }
+
+        ul li.item-menu a .icon > i {
+            font-size: 24px;
+            width: 24px;
+            text-align: center;
+        }
+
+        ul li.item-menu a .txt-link {
+            margin-left: 20px;
+            white-space: nowrap;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            font-weight: 500;
+        }
+
+        nav.menu-lateral:hover .txt-link {
+            opacity: 1;
+        }
+
+        .logout-section {
+            padding: 0 10px;
+            margin-top: auto;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 20px;
+        }
+
+        .logout-item {
+            margin-bottom: 8px;
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .logout-item:hover {
+            background: rgba(255, 76, 76, 0.2);
+            transform: translateX(5px);
+        }
+
+        .logout-item a {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            padding: 16px 20px;
+            display: flex;
+            align-items: center;
+            transition: all 0.3s ease;
+            border-radius: 12px;
+        }
+
+        .logout-item a:hover {
+            color: #ffcccc;
+        }
+
+        .logout-item a .icon > i {
+            font-size: 24px;
+            width: 24px;
+            text-align: center;
+        }
+
+        .logout-item a .txt-link {
+            margin-left: 20px;
+            white-space: nowrap;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            font-weight: 500;
+        }
+
+        nav.menu-lateral:hover .logout-item .txt-link {
+            opacity: 1;
+        }
+
+        .conteudo {
+            margin-left: 80px;
+            transition: margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            min-height: 100vh;
+        }
+
+        nav.menu-lateral:hover ~ .conteudo {
+            margin-left: 280px;
+        }
+
+        #header-bg {
+            background: linear-gradient(135deg, #003366 0%, #004080 100%);
+            padding: 20px 30px;
+            box-shadow: 0 2px 20px rgba(0, 51, 102, 0.3);
+        }
+
+        #header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: white;
+        }
+
+        #logo {
+            font-size: 24px;
+            color: white;
+            text-decoration: none;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        .form-container {
+            margin: 40px auto;
+            background: white;
+            padding: 40px;
+            max-width: 800px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            border-radius: 20px;
+            position: relative;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .form-title {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #003366;
+            font-size: 28px;
+            font-weight: 700;
+        }
+
+        .form-subtitle {
+            text-align: center;
+            margin-bottom: 40px;
+            color: #666;
+            font-size: 16px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+
+        .form-grid.two-columns {
+            grid-template-columns: 1fr 1fr;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .form-group label {
+            font-weight: 600;
+            display: block;
+            margin-bottom: 8px;
+            color: #003366;
+            font-size: 15px;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid #e1e5e9;
+            border-radius: 12px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            background: #fafbfc;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #00A8FF;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(0, 168, 255, 0.1);
+            transform: translateY(-1px);
+        }
+
+        .form-group input[type="file"] {
+            padding: 12px;
+            background: white;
+            border: 2px dashed #00A8FF;
+            cursor: pointer;
+        }
+
+        .form-group input[type="file"]:hover {
+            background: rgba(0, 168, 255, 0.05);
+        }
+
+        .form-group textarea {
+            height: 120px;
+            resize: vertical;
+            min-height: 80px;
+            max-height: 200px;
+        }
+
+        .preview-container {
+            margin-top: 15px;
+            text-align: center;
+        }
+
+        .preview-image {
+            display: none;
+            max-width: 200px;
+            max-height: 150px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            border: 3px solid #f0f0f0;
+        }
+
+        .file-info {
+            font-size: 12px;
+            color: #666;
+            margin-top: 5px;
+            font-style: italic;
+        }
+
+        .error {
+            display: none;
+            color: #e74c3c;
+            font-size: 13px;
+            margin-top: 5px;
+            padding: 8px 12px;
+            background: rgba(231, 76, 60, 0.1);
+            border-radius: 8px;
+            border-left: 4px solid #e74c3c;
+        }
+
+        .success {
+            display: none;
+            color: #27ae60;
+            font-size: 14px;
+            margin-bottom: 20px;
+            padding: 12px 16px;
+            background: rgba(39, 174, 96, 0.1);
+            border-radius: 8px;
+            border-left: 4px solid #27ae60;
+            font-weight: 500;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            color: #00A8FF;
+            font-weight: 500;
+            margin-top: 20px;
+            padding: 12px;
+            background: rgba(0, 168, 255, 0.1);
+            border-radius: 8px;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        .btn-finalizar {
+            display: block;
+            margin: 30px auto 0;
+            padding: 16px 32px;
+            background: #f8f9fa;
+            color: #495057;
+            border: 2px solid #dee2e6;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            min-width: 200px;
+        }
+
+        .btn-finalizar:hover {
+            background: #e9ecef;
+            border-color: #adb5bd;
+            color: #212529;
+            transform: translateY(-1px);
+        }
+
+        .btn-finalizar:active {
+            transform: translateY(0);
+        }
+
+        .btn-finalizar:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .section-title {
+            color: #003366;
+            font-size: 20px;
+            font-weight: 600;
+            margin: 30px 0 20px 0;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #00A8FF;
+            grid-column: 1 / -1;
+        }
+
+        .section-title:first-of-type {
+            margin-top: 0;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 15% auto;
+            padding: 0;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            animation: modalSlideIn 0.3s ease-out;
+            overflow: hidden;
+        }
+
+        .modal-header {
+            background: linear-gradient(135deg, #003366 0%, #004080 100%);
+            padding: 20px;
+            color: white;
+        }
+
+        .modal-body {
+            padding: 30px;
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .modal h3 {
+            color: white;
+            margin: 0;
+            font-size: 20px;
+            font-weight: 600;
+        }
+
+        .modal p {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 16px;
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+        }
+
+        .btn-confirm, .btn-cancel {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            min-width: 100px;
+        }
+
+        .btn-confirm {
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(231, 76, 60, 0.3);
+        }
+
+        .btn-confirm:hover {
+            background: linear-gradient(135deg, #c0392b 0%, #a93226 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(231, 76, 60, 0.4);
+        }
+
+        .btn-cancel {
+            background: #ecf0f1;
+            color: #7f8c8d;
+            border: 2px solid #bdc3c7;
+        }
+
+        .btn-cancel:hover {
+            background: #d5dbdb;
+            border-color: #95a5a6;
+            color: #5d6d7e;
+        }
+
+        /* Estilos para a tela de cadastro já realizado */
+        .cadastro-concluido {
+            display: none;
+            text-align: center;
+            padding: 60px 40px;
+        }
+
+        .cadastro-concluido.show {
+            display: block;
+        }
+
+        .cadastro-concluido .icon-success {
+            font-size: 80px;
+            color: #27ae60;
+            margin-bottom: 30px;
+            animation: bounceIn 0.6s ease-out;
+        }
+
+        @keyframes bounceIn {
+            0% {
+                opacity: 0;
+                transform: scale(0.3);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1.05);
+            }
+            70% {
+                transform: scale(0.9);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .cadastro-concluido h2 {
+            color: #003366;
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .cadastro-concluido p {
+            color: #666;
+            font-size: 16px;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        .btn-perfil {
+            display: inline-block;
+            padding: 16px 32px;
+            background: linear-gradient(135deg, #00A8FF 0%, #0078D4 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 168, 255, 0.3);
+        }
+
+        .btn-perfil:hover {
+            background: linear-gradient(135deg, #0078D4 0%, #005a9f 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 168, 255, 0.4);
+            color: white;
+            text-decoration: none;
+        }
+
+        /* Responsivo */
+        @media (max-width: 768px) {
+            nav.menu-lateral {
+                width: 60px;
+            }
+
+            nav.menu-lateral:hover {
+                width: 250px;
+            }
+
+            .conteudo {
+                margin-left: 60px;
+            }
+
+            nav.menu-lateral:hover ~ .conteudo {
+                margin-left: 250px;
+            }
+
+            .form-container {
+                margin: 20px;
+                padding: 30px 20px;
+                max-width: none;
+            }
+
+            .form-grid.two-columns {
+                grid-template-columns: 1fr;
+            }
+
+            #header-bg {
+                padding: 15px 20px;
+            }
+
+            #logo {
+                font-size: 18px;
+            }
+
+            .cadastro-concluido {
+                padding: 40px 20px;
+            }
+
+            .cadastro-concluido .icon-success {
+                font-size: 60px;
+            }
+
+            .cadastro-concluido h2 {
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+<nav class="menu-lateral">
+    <div class="title">
+            <img th:src="@{/css/images/logo_blue_white.png}" width="50px" height="50px" alt="Blue Wave Logo">
+
+        <h1>Blue Wave</h1>
+    </div>
+    <div class="menu-items">
+        <ul>
+            <li class="item-menu">
+                <a href="/vagas/listaVaga">
+                    <span class="icon"><i class="bi bi-briefcase"></i></span>
+                    <span class="txt-link">Listar Vagas</span>
+                </a>
+            </li>
+            <li class="item-menu">
+                <a href="/vagas/homeOng">
+                    <span class="icon"><i class="bi bi-person-add"></i></span>
+                    <span class="txt-link">Cadastrar Vagas</span>
+                </a>
+            </li>
+            <li class="item-menu">
+                <a href="/vagas/finalizarCadastro" style="background-color: rgba(255,255,255,0.1);">
+                    <span class="icon"><i class="bi bi-building"></i></span>
+                    <span class="txt-link">Finalizar Cadastro</span>
+                </a>
+            </li>
+            <li class="item-menu">
+                <a href="/vagas/perfil">
+                    <span class="icon"><i class="bi bi-person-circle"></i></span>
+                    <span class="txt-link">Perfil da ONG</span>
+                </a>
+            </li>
+            <li class="item-menu">
+                <a href="/vagas/configuracoes">
+                    <span class="icon"><i class="bi bi-gear"></i></span>
+                    <span class="txt-link">Configurações</span>
+                </a>
+            </li>
+            <li class="item-menu">
+                <a href="#">
+                    <span class="icon"><i class="bi bi-megaphone"></i></span>
+                    <span class="txt-link">Mensagens</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="logout-section">
+        <div class="logout-item" onclick="showLogoutModal()">
+            <a href="#" onclick="event.preventDefault()">
+                <span class="icon"><i class="bi bi-box-arrow-right"></i></span>
+                <span class="txt-link">Sair</span>
+            </a>
+        </div>
+    </div>
+</nav>
+
+<!-- Modal de confirmação de logout -->
+<div id="logoutModal" class="modal">
+    <div class="modal-content">
+        <h3>Confirmar Logout</h3>
+        <p>Tem certeza de que deseja sair do sistema?</p>
+        <div class="modal-buttons">
+            <button class="btn-cancel" onclick="hideLogoutModal()">Cancelar</button>
+            <button class="btn-confirm" onclick="confirmLogout()">Sair</button>
+        </div>
+    </div>
+</div>
+
+<div class="conteudo">
+    <div id="header-bg">
+        <header id="header">
+            <a id="logo" href="/">Painel de Controle -- Finalizar Cadastro da ONG</a>
+        </header>
+    </div>
+
+    <div class="form-container">
+        <h2 class="form-title">Finalizar Cadastro da ONG</h2>
+        <p class="form-subtitle">Complete as informações da sua organização para finalizar o cadastro</p>
+
+        <form onsubmit="finalizarCadastro(event)">
+            <div class="success" id="successMessage"></div>
+
+            <div class="form-grid">
+                <h3 class="section-title">Informações Gerais</h3>
+
+                <div class="form-group full-width">
+                    <label for="descricao">Descrição da ONG *</label>
+                    <textarea id="descricao" name="descricao" placeholder="Descreva os objetivos, missão e atividades da sua ONG..." required maxlength="2000"></textarea>
+                    <div class="error" id="descricaoError"></div>
+                </div>
+
+                <div class="form-group full-width">
+                    <label for="logo">Logo da ONG</label>
+                    <input type="file" id="logo" name="logo" accept="image/*" onchange="previewLogo(this)">
+                    <div class="file-info">Formatos aceitos: JPG, PNG, GIF. Tamanho máximo: 2MB</div>
+                    <div class="error" id="logoError"></div>
+                    <div class="preview-container">
+                        <img id="logoPreview" class="preview-image" alt="Preview da logo">
+                    </div>
+                </div>
+
+                <h3 class="section-title">Endereço</h3>
+
+                <div class="form-group">
+                    <label for="logradouro">Logradouro *</label>
+                    <input type="text" id="logradouro" name="logradouro" placeholder="Rua, Avenida, etc." required maxlength="200">
+                    <div class="error" id="logradouroError"></div>
+                </div>
+
+                <div class="form-group">
+                    <label for="numero">Número *</label>
+                    <input type="text" id="numero" name="numero" placeholder="Número" required maxlength="10">
+                    <div class="error" id="numeroError"></div>
+                </div>
+
+                <div class="form-group">
+                    <label for="complemento">Complemento</label>
+                    <input type="text" id="complemento" name="complemento" placeholder="Apartamento, Sala, etc." maxlength="100">
+                    <div class="error" id="complementoError"></div>
+                </div>
+
+                <div class="form-group">
+                    <label for="cidade">Cidade *</label>
+                    <input type="text" id="cidade" name="cidade" placeholder="Cidade" required maxlength="100">
+                    <div class="error" id="cidadeError"></div>
+                </div>
+
+                <div class="form-group">
+                    <label for="estado">Estado *</label>
+                    <select id="estado" name="estado" required>
+                        <option value="">Selecione o estado</option>
+                        <option value="AC">Acre</option>
+                        <option value="AL">Alagoas</option>
+                        <option value="AP">Amapá</option>
+                        <option value="AM">Amazonas</option>
+                        <option value="BA">Bahia</option>
+                        <option value="CE">Ceará</option>
+                        <option value="DF">Distrito Federal</option>
+                        <option value="ES">Espírito Santo</option>
+                        <option value="GO">Goiás</option>
+                        <option value="MA">Maranhão</option>
+                        <option value="MT">Mato Grosso</option>
+                        <option value="MS">Mato Grosso do Sul</option>
+                        <option value="MG">Minas Gerais</option>
+                        <option value="PA">Pará</option>
+                        <option value="PB">Paraíba</option>
+                        <option value="PR">Paraná</option>
+                        <option value="PE">Pernambuco</option>
+                        <option value="PI">Piauí</option>
+                        <option value="RJ">Rio de Janeiro</option>
+                        <option value="RN">Rio Grande do Norte</option>
+                        <option value="RS">Rio Grande do Sul</option>
+                        <option value="RO">Rondônia</option>
+                        <option value="RR">Roraima</option>
+                        <option value="SC">Santa Catarina</option>
+                        <option value="SP">São Paulo</option>
+                        <option value="SE">Sergipe</option>
+                        <option value="TO">Tocantins</option>
+                    </select>
+                    <div class="error" id="estadoError"></div>
+                </div>
+                <div class="form-group">
+                    <label for="dataFundacao">Data de Fundação *</label>
+                    <!-- Alterado para type="text" e placeholder no formato brasileiro -->
+                    <input
+                            type="text"
+                            id="dataFundacao"
+                            name="dataFundacao"
+                            placeholder="dd/mm/aaaa"
+                            maxlength="10"
+                            required
+                    >
+                    <div class="error" id="dataFundacaoError"></div>
+                </div>
+
+                <h3 class="section-title">Redes Sociais e Website</h3>
+
+                <div class="form-group">
+                    <label for="site">Website</label>
+                    <input type="url" id="site" name="site" placeholder="https://www.exemplo.com" maxlength="200">
+                    <div class="error" id="siteError"></div>
+                </div>
+
+                <div class="form-group">
+                    <label for="instagram">Instagram</label>
+                    <input type="text" id="instagram" name="instagram" placeholder="@usuario_instagram" maxlength="100">
+                    <div class="error" id="instagramError"></div>
+                </div>
+
+                <div class="form-group">
+                    <label for="facebook">Facebook</label>
+                    <input type="text" id="facebook" name="facebook" placeholder="Nome da página no Facebook" maxlength="100">
+                    <div class="error" id="facebookError"></div>
+                </div>
+            </div>
+
+            <div class="loading" id="loading">Finalizando cadastro, aguarde...</div>
+            <button type="submit" class="btn-finalizar" id="submitBtn">Finalizar Cadastro</button>
+        </form>
+    </div>
+</div>
+<script>
+    // Funções de logout
+    function showLogoutModal() {
+        document.getElementById('logoutModal').style.display = 'block';
+    }
+
+    function hideLogoutModal() {
+        document.getElementById('logoutModal').style.display = 'none';
+    }
+
+    function confirmLogout() {
+        alert('Logout realizado com sucesso!');
+        window.location.href = '/login';
+    }
+
+    // Fecha o modal se clicar fora dele
+    window.onclick = function(event) {
+        const modal = document.getElementById('logoutModal');
+        if (event.target === modal) {
+            hideLogoutModal();
+        }
+    }
+
+    // Função para preview da logo
+    function previewLogo(input) {
+        const preview = document.getElementById('logoPreview');
+        const errorDiv = document.getElementById('logoError');
+
+        if (input.files && input.files[0]) {
+            const file = input.files[0];
+
+            // Validações
+            if (!file.type.startsWith('image/')) {
+                showError('logoError', 'Por favor, selecione apenas arquivos de imagem.');
+                input.value = '';
+                preview.style.display = 'none';
+                return;
+            }
+
+            if (file.size > 2 * 1024 * 1024) { // 2MB
+                showError('logoError', 'A logo deve ter no máximo 2MB.');
+                input.value = '';
+                preview.style.display = 'none';
+                return;
+            }
+
+            // Mostra preview
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                preview.src = e.target.result;
+                preview.style.display = 'block';
+                hideError('logoError');
+            };
+            reader.readAsDataURL(file);
+        } else {
+            preview.style.display = 'none';
+        }
+    }
+
+    // Função para mostrar erro
+    function showError(elementId, message) {
+        const errorElement = document.getElementById(elementId);
+        if (errorElement) {
+            errorElement.textContent = message;
+            errorElement.style.display = 'block';
+        }
+    }
+
+    // Função para esconder erro
+    function hideError(elementId) {
+        const errorElement = document.getElementById(elementId);
+        if (errorElement) {
+            errorElement.style.display = 'none';
+        }
+    }
+
+    // Função para limpar todos os erros
+    function clearAllErrors() {
+        const errorElements = document.querySelectorAll('.error');
+        errorElements.forEach(element => {
+            element.style.display = 'none';
+        });
+    }
+
+    function validateDate(dateString) {
+        const regex = /^(\d{2})\/(\d{2})\/(\d{4})$/;
+        const match = dateString.match(regex);
+
+        if (!match) return false;
+
+        const day = parseInt(match[1], 10);
+        const month = parseInt(match[2], 10);
+        const year = parseInt(match[3], 10);
+
+        // Verifica limites básicos
+        if (month < 1 || month > 12) return false;
+        if (day < 1 || day > 31) return false;
+        if (year < 1900 || year > new Date().getFullYear()) return false;
+
+        // Verifica meses com menos de 31 dias
+        const monthLengths = [31, (isLeapYear(year) ? 29 : 28), 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+        if (day > monthLengths[month - 1]) return false;
+
+        return true;
+    }
+
+    // Função auxiliar para anos bissextos
+    function isLeapYear(year) {
+        return (year % 4 === 0 && year % 100 !== 0) || (year % 400 === 0);
+    }
+
+    // Função para converter data dd/mm/aaaa para aaaa-mm-dd (formato ISO)
+    function convertDateToISO(dateString) {
+        const regex = /^(\d{2})\/(\d{2})\/(\d{4})$/;
+        const match = dateString.match(regex);
+        if (match) {
+            const day = match[1];
+            const month = match[2];
+            const year = match[3];
+            return `${year}-${month}-${day}`;
+        }
+        return dateString;
+    }
+
+    // Validação de URL
+    function isValidUrl(string) {
+        try {
+            const url = new URL(string);
+            return url.protocol === 'http:' || url.protocol === 'https:';
+        } catch (_) {
+            return false;
+        }
+    }
+
+    // Função principal para finalizar cadastro
+    async function finalizarCadastro(event) {
+        event.preventDefault();
+
+        clearAllErrors();
+
+        // Coleta dos dados do formulário
+        const formData = new FormData();
+
+        // Verifica se os elementos existem antes de acessá-los
+        const descricaoEl = document.getElementById('descricao');
+        const logradouroEl = document.getElementById('logradouro');
+        const numeroEl = document.getElementById('numero');
+        const complementoEl = document.getElementById('complemento');
+        const cidadeEl = document.getElementById('cidade');
+        const estadoEl = document.getElementById('estado');
+        const dataFundacaoEl = document.getElementById('dataFundacao');
+        const siteEl = document.getElementById('site');
+        const instagramEl = document.getElementById('instagram');
+        const facebookEl = document.getElementById('facebook');
+        const logoEl = document.getElementById('logo');
+
+        // Coleta valores com verificação de existência
+        const descricao = descricaoEl ? descricaoEl.value.trim() : '';
+        const logradouro = logradouroEl ? logradouroEl.value.trim() : '';
+        const numero = numeroEl ? numeroEl.value.trim() : '';
+        const complemento = complementoEl ? complementoEl.value.trim() : '';
+        const cidade = cidadeEl ? cidadeEl.value.trim() : '';
+        const estado = estadoEl ? estadoEl.value : '';
+        const dataFundacao = dataFundacaoEl ? dataFundacaoEl.value : '';
+        const site = siteEl ? siteEl.value.trim() : '';
+        const instagram = instagramEl ? instagramEl.value.trim() : '';
+        const facebook = facebookEl ? facebookEl.value.trim() : '';
+
+        // Verifica se o elemento de logo existe e se é um input de arquivo
+        const logoFile = (logoEl && logoEl.files && logoEl.files.length > 0) ? logoEl.files[0] : null;
+
+        let hasErrors = false;
+
+        // Validações
+        if (!descricao) {
+            showError('descricaoError', 'Descrição é obrigatória.');
+            hasErrors = true;
+        } else if (descricao.length < 50) {
+            showError('descricaoError', 'Descrição deve ter pelo menos 50 caracteres.');
+            hasErrors = true;
+        }
+
+        if (!logradouro) {
+            showError('logradouroError', 'Logradouro é obrigatório.');
+            hasErrors = true;
+        }
+
+        if (!numero) {
+            showError('numeroError', 'Número é obrigatório.');
+            hasErrors = true;
+        }
+
+        if (!cidade) {
+            showError('cidadeError', 'Cidade é obrigatória.');
+            hasErrors = true;
+        }
+
+        if (!estado) {
+            showError('estadoError', 'Estado é obrigatório.');
+            hasErrors = true;
+        }
+
+        if (!dataFundacao) {
+            showError('dataFundacaoError', 'Data de fundação é obrigatória.');
+            hasErrors = true;
+        } else if (!validateDate(dataFundacao)) {
+            showError('dataFundacaoError', 'Data de fundação deve estar no formato dd/mm/aaaa e ser válida.');
+            hasErrors = true;
+        }
+
+        if (site && !isValidUrl(site)) {
+            showError('siteError', 'URL do website deve ser válida (ex: https://www.exemplo.com).');
+            hasErrors = true;
+        }
+
+        if (instagram && !instagram.startsWith('@')) {
+            showError('instagramError', 'Instagram deve começar com @ (ex: @usuario).');
+            hasErrors = true;
+        }
+
+        if (hasErrors) {
+            return;
+        }
+
+        // Prepara FormData para envio
+        formData.append('descricao', descricao);
+        formData.append('logradouro', logradouro);
+        formData.append('numero', numero);
+        formData.append('complemento', complemento);
+        formData.append('cidade', cidade);
+        formData.append('estado', estado);
+
+        // Converte a data para formato ISO antes de enviar
+        const dataISO = convertDateToISO(dataFundacao);
+        formData.append('dataFundacao', dataISO);
+
+        formData.append('site', site);
+        formData.append('instagram', instagram);
+        formData.append('facebook', facebook);
+
+        // Determina qual endpoint usar baseado na presença de logo
+        let endpoint = '/vagas/finalizarCadastro';
+        if (logoFile) {
+            formData.append('logo', logoFile);
+            endpoint = '/vagas/finalizarCadastro/comLogo';
+        }
+
+        // Mostra loading e desabilita botão
+        const loading = document.getElementById('loading');
+        const submitBtn = document.getElementById('submitBtn');
+
+        if (loading) loading.style.display = 'block';
+        if (submitBtn) {
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Processando...';
+        }
+
+        try {
+            const response = await fetch(endpoint, {
+                method: 'POST',
+                body: formData
+            });
+
+            const result = await response.text();
+
+            if (response.ok) {
+                const successMessage = document.getElementById('successMessage');
+                if (successMessage) {
+                    successMessage.textContent = 'Cadastro finalizado com sucesso!';
+                    successMessage.style.display = 'block';
+                }
+
+                // Limpa o formulário
+                const form = document.querySelector('form');
+                if (form) form.reset();
+
+                const logoPreview = document.getElementById('logoPreview');
+                if (logoPreview) logoPreview.style.display = 'none';
+
+                // Redireciona após 2 segundos
+                setTimeout(() => {
+                    window.location.href = '/vagas/perfil';
+                }, 2000);
+
+            } else {
+                alert('Erro ao finalizar cadastro: ' + result);
+            }
+
+        } catch (error) {
+            console.error('Erro:', error);
+            alert('Erro de conexão. Tente novamente.');
+
+        } finally {
+            if (loading) loading.style.display = 'none';
+            if (submitBtn) {
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Finalizar Cadastro';
+            }
+        }
+    }
+
+    // Inicialização quando a página carrega
+    document.addEventListener('DOMContentLoaded', function() {
+        // Formatação automática da data
+        const inputData = document.getElementById('dataFundacao');
+        if (inputData) {
+            inputData.addEventListener('input', function(e) {
+                let value = e.target.value.replace(/\D/g, ''); // remove tudo que não for dígito
+
+                if (value.length > 2) {
+                    value = value.slice(0, 2) + '/' + value.slice(2);
+                }
+                if (value.length > 5) {
+                    value = value.slice(0, 5) + '/' + value.slice(5, 9);
+                }
+
+                e.target.value = value;
+            });
+        }
+
+        // Validação no momento do envio do formulário
+        const form = document.getElementById('meuFormulario') || document.querySelector('form');
+        if (form) {
+            form.addEventListener('submit', function(event) {
+                if (inputData) {
+                    const dataValue = inputData.value.trim();
+                    const errorDiv = document.getElementById('dataFundacaoError');
+
+                    if (errorDiv) {
+                        errorDiv.textContent = ''; // limpa mensagem anterior
+                    }
+
+                    if (!validateDate(dataValue)) {
+                        event.preventDefault(); // impede envio
+                        if (errorDiv) {
+                            errorDiv.textContent = 'Data inválida. Use o formato dd/mm/aaaa.';
+                        }
+                    }
+                }
+            });
+        }
+
+        // Foco no primeiro campo se existir
+        const firstField = document.getElementById('descricao');
+        if (firstField) {
+            firstField.focus();
+        }
+
+        // Esconde elementos de erro inicialmente
+        const errorElements = document.querySelectorAll('.error');
+        errorElements.forEach(element => {
+            element.style.display = 'none';
+        });
+
+        // Esconde loading e preview inicialmente
+        const loading = document.getElementById('loading');
+        if (loading) {
+            loading.style.display = 'none';
+        }
+
+        const preview = document.getElementById('logoPreview');
+        if (preview) {
+            preview.style.display = 'none';
+        }
+    });
+</script>
+
+</body>
+</html>

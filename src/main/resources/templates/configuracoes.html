@@ -1,0 +1,1446 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blue Wave - Configurações</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', 'Roboto', sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        nav.menu-lateral {
+            width: 80px;
+            height: 100vh;
+            background: linear-gradient(180deg, #00A8FF 0%, #0078D4 100%);
+            padding: 20px 0;
+            box-shadow: 0 0 30px rgba(0, 168, 255, 0.3);
+            position: fixed;
+            top: 0;
+            left: 0;
+            overflow: hidden;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+        }
+
+        nav.menu-lateral:hover {
+            width: 280px;
+            box-shadow: 0 0 40px rgba(0, 168, 255, 0.4);
+        }
+
+        .title {
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+            margin-bottom: 30px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 20px;
+        }
+
+        .title h1 {
+            display: none;
+            margin-left: 15px;
+            color: white;
+            font-size: 20px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        nav.menu-lateral:hover .title h1 {
+            display: block;
+            animation: fadeInSlide 0.3s ease-out;
+        }
+
+        @keyframes fadeInSlide {
+            from {
+                opacity: 0;
+                transform: translateX(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .menu-items {
+            flex: 1;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0 10px;
+        }
+
+        ul li.item-menu {
+            margin-bottom: 8px;
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        ul li.item-menu:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateX(5px);
+        }
+
+        ul li.item-menu a {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            padding: 16px 20px;
+            display: flex;
+            align-items: center;
+            transition: all 0.3s ease;
+            border-radius: 12px;
+        }
+
+        ul li.item-menu a .icon > i {
+            font-size: 24px;
+            width: 24px;
+            text-align: center;
+        }
+
+        ul li.item-menu a .txt-link {
+            margin-left: 20px;
+            white-space: nowrap;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            font-weight: 500;
+        }
+
+        nav.menu-lateral:hover .txt-link {
+            opacity: 1;
+        }
+
+        .logout-section {
+            padding: 0 10px;
+            margin-top: auto;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 20px;
+        }
+
+        .logout-item {
+            margin-bottom: 8px;
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .logout-item:hover {
+            background: rgba(255, 76, 76, 0.2);
+            transform: translateX(5px);
+        }
+
+        .logout-item a {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            padding: 16px 20px;
+            display: flex;
+            align-items: center;
+            transition: all 0.3s ease;
+            border-radius: 12px;
+        }
+
+        .logout-item a:hover {
+            color: #ffcccc;
+        }
+
+        .logout-item a .icon > i {
+            font-size: 24px;
+            width: 24px;
+            text-align: center;
+        }
+
+        .logout-item a .txt-link {
+            margin-left: 20px;
+            white-space: nowrap;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            font-weight: 500;
+        }
+
+        nav.menu-lateral:hover .logout-item .txt-link {
+            opacity: 1;
+        }
+
+        .conteudo {
+            margin-left: 80px;
+            transition: margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            min-height: 100vh;
+        }
+
+        nav.menu-lateral:hover ~ .conteudo {
+            margin-left: 280px;
+        }
+
+        #header-bg {
+            background: linear-gradient(135deg, #003366 0%, #004080 100%);
+            padding: 20px 30px;
+            box-shadow: 0 2px 20px rgba(0, 51, 102, 0.3);
+        }
+
+        #header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: white;
+        }
+
+        #logo {
+            font-size: 24px;
+            color: white;
+            text-decoration: none;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        .item-menu.active a {
+            background: rgba(255, 255, 255, 0.2) !important;
+            border-left: 4px solid white;
+            box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.1);
+        }
+
+        /* Estilos da página de configurações */
+        .config-container {
+            max-width: 1400px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: white;
+            border-radius: 16px;
+            padding: 25px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(180deg, #00A8FF 0%, #0078D4 100%);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .stat-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+
+        .stat-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+        }
+
+        .stat-icon.inscricoes {
+            background: linear-gradient(135deg, #00A8FF 0%, #0078D4 100%);
+        }
+
+        .stat-icon.vagas {
+            background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%);
+        }
+
+        .stat-icon.voluntarios {
+            background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%);
+        }
+
+        .stat-icon.ativas {
+            background: linear-gradient(135deg, #9b59b6 0%, #8e44ad 100%);
+        }
+
+        .stat-value {
+            font-size: 32px;
+            font-weight: 700;
+            color: #003366;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            color: #666;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .filters-section {
+            background: white;
+            border-radius: 16px;
+            padding: 25px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            margin-bottom: 30px;
+        }
+
+        .filters-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .filters-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #003366;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .bulk-actions {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .btn-bulk {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: none;
+        }
+
+        .btn-bulk.danger {
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+            color: white;
+        }
+
+        .btn-bulk.danger:hover {
+            background: linear-gradient(135deg, #c0392b 0%, #a93226 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(231, 76, 60, 0.3);
+        }
+
+        .filters-form {
+            display: grid;
+            grid-template-columns: 1fr 1fr auto;
+            gap: 15px;
+            align-items: end;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-label {
+            font-weight: 500;
+            color: #003366;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        .form-input, .form-select {
+            padding: 12px 15px;
+            border: 2px solid #e1e5e9;
+            border-radius: 10px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        .form-input:focus, .form-select:focus {
+            outline: none;
+            border-color: #00A8FF;
+            box-shadow: 0 0 0 3px rgba(0, 168, 255, 0.1);
+        }
+
+        .btn-filter {
+            padding: 12px 20px;
+            background: linear-gradient(135deg, #00A8FF 0%, #0078D4 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            height: fit-content;
+        }
+
+        .btn-filter:hover {
+            background: linear-gradient(135deg, #0078D4 0%, #005a9e 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 168, 255, 0.3);
+        }
+
+        .inscricoes-section {
+            background: white;
+            border-radius: 16px;
+            padding: 25px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #f8f9fa;
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #003366;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .results-info {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .inscricoes-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        .inscricoes-table th {
+            background: #f8f9fa;
+            padding: 15px 12px;
+            text-align: left;
+            font-weight: 600;
+            color: #003366;
+            border-bottom: 2px solid #e1e5e9;
+            font-size: 14px;
+        }
+
+        .inscricoes-table td {
+            padding: 15px 12px;
+            border-bottom: 1px solid #e1e5e9;
+            vertical-align: top;
+        }
+
+        .inscricoes-table tr:hover {
+            background: #f8f9fa;
+        }
+
+        .checkbox-cell {
+            width: 40px;
+            text-align: center;
+        }
+
+        .custom-checkbox {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+            accent-color: #00A8FF;
+        }
+
+        .voluntario-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .voluntario-nome {
+            font-weight: 600;
+            color: #003366;
+            margin-bottom: 4px;
+        }
+
+        .voluntario-email {
+            color: #666;
+            font-size: 13px;
+        }
+
+        .vaga-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .vaga-titulo {
+            font-weight: 500;
+            color: #003366;
+            margin-bottom: 4px;
+        }
+
+        .vaga-categoria {
+            color: #666;
+            font-size: 13px;
+        }
+
+        .data-inscricao {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .actions-cell {
+            width: 120px;
+        }
+
+        .btn-action {
+            padding: 6px 12px;
+            border: none;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-right: 5px;
+        }
+
+        .btn-view {
+            background: #3498db;
+            color: white;
+        }
+
+        .btn-view:hover {
+            background: #2980b9;
+            transform: translateY(-1px);
+        }
+
+        .btn-remove {
+            background: #e74c3c;
+            color: white;
+        }
+
+        .btn-remove:hover {
+            background: #c0392b;
+            transform: translateY(-1px);
+        }
+
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            margin-top: 30px;
+        }
+
+        .pagination a, .pagination span {
+            padding: 10px 15px;
+            border: 2px solid #e1e5e9;
+            border-radius: 8px;
+            color: #666;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .pagination a:hover {
+            background: #00A8FF;
+            color: white;
+            border-color: #00A8FF;
+        }
+
+        .pagination .current {
+            background: #00A8FF;
+            color: white;
+            border-color: #00A8FF;
+        }
+
+        .pagination .disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #666;
+        }
+
+        .empty-state i {
+            font-size: 64px;
+            color: #bdc3c7;
+            margin-bottom: 20px;
+        }
+
+        .empty-state h3 {
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: #7f8c8d;
+        }
+
+        .empty-state p {
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 5% auto;
+            padding: 30px;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            animation: modalSlideIn 0.3s ease-out;
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .modal h3 {
+            color: #003366;
+            margin-bottom: 20px;
+            font-size: 24px;
+            text-align: center;
+        }
+
+        .modal-body {
+            margin-bottom: 30px;
+        }
+
+        .volunteer-detail {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 10px;
+            margin-bottom: 15px;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+
+        .volunteer-detail strong {
+            color: #003366;
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+        }
+
+        .btn-confirm, .btn-cancel {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            min-width: 100px;
+        }
+
+        .btn-confirm {
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(231, 76, 60, 0.3);
+        }
+
+        .btn-confirm:hover {
+            background: linear-gradient(135deg, #c0392b 0%, #a93226 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(231, 76, 60, 0.4);
+        }
+
+        .btn-cancel {
+            background: #ecf0f1;
+            color: #7f8c8d;
+            border: 2px solid #bdc3c7;
+        }
+
+        .btn-cancel:hover {
+            background: #d5dbdb;
+            border-color: #95a5a6;
+            color: #5d6d7e;
+        }
+
+        /* Loading spinner */
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .spinner {
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #00A8FF;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 10px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Responsivo */
+        @media (max-width: 1200px) {
+            .filters-form {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            nav.menu-lateral {
+                width: 60px;
+            }
+
+            nav.menu-lateral:hover {
+                width: 250px;
+            }
+
+            .conteudo {
+                margin-left: 60px;
+            }
+
+            nav.menu-lateral:hover ~ .conteudo {
+                margin-left: 250px;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .config-container {
+                padding: 0 15px;
+            }
+
+            .inscricoes-table {
+                font-size: 12px;
+            }
+
+            .inscricoes-table th,
+            .inscricoes-table td {
+                padding: 10px 8px;
+            }
+
+            .voluntario-info,
+            .vaga-info {
+                font-size: 12px;
+            }
+
+            .actions-cell {
+                width: 80px;
+            }
+
+            .btn-action {
+                padding: 4px 8px;
+                font-size: 11px;
+            }
+        }
+    </style>
+</head>
+<body>
+<nav class="menu-lateral">
+    <div class="title">
+        <img src="/css/images/logo_blue_white.png" width="50" height="50" alt="Logo Blue Wave" onerror="this.style.display='none';" />
+        <h1>Blue Wave</h1>
+    </div>
+
+    <div class="menu-items">
+        <ul>
+            <li class="item-menu">
+                <a href="/vagas/listaVaga">
+                    <span class="icon"><i class="bi bi-briefcase"></i></span>
+                    <span class="txt-link">Listar Vagas</span>
+                </a>
+            </li>
+            <li class="item-menu">
+                <a href="/vagas/homeOng">
+                    <span class="icon"><i class="bi bi-person-add"></i></span>
+                    <span class="txt-link">Cadastrar Vagas</span>
+                </a>
+            </li>
+            <li class="item-menu">
+                <a href="/vagas/finalizarCadastro">
+                    <span class="icon"><i class="bi bi-building"></i></span>
+                    <span class="txt-link">Finalizar Cadastro</span>
+                </a>
+            </li>
+            <li class="item-menu">
+                <a href="/vagas/perfil">
+                    <span class="icon"><i class="bi bi-person-circle"></i></span>
+                    <span class="txt-link">Perfil da ONG</span>
+                </a>
+            </li>
+            <li class="item-menu active">
+                <a href="/vagas/configuracoes">
+                    <span class="icon"><i class="bi bi-gear"></i></span>
+                    <span class="txt-link">Configurações</span>
+                </a>
+            </li>
+            <li class="item-menu">
+                <a href="#">
+                    <span class="icon"><i class="bi bi-megaphone"></i></span>
+                    <span class="txt-link">Mensagens</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="logout-section">
+        <div class="logout-item" onclick="showLogoutModal()">
+            <a href="#" onclick="event.preventDefault()">
+                <span class="icon"><i class="bi bi-box-arrow-right"></i></span>
+                <span class="txt-link">Sair</span>
+            </a>
+        </div>
+    </div>
+</nav>
+
+<!-- Modal de confirmação de logout -->
+<div id="logoutModal" class="modal">
+    <div class="modal-content">
+        <h3>Confirmar Logout</h3>
+        <p>Tem certeza de que deseja sair do sistema?</p>
+        <div class="modal-buttons">
+            <button class="btn-cancel" onclick="hideLogoutModal()">Cancelar</button>
+            <button class="btn-confirm" onclick="confirmLogout()">Sair</button>
+        </div>
+    </div>
+</div>
+
+<!-- Modal de detalhes do voluntário -->
+<div id="volunteerModal" class="modal">
+    <div class="modal-content">
+        <h3>Detalhes do Voluntário</h3>
+        <div class="modal-body" id="volunteerDetails">
+            <!-- Detalhes serão carregados aqui -->
+        </div>
+        <div class="modal-buttons">
+            <button class="btn-cancel" onclick="hideVolunteerModal()">Fechar</button>
+        </div>
+    </div>
+</div>
+
+<!-- Modal de confirmação de remoção -->
+<div id="removeModal" class="modal">
+    <div class="modal-content">
+        <h3>Confirmar Remoção</h3>
+        <div class="modal-body">
+            <p id="removeMessage">Tem certeza de que deseja remover este voluntário?</p>
+        </div>
+        <div class="modal-buttons">
+            <button class="btn-cancel" onclick="hideRemoveModal()">Cancelar</button>
+            <button class="btn-confirm" onclick="confirmRemove()">Remover</button>
+        </div>
+    </div>
+</div>
+
+<div class="conteudo">
+    <div id="header-bg">
+        <header id="header">
+            <a id="logo" href="/">Painel de Controle - Configurações</a>
+        </header>
+    </div>
+
+    <div class="config-container">
+        <!-- Estatísticas -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-header">
+                    <div>
+                        <div class="stat-value" th:text="${estatisticas.totalInscricoes}">0</div>
+                        <div class="stat-label">Total de Inscrições</div>
+                    </div>
+                    <div class="stat-icon inscricoes">
+                        <i class="bi bi-person-check"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-header">
+                    <div>
+                        <div class="stat-value" th:text="${estatisticas.totalVagas}">0</div>
+                        <div class="stat-label">Vagas Criadas</div>
+                    </div>
+                    <div class="stat-icon vagas">
+                        <i class="bi bi-briefcase"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-header">
+                    <div>
+                        <div class="stat-value" th:text="${estatisticas.voluntariosUnicos}">0</div>
+                        <div class="stat-label">Voluntários Únicos</div>
+                    </div>
+                    <div class="stat-icon voluntarios">
+                        <i class="bi bi-people"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-header">
+                    <div>
+                        <div class="stat-value" th:text="${estatisticas.vagasComInscricoes}">0</div>
+                        <div class="stat-label">Vagas com Inscrições</div>
+                    </div>
+                    <div class="stat-icon ativas">
+                        <i class="bi bi-graph-up"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Filtros -->
+        <div class="filters-section">
+            <div class="filters-header">
+                <h2 class="filters-title">
+                    <i class="bi bi-funnel"></i>
+                    Filtros de Busca
+                </h2>
+                <div class="bulk-actions">
+                    <button id="bulkRemoveBtn" class="btn-bulk danger" onclick="bulkRemove()">
+                        <i class="bi bi-trash"></i> Remover Selecionados
+                    </button>
+                </div>
+            </div>
+
+            <form class="filters-form" method="get" action="/vagas/configuracoes">
+                <div class="form-group">
+                    <label class="form-label">Buscar por nome do voluntário</label>
+                    <input type="text" name="search" class="form-input" placeholder="Digite o nome do voluntário..."
+                           th:value="${search}">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Filtrar por vaga</label>
+                    <select name="vagaFilter" class="form-select">
+                        <option value="">Todas as vagas</option>
+                        <option th:each="vaga : ${vagas}"
+                                th:value="${vaga.id}"
+                                th:text="${vaga.nome}"
+                                th:selected="${vagaFilter == vaga.id.toString()}">
+                            Vaga Exemplo
+                        </option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <button type="submit" class="btn-filter">
+                        <i class="bi bi-search"></i> Filtrar
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Lista de Inscrições -->
+        <div class="inscricoes-section">
+            <div class="section-header">
+                <h2 class="section-title">
+                    <i class="bi bi-list-check"></i>
+                    Gerenciar Inscrições
+                </h2>
+                <div class="results-info" th:if="${totalElements > 0}">
+                    Mostrando <span th:text="${(currentPage * size) + 1}">1</span> -
+                    <span th:text="${#numbers.formatInteger((currentPage + 1) * size > totalElements ? totalElements : (currentPage + 1) * size, 0)}">10</span>
+                    de <span th:text="${totalElements}">100</span> inscrições
+                </div>
+            </div>
+
+            <div th:if="${inscricoes.size() > 0}">
+                <table class="inscricoes-table">
+                    <thead>
+                    <tr>
+                        <th class="checkbox-cell">
+                            <input type="checkbox" id="selectAll" class="custom-checkbox" onchange="toggleSelectAll()">
+                        </th>
+                        <th>Voluntário</th>
+                        <th>Vaga</th>
+                        <th>Data da Inscrição</th>
+                        <th class="actions-cell">Ações</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="inscricao : ${inscricoes}">
+                        <td class="checkbox-cell">
+                            <input type="checkbox" class="custom-checkbox volunteer-checkbox"
+                                   th:value="${inscricao.id}" onchange="updateBulkActions()">
+                        </td>
+                        <td>
+                            <div class="voluntario-info">
+                                <div class="voluntario-nome" th:text="${inscricao.voluntario.nomeVoluntario}">
+                                    Nome do Voluntário
+                                </div>
+                                <div class="voluntario-email" th:text="${inscricao.voluntario.email}">
+                                    email@exemplo.com
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="vaga-info">
+                                <div class="vaga-titulo" th:text="${inscricao.vaga.nome}">
+                                    Título da Vaga
+                                </div>
+                                <div class="vaga-categoria" th:text="${inscricao.vaga.descri}">
+                                    Descrição da Vaga
+                                </div>
+                            </div>
+                        </td>
+                        <td class="data-inscricao" th:text="${#temporals.format(inscricao.dataInscricao, 'dd/MM/yyyy HH:mm')}">
+                            01/01/2024 10:00
+                        </td>
+                        <td class="actions-cell">
+                            <button class="btn-action btn-view"
+                                    th:onclick="'showVolunteerDetails(' + ${inscricao.voluntario.id} + ')'"
+                                    title="Ver detalhes">
+                                <i class="bi bi-eye"></i>
+                            </button>
+                            <button class="btn-action btn-remove"
+                                    th:onclick="'showRemoveModal(' + ${inscricao.id} + ', \'' + ${inscricao.voluntario.nomeVoluntario} + '\')'"
+                                    title="Remover voluntário">
+                                <i class="bi bi-trash"></i>
+                            </button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+
+                <!-- Paginação -->
+                <div class="pagination" th:if="${totalPages > 1}">
+                    <a th:if="${hasPrevious}"
+                       th:href="@{/vagas/configuracoes(page=${currentPage - 1}, size=${size}, search=${search}, vagaFilter=${vagaFilter})}"
+                       title="Página anterior">
+                        <i class="bi bi-chevron-left"></i>
+                    </a>
+                    <span th:unless="${hasPrevious}" class="disabled">
+            <i class="bi bi-chevron-left"></i>
+          </span>
+
+                    <span th:each="i : ${#numbers.sequence(0, totalPages - 1)}" th:if="${i >= currentPage - 2 and i <= currentPage + 2}">
+            <a th:if="${i != currentPage}"
+               th:href="@{/vagas/configuracoes(page=${i}, size=${size}, search=${search}, vagaFilter=${vagaFilter})}"
+               th:text="${i + 1}">1</a>
+            <span th:if="${i == currentPage}" class="current" th:text="${i + 1}">1</span>
+          </span>
+
+                    <a th:if="${hasNext}"
+                       th:href="@{/vagas/configuracoes(page=${currentPage + 1}, size=${size}, search=${search}, vagaFilter=${vagaFilter})}"
+                       title="Próxima página">
+                        <i class="bi bi-chevron-right"></i>
+                    </a>
+                    <span th:unless="${hasNext}" class="disabled">
+            <i class="bi bi-chevron-right"></i>
+          </span>
+                </div>
+            </div>
+
+            <!-- Estado vazio -->
+            <div th:if="${inscricoes.size() == 0}" class="empty-state">
+                <i class="bi bi-inbox"></i>
+                <h3>Nenhuma inscrição encontrada</h3>
+                <p th:if="${search != '' or vagaFilter != ''}">
+                    Não foram encontradas inscrições com os filtros aplicados.<br>
+                    Tente ajustar os critérios de busca.
+                </p>
+                <p th:unless="${search != '' or vagaFilter != ''}">
+                    Ainda não há voluntários inscritos nas suas vagas.<br>
+                    Publique suas vagas para começar a receber inscrições!
+                </p>
+            </div>
+        </div>
+
+        <!-- Loading indicator -->
+        <div id="loading" class="loading">
+            <div class="spinner"></div>
+            <p>Processando...</p>
+        </div>
+    </div>
+</div>
+
+<script>
+    let selectedInscricoes = [];
+    let currentRemoveId = null;
+
+    // Funções do modal de logout
+    function showLogoutModal() {
+        document.getElementById('logoutModal').style.display = 'block';
+    }
+
+    function hideLogoutModal() {
+        document.getElementById('logoutModal').style.display = 'none';
+    }
+
+    function confirmLogout() {
+        window.location.href = '/login/logout';
+    }
+
+    // Funções do modal de detalhes do voluntário
+    function showVolunteerDetails(voluntarioId) {
+        const modal = document.getElementById('volunteerModal');
+        const detailsDiv = document.getElementById('volunteerDetails');
+
+        // Mostrar loading
+        detailsDiv.innerHTML = '<div class="loading"><div class="spinner"></div><p>Carregando...</p></div>';
+        modal.style.display = 'block';
+
+        // Fazer requisição para buscar detalhes
+        fetch(`/vagas/configuracoes/detalhes-voluntario/${voluntarioId}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.erro) {
+                    detailsDiv.innerHTML = `<p style="color: red; text-align: center;">${data.erro}</p>`;
+                } else {
+                    detailsDiv.innerHTML = `
+            <div class="volunteer-detail">
+              <strong>Nome:</strong>
+              <span>${data.nome}</span>
+            </div>
+            <div class="volunteer-detail">
+              <strong>E-mail:</strong>
+              <span>${data.email}</span>
+            </div>
+            <div class="volunteer-detail">
+              <strong>Telefone:</strong>
+              <span>${data.telefone}</span>
+            </div>
+            <div class="volunteer-detail">
+              <strong>CPF:</strong>
+              <span>${data.cpf}</span>
+            </div>
+            <div class="volunteer-detail">
+              <strong>Data de Nascimento:</strong>
+              <span>${data.dataNascimento}</span>
+            </div>
+            <div class="volunteer-detail">
+              <strong>Sexo:</strong>
+              <span>${data.sexo}</span>
+            </div>
+          `;
+                }
+            })
+            .catch(error => {
+                console.error('Erro ao carregar detalhes:', error);
+                detailsDiv.innerHTML = '<p style="color: red; text-align: center;">Erro ao carregar detalhes do voluntário.</p>';
+            });
+    }
+
+    function hideVolunteerModal() {
+        document.getElementById('volunteerModal').style.display = 'none';
+    }
+
+    // Funções do modal de remoção
+    function showRemoveModal(inscricaoId, voluntarioNome) {
+        currentRemoveId = inscricaoId;
+        document.getElementById('removeMessage').textContent =
+            `Tem certeza de que deseja remover o voluntário "${voluntarioNome}" desta vaga?`;
+        document.getElementById('removeModal').style.display = 'block';
+    }
+
+    function hideRemoveModal() {
+        document.getElementById('removeModal').style.display = 'none';
+        currentRemoveId = null;
+    }
+
+    function confirmRemove() {
+        if (!currentRemoveId) return;
+
+        showLoading(true);
+        hideRemoveModal();
+
+        fetch(`/vagas/configuracoes/remover-voluntario/${currentRemoveId}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        })
+            .then(response => response.text())
+            .then(data => {
+                showLoading(false);
+                if (data === 'ok') {
+                    showSuccessMessage('Voluntário removido com sucesso!');
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 1500);
+                } else {
+                    showErrorMessage('Erro ao remover voluntário: ' + data);
+                }
+            })
+            .catch(error => {
+                showLoading(false);
+                console.error('Erro:', error);
+                showErrorMessage('Erro ao remover voluntário.');
+            });
+    }
+
+    // Funções de seleção múltipla
+    function toggleSelectAll() {
+        const selectAllCheckbox = document.getElementById('selectAll');
+        const checkboxes = document.querySelectorAll('.volunteer-checkbox');
+
+        checkboxes.forEach(checkbox => {
+            checkbox.checked = selectAllCheckbox.checked;
+        });
+
+        updateBulkActions();
+    }
+
+    function updateBulkActions() {
+        const checkboxes = document.querySelectorAll('.volunteer-checkbox:checked');
+        const bulkBtn = document.getElementById('bulkRemoveBtn');
+        const selectAllCheckbox = document.getElementById('selectAll');
+
+        selectedInscricoes = Array.from(checkboxes).map(cb => parseInt(cb.value));
+
+        if (selectedInscricoes.length > 0) {
+            bulkBtn.style.display = 'block';
+            bulkBtn.textContent = `Remover ${selectedInscricoes.length} selecionado${selectedInscricoes.length > 1 ? 's' : ''}`;
+        } else {
+            bulkBtn.style.display = 'none';
+        }
+
+        // Atualizar estado do checkbox "selecionar todos"
+        const allCheckboxes = document.querySelectorAll('.volunteer-checkbox');
+        const checkedCheckboxes = document.querySelectorAll('.volunteer-checkbox:checked');
+
+        if (checkedCheckboxes.length === 0) {
+            selectAllCheckbox.indeterminate = false;
+            selectAllCheckbox.checked = false;
+        } else if (checkedCheckboxes.length === allCheckboxes.length) {
+            selectAllCheckbox.indeterminate = false;
+            selectAllCheckbox.checked = true;
+        } else {
+            selectAllCheckbox.indeterminate = true;
+        }
+    }
+
+    function bulkRemove() {
+        if (selectedInscricoes.length === 0) return;
+
+        const count = selectedInscricoes.length;
+        const message = `Tem certeza de que deseja remover ${count} voluntário${count > 1 ? 's' : ''} selecionado${count > 1 ? 's' : ''}?`;
+
+        if (confirm(message)) {
+            showLoading(true);
+
+            fetch('/vagas/configuracoes/remover-multiplos', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(selectedInscricoes)
+            })
+                .then(response => response.text())
+                .then(data => {
+                    showLoading(false);
+                    if (data.startsWith('ok:')) {
+                        showSuccessMessage(data.substring(3));
+                        setTimeout(() => {
+                            window.location.reload();
+                        }, 1500);
+                    } else {
+                        showErrorMessage('Erro: ' + data);
+                    }
+                })
+                .catch(error => {
+                    showLoading(false);
+                    console.error('Erro:', error);
+                    showErrorMessage('Erro ao remover voluntários.');
+                });
+        }
+    }
+
+    // Funções auxiliares
+    function showLoading(show) {
+        document.getElementById('loading').style.display = show ? 'block' : 'none';
+    }
+
+    function showSuccessMessage(message) {
+        showMessage(message, 'success');
+    }
+
+    function showErrorMessage(message) {
+        showMessage(message, 'error');
+    }
+
+    function showMessage(message, type) {
+        const messageDiv = document.createElement('div');
+        messageDiv.textContent = message;
+        messageDiv.style.cssText = `
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      padding: 15px 25px;
+      border-radius: 8px;
+      font-weight: 600;
+      z-index: 9999;
+      animation: slideInRight 0.3s ease;
+      max-width: 400px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    `;
+
+        if (type === 'success') {
+            messageDiv.style.background = '#27ae60';
+            messageDiv.style.color = 'white';
+        } else {
+            messageDiv.style.background = '#e74c3c';
+            messageDiv.style.color = 'white';
+        }
+
+        document.body.appendChild(messageDiv);
+
+        setTimeout(() => {
+            messageDiv.style.animation = 'slideOutRight 0.3s ease';
+            setTimeout(() => {
+                if (document.body.contains(messageDiv)) {
+                    document.body.removeChild(messageDiv);
+                }
+            }, 300);
+        }, 3000);
+    }
+
+    // Fechar modais ao clicar fora
+    window.onclick = function(event) {
+        const modals = ['logoutModal', 'volunteerModal', 'removeModal'];
+        modals.forEach(modalId => {
+            const modal = document.getElementById(modalId);
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+    }
+
+    // Inicialização da página
+    document.addEventListener('DOMContentLoaded', function() {
+        // Adicionar animações CSS
+        const style = document.createElement('style');
+        style.textContent = `
+      @keyframes slideInRight {
+        from {
+          transform: translateX(100%);
+          opacity: 0;
+        }
+        to {
+          transform: translateX(0);
+          opacity: 1;
+        }
+      }
+
+      @keyframes slideOutRight {
+        from {
+          transform: translateX(0);
+          opacity: 1;
+        }
+        to {
+          transform: translateX(100%);
+          opacity: 0;
+        }
+      }
+
+      .volunteer-checkbox:checked + label {
+        background: #00A8FF;
+      }
+    `;
+        document.head.appendChild(style);
+
+        // Inicializar ações bulk
+        updateBulkActions();
+
+        // Adicionar animação de entrada para as linhas da tabela
+        const tableRows = document.querySelectorAll('.inscricoes-table tbody tr');
+        tableRows.forEach((row, index) => {
+            row.style.opacity = '0';
+            row.style.transform = 'translateY(20px)';
+
+            setTimeout(() => {
+                row.style.transition = 'all 0.3s ease';
+                row.style.opacity = '1';
+                row.style.transform = 'translateY(0)';
+            }, index * 50);
+        });
+
+        // Adicionar animação para os cards de estatísticas
+        const statCards = document.querySelectorAll('.stat-card');
+        statCards.forEach((card, index) => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+
+            setTimeout(() => {
+                card.style.transition = 'all 0.5s ease';
+                card.style.opacity = '1';
+                card.style.transform = 'translateY(0)';
+            }, index * 100);
+        });
+    });
+
+    // Formatação de data e hora
+    function formatDateTime(dateString) {
+        const date = new Date(dateString);
+        return date.toLocaleDateString('pt-BR') + ' ' + date.toLocaleTimeString('pt-BR', {
+            hour: '2-digit',
+            minute: '2-digit'
+        });
+    }
+
+    // Auto-refresh da página a cada 5 minutos (opcional)
+    // setInterval(() => {
+    //   if (!document.querySelector('.modal[style*="block"]')) {
+    //     window.location.reload();
+    //   }
+    // }, 300000);
+</script>
+
+</body>
+</html>

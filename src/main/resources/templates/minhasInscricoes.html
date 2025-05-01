@@ -1,0 +1,1298 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Minhas Inscrições - Blue Wave</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', 'Roboto', sans-serif;
+    }
+
+    body {
+      height: 100vh;
+      background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    /* Menu Lateral */
+    nav.menu-lateral {
+      width: 80px;
+      height: 100vh;
+      background: linear-gradient(180deg, #00A8FF 0%, #0078D4 100%);
+      padding: 20px 0;
+      box-shadow: 0 0 30px rgba(0, 168, 255, 0.3);
+      position: fixed;
+      top: 0;
+      left: 0;
+      overflow: hidden;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      z-index: 1000;
+      display: flex;
+      flex-direction: column;
+    }
+
+    nav.menu-lateral:hover {
+      width: 280px;
+      box-shadow: 0 0 40px rgba(0, 168, 255, 0.4);
+    }
+
+    .title {
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      margin-bottom: 30px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      padding-bottom: 20px;
+    }
+
+    .title h1 {
+      display: none;
+      margin-left: 15px;
+      color: white;
+      font-size: 20px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+    }
+
+    nav.menu-lateral:hover .title h1 {
+      display: block;
+      animation: fadeInSlide 0.3s ease-out;
+    }
+
+    @keyframes fadeInSlide {
+      from {
+        opacity: 0;
+        transform: translateX(-10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    .menu-items {
+      flex: 1;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0 10px;
+    }
+
+    ul li.item-menu {
+      margin-bottom: 8px;
+      border-radius: 12px;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+
+    ul li.item-menu:hover {
+      background: rgba(255, 255, 255, 0.15);
+      transform: translateX(5px);
+    }
+
+    ul li.item-menu.active {
+      background: rgba(255, 255, 255, 0.2);
+      box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.1);
+    }
+
+    ul li.item-menu a {
+      color: white;
+      text-decoration: none;
+      font-size: 16px;
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      transition: all 0.3s ease;
+      border-radius: 12px;
+    }
+
+    ul li.item-menu a .icon > i {
+      font-size: 24px;
+      width: 24px;
+      text-align: center;
+    }
+
+    ul li.item-menu a .txt-link {
+      margin-left: 20px;
+      white-space: nowrap;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      font-weight: 500;
+    }
+
+    nav.menu-lateral:hover .txt-link {
+      opacity: 1;
+    }
+
+    /* Seção de logout */
+    .logout-section {
+      padding: 0 10px;
+      margin-top: auto;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding-top: 20px;
+    }
+
+    .logout-item {
+      margin-bottom: 8px;
+      border-radius: 12px;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .logout-item:hover {
+      background: rgba(255, 76, 76, 0.2);
+      transform: translateX(5px);
+    }
+
+    .logout-item a {
+      color: white;
+      text-decoration: none;
+      font-size: 16px;
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      transition: all 0.3s ease;
+      border-radius: 12px;
+    }
+
+    .logout-item a:hover {
+      color: #ffcccc;
+    }
+
+    .logout-item a .icon > i {
+      font-size: 24px;
+      width: 24px;
+      text-align: center;
+    }
+
+    .logout-item a .txt-link {
+      margin-left: 20px;
+      white-space: nowrap;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      font-weight: 500;
+    }
+
+    nav.menu-lateral:hover .logout-item .txt-link {
+      opacity: 1;
+    }
+
+    /* Conteúdo Principal */
+    .conteudo {
+      margin-left: 80px;
+      transition: margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      min-height: 100vh;
+    }
+
+    nav.menu-lateral:hover ~ .conteudo {
+      margin-left: 280px;
+    }
+
+    #header-bg {
+      background: linear-gradient(135deg, #003366 0%, #004080 100%);
+      padding: 20px 30px;
+      box-shadow: 0 2px 20px rgba(0, 51, 102, 0.3);
+    }
+
+    #header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: white;
+    }
+
+    #logo {
+      font-size: 24px;
+      color: white;
+      text-decoration: none;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+
+    /* Container Principal */
+    .main-container {
+      max-width: 1200px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+
+    /* Cabeçalho da Seção */
+    .section-header {
+      background: white;
+      border-radius: 20px;
+      padding: 30px;
+      margin-bottom: 30px;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .section-title {
+      color: #003366;
+      font-size: 28px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .section-title i {
+      color: #00A8FF;
+      font-size: 32px;
+    }
+
+    .stats-container {
+      display: flex;
+      gap: 20px;
+    }
+
+    .stat-item {
+      text-align: center;
+      padding: 15px 20px;
+      background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+      border-radius: 12px;
+      border-left: 4px solid #00A8FF;
+    }
+
+    .stat-value {
+      font-size: 24px;
+      font-weight: 700;
+      color: #00A8FF;
+      margin-bottom: 5px;
+    }
+
+    .stat-label {
+      font-size: 12px;
+      color: #666;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    /* Filtros */
+    .filters-container {
+      background: white;
+      border-radius: 15px;
+      padding: 20px;
+      margin-bottom: 30px;
+      box-shadow: 0 3px 15px rgba(0, 0, 0, 0.06);
+      display: flex;
+      gap: 20px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .filter-group {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .filter-label {
+      font-size: 12px;
+      color: #666;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .filter-select, .filter-input {
+      padding: 10px 15px;
+      border: 2px solid #e9ecef;
+      border-radius: 8px;
+      font-size: 14px;
+      transition: all 0.3s ease;
+      background: white;
+    }
+
+    .filter-select:focus, .filter-input:focus {
+      border-color: #00A8FF;
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(0, 168, 255, 0.1);
+    }
+
+    .filter-buttons {
+      display: flex;
+      gap: 10px;
+      margin-left: auto;
+    }
+
+    .btn {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #00A8FF 0%, #0078D4 100%);
+      color: white;
+      box-shadow: 0 4px 15px rgba(0, 168, 255, 0.3);
+    }
+
+    .btn-primary:hover {
+      background: linear-gradient(135deg, #0078D4 0%, #005a9f 100%);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0, 168, 255, 0.4);
+    }
+
+    .btn-secondary {
+      background: #f8f9fa;
+      color: #666;
+      border: 2px solid #e9ecef;
+    }
+
+    .btn-secondary:hover {
+      background: #e9ecef;
+      color: #495057;
+    }
+
+    /* Grid de Vagas */
+    .vagas-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+      gap: 25px;
+      margin-bottom: 40px;
+    }
+
+    .vaga-card {
+      background: white;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .vaga-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+    }
+
+    .vaga-image {
+      height: 200px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .vaga-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+
+    .vaga-card:hover .vaga-image img {
+      transform: scale(1.05);
+    }
+
+    .vaga-image-placeholder {
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, #e9ecef 0%, #f8f9fa 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #adb5bd;
+      font-size: 48px;
+    }
+
+    .vaga-status {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .status-ativa {
+      background: rgba(40, 167, 69, 0.9);
+      color: white;
+      backdrop-filter: blur(10px);
+    }
+
+    .status-encerrada {
+      background: rgba(108, 117, 125, 0.9);
+      color: white;
+      backdrop-filter: blur(10px);
+    }
+
+    .status-hoje {
+      background: rgba(255, 193, 7, 0.9);
+      color: #212529;
+      backdrop-filter: blur(10px);
+    }
+
+    .vaga-content {
+      padding: 25px;
+    }
+
+    .vaga-header {
+      margin-bottom: 15px;
+    }
+
+    .vaga-title {
+      font-size: 20px;
+      font-weight: 700;
+      color: #003366;
+      margin-bottom: 8px;
+      line-height: 1.3;
+    }
+
+    .vaga-ong {
+      color: #00A8FF;
+      font-size: 14px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .vaga-details {
+      margin-bottom: 20px;
+    }
+
+    .detail-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 8px;
+      font-size: 14px;
+      color: #666;
+    }
+
+    .detail-item i {
+      color: #00A8FF;
+      width: 16px;
+      text-align: center;
+    }
+
+    .vaga-description {
+      color: #666;
+      font-size: 14px;
+      line-height: 1.6;
+      margin-bottom: 20px;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .vaga-actions {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .btn-cancel {
+      background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+      color: white;
+      padding: 10px 20px;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-cancel:hover {
+      background: linear-gradient(135deg, #c82333 0%, #a71e2a 100%);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba(220, 53, 69, 0.3);
+    }
+
+    .btn-cancel:disabled {
+      background: #6c757d;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .inscricao-info {
+      color: #666;
+      font-size: 12px;
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    /* Estados Vazios */
+    .empty-state {
+      background: white;
+      border-radius: 20px;
+      padding: 60px 40px;
+      text-align: center;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+    }
+
+    .empty-icon {
+      font-size: 64px;
+      color: #dee2e6;
+      margin-bottom: 20px;
+    }
+
+    .empty-title {
+      font-size: 24px;
+      color: #003366;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .empty-description {
+      color: #666;
+      font-size: 16px;
+      margin-bottom: 30px;
+    }
+
+    /* Modal */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 2000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(5px);
+    }
+
+    .modal-content {
+      background-color: white;
+      margin: 15% auto;
+      padding: 30px;
+      border-radius: 20px;
+      width: 90%;
+      max-width: 450px;
+      text-align: center;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      animation: modalSlideIn 0.3s ease-out;
+    }
+
+    @keyframes modalSlideIn {
+      from {
+        opacity: 0;
+        transform: translateY(-50px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .modal h3 {
+      color: #003366;
+      margin-bottom: 15px;
+      font-size: 22px;
+      font-weight: 700;
+    }
+
+    .modal p {
+      color: #666;
+      margin-bottom: 30px;
+      font-size: 16px;
+      line-height: 1.5;
+    }
+
+    .modal-buttons {
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+    }
+
+    .btn-confirm {
+      background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+      color: white;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 12px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      min-width: 120px;
+    }
+
+    .btn-confirm:hover {
+      background: linear-gradient(135deg, #c82333 0%, #a71e2a 100%);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(220, 53, 69, 0.4);
+    }
+
+    .btn-modal-cancel {
+      background: #f8f9fa;
+      color: #666;
+      border: 2px solid #e9ecef;
+      padding: 12px 24px;
+      border-radius: 12px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      min-width: 120px;
+    }
+
+    .btn-modal-cancel:hover {
+      background: #e9ecef;
+      color: #495057;
+    }
+
+    /* Loading */
+    .loading {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px;
+      color: #666;
+      font-size: 16px;
+    }
+
+    .spinner {
+      width: 20px;
+      height: 20px;
+      border: 2px solid #e9ecef;
+      border-top: 2px solid #00A8FF;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin-right: 10px;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* Toast Notifications */
+    .toast {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      padding: 15px 25px;
+      border-radius: 12px;
+      color: white;
+      font-weight: 600;
+      z-index: 9999;
+      animation: slideInToast 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      max-width: 400px;
+    }
+
+    .toast.success {
+      background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+    }
+
+    .toast.error {
+      background: linear-gradient(135deg, #dc3545 0%, #fd7e14 100%);
+    }
+
+    .toast.warning {
+      background: linear-gradient(135deg, #ffc107 0%, #fd7e14 100%);
+      color: #212529;
+    }
+
+    @keyframes slideInToast {
+      from {
+        transform: translateX(100%);
+        opacity: 0;
+      }
+      to {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
+
+    /* Responsivo */
+    @media (max-width: 768px) {
+      nav.menu-lateral {
+        width: 60px;
+      }
+
+      nav.menu-lateral:hover {
+        width: 250px;
+      }
+
+      .conteudo {
+        margin-left: 60px;
+      }
+
+      nav.menu-lateral:hover ~ .conteudo {
+        margin-left: 250px;
+      }
+
+      .vagas-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .section-header {
+        flex-direction: column;
+        gap: 20px;
+        text-align: center;
+      }
+
+      .stats-container {
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+
+      .filters-container {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .filter-buttons {
+        margin-left: 0;
+        justify-content: center;
+      }
+
+      .modal-content {
+        margin: 25% auto;
+        padding: 25px 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+<!-- Menu lateral -->
+<nav class="menu-lateral">
+  <div class="title">
+    <img th:src="@{/css/images/logo_blue_white.png}" width="50" height="50" alt="Logo Blue Wave" />
+    <h1>Blue Wave</h1>
+  </div>
+
+  <div class="menu-items">
+    <ul>
+      <li class="item-menu">
+        <a href="/inscricao/vagasVoluntario">
+          <span class="icon"><i class="bi bi-briefcase"></i></span>
+          <span class="txt-link">Vagas</span>
+        </a>
+      </li>
+      <li class="item-menu active">
+        <a href="/inscricao/minhasVagas">
+          <span class="icon"><i class="bi bi-journal-check"></i></span>
+          <span class="txt-link">Minhas Inscrições</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+
+  <div class="logout-section">
+    <div class="logout-item" onclick="showLogoutModal()">
+      <a href="#" onclick="event.preventDefault()">
+        <span class="icon"><i class="bi bi-box-arrow-right"></i></span>
+        <span class="txt-link">Sair</span>
+      </a>
+    </div>
+  </div>
+</nav>
+
+<!-- Modal de confirmação de logout -->
+<div id="logoutModal" class="modal">
+  <div class="modal-content">
+    <h3>Confirmar Logout</h3>
+    <p>Tem certeza de que deseja sair do sistema?</p>
+    <div class="modal-buttons">
+      <button class="btn-modal-cancel" onclick="hideLogoutModal()">Cancelar</button>
+      <button class="btn-confirm" onclick="confirmLogout()">Sair</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal de confirmação de cancelamento -->
+<div id="cancelModal" class="modal">
+  <div class="modal-content">
+    <h3>Cancelar Inscrição</h3>
+    <p>Tem certeza de que deseja cancelar sua inscrição na vaga "<span id="vagaNome"></span>"?</p>
+    <div class="modal-buttons">
+      <button class="btn-modal-cancel" onclick="closeCancelModal()">Não, manter inscrição</button>
+      <button id="confirmCancelBtn" class="btn-confirm" onclick="cancelInscricao()">Sim, cancelar</button>
+    </div>
+  </div>
+</div>
+
+<!-- Conteúdo principal -->
+<div class="conteudo">
+  <div id="header-bg">
+    <header id="header">
+      <a id="logo" th:href="@{/}">
+        Minhas Inscrições - <span th:text="${nome}">Voluntário</span>
+      </a>
+    </header>
+  </div>
+
+  <div class="main-container">
+    <!-- Cabeçalho da Seção -->
+    <div class="section-header">
+      <div class="section-title">
+        <i class="bi bi-journal-check"></i>
+        Minhas Inscrições
+      </div>
+      <div class="stats-container">
+        <div class="stat-item">
+          <div class="stat-value" th:text="${totalInscricoes}">0</div>
+          <div class="stat-label">Total</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value" th:text="${vagasAtivas}">0</div>
+          <div class="stat-label">Ativas</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value" th:text="${vagasEncerradas}">0</div>
+          <div class="stat-label">Encerradas</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Filtros -->
+    <div class="filters-container">
+      <div class="filter-group">
+        <label class="filter-label">Status</label>
+        <select class="filter-select" id="statusFilter">
+          <option value="">Todos</option>
+          <option value="ativa">Ativas</option>
+          <option value="encerrada">Encerradas</option>
+          <option value="hoje">Hoje</option>
+        </select>
+      </div>
+      <div class="filter-group">
+        <label class="filter-label">Buscar</label>
+        <input type="text" class="filter-input" id="searchFilter" placeholder="Nome da vaga ou ONG...">
+      </div>
+      <div class="filter-buttons">
+        <button class="btn btn-secondary" onclick="clearFilters()">
+          <i class="bi bi-arrow-clockwise"></i>
+          Limpar
+        </button>
+        <a href="/inscricao/vagasVoluntario" class="btn btn-primary">
+          <i class="bi bi-plus-circle"></i>
+          Buscar Vagas
+        </a>
+      </div>
+    </div>
+
+    <!-- Grid de Vagas -->
+    <div class="vagas-grid" id="vagasGrid">
+      <div th:each="inscricao : ${inscricoes}" class="vaga-card"
+           th:data-status="${#temporals.format(inscricao.vaga.data, 'yyyy-MM-dd') == #temporals.format(#temporals.createNow(), 'yyyy-MM-dd') ? 'hoje' : (#temporals.format(inscricao.vaga.data, 'yyyy-MM-dd') lt #temporals.format(#temporals.createNow(), 'yyyy-MM-dd') ? 'encerrada' : 'ativa')}"
+           th:data-nome="${inscricao.vaga.nome}"
+           th:data-ong="${inscricao.vaga.ong.nome}">
+
+        <!-- Imagem da Vaga -->
+        <div class="vaga-image">
+          <img th:if="${inscricao.vaga.imagemPath != null}"
+               th:src="${inscricao.vaga.imagemPath}"
+               th:alt="${inscricao.vaga.nome}"
+               onerror="this.parentElement.innerHTML='<div class=\'vaga-image-placeholder\'><i class=\'bi bi-image\'></i></div>'">
+          <div th:unless="${inscricao.vaga.imagemPath != null}" class="vaga-image-placeholder">
+            <i class="bi bi-image"></i>
+          </div>
+
+          <!-- Status da Vaga -->
+          <div class="vaga-status"
+               th:classappend="${#temporals.format(inscricao.vaga.data, 'yyyy-MM-dd') == #temporals.format(#temporals.createNow(), 'yyyy-MM-dd') ? 'status-hoje' : (#temporals.format(inscricao.vaga.data, 'yyyy-MM-dd') lt #temporals.format(#temporals.createNow(), 'yyyy-MM-dd') ? 'status-encerrada' : 'status-ativa')}">
+            <span th:if="${#temporals.format(inscricao.vaga.data, 'yyyy-MM-dd') == #temporals.format(#temporals.createNow(), 'yyyy-MM-dd')}">Hoje</span>
+            <span th:unless="${#temporals.format(inscricao.vaga.data, 'yyyy-MM-dd') == #temporals.format(#temporals.createNow(), 'yyyy-MM-dd')}">
+                <span th:if="${#temporals.format(inscricao.vaga.data, 'yyyy-MM-dd') lt #temporals.format(#temporals.createNow(), 'yyyy-MM-dd')}">Encerrada</span>
+                <span th:unless="${#temporals.format(inscricao.vaga.data, 'yyyy-MM-dd') lt #temporals.format(#temporals.createNow(), 'yyyy-MM-dd')}">Ativa</span>
+            </span>
+          </div>
+        </div>
+
+        <!-- Conteúdo da Vaga -->
+        <div class="vaga-content">
+          <div class="vaga-header">
+            <h3 class="vaga-title" th:text="${inscricao.vaga.nome}">Nome da Vaga</h3>
+            <div class="vaga-ong">
+              <i class="bi bi-building"></i>
+              <span th:text="${inscricao.vaga.ong.nome}">Nome da ONG</span>
+            </div>
+          </div>
+
+          <div class="vaga-details">
+            <div class="detail-item">
+              <i class="bi bi-calendar-event"></i>
+              <span th:text="${#temporals.format(inscricao.vaga.data, 'dd/MM/yyyy')}">Data</span>
+            </div>
+            <div class="detail-item">
+              <i class="bi bi-people"></i>
+              <span th:text="${inscricao.vaga.quantidade} + ' vagas disponíveis'">Vagas</span>
+            </div>
+            <div class="detail-item">
+              <i class="bi bi-clock"></i>
+              <span th:text="'Inscrito em ' + ${#temporals.format(inscricao.dataInscricao, 'dd/MM/yyyy')}">Data de Inscrição</span>
+            </div>
+          </div>
+
+          <div class="vaga-description" th:text="${inscricao.vaga.descri}">
+            Descrição da vaga...
+          </div>
+
+          <div class="vaga-actions">
+            <button class="btn-cancel"
+                    th:data-inscricao-id="${inscricao.id}"
+                    th:data-vaga-nome="${inscricao.vaga.nome}"
+                    th:disabled="${#temporals.format(inscricao.vaga.data, 'yyyy-MM-dd') lt #temporals.format(#temporals.createNow(), 'yyyy-MM-dd')}"
+                    onclick="showCancelModal(this)">
+              <i class="bi bi-x-circle"></i>
+              <span th:if="${#temporals.format(inscricao.vaga.data, 'yyyy-MM-dd') ge #temporals.format(#temporals.createNow(), 'yyyy-MM-dd')}">Cancelar Inscrição</span>
+              <span th:unless="${#temporals.format(inscricao.vaga.data, 'yyyy-MM-dd') ge #temporals.format(#temporals.createNow(), 'yyyy-MM-dd')}">Encerrada</span>
+            </button>
+            <div class="inscricao-info">
+              <i class="bi bi-check-circle"></i>
+              Inscrito
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Estado Vazio -->
+    <div class="empty-state" id="emptyState" style="display: none;">
+      <div class="empty-icon">
+        <i class="bi bi-journal-x"></i>
+      </div>
+      <h3 class="empty-title">Nenhuma inscrição encontrada</h3>
+      <p class="empty-description" id="emptyMessage">
+        Você ainda não se inscreveu em nenhuma vaga.
+      </p>
+      <a href="/inscricao/vagasVoluntario" class="btn btn-primary">
+        <i class="bi bi-search"></i>
+        Buscar Vagas Disponíveis
+      </a>
+    </div>
+  </div>
+</div>
+
+<script>
+  let currentInscricaoId = null;
+
+  // Funções de logout
+  function showLogoutModal() {
+    document.getElementById('logoutModal').style.display = 'block';
+  }
+
+  function hideLogoutModal() {
+    document.getElementById('logoutModal').style.display = 'none';
+  }
+
+  function confirmLogout() {
+    // Fazer logout via AJAX
+    fetch('/logout', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      }
+    })
+            .then(response => {
+              if (response.ok) {
+                window.location.href = '/login/voluntario';
+              } else {
+                showToast('Erro ao fazer logout', 'error');
+              }
+            })
+            .catch(error => {
+              console.error('Erro:', error);
+              showToast('Erro ao fazer logout', 'error');
+            });
+  }
+
+  // Mostrar modal de cancelamento
+  function showCancelModal(button) {
+    currentInscricaoId = button.dataset.inscricaoId;
+    const vagaNome = button.dataset.vagaNome;
+
+    document.getElementById('vagaNome').textContent = vagaNome;
+    document.getElementById('cancelModal').style.display = 'block';
+  }
+
+  // Fechar modal de cancelamento
+  function closeCancelModal() {
+    document.getElementById('cancelModal').style.display = 'none';
+    currentInscricaoId = null;
+  }
+
+  // Cancelar inscrição
+  function cancelInscricao() {
+    if (!currentInscricaoId) return;
+
+    // Desabilitar botão durante o processo
+    const confirmBtn = document.getElementById('confirmCancelBtn');
+    confirmBtn.disabled = true;
+    confirmBtn.innerHTML = '<span class="spinner-border spinner-border-sm mr-2"></span>Cancelando...';
+
+    // Fazer requisição para cancelar inscrição
+    fetch(`/inscricao/cancelar/${currentInscricaoId}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      }
+    })
+            .then(response => response.text())
+            .then(data => {
+              if (data === 'ok') {
+                showToast('Inscrição cancelada com sucesso!', 'success');
+
+                // Remover card da interface
+                const card = document.querySelector(`[data-inscricao-id="${currentInscricaoId}"]`).closest('.vaga-card');
+                if (card) {
+                  card.style.animation = 'fadeOut 0.5s ease';
+                  setTimeout(() => {
+                    card.remove();
+                    updateStats();
+                    checkEmptyState();
+                  }, 500);
+                }
+
+                closeCancelModal();
+              } else {
+                showToast(data.replace('erro: ', ''), 'error');
+              }
+            })
+            .catch(error => {
+              console.error('Erro:', error);
+              showToast('Erro ao cancelar inscrição', 'error');
+            })
+            .finally(() => {
+              // Restaurar botão
+              confirmBtn.disabled = false;
+              confirmBtn.innerHTML = '<i class="bi bi-check-circle"></i> Sim, cancelar';
+            });
+  }
+
+  // Filtros
+  function filterInscricoes() {
+    const statusFilter = document.getElementById('statusFilter').value;
+    const searchFilter = document.getElementById('searchFilter').value.toLowerCase();
+    const cards = Array.from(document.querySelectorAll('.vaga-card'));
+    let visibleCount = 0;
+
+    cards.forEach(card => {
+      const status = card.dataset.status;
+      const nome = card.dataset.nome.toLowerCase();
+      const ong = card.dataset.ong.toLowerCase();
+
+      // Verificar filtros
+      const statusMatch = !statusFilter || status === statusFilter;
+      const searchMatch = !searchFilter ||
+              nome.includes(searchFilter) ||
+              ong.includes(searchFilter);
+
+      if (statusMatch && searchMatch) {
+        card.style.display = 'block';
+        visibleCount++;
+      } else {
+        card.style.display = 'none';
+      }
+    });
+
+    // Atualizar estado vazio
+    checkEmptyState(visibleCount, statusFilter, searchFilter);
+  }
+
+  // Limpar filtros
+  function clearFilters() {
+    document.getElementById('statusFilter').value = '';
+    document.getElementById('searchFilter').value = '';
+    filterInscricoes();
+  }
+
+  // Verificar estado vazio
+  function checkEmptyState(visibleCount = null, statusFilter = '', searchFilter = '') {
+    const cards = document.querySelectorAll('.vaga-card');
+    const emptyState = document.getElementById('emptyState');
+    const vagasGrid = document.getElementById('vagasGrid');
+    const emptyMessage = document.getElementById('emptyMessage');
+
+    const totalCards = cards.length;
+    const actualVisibleCount = visibleCount !== null ? visibleCount : totalCards;
+
+    if (totalCards === 0) {
+      emptyMessage.textContent = 'Você ainda não se inscreveu em nenhuma vaga.';
+      emptyState.style.display = 'block';
+      vagasGrid.style.display = 'none';
+    } else if (actualVisibleCount === 0) {
+      if (statusFilter || searchFilter) {
+        emptyMessage.textContent = 'Nenhuma inscrição encontrada com os filtros aplicados.';
+      } else {
+        emptyMessage.textContent = 'Nenhuma inscrição encontrada.';
+      }
+      emptyState.style.display = 'block';
+      vagasGrid.style.display = 'none';
+    } else {
+      emptyState.style.display = 'none';
+      vagasGrid.style.display = 'grid';
+    }
+  }
+
+  // Atualizar estatísticas
+  function updateStats() {
+    const cards = document.querySelectorAll('.vaga-card');
+    let ativas = 0;
+    let encerradas = 0;
+    let total = cards.length;
+
+    cards.forEach(card => {
+      const status = card.dataset.status;
+      if (status === 'ativa' || status === 'hoje') {
+        ativas++;
+      } else if (status === 'encerrada') {
+        encerradas++;
+      }
+    });
+
+    // Atualizar valores na interface
+    document.querySelector('.stat-item:nth-child(1) .stat-value').textContent = total;
+    document.querySelector('.stat-item:nth-child(2) .stat-value').textContent = ativas;
+    document.querySelector('.stat-item:nth-child(3) .stat-value').textContent = encerradas;
+  }
+
+  // Mostrar toast
+  function showToast(message, type = 'success') {
+    // Remove toast existente
+    const existingToast = document.querySelector('.toast');
+    if (existingToast) {
+      existingToast.remove();
+    }
+
+    const toast = document.createElement('div');
+    toast.className = `toast ${type}`;
+
+    const icon = type === 'success' ? 'check-circle' :
+            type === 'error' ? 'x-circle' : 'exclamation-triangle';
+
+    toast.innerHTML = `
+        <i class="bi bi-${icon}"></i>
+        <span>${message}</span>
+    `;
+
+    document.body.appendChild(toast);
+
+    // Auto remove após 5 segundos
+    setTimeout(() => {
+      toast.style.animation = 'slideOutToast 0.3s ease';
+      setTimeout(() => toast.remove(), 300);
+    }, 5000);
+  }
+
+  // Event listeners
+  document.addEventListener('DOMContentLoaded', function() {
+    // Configurar filtros
+    document.getElementById('statusFilter').addEventListener('change', filterInscricoes);
+    document.getElementById('searchFilter').addEventListener('input', filterInscricoes);
+
+    // Atualizar estatísticas iniciais
+    updateStats();
+
+    // Verificar estado vazio inicial
+    checkEmptyState();
+
+    // Fechar modais ao clicar fora
+    window.addEventListener('click', function(event) {
+      const cancelModal = document.getElementById('cancelModal');
+      const logoutModal = document.getElementById('logoutModal');
+
+      if (event.target === cancelModal) {
+        closeCancelModal();
+      } else if (event.target === logoutModal) {
+        hideLogoutModal();
+      }
+    });
+
+    // Adicionar animação aos cards
+    const cards = document.querySelectorAll('.vaga-card');
+    cards.forEach((card, index) => {
+      card.style.opacity = '0';
+      card.style.transform = 'translateY(20px)';
+
+      setTimeout(() => {
+        card.style.transition = 'all 0.5s ease';
+        card.style.opacity = '1';
+        card.style.transform = 'translateY(0)';
+      }, index * 100);
+    });
+  });
+
+  // Adicionar estilos de animação
+  const style = document.createElement('style');
+  style.textContent = `
+    @keyframes slideOutToast {
+        from {
+            transform: translateX(0);
+            opacity: 1;
+        }
+        to {
+            transform: translateX(100%);
+            opacity: 0;
+        }
+    }
+
+    @keyframes fadeOut {
+        from {
+            opacity: 1;
+            transform: scale(1);
+        }
+        to {
+            opacity: 0;
+            transform: scale(0.95);
+        }
+    }
+
+    .spinner-border {
+        display: inline-block;
+        width: 1rem;
+        height: 1rem;
+        vertical-align: text-bottom;
+        border: .15em solid currentColor;
+        border-right-color: transparent;
+        border-radius: 50%;
+        animation: spinner-border .75s linear infinite;
+    }
+
+    .spinner-border-sm {
+        width: 0.8rem;
+        height: 0.8rem;
+        border-width: .1em;
+    }
+
+    @keyframes spinner-border {
+        to { transform: rotate(360deg); }
+    }
+
+    .mr-2 {
+        margin-right: 0.5rem;
+    }
+  `;
+  document.head.appendChild(style);
+</script>
+
+</body>
+</html>

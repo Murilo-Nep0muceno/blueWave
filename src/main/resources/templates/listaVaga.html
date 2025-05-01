@@ -1,46 +1,1140 @@
-<DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<!DOCTYPE html>
+<html lang="pt-BR">
 <head>
-      <meta charset="UTF-8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blue Wave</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <title>Blue Wave - Listar Vagas</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', 'Roboto', sans-serif;
+        }
+
+        body {
+            height: 100vh;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        nav.menu-lateral {
+            width: 80px;
+            height: 100vh;
+            background: linear-gradient(180deg, #00A8FF 0%, #0078D4 100%);
+            padding: 20px 0;
+            box-shadow: 0 0 30px rgba(0, 168, 255, 0.3);
+            position: fixed;
+            top: 0;
+            left: 0;
+            overflow: hidden;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+        }
+
+        nav.menu-lateral:hover {
+            width: 280px;
+            box-shadow: 0 0 40px rgba(0, 168, 255, 0.4);
+        }
+
+        .title {
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+            margin-bottom: 30px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 20px;
+        }
+
+        .title h1 {
+            display: none;
+            margin-left: 15px;
+            color: white;
+            font-size: 20px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        nav.menu-lateral:hover .title h1 {
+            display: block;
+            animation: fadeInSlide 0.3s ease-out;
+        }
+
+        @keyframes fadeInSlide {
+            from {
+                opacity: 0;
+                transform: translateX(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .menu-items {
+            flex: 1;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0 10px;
+        }
+
+        ul li.item-menu {
+            margin-bottom: 8px;
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        ul li.item-menu:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateX(5px);
+        }
+
+        ul li.item-menu a {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            padding: 16px 20px;
+            display: flex;
+            align-items: center;
+            transition: all 0.3s ease;
+            border-radius: 12px;
+        }
+
+        ul li.item-menu a .icon > i {
+            font-size: 24px;
+            width: 24px;
+            text-align: center;
+        }
+
+        ul li.item-menu a .txt-link {
+            margin-left: 20px;
+            white-space: nowrap;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            font-weight: 500;
+        }
+
+        nav.menu-lateral:hover .txt-link {
+            opacity: 1;
+        }
+
+        ul li.item-menu.active a {
+            background: rgba(255, 255, 255, 0.2) !important;
+            border-left: 4px solid white;
+        }
+
+        .logout-section {
+            padding: 0 10px;
+            margin-top: auto;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 20px;
+        }
+
+        .logout-item {
+            margin-bottom: 8px;
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .logout-item:hover {
+            background: rgba(255, 76, 76, 0.2);
+            transform: translateX(5px);
+        }
+
+        .logout-item a {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            padding: 16px 20px;
+            display: flex;
+            align-items: center;
+            transition: all 0.3s ease;
+            border-radius: 12px;
+        }
+
+        .logout-item a:hover {
+            color: #ffcccc;
+        }
+
+        .logout-item a .icon > i {
+            font-size: 24px;
+            width: 24px;
+            text-align: center;
+        }
+
+        .logout-item a .txt-link {
+            margin-left: 20px;
+            white-space: nowrap;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            font-weight: 500;
+        }
+
+        nav.menu-lateral:hover .logout-item .txt-link {
+            opacity: 1;
+        }
+
+        .conteudo {
+            margin-left: 80px;
+            transition: margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            min-height: 100vh;
+        }
+
+        nav.menu-lateral:hover ~ .conteudo {
+            margin-left: 280px;
+        }
+
+        #header-bg {
+            background: linear-gradient(135deg, #003366 0%, #004080 100%);
+            padding: 20px 30px;
+            box-shadow: 0 2px 20px rgba(0, 51, 102, 0.3);
+        }
+
+        #header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: white;
+        }
+
+        #logo {
+            font-size: 24px;
+            color: white;
+            text-decoration: none;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        .page-title {
+            margin: 40px 30px 30px;
+            color: #003366;
+            font-size: 28px;
+            font-weight: 700;
+        }
+
+        .error-message {
+            margin: 20px 30px;
+            padding: 15px 20px;
+            background: rgba(231, 76, 60, 0.1);
+            border-left: 4px solid #e74c3c;
+            border-radius: 8px;
+            color: #e74c3c;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .vagas-container {
+            padding: 0 30px;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .vaga-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(0, 168, 255, 0.1);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .vaga-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+        }
+
+        .vaga-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .image-placeholder {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #6c757d;
+            font-size: 14px;
+        }
+
+        .image-placeholder i {
+            font-size: 32px;
+            margin-bottom: 10px;
+            opacity: 0.5;
+        }
+
+        .vaga-content {
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+        }
+
+        .vaga-nome {
+            color: #003366;
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            line-height: 1.3;
+        }
+
+        .vaga-info {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .vaga-quantidade {
+            background: linear-gradient(135deg, #00A8FF 0%, #0078D4 100%);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .vaga-data {
+            background: #f8f9fa;
+            color: #495057;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .vaga-status {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .status-ativa {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .status-andamento {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .status-concluida {
+            background: #cce5ff;
+            color: #004085;
+        }
+
+        .status-expirada {
+            background: #f5c6cb;
+            color: #721c24;
+        }
+
+        .vaga-location {
+            background: #e3f2fd;
+            color: #1565c0;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .vaga-descricao {
+            color: #6c757d;
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            flex-grow: 1;
+        }
+
+        .vaga-actions {
+            display: flex;
+            gap: 12px;
+            margin-top: auto;
+            align-items: stretch;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 12px 10px;
+            border: none;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            text-decoration: none;
+            min-height: 42px;
+            text-align: center;
+        }
+
+        .btn i {
+            font-size: 12px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #00A8FF 0%, #0078D4 100%);
+            color: white;
+            box-shadow: 0 3px 10px rgba(0, 168, 255, 0.3);
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #0078D4 0%, #005a9f 100%);
+            transform: translateY(-1px);
+            box-shadow: 0 5px 15px rgba(0, 168, 255, 0.4);
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #545b62;
+            transform: translateY(-1px);
+        }
+
+        .btn-warning {
+            background: linear-gradient(135deg, #ffc107 0%, #e0a800 100%);
+            color: #212529;
+            box-shadow: 0 3px 10px rgba(255, 193, 7, 0.3);
+        }
+
+        .btn-warning:hover {
+            background: linear-gradient(135deg, #e0a800 0%, #d39e00 100%);
+            transform: translateY(-1px);
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, #28a745 0%, #1e7e34 100%);
+            color: white;
+            box-shadow: 0 3px 10px rgba(40, 167, 69, 0.3);
+        }
+
+        .btn-success:hover {
+            background: linear-gradient(135deg, #1e7e34 0%, #155724 100%);
+            transform: translateY(-1px);
+        }
+
+        .btn-danger {
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+            color: white;
+            box-shadow: 0 3px 10px rgba(231, 76, 60, 0.3);
+        }
+
+        .btn-danger:hover {
+            background: linear-gradient(135deg, #c0392b 0%, #a93226 100%);
+            transform: translateY(-1px);
+            box-shadow: 0 5px 15px rgba(231, 76, 60, 0.4);
+        }
+
+        .no-vagas {
+            text-align: center;
+            padding: 60px 30px;
+            color: #6c757d;
+        }
+
+        .no-vagas p {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 5% auto;
+            padding: 30px;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 600px;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            animation: modalSlideIn 0.3s ease-out;
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .modal h3 {
+            color: #003366;
+            margin-bottom: 20px;
+            font-size: 24px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .modal-section {
+            margin-bottom: 20px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+
+        .modal-section h4 {
+            color: #495057;
+            font-size: 16px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .modal-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+        }
+
+        .info-item {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .info-label {
+            font-size: 12px;
+            color: #6c757d;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .info-value {
+            font-size: 14px;
+            color: #212529;
+            font-weight: 500;
+            margin-top: 2px;
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        .btn-confirm, .btn-cancel {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            min-width: 100px;
+        }
+
+        .btn-confirm {
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(231, 76, 60, 0.3);
+        }
+
+        .btn-confirm:hover {
+            background: linear-gradient(135deg, #c0392b 0%, #a93226 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(231, 76, 60, 0.4);
+        }
+
+        .btn-cancel {
+            background: #ecf0f1;
+            color: #7f8c8d;
+            border: 2px solid #bdc3c7;
+        }
+
+        .btn-cancel:hover {
+            background: #d5dbdb;
+            border-color: #95a5a6;
+            color: #5d6d7e;
+        }
+
+        /* Responsivo */
+        @media (max-width: 768px) {
+            nav.menu-lateral {
+                width: 60px;
+            }
+
+            nav.menu-lateral:hover {
+                width: 250px;
+            }
+
+            .conteudo {
+                margin-left: 60px;
+            }
+
+            nav.menu-lateral:hover ~ .conteudo {
+                margin-left: 250px;
+            }
+
+            .vagas-container {
+                grid-template-columns: 1fr;
+                padding: 0 20px;
+            }
+
+            .page-title {
+                margin: 30px 20px 20px;
+                font-size: 24px;
+            }
+
+            .error-message {
+                margin: 15px 20px;
+            }
+
+            #header-bg {
+                padding: 15px 20px;
+            }
+
+            #logo {
+                font-size: 18px;
+            }
+
+            .modal-content {
+                margin: 10% auto;
+                padding: 25px 20px;
+                width: 95%;
+            }
+
+            .vaga-actions {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .btn {
+                flex: none;
+                justify-content: center;
+            }
+
+            .modal-info {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
+
 <body>
+<!-- Menu lateral -->
+<nav class="menu-lateral">
+    <div class="title">
+        <img src="/css/images/logo_blue_white.png" width="50" height="50" alt="Logo Blue Wave" onerror="this.style.display='none';" />
+        <h1>Blue Wave</h1>
+    </div>
+
+    <div class="menu-items">
+        <ul>
+            <li class="item-menu active">
+                <a href="/vagas/listaVaga">
+                    <span class="icon"><i class="bi bi-briefcase"></i></span>
+                    <span class="txt-link">Listar Vagas</span>
+                </a>
+            </li>
+            <li class="item-menu">
+                <a href="/vagas/homeOng">
+                    <span class="icon"><i class="bi bi-person-add"></i></span>
+                    <span class="txt-link">Cadastrar Vagas</span>
+                </a>
+            </li>
+            <li class="item-menu">
+                <a href="/vagas/finalizarCadastro">
+                    <span class="icon"><i class="bi bi-building"></i></span>
+                    <span class="txt-link">Finalizar Cadastro</span>
+                </a>
+            </li>
+            <li class="item-menu">
+                <a href="/vagas/perfil">
+                    <span class="icon"><i class="bi bi-person-circle"></i></span>
+                    <span class="txt-link">Perfil da ONG</span>
+                </a>
+            </li>
+            <li class="item-menu">
+                <a href="/vagas/configuracoes">
+                    <span class="icon"><i class="bi bi-gear"></i></span>
+                    <span class="txt-link">Configurações</span>
+                </a>
+            </li>
+            <li class="item-menu">
+                <a href="#">
+                    <span class="icon"><i class="bi bi-megaphone"></i></span>
+                    <span class="txt-link">Mensagens</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="logout-section">
+        <div class="logout-item" onclick="showLogoutModal()">
+            <a href="#" onclick="event.preventDefault()">
+                <span class="icon"><i class="bi bi-box-arrow-right"></i></span>
+                <span class="txt-link">Sair</span>
+            </a>
+        </div>
+    </div>
+</nav>
+
+<!-- Modal de confirmação de logout -->
+<div id="logoutModal" class="modal">
+    <div class="modal-content" style="max-width: 400px; text-align: center;">
+        <h3>Confirmar Logout</h3>
+        <p>Tem certeza de que deseja sair do sistema?</p>
+        <div class="modal-buttons">
+            <button class="btn-cancel" onclick="hideLogoutModal()">Cancelar</button>
+            <button class="btn-confirm" onclick="confirmLogout()">Sair</button>
+        </div>
+    </div>
+</div>
+
+<!-- Modal de detalhes da vaga -->
+<div id="detalhesModal" class="modal">
+    <div class="modal-content">
+        <h3><i class="bi bi-eye"></i> Detalhes da Vaga</h3>
+
+        <div class="modal-section">
+            <h4><i class="bi bi-info-circle"></i> Informações Básicas</h4>
+            <div class="modal-info">
+                <div class="info-item">
+                    <span class="info-label">Nome da Vaga</span>
+                    <span class="info-value" id="detalhe-nome">-</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Quantidade de Vagas</span>
+                    <span class="info-value" id="detalhe-quantidade">-</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Data da Vaga</span>
+                    <span class="info-value" id="detalhe-data">-</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Status</span>
+                    <span class="info-value" id="detalhe-status">-</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal-section">
+            <h4><i class="bi bi-geo-alt"></i> Localização</h4>
+            <div class="modal-info">
+                <div class="info-item">
+                    <span class="info-label">Local de Referência</span>
+                    <span class="info-value" id="detalhe-referencia">-</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Endereço</span>
+                    <span class="info-value" id="detalhe-endereco">-</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Bairro</span>
+                    <span class="info-value" id="detalhe-bairro">-</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Cidade</span>
+                    <span class="info-value" id="detalhe-cidade">-</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Estado</span>
+                    <span class="info-value" id="detalhe-estado">-</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">CEP</span>
+                    <span class="info-value" id="detalhe-cep">-</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal-section">
+            <h4><i class="bi bi-file-text"></i> Descrição</h4>
+            <div class="info-value" id="detalhe-descricao" style="line-height: 1.6;">-</div>
+        </div>
+
+        <div class="modal-buttons">
+            <button class="btn-cancel" onclick="hideDetalhesModal()">Fechar</button>
+        </div>
+    </div>
+</div>
+
+<!-- Conteúdo principal -->
+<div class="conteudo">
     <div id="header-bg">
         <header id="header">
-          <a id="logo" href="/">BLUE WAVE</a>
-          <nav id="nav">
-            <button id="btn-mobile">
-              <span id="hambuger"></span>
-            </button>
-           
-            <ul id="menu">
-              <li><a href="/vagas/listaVaga">Lista Vagas</a></li>
-              <li><a href="/vagas/homeOng">Cadastra Vaga</a></li>
-              
-            </ul>
-          </nav>
+            <a id="logo" href="/">Gerenciar Vagas</a>
         </header>
-      </div>
-    <h1>Vagas Disponíveis</h1>
-    
-    <table border="1">
-        <tr>
-            <th>ID</th>
-            <th>Nome</th>
-            <th>Descrição</th>
-            <th>Quantidade</th>
-        </tr>
-        <tr th:each="vaga : ${vagas}">
-            <td th:text="${vaga.id}"></td>
-            <td th:text="${vaga.nome}"></td>
-            <td th:text="${vaga.descri}"></td>
-            <td th:text="${vaga.quantidade}"></td>
-        </tr>
-    </table>
+    </div>
+
+    <h1 class="page-title">Vagas Cadastradas</h1>
+
+    <!-- Mensagem de erro se houver -->
+    <div th:if="${erro}" class="error-message">
+        <i class="bi bi-exclamation-triangle"></i>
+        <span th:text="${erro}">Erro</span>
+    </div>
+
+    <!-- Container de vagas -->
+    <div class="vagas-container" th:if="${vagas != null and not #lists.isEmpty(vagas)}">
+        <div class="vaga-card" th:each="vaga : ${vagas}">
+            <!-- Imagem da vaga -->
+            <div th:if="${vaga.imagemPath != null and vaga.imagemPath != ''}">
+                <img th:src="${vaga.imagemPath}"
+                     th:alt="${vaga.nome}"
+                     class="vaga-image"
+                     onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <div class="image-placeholder" style="display: none;">
+                    <i class="bi bi-image"></i>
+                    <span>Imagem não encontrada</span>
+                </div>
+            </div>
+
+            <!-- Placeholder caso não tenha imagem -->
+            <div class="image-placeholder" th:if="${vaga.imagemPath == null or vaga.imagemPath == ''}">
+                <i class="bi bi-image"></i>
+                <span>Sem imagem</span>
+            </div>
+
+            <div class="vaga-content">
+                <h3 class="vaga-nome" th:text="${vaga.nome}">Nome da Vaga</h3>
+
+                <div class="vaga-info">
+                    <span class="vaga-quantidade">
+                        <span th:text="${vaga.quantidade}">0</span> vagas
+                    </span>
+
+                    <span class="vaga-data" th:if="${vaga.data != null}" th:text="${#temporals.format(vaga.data, 'dd/MM/yyyy')}">01/01/2024</span>
+                    <span class="vaga-data" th:if="${vaga.data == null}">Data não informada</span>
+
+                    <!-- Status da vaga com lógica inteligente via JavaScript -->
+                    <span th:class="'vaga-status status-' + ${#strings.toLowerCase(vaga.status)}"
+                          th:text="${vaga.status.descricao}"
+                          th:attr="data-status=${vaga.status}, data-data=${vaga.data}">Status</span>
+
+                    <!-- Localização (cidade/estado) -->
+                    <span class="vaga-location" th:if="${vaga.cidade != null or vaga.estado != null}">
+                        <i class="bi bi-geo-alt"></i>
+                        <span th:text="${(vaga.cidade != null ? vaga.cidade : '') + (vaga.cidade != null and vaga.estado != null ? ' - ' : '') + (vaga.estado != null ? vaga.estado : '')}">Localização</span>
+                    </span>
+                </div>
+
+                <p class="vaga-descricao" th:text="${vaga.descri != null ? vaga.descri : 'Sem descrição'}">Descrição da vaga...</p>
+
+                <div class="vaga-actions">
+                    <button class="btn btn-primary"
+                            th:attr="onclick=|editarVaga(${vaga.id})|">
+                        <i class="bi bi-pencil"></i> Editar
+                    </button>
+
+                    <button class="btn btn-secondary"
+                            th:attr="onclick=|visualizarVaga(${vaga.id})|">
+                        <i class="bi bi-eye"></i> Detalhes
+                    </button>
+
+                    <!-- Botão de ativar/desativar baseado no status -->
+                    <button th:if="${vaga.status.name() == 'ATIVA'}"
+                            class="btn btn-warning"
+                            th:attr="onclick=|alterarStatusVaga(${vaga.id}, 'INTERROMPIDA')|"
+                            title="Desativar vaga">
+                        <i class="bi bi-pause-circle"></i> Desativar
+                    </button>
+
+                    <button th:if="${vaga.status.name() == 'INTERROMPIDA'}"
+                            class="btn btn-success"
+                            th:attr="onclick=|alterarStatusVaga(${vaga.id}, 'ATIVA')|"
+                            title="Ativar vaga">
+                        <i class="bi bi-play-circle"></i> Ativar
+                    </button>
+
+                    <button class="btn btn-danger"
+                            th:attr="onclick=|excluirVaga(${vaga.id}, '${vaga.nome}')|">
+                        <i class="bi bi-trash"></i> Excluir
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mensagem quando não há vagas -->
+    <div class="no-vagas" th:if="${vagas == null or #lists.isEmpty(vagas)}">
+        <i class="bi bi-briefcase" style="font-size: 64px; color: #ccc; margin-bottom: 20px;"></i>
+        <p>Nenhuma vaga cadastrada ainda.</p>
+        <a href="/vagas/homeOng" class="btn btn-primary" style="margin-top: 20px;">
+            <i class="bi bi-plus-circle"></i> Cadastrar Nova Vaga
+        </a>
+    </div>
+</div>
+
+<script>
+    // Funções de logout
+    function showLogoutModal() {
+        document.getElementById('logoutModal').style.display = 'block';
+    }
+
+    function hideLogoutModal() {
+        document.getElementById('logoutModal').style.display = 'none';
+    }
+
+    function confirmLogout() {
+        window.location.href = '/login/logout';
+    }
+
+    // Funções do modal de detalhes
+    function hideDetalhesModal() {
+        document.getElementById('detalhesModal').style.display = 'none';
+    }
+
+    // Fecha modais se clicar fora deles
+    window.onclick = function(event) {
+        const logoutModal = document.getElementById('logoutModal');
+        const detalhesModal = document.getElementById('detalhesModal');
+
+        if (event.target === logoutModal) {
+            hideLogoutModal();
+        }
+
+        if (event.target === detalhesModal) {
+            hideDetalhesModal();
+        }
+    }
+
+    function editarVaga(id) {
+        window.location.href = `/vagas/editar/${id}`;
+    }
+
+    function visualizarVaga(id) {
+        // Buscar detalhes da vaga via API
+        fetch(`/vagas/detalhes/${id}`)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Erro ao buscar detalhes da vaga');
+                }
+                return response.json();
+            })
+            .then(vaga => {
+                // Preencher modal com os dados
+                document.getElementById('detalhe-nome').textContent = vaga.nome || '-';
+                document.getElementById('detalhe-quantidade').textContent = vaga.quantidade + ' vagas' || '-';
+
+                // Formatar data
+                if (vaga.data) {
+                    const data = new Date(vaga.data);
+                    document.getElementById('detalhe-data').textContent = data.toLocaleDateString('pt-BR');
+                } else {
+                    document.getElementById('detalhe-data').textContent = 'Não informada';
+                }
+
+                // Status inteligente
+                let statusText = '';
+                let statusClass = '';
+
+                if (vaga.status === 'ATIVA' && vaga.data) {
+                    const hoje = new Date().toDateString();
+                    const dataVaga = new Date(vaga.data).toDateString();
+                    const dataVagaDate = new Date(vaga.data);
+                    const hojeDate = new Date();
+
+                    if (dataVaga === hoje) {
+                        statusText = 'Em Andamento';
+                        statusClass = 'status-andamento';
+                    } else if (dataVagaDate < hojeDate) {
+                        statusText = 'Expirada';
+                        statusClass = 'status-expirada';
+                    } else {
+                        statusText = 'Ativa';
+                        statusClass = 'status-ativa';
+                    }
+                } else {
+                    switch(vaga.status) {
+                        case 'ATIVA':
+                            statusText = 'Ativa';
+                            statusClass = 'status-ativa';
+                            break;
+                        case 'CONCLUIDA':
+                            statusText = 'Concluída';
+                            statusClass = 'status-concluida';
+                            break;
+                        case 'INTERROMPIDA':
+                            statusText = 'Interrompida';
+                            statusClass = 'status-interrompida';
+                            break;
+                        default:
+                            statusText = vaga.status || '-';
+                            statusClass = 'status-ativa';
+                    }
+                }
+
+                const statusElement = document.getElementById('detalhe-status');
+                statusElement.textContent = statusText;
+                statusElement.className = 'info-value vaga-status ' + statusClass;
+
+                // Localização
+                document.getElementById('detalhe-referencia').textContent = vaga.localReferencia || 'Não informado';
+
+                // Endereço completo
+                let endereco = '';
+                if (vaga.logradouro) {
+                    endereco += vaga.logradouro;
+                    if (vaga.numero) {
+                        endereco += ', ' + vaga.numero;
+                    }
+                    if (vaga.complemento) {
+                        endereco += ' - ' + vaga.complemento;
+                    }
+                }
+                document.getElementById('detalhe-endereco').textContent = endereco || 'Não informado';
+
+                document.getElementById('detalhe-bairro').textContent = vaga.bairro || 'Não informado';
+                document.getElementById('detalhe-cidade').textContent = vaga.cidade || 'Não informada';
+                document.getElementById('detalhe-estado').textContent = vaga.estado || 'Não informado';
+
+                // Formatar CEP
+                let cepFormatado = vaga.cep || '';
+                if (cepFormatado && cepFormatado.length === 8) {
+                    cepFormatado = cepFormatado.replace(/(\d{5})(\d{3})/, '$1-$2');
+                }
+                document.getElementById('detalhe-cep').textContent = cepFormatado || 'Não informado';
+
+                // Descrição
+                document.getElementById('detalhe-descricao').textContent = vaga.descri || 'Sem descrição';
+
+                // Mostrar modal
+                document.getElementById('detalhesModal').style.display = 'block';
+            })
+            .catch(error => {
+                console.error('Erro:', error);
+                alert('Erro ao carregar detalhes da vaga.');
+            });
+    }
+
+    function alterarStatusVaga(id, novoStatus) {
+        const statusTexto = {
+            'ATIVA': 'ativar',
+            'INTERROMPIDA': 'desativar',
+            'CONCLUIDA': 'concluir'
+        };
+
+        const acao = statusTexto[novoStatus] || 'alterar status da';
+
+        if (confirm(`Tem certeza que deseja ${acao} esta vaga?`)) {
+            fetch(`/vagas/${id}/status`, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: `status=${novoStatus}`
+            })
+                .then(response => response.text())
+                .then(data => {
+                    if (data.includes('atualizado')) {
+                        alert('Status da vaga atualizado com sucesso!');
+                        window.location.reload();
+                    } else {
+                        alert('Erro ao alterar status: ' + data);
+                    }
+                })
+                .catch(error => {
+                    console.error('Erro:', error);
+                    alert('Erro ao alterar status da vaga. Tente novamente.');
+                });
+        }
+    }
+
+    function excluirVaga(id, nome) {
+        if (confirm(`Tem certeza que deseja excluir a vaga "${nome}"?\n\nEsta ação não pode ser desfeita.`)) {
+            fetch(`/vagas/${id}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            })
+                .then(response => {
+                    if (response.ok) {
+                        alert('Vaga excluída com sucesso!');
+                        window.location.reload();
+                    } else {
+                        alert('Erro ao excluir vaga. Tente novamente.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Erro:', error);
+                    alert('Erro ao excluir vaga. Tente novamente.');
+                });
+        }
+    }
+
+    // Verificar status das vagas baseado na data (executar quando a página carregar)
+    document.addEventListener('DOMContentLoaded', function() {
+        console.log('Sistema de vagas carregado');
+
+        // Atualizar status das vagas baseado na data
+        const statusElements = document.querySelectorAll('.vaga-status[data-status][data-data]');
+        statusElements.forEach(element => {
+            const status = element.getAttribute('data-status');
+            const dataVaga = element.getAttribute('data-data');
+
+            if (status === 'ATIVA' && dataVaga) {
+                const hoje = new Date().toDateString();
+                const dataVagaDate = new Date(dataVaga);
+                const hojeDate = new Date();
+
+                if (dataVaga === hoje.split('T')[0] || dataVagaDate.toDateString() === hoje) {
+                    // Vaga está acontecendo hoje
+                    element.textContent = 'Em Andamento';
+                    element.className = 'vaga-status status-andamento';
+                } else if (dataVagaDate < hojeDate) {
+                    // Vaga já passou da data
+                    element.textContent = 'Expirada';
+                    element.className = 'vaga-status status-expirada';
+                }
+                // Se for futura, mantém como "Ativa"
+            }
+        });
+    });
+</script>
 </body>
 </html>

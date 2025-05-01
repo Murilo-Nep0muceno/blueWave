@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blue Wave - Editar Vaga</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', 'Roboto', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        body {
+            height: 100vh;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        nav.menu-lateral {
+            width: 80px;
+            height: 100vh;
+            background: linear-gradient(180deg, #00A8FF 0%, #0078D4 100%);
+            padding: 20px 0;
+            box-shadow: 0 0 30px rgba(0, 168, 255, 0.3);
+            position: fixed;
+            top: 0;
+            left: 0;
+            overflow: hidden;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 1000;
+        }
+
+        nav.menu-lateral:hover {
+            width: 280px;
+            box-shadow: 0 0 40px rgba(0, 168, 255, 0.4);
+        }
+
+        .title {
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+            margin-bottom: 30px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 20px;
+        }
+
+        .title h1 {
+            display: none;
+            margin-left: 15px;
+            color: white;
+            font-size: 20px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        nav.menu-lateral:hover .title h1 {
+            display: block;
+            animation: fadeInSlide 0.3s ease-out;
+        }
+
+        @keyframes fadeInSlide {
+            from {
+                opacity: 0;
+                transform: translateX(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        ul {
+            list-style: none;
+            padding: 0 10px;
+        }
+
+        ul li.item-menu {
+            margin-bottom: 8px;
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        ul li.item-menu:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateX(5px);
+        }
+
+        ul li.item-menu a {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            padding: 16px 20px;
+            display: flex;
+            align-items: center;
+            transition: all 0.3s ease;
+            border-radius: 12px;
+        }
+
+        ul li.item-menu a .icon > i {
+            font-size: 24px;
+            width: 24px;
+            text-align: center;
+        }
+
+        ul li.item-menu a .txt-link {
+            margin-left: 20px;
+            white-space: nowrap;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            font-weight: 500;
+        }
+
+        nav.menu-lateral:hover .txt-link {
+            opacity: 1;
+        }
+
+        /* Estilo para o item de menu ativo */
+        ul li.item-menu a[style*="background-color"] {
+            background: rgba(255, 255, 255, 0.2) !important;
+            border-left: 4px solid white;
+        }
+
+        .conteudo {
+            margin-left: 80px;
+            transition: margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            min-height: 100vh;
+        }
+
+        nav.menu-lateral:hover ~ .conteudo {
+            margin-left: 280px;
+        }
+
+        #header-bg {
+            background: linear-gradient(135deg, #003366 0%, #004080 100%);
+            padding: 20px 30px;
+            box-shadow: 0 2px 20px rgba(0, 51, 102, 0.3);
+        }
+
+        #header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: white;
+        }
+
+        #logo {
+            font-size: 24px;
+            color: white;
+            text-decoration: none;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        .form-container {
+            margin: 40px auto;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            padding: 40px;
+            max-width: 800px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            border-radius: 20px;
+            position: relative;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .page-title {
+            color: #003366;
+            margin-bottom: 30px;
+            font-size: 28px;
+            text-align: center;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #003366;
+            font-size: 15px;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid #e1e5e9;
+            border-radius: 12px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            background: #fafbfc;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #00A8FF;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(0, 168, 255, 0.1);
+            transform: translateY(-1px);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+            max-height: 200px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .file-input-container {
+            position: relative;
+            display: inline-block;
+            width: 100%;
+        }
+
+        .file-input {
+            position: absolute;
+            opacity: 0;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+        }
+
+        .file-input-label {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            border: 2px dashed #00A8FF;
+            border-radius: 12px;
+            background: rgba(0, 168, 255, 0.05);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            min-height: 80px;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .file-input-label:hover {
+            border-color: #0078D4;
+            background: rgba(0, 168, 255, 0.1);
+            transform: translateY(-1px);
+        }
+
+        .file-input-label.has-file {
+            border-style: solid;
+            border-color: #00A8FF;
+            background: rgba(0, 168, 255, 0.1);
+        }
+
+        .file-input-label i {
+            font-size: 24px;
+            color: #00A8FF;
+        }
+
+        .current-image {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .current-image img {
+            max-width: 300px;
+            max-height: 200px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            border: 3px solid #f0f0f0;
+        }
+
+        .btn {
+            padding: 16px 32px;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            text-align: center;
+            transition: all 0.3s ease;
+            margin: 5px;
+            min-width: 180px;
+            justify-content: center;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #00A8FF 0%, #0078D4 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(0, 168, 255, 0.3);
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #0078D4 0%, #005a9f 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 168, 255, 0.4);
+        }
+
+        .btn-primary:active {
+            transform: translateY(0);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, #6c757d 0%, #5a6268 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(108, 117, 125, 0.3);
+        }
+
+        .btn-secondary:hover {
+            background: linear-gradient(135deg, #5a6268 0%, #495057 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(108, 117, 125, 0.4);
+        }
+
+        .form-actions {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            color: #00A8FF;
+            font-weight: 500;
+            margin-top: 20px;
+            padding: 12px;
+            background: rgba(0, 168, 255, 0.1);
+            border-radius: 12px;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        .loading i {
+            font-size: 24px;
+            color: #00A8FF;
+            animation: spin 1s linear infinite;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .alert {
+            padding: 15px 20px;
+            margin-bottom: 20px;
+            border-radius: 12px;
+            border: 1px solid transparent;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 500;
+        }
+
+        .alert-success {
+            color: #155724;
+            background: rgba(39, 174, 96, 0.1);
+            border-color: #27ae60;
+            border-left: 4px solid #27ae60;
+        }
+
+        .alert-danger {
+            color: #721c24;
+            background: rgba(231, 76, 60, 0.1);
+            border-color: #e74c3c;
+            border-left: 4px solid #e74c3c;
+        }
+
+        .required {
+            color: #e74c3c;
+        }
+
+        .file-info {
+            font-size: 12px;
+            color: #666;
+            margin-top: 8px;
+            font-style: italic;
+        }
+
+        /* Responsividade melhorada */
+        @media (max-width: 768px) {
+            nav.menu-lateral {
+                width: 60px;
+            }
+
+            nav.menu-lateral:hover {
+                width: 250px;
+            }
+
+            .conteudo {
+                margin-left: 60px;
+            }
+
+            nav.menu-lateral:hover ~ .conteudo {
+                margin-left: 250px;
+            }
+
+            .form-container {
+                margin: 20px;
+                padding: 30px 20px;
+                max-width: none;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .form-actions {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+                margin: 5px 0;
+            }
+
+            #header-bg {
+                padding: 15px 20px;
+            }
+
+            #logo {
+                font-size: 18px;
+            }
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+<!-- Menu lateral -->
+<nav class="menu-lateral">
+    <div class="title">
+        <img src="/css/images/logo_blue_white.png" width="50" height="50" alt="Logo Blue Wave" onerror="this.style.display='none';" />
+        <h1>Blue Wave</h1>
+    </div>
+    <ul>
+        <li class="item-menu">
+            <a href="/vagas/listaVaga">
+                <span class="icon"><i class="bi bi-briefcase"></i></span>
+                <span class="txt-link">Listar Vagas</span>
+            </a>
+        </li>
+        <li class="item-menu">
+            <a href="/vagas/homeOng">
+                <span class="icon"><i class="bi bi-person-add"></i></span>
+                <span class="txt-link">Cadastrar Vagas</span>
+            </a>
+        </li>
+
+        <li class="item-menu">
+            <a href="#">
+                <span class="icon"><i class="bi bi-megaphone"></i></span>
+                <span class="txt-link">Reports</span>
+            </a>
+        </li>
+    </ul>
+</nav>
+
+<!-- Conteúdo principal -->
+<div class="conteudo">
+    <div id="header-bg">
+        <header id="header">
+            <a id="logo" href="/">Editar Vaga</a>
+        </header>
+    </div>
+
+    <div class="form-container">
+        <h1 class="page-title">
+            <i class="bi bi-pencil-square"></i>
+            Editar Vaga
+        </h1>
+
+        <!-- Alertas de sucesso/erro -->
+        <div id="alert-container"></div>
+
+        <form id="editarVagaForm" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="nome">Nome da Vaga <span class="required">*</span></label>
+                <input type="text" id="nome" name="nome" required
+                       th:value="${vaga?.nome}"
+                       placeholder="Digite o nome da vaga">
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="quantidade">Quantidade de Vagas <span class="required">*</span></label>
+                    <input type="number" id="quantidade" name="quantidade" min="1" required
+                           th:value="${vaga?.quantidade}"
+                           placeholder="Ex: 5">
+                </div>
+                <div class="form-group">
+                    <label for="data">Data da Vaga <span class="required">*</span></label>
+                    <input type="date" id="data" name="data" required
+                           th:value="${vaga?.data}">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="descri">Descrição da Vaga</label>
+                <textarea id="descri" name="descri"
+                          th:text="${vaga?.descri}"
+                          placeholder="Descreva as atividades, requisitos e informações importantes sobre a vaga..."></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="imagem">Nova Imagem (opcional)</label>
+                <div class="file-input-container">
+                    <input type="file" id="imagem" name="imagem" class="file-input" accept="image/*">
+                    <label for="imagem" class="file-input-label">
+                        <i class="bi bi-cloud-upload"></i>
+                        <span id="file-label-text">Clique para selecionar uma nova imagem ou arraste aqui</span>
+                    </label>
+                </div>
+                <div class="file-info">
+                    Formatos aceitos: JPG, PNG, GIF. Tamanho máximo: 5MB
+                </div>
+
+                <!-- Imagem atual -->
+                <div class="current-image" th:if="${vaga?.imagemPath}">
+                    <p style="margin-bottom: 10px; color: #666; font-weight: 500;">Imagem atual:</p>
+                    <img th:src="${vaga.imagemPath}" th:alt="${vaga.nome}"
+                         onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                    <div style="display: none; color: #999;">
+                        <i class="bi bi-image"></i> Imagem não encontrada
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary">
+                    <i class="bi bi-check-circle"></i>
+                    Salvar Alterações
+                </button>
+                <a href="/vagas/listaVaga" class="btn btn-secondary">
+                    <i class="bi bi-arrow-left"></i>
+                    Voltar para Lista
+                </a>
+            </div>
+
+            <div class="loading" id="loading">
+                <i class="bi bi-arrow-clockwise"></i>
+                <p>Salvando alterações...</p>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    // Obtém o ID da vaga da URL
+    const vagaId = window.location.pathname.split('/').pop();
+
+    // Manipulação do input de arquivo
+    document.getElementById('imagem').addEventListener('change', function(e) {
+        const file = e.target.files[0];
+        const label = document.getElementById('file-label-text');
+        const fileLabel = document.querySelector('.file-input-label');
+
+        if (file) {
+            label.textContent = `Arquivo selecionado: ${file.name}`;
+            fileLabel.classList.add('has-file');
+        } else {
+            label.textContent = 'Clique para selecionar uma nova imagem ou arraste aqui';
+            fileLabel.classList.remove('has-file');
+        }
+    });
+
+    // Drag and drop para o input de arquivo
+    const fileInputLabel = document.querySelector('.file-input-label');
+
+    ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+        fileInputLabel.addEventListener(eventName, preventDefaults, false);
+    });
+
+    function preventDefaults(e) {
+        e.preventDefault();
+        e.stopPropagation();
+    }
+
+    ['dragenter', 'dragover'].forEach(eventName => {
+        fileInputLabel.addEventListener(eventName, highlight, false);
+    });
+
+    ['dragleave', 'drop'].forEach(eventName => {
+        fileInputLabel.addEventListener(eventName, unhighlight, false);
+    });
+
+    function highlight(e) {
+        fileInputLabel.style.borderColor = '#0078D4';
+        fileInputLabel.style.backgroundColor = 'rgba(0, 168, 255, 0.15)';
+        fileInputLabel.style.transform = 'translateY(-2px)';
+    }
+
+    function unhighlight(e) {
+        fileInputLabel.style.borderColor = '#00A8FF';
+        fileInputLabel.style.backgroundColor = 'rgba(0, 168, 255, 0.05)';
+        fileInputLabel.style.transform = 'translateY(0)';
+    }
+
+    fileInputLabel.addEventListener('drop', handleDrop, false);
+
+    function handleDrop(e) {
+        const dt = e.dataTransfer;
+        const files = dt.files;
+
+        if (files.length > 0) {
+            document.getElementById('imagem').files = files;
+            document.getElementById('imagem').dispatchEvent(new Event('change'));
+        }
+    }
+
+    // Submissão do formulário
+    document.getElementById('editarVagaForm').addEventListener('submit', async function(e) {
+        e.preventDefault();
+
+        const loading = document.getElementById('loading');
+        const submitBtn = document.querySelector('button[type="submit"]');
+
+        loading.style.display = 'block';
+        submitBtn.disabled = true;
+
+        try {
+            const formData = new FormData(this);
+
+            const response = await fetch(`/vagas/${vagaId}/com-imagem`, {
+                method: 'PUT',
+                body: formData
+            });
+
+            const responseText = await response.text();
+
+            if (response.ok) {
+                showAlert('success', 'Vaga atualizada com sucesso!');
+                setTimeout(() => {
+                    window.location.href = '/vagas/listaVaga';
+                }, 2000);
+            } else {
+                showAlert('error', responseText || 'Erro ao atualizar vaga');
+            }
+        } catch (error) {
+            console.error('Erro:', error);
+            showAlert('error', 'Erro de conexão. Tente novamente.');
+        } finally {
+            loading.style.display = 'none';
+            submitBtn.disabled = false;
+        }
+    });
+
+    function showAlert(type, message) {
+        const alertContainer = document.getElementById('alert-container');
+        const alertClass = type === 'success' ? 'alert-success' : 'alert-danger';
+        const icon = type === 'success' ? 'bi-check-circle' : 'bi-exclamation-triangle';
+
+        alertContainer.innerHTML = `
+                <div class="alert ${alertClass}">
+                    <i class="bi ${icon}"></i>
+                    ${message}
+                </div>
+            `;
+
+        // Remove o alerta após 5 segundos
+        setTimeout(() => {
+            alertContainer.innerHTML = '';
+        }, 5000);
+    }
+
+    // Carrega os dados da vaga se não vieram pelo Thymeleaf
+    if (!document.getElementById('nome').value && vagaId && vagaId !== 'editar') {
+        // Aqui você pode fazer uma requisição AJAX para buscar os dados da vaga
+        // se eles não estiverem sendo passados pelo controller
+        console.log('ID da vaga:', vagaId);
+    }
+</script>
+</body>
+</html>

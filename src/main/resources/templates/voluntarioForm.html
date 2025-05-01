@@ -3,100 +3,859 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blue Wave</title>
+    <title>Blue Wave - Cadastro Voluntário</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" th:href="@{/css/style.css}" href="/static/css/style.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #0ea5e9, #0284c7);
+            min-height: 100vh;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('../static/css/images/praia1.jpeg') repeat;
+            z-index: -1;
+        }
+
+        #header-bg {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        #header {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        #logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #0ea5e9;
+            text-decoration: none;
+            letter-spacing: 1px;
+        }
+
+        #nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        #nav a {
+            color: #0ea5e9;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+        }
+
+        #nav a:hover {
+            background: #f1f5f9;
+            color: #0284c7;
+            transform: translateY(-2px);
+        }
+
+        #btn-mobile {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        #hambuger {
+            display: block;
+            width: 25px;
+            height: 2px;
+            background: #0ea5e9;
+            position: relative;
+        }
+
+        #hambuger::before,
+        #hambuger::after {
+            content: '';
+            display: block;
+            width: 25px;
+            height: 2px;
+            background: #0ea5e9;
+            position: absolute;
+        }
+
+        #hambuger::before {
+            top: -8px;
+        }
+
+        #hambuger::after {
+            bottom: -8px;
+        }
+
+        /* Container do formulário */
+        #form-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 3rem 2rem;
+            min-height: calc(100vh - 80px);
+        }
+
+        #form-cadastro {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 3rem;
+            max-width: 500px;
+            width: 100%;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            animation: fadeInUp 0.5s ease;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        #form-cadastro h1 {
+            color: #1e293b;
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        #form-cadastro .form-group {
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .label {
+            display: block;
+            color: #374151;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="password"],
+        input[type="date"],
+        select {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 2px solid #e5e7eb;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: white;
+            font-family: 'Inter', sans-serif;
+        }
+
+        input:focus,
+        select:focus {
+            outline: none;
+            border-color: #0ea5e9;
+            box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.1);
+        }
+
+        input::placeholder {
+            color: #9ca3af;
+        }
+
+        select {
+            cursor: pointer;
+        }
+
+        .error {
+            display: none;
+            background: #fee2e2;
+            color: #dc2626;
+            padding: 0.5rem;
+            border-radius: 8px;
+            margin-bottom: 0.5rem;
+            font-size: 0.85rem;
+            text-align: center;
+        }
+
+        .error.show {
+            display: block;
+        }
+
+        .success {
+            display: none;
+            background: #dcfce7;
+            color: #059669;
+            padding: 0.75rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            text-align: center;
+        }
+
+        .success.show {
+            display: block;
+        }
+
+        /* Alerta de erro geral */
+        .alert-error {
+            display: none;
+            background: #fee2e2;
+            border: 1px solid #fecaca;
+            color: #dc2626;
+            padding: 1rem;
+            border-radius: 10px;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            font-weight: 500;
+        }
+
+        .alert-error.show {
+            display: block;
+        }
+
+        #btn-cadastro {
+            width: 100%;
+            padding: 0.75rem;
+            background: linear-gradient(135deg, #0ea5e9, #0284c7);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Inter', sans-serif;
+        }
+
+        #btn-cadastro:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(14, 165, 233, 0.3);
+        }
+
+        #btn-cadastro:active {
+            transform: translateY(0);
+        }
+
+        #btn-cadastro:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+
+        /* Loading spinner */
+        .loading {
+            display: none;
+            text-align: center;
+            margin-top: 1rem;
+        }
+
+        .spinner {
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #0ea5e9;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Validação visual */
+        input.invalid,
+        select.invalid {
+            border-color: #dc2626;
+            box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.1);
+        }
+
+        input.valid,
+        select.valid {
+            border-color: #059669;
+            box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.1);
+        }
+
+        /* Responsivo */
+        @media (max-width: 768px) {
+            #nav ul {
+                display: none;
+            }
+
+            #btn-mobile {
+                display: block;
+            }
+
+            #header {
+                padding: 1rem;
+            }
+
+            #form-container {
+                padding: 2rem 1rem;
+            }
+
+            #form-cadastro {
+                padding: 2rem 1.5rem;
+            }
+
+            #logo {
+                font-size: 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            #form-cadastro {
+                padding: 1.5rem 1rem;
+            }
+
+            #form-cadastro h1 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
 </head>
 <body>
-    <div id="header-bg">
-        <header id="header">
-          <a id="logo" href="/">BLUE WAVE</a>
-          <nav id="nav">
+<div id="header-bg">
+    <header id="header">
+        <a id="logo" href="/">BLUE WAVE</a>
+        <nav id="nav">
             <button id="btn-mobile">
-              <span id="hambuger"></span>
+                <span id="hambuger"></span>
             </button>
-           
+
             <ul id="menu">
-              <li><a href="">Quem Somos?</a></li>
-              <li><a href="/ongForm">Sou um ONG</a></li>
-              <li><a href="/voluntarioForm">Quero ser voluntário</a></li>
-              <li><a href="/login">Entrar</a></li>
+                <li><a href="/quemSomoss">Quem Somos?</a></li>
+                <li><a href="/ongForm">Sou uma ONG</a></li>
+                <li><a href="/voluntarioForm">Quero ser voluntário</a></li>
+                <li><a href="/login">Entrar</a></li>
             </ul>
-          </nav>
-        </header>
-      </div>
-      
-      <section id="img-back">
-        <img th:src="@{/css/images/praia1.jpeg}" src="/static/css/images/praia1.jpeg" alt="">
-      </section>
+        </nav>
+    </header>
+</div>
 
-      <section id="form-container">
-        <!-- onsubmit="send(event)" -->
-        <form onsubmit="form1(event)"  id="form-cadastro" >
-          <h1>Cadastro BlueWave</h1>
-      
-          <div>
-              <label id="error_name" class="error">Nome Invalido</label>
-              <label class="label" for="nomeVoluntario">Nome Completo</label>
-              <input type="text" id="nomeVoluntario" name="nomeVoluntario" onchange="nomeValid()" placeholder="Digite seu nome completo">
-          </div>
-      
-          <div>
-              <label id="error_cpf" class="error">Cpf Invalido</label>
-              <label class="label" for="cpf">CPF</label>
-              <input type="text" onchange="cpfValid()" id="cpf" name="cpf"  placeholder="Ex: 12345678901" title="CPF inválido. Exemplo: 12345678901">
-          </div>
-      
-          <div>
-            <label id="error_email" class="error">Email Invalido</label>
-              <label class="label" for="email">Email</label>
-              <input type="email" onchange="emailValid()" id="email" name="email"  placeholder="Digite seu e-mail" maxlength="100">
-          </div>
-      
-          <div>
-            <label id="error_senha" class="error">senha Invalida</label>
-              <label class="label" for="senha">Senha</label>
-              <input onchange="senhaValid()"  type="password" id="senha" name="senha"  minlength="8" placeholder="Senha com no mínimo 8 caracteres">
-          </div>
+<section id="form-container">
+    <form id="form-cadastro">
+        <h1>Cadastro de Voluntário BlueWave</h1>
 
-          <div>
-            <label id="error_senhaConfirmar" class="error">senha Diferente</label>
-              <label class="label" for="senha">Confirme sua Senha</label>
-              <input onchange="senhaConfirmaValid()" type="password" id="senhaConfirmar" name="senha"  minlength="8" placeholder="Senha com no mínimo 8 caracteres">
-          </div>
-      
-          <div>
-            <label id="error_telefone" class="error">Telefone Invalido</label>
-              <label class="label" for="telefone">Telefone</label>
-              <input onchange="telefoneValid()" type="tel" id="telefone" name="telefone"  placeholder="Ex: 11987654321" title="Número de telefone inválido. Exemplo: 11987654321">
-          </div>
-      
-          <div>
-            <label id="error_data" class="error">Data Invalida</label>
-              <label class="label" for="dataNascimento">Data de Nascimento</label>
-              <input onchange="validaData()" type="date" id="dataNascimento" name="dataNascimento" >
-          </div>
-      
-          <div id="genero">
-              <label class="label" for="sexo">Selecione o Gênero</label>
-              <select name="sexo" id="sexo" required>
-                  <option value="masculino">Masculino</option>
-                  <option value="feminino">Feminino</option>
-                  <option value="indefinido">Indefinido</option>
-              </select>
-          </div>
-      
-          <div>
-              <button  type="submit" id="btn-cadastro">Cadastrar</button>
-          </div>
-      </form>
-      
-        
-      </section>
+        <div id="alert-error" class="alert-error">
+            <strong>Erro!</strong> <span id="error-message">Ocorreu um erro ao processar sua solicitação.</span>
+        </div>
 
-  </body>
-  <script  src="/static/scripts/main.js" th:src="@{/scripts/main.js}" ></script>
+        <div id="success-message" class="success">
+            Voluntário cadastrado com sucesso! Você será redirecionado em breve...
+        </div>
 
+        <div class="form-group">
+            <label id="error_nome" class="error">Nome deve ter pelo menos 3 caracteres</label>
+            <label class="label" for="nomeVoluntario">Nome Completo</label>
+            <input type="text" id="nomeVoluntario" name="nomeVoluntario" placeholder="Digite seu nome completo" required>
+        </div>
+
+        <div class="form-group">
+            <label id="error_cpf" class="error">CPF deve ter exatamente 11 dígitos</label>
+            <label class="label" for="cpf">CPF</label>
+            <input type="text" id="cpf" name="cpf" placeholder="Digite apenas os números: 12345678901" required>
+        </div>
+
+        <div class="form-group">
+            <label id="error_email" class="error">Email inválido</label>
+            <label class="label" for="email">Email</label>
+            <input type="email" id="email" name="email" placeholder="Digite seu e-mail" required>
+        </div>
+
+        <div class="form-group">
+            <label id="error_senha" class="error">Senha deve ter pelo menos 8 caracteres</label>
+            <label class="label" for="senha">Senha</label>
+            <input type="password" id="senha" name="senha" placeholder="Senha com no mínimo 8 caracteres" required>
+        </div>
+
+        <div class="form-group">
+            <label id="error_senhaConfirmar" class="error">Senhas não coincidem</label>
+            <label class="label" for="senhaConfirmar">Confirme sua Senha</label>
+            <input type="password" id="senhaConfirmar" name="senhaConfirmar" placeholder="Confirme sua senha" required>
+        </div>
+
+        <div class="form-group">
+            <label id="error_telefone" class="error">Telefone deve ter 10 ou 11 dígitos</label>
+            <label class="label" for="telefone">Telefone</label>
+            <input type="text" id="telefone" name="telefone" placeholder="Digite apenas os números: 11987654321" required>
+        </div>
+
+        <div class="form-group">
+            <label id="error_data" class="error">Idade deve estar entre 16 e 100 anos</label>
+            <label class="label" for="dataNascimento">Data de Nascimento</label>
+            <input type="date" id="dataNascimento" name="dataNascimento" required>
+        </div>
+
+        <div class="form-group">
+            <label class="label" for="sexo">Selecione o Gênero</label>
+            <select name="sexo" id="sexo" required>
+                <option value="">Selecione...</option>
+                <option value="masculino">Masculino</option>
+                <option value="feminino">Feminino</option>
+                <option value="indefinido">Indefinido</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <button type="submit" id="btn-cadastro">Cadastrar</button>
+        </div>
+
+        <div class="loading" id="loading">
+            <div class="spinner"></div>
+            <p>Cadastrando voluntário...</p>
+        </div>
+    </form>
+</section>
+
+<script>
+    function mostrarAlertaErro(mensagem) {
+        const alertError = document.getElementById('alert-error');
+        const errorMessage = document.getElementById('error-message');
+        errorMessage.textContent = mensagem;
+        alertError.classList.add('show');
+
+        setTimeout(() => {
+            alertError.classList.remove('show');
+        }, 5000);
+    }
+
+    function mostrarErrosCampos(errors) {
+        Object.keys(errors).forEach(campo => {
+            const errorElement = document.getElementById(`error_${campo}`);
+            const inputElement = document.getElementById(campo);
+
+            if (errorElement && inputElement) {
+                mostrarErro(errorElement, inputElement);
+            }
+        });
+    }
+
+    // Função para mostrar erro em campo específico (NOVA)
+    function mostrarErroCampo(campo, mensagem) {
+        const errorElement = document.getElementById(`error_${campo}`);
+        const inputElement = document.getElementById(campo);
+
+        if (errorElement && inputElement) {
+            errorElement.textContent = mensagem;
+            mostrarErro(errorElement, inputElement);
+        }
+    }
+
+    function somenteNumeros(valor) {
+        return valor.replace(/\D/g, '');
+    }
+
+    function validarCPF(cpf) {
+        cpf = cpf.replace(/\D/g, '');
+
+        if (cpf.length !== 11 || /^(\d)\1{10}$/.test(cpf)) {
+            return false;
+        }
+
+        let soma = 0;
+        for (let i = 0; i < 9; i++) {
+            soma += parseInt(cpf.charAt(i)) * (10 - i);
+        }
+        let resto = 11 - (soma % 11);
+        if (resto === 10 || resto === 11) resto = 0;
+        if (resto !== parseInt(cpf.charAt(9))) return false;
+
+        soma = 0;
+        for (let i = 0; i < 10; i++) {
+            soma += parseInt(cpf.charAt(i)) * (11 - i);
+        }
+        resto = 11 - (soma % 11);
+        if (resto === 10 || resto === 11) resto = 0;
+        return resto === parseInt(cpf.charAt(10));
+    }
+
+    function avaliarForcaSenha(senha) {
+        let pontos = 0;
+
+        if (senha.length >= 8) pontos++;
+        if (/[a-z]/.test(senha)) pontos++;
+        if (/[A-Z]/.test(senha)) pontos++;
+        if (/[0-9]/.test(senha)) pontos++;
+        if (/[^a-zA-Z0-9]/.test(senha)) pontos++;
+
+        return pontos;
+    }
+
+    function atualizarForcaSenha() {
+        const senha = document.getElementById('senha').value;
+        const strengthBar = document.getElementById('password-strength-bar');
+        const forca = avaliarForcaSenha(senha);
+
+        strengthBar.className = 'password-strength-bar';
+
+        if (forca <= 1) {
+            strengthBar.classList.add('strength-weak');
+        } else if (forca <= 2) {
+            strengthBar.classList.add('strength-fair');
+        } else if (forca <= 3) {
+            strengthBar.classList.add('strength-good');
+        } else {
+            strengthBar.classList.add('strength-strong');
+        }
+    }
+
+    function validarNome() {
+        const nome = document.getElementById('nomeVoluntario');
+        const error = document.getElementById('error_nome');
+        const valor = nome.value.trim();
+
+        if (!valor || valor.length < 3) {
+            mostrarErro(error, nome);
+            return false;
+        } else {
+            esconderErro(error, nome);
+            return true;
+        }
+    }
+
+    function validarCpf() {
+        const cpf = document.getElementById('cpf');
+        const error = document.getElementById('error_cpf');
+        const cpfLimpo = somenteNumeros(cpf.value);
+
+        if (!cpf.value || cpfLimpo.length !== 11 || !validarCPF(cpfLimpo)) {
+            error.textContent = cpfLimpo.length !== 11 ? 'CPF deve ter exatamente 11 dígitos' : 'CPF inválido';
+            mostrarErro(error, cpf);
+            return false;
+        } else {
+            esconderErro(error, cpf);
+            return true;
+        }
+    }
+
+    function validarEmail() {
+        const email = document.getElementById('email');
+        const error = document.getElementById('error_email');
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        const valor = email.value.trim();
+
+        if (!valor || !emailRegex.test(valor)) {
+            mostrarErro(error, email);
+            return false;
+        } else {
+            esconderErro(error, email);
+            return true;
+        }
+    }
+
+    function validarSenha() {
+        const senha = document.getElementById('senha');
+        const error = document.getElementById('error_senha');
+        const valor = senha.value;
+
+        if (!valor || valor.length < 8) {
+            mostrarErro(error, senha);
+            return false;
+        } else {
+            esconderErro(error, senha);
+            return true;
+        }
+    }
+
+    function validarConfirmacaoSenha() {
+        const senha = document.getElementById('senha');
+        const senhaConfirmar = document.getElementById('senhaConfirmar');
+        const error = document.getElementById('error_senhaConfirmar');
+
+        if (!senhaConfirmar.value || senha.value !== senhaConfirmar.value) {
+            mostrarErro(error, senhaConfirmar);
+            return false;
+        } else {
+            esconderErro(error, senhaConfirmar);
+            return true;
+        }
+    }
+
+    function validarTelefone() {
+        const telefone = document.getElementById('telefone');
+        const error = document.getElementById('error_telefone');
+        const telefoneLimpo = somenteNumeros(telefone.value);
+
+        if (!telefone.value || telefoneLimpo.length < 10 || telefoneLimpo.length > 11) {
+            mostrarErro(error, telefone);
+            return false;
+        } else {
+            esconderErro(error, telefone);
+            return true;
+        }
+    }
+
+    function validarData() {
+        const data = document.getElementById('dataNascimento');
+        const error = document.getElementById('error_data');
+
+        if (!data.value) {
+            mostrarErro(error, data);
+            return false;
+        }
+
+        const hoje = new Date();
+        const nascimento = new Date(data.value);
+        const idade = hoje.getFullYear() - nascimento.getFullYear();
+        const mesAtual = hoje.getMonth();
+        const mesNascimento = nascimento.getMonth();
+
+        let idadeReal = idade;
+        if (mesAtual < mesNascimento || (mesAtual === mesNascimento && hoje.getDate() < nascimento.getDate())) {
+            idadeReal--;
+        }
+
+        if (idadeReal < 16 || idadeReal > 100) {
+            mostrarErro(error, data);
+            return false;
+        } else {
+            esconderErro(error, data);
+            return true;
+        }
+    }
+
+    function validarSexo() {
+        const sexo = document.getElementById('sexo');
+
+        if (!sexo.value) {
+            sexo.classList.add('invalid');
+            sexo.classList.remove('valid');
+            return false;
+        } else {
+            sexo.classList.remove('invalid');
+            sexo.classList.add('valid');
+            return true;
+        }
+    }
+
+    function mostrarErro(errorElement, inputElement) {
+        if (errorElement) errorElement.classList.add('show');
+        if (inputElement) {
+            inputElement.classList.add('invalid');
+            inputElement.classList.remove('valid');
+        }
+    }
+
+    function esconderErro(errorElement, inputElement) {
+        if (errorElement) errorElement.classList.remove('show');
+        if (inputElement) {
+            inputElement.classList.remove('invalid');
+            inputElement.classList.add('valid');
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const validadores = {
+            'nomeVoluntario': validarNome,
+            'cpf': validarCpf,
+            'email': validarEmail,
+            'senha': () => {
+                atualizarForcaSenha();
+                return validarSenha();
+            },
+            'senhaConfirmar': validarConfirmacaoSenha,
+            'telefone': validarTelefone,
+            'dataNascimento': validarData,
+            'sexo': validarSexo
+        };
+
+        Object.keys(validadores).forEach(id => {
+            const elemento = document.getElementById(id);
+            if (elemento) {
+                if (id === 'sexo') {
+                    elemento.addEventListener('change', validadores[id]);
+                } else {
+                    elemento.addEventListener('blur', validadores[id]);
+                    if (id === 'senha') {
+                        elemento.addEventListener('input', atualizarForcaSenha);
+                    }
+                }
+            }
+        });
+
+        function configurarSomenteNumeros(inputId, maxLength) {
+            const elemento = document.getElementById(inputId);
+            if (elemento) {
+                elemento.addEventListener('input', function(e) {
+                    let valor = somenteNumeros(e.target.value);
+                    if (maxLength && valor.length > maxLength) {
+                        valor = valor.slice(0, maxLength);
+                    }
+                    e.target.value = valor;
+                });
+            }
+        }
+
+        configurarSomenteNumeros('cpf', 11);
+        configurarSomenteNumeros('telefone', 11);
+
+        const formCadastro = document.getElementById('form-cadastro');
+        if (formCadastro) {
+            formCadastro.addEventListener('submit', async function(e) {
+                e.preventDefault();
+
+                const alertError = document.getElementById('alert-error');
+                const successMessage = document.getElementById('success-message');
+                if (alertError) alertError.classList.remove('show');
+                if (successMessage) successMessage.classList.remove('show');
+
+                const validacoes = [
+                    validarNome(),
+                    validarCpf(),
+                    validarEmail(),
+                    validarSenha(),
+                    validarConfirmacaoSenha(),
+                    validarTelefone(),
+                    validarData(),
+                    validarSexo()
+                ];
+
+                const todosValidos = validacoes.every(v => v === true);
+
+                if (!todosValidos) {
+                    mostrarAlertaErro('Por favor, corrija os erros no formulário antes de continuar.');
+                    return;
+                }
+
+                const elementos = {
+                    nomeVoluntario: document.getElementById('nomeVoluntario'),
+                    cpf: document.getElementById('cpf'),
+                    email: document.getElementById('email'),
+                    senha: document.getElementById('senha'),
+                    telefone: document.getElementById('telefone'),
+                    dataNascimento: document.getElementById('dataNascimento'),
+                    sexo: document.getElementById('sexo')
+                };
+
+                const elementosFaltando = Object.keys(elementos).filter(key => !elementos[key]);
+                if (elementosFaltando.length > 0) {
+                    mostrarAlertaErro('Erro: elementos do formulário não encontrados.');
+                    return;
+                }
+
+                const dadosFormulario = {
+                    nomeVoluntario: elementos.nomeVoluntario.value.trim(),
+                    cpf: somenteNumeros(elementos.cpf.value),
+                    email: elementos.email.value.trim(),
+                    senha: elementos.senha.value,
+                    telefone: somenteNumeros(elementos.telefone.value),
+                    dataNascimento: elementos.dataNascimento.value,
+                    sexo: elementos.sexo.value
+                };
+
+                const camposVazios = Object.keys(dadosFormulario).filter(key => !dadosFormulario[key]);
+                if (camposVazios.length > 0) {
+                    mostrarAlertaErro('Todos os campos são obrigatórios.');
+                    return;
+                }
+
+                const loading = document.getElementById('loading');
+                const btnCadastro = document.getElementById('btn-cadastro');
+                if (loading) loading.style.display = 'block';
+                if (btnCadastro) btnCadastro.disabled = true;
+
+                try {
+                    const response = await fetch('/voluntarioForm', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(dadosFormulario)
+                    });
+
+                    if (response.ok) {
+                        const resultado = await response.json();
+
+                        if (successMessage) {
+                            successMessage.classList.add('show');
+                        }
+
+                        formCadastro.reset();
+
+                        document.querySelectorAll('.error').forEach(error => {
+                            error.classList.remove('show');
+                        });
+                        document.querySelectorAll('input, select').forEach(input => {
+                            input.classList.remove('invalid', 'valid');
+                        });
+
+                        setTimeout(() => {
+                            window.location.href = '/login';
+                        }, 3000);
+
+                    } else {
+                        const errorData = await response.json().catch(() => null);
+
+                        if (errorData) {
+                            // Tratar erros específicos de campos duplicados (CPF, email, telefone já cadastrados)
+                            if (errorData.field) {
+                                mostrarErroCampo(errorData.field, errorData.message);
+                                mostrarAlertaErro(errorData.message);
+                            }
+                            // Tratar erros de validação múltiplos
+                            else if (errorData.errors) {
+                                mostrarErrosCampos(errorData.errors);
+                                mostrarAlertaErro('Por favor, corrija os erros indicados nos campos.');
+                            }
+                            // Tratar mensagem de erro geral
+                            else if (errorData.message) {
+                                mostrarAlertaErro(errorData.message);
+                            }
+                            // Fallback para outros erros
+                            else {
+                                mostrarAlertaErro(`Erro ${response.status}: ${response.statusText}`);
+                            }
+                        } else {
+                            mostrarAlertaErro(`Erro ${response.status}: ${response.statusText}`);
+                        }
+                    }
+
+                } catch (error) {
+                    mostrarAlertaErro('Erro de conexão. Verifique sua internet e tente novamente.');
+                } finally {
+                    if (loading) loading.style.display = 'none';
+                    if (btnCadastro) btnCadastro.disabled = false;
+                }
+            });
+        }
+
+        const btnMobile = document.getElementById('btn-mobile');
+        const menu = document.getElementById('menu');
+
+        if (btnMobile && menu) {
+            btnMobile.addEventListener('click', function() {
+                menu.classList.toggle('active');
+                btnMobile.classList.toggle('active');
+            });
+        }
+    });
+</script>
+</body>
+</html>
 </html>

@@ -1,80 +1,1233 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blue Wave</title>
+    <title>Blue Wave - Cadastrar Vaga</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" th:href="@{/css/style.css}">
-<body>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', 'Roboto', sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        nav.menu-lateral {
+            width: 80px;
+            height: 100vh;
+            background: linear-gradient(180deg, #00A8FF 0%, #0078D4 100%);
+            padding: 20px 0;
+            box-shadow: 0 0 30px rgba(0, 168, 255, 0.3);
+            position: fixed;
+            top: 0;
+            left: 0;
+            overflow: hidden;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+        }
+
+        nav.menu-lateral:hover {
+            width: 280px;
+            box-shadow: 0 0 40px rgba(0, 168, 255, 0.4);
+        }
+
+        .title {
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+            margin-bottom: 30px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 20px;
+        }
+
+        .title h1 {
+            display: none;
+            margin-left: 15px;
+            color: white;
+            font-size: 20px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        nav.menu-lateral:hover .title h1 {
+            display: block;
+            animation: fadeInSlide 0.3s ease-out;
+        }
+
+        @keyframes fadeInSlide {
+            from {
+                opacity: 0;
+                transform: translateX(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .menu-items {
+            flex: 1;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0 10px;
+        }
+
+        ul li.item-menu {
+            margin-bottom: 8px;
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        ul li.item-menu:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateX(5px);
+        }
+
+        ul li.item-menu a {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            padding: 16px 20px;
+            display: flex;
+            align-items: center;
+            transition: all 0.3s ease;
+            border-radius: 12px;
+        }
+
+        ul li.item-menu a .icon > i {
+            font-size: 24px;
+            width: 24px;
+            text-align: center;
+        }
+
+        ul li.item-menu a .txt-link {
+            margin-left: 20px;
+            white-space: nowrap;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            font-weight: 500;
+        }
+
+        nav.menu-lateral:hover .txt-link {
+            opacity: 1;
+        }
+
+        .logout-section {
+            padding: 0 10px;
+            margin-top: auto;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 20px;
+        }
+
+        .logout-item {
+            margin-bottom: 8px;
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .logout-item:hover {
+            background: rgba(255, 76, 76, 0.2);
+            transform: translateX(5px);
+        }
+
+        .logout-item a {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            padding: 16px 20px;
+            display: flex;
+            align-items: center;
+            transition: all 0.3s ease;
+            border-radius: 12px;
+        }
+
+        .logout-item a:hover {
+            color: #ffcccc;
+        }
+
+        .logout-item a .icon > i {
+            font-size: 24px;
+            width: 24px;
+            text-align: center;
+        }
+
+        .logout-item a .txt-link {
+            margin-left: 20px;
+            white-space: nowrap;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            font-weight: 500;
+        }
+
+        nav.menu-lateral:hover .logout-item .txt-link {
+            opacity: 1;
+        }
+
+        .conteudo {
+            margin-left: 80px;
+            transition: margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            min-height: 100vh;
+            padding-bottom: 40px;
+        }
+
+        nav.menu-lateral:hover ~ .conteudo {
+            margin-left: 280px;
+        }
+
+        #header-bg {
+            background: linear-gradient(135deg, #003366 0%, #004080 100%);
+            padding: 20px 30px;
+            box-shadow: 0 2px 20px rgba(0, 51, 102, 0.3);
+        }
+
+        #header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: white;
+        }
+
+        #logo {
+            font-size: 24px;
+            color: white;
+            text-decoration: none;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        form {
+            margin: 40px auto;
+            background: white;
+            padding: 40px;
+            max-width: 800px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            border-radius: 20px;
+            position: relative;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .form-section {
+            margin-bottom: 30px;
+            padding-bottom: 30px;
+            border-bottom: 1px solid #e1e5e9;
+        }
+
+        .form-section:last-child {
+            border-bottom: none;
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #003366;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title i {
+            color: #00A8FF;
+        }
+
+        form label {
+            font-weight: 600;
+            display: block;
+            margin-bottom: 8px;
+            color: #003366;
+            font-size: 15px;
+        }
+
+        form input, textarea, select {
+            width: 100%;
+            padding: 14px 16px;
+            margin-bottom: 20px;
+            border: 2px solid #e1e5e9;
+            border-radius: 12px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            background: #fafbfc;
+            font-family: inherit;
+        }
+
+        form input:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: #00A8FF;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(0, 168, 255, 0.1);
+            transform: translateY(-1px);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .form-row-3 {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 20px;
+        }
+
+        .form-col {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-col.full-width {
+            grid-column: 1 / -1;
+        }
+
+        form input[type="file"] {
+            padding: 12px;
+            background: white;
+            border: 2px dashed #00A8FF;
+            cursor: pointer;
+        }
+
+        form input[type="file"]:hover {
+            background: rgba(0, 168, 255, 0.05);
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            width: auto;
+            margin-right: 10px;
+            margin-bottom: 0;
+        }
+
+        .checkbox-group label {
+            margin-bottom: 0;
+            font-weight: 500;
+        }
+
+        form button {
+            display: block;
+            margin: 30px auto 0;
+            padding: 16px 32px;
+            background: linear-gradient(135deg, #00A8FF 0%, #0078D4 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 168, 255, 0.3);
+            min-width: 200px;
+        }
+
+        form button:hover {
+            background: linear-gradient(135deg, #0078D4 0%, #005a9f 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 168, 255, 0.4);
+        }
+
+        form button:active {
+            transform: translateY(0);
+        }
+
+        form button:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        textarea {
+            margin: 15px 0;
+            height: 120px;
+            resize: vertical;
+            min-height: 80px;
+            max-height: 200px;
+        }
+
+        .file-info {
+            font-size: 12px;
+            color: #666;
+            margin-top: -15px;
+            margin-bottom: 20px;
+            font-style: italic;
+        }
+
+        .preview-container {
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .preview-image {
+            display: none;
+            max-width: 300px;
+            max-height: 200px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            border: 3px solid #f0f0f0;
+        }
+
+        .error {
+            display: none;
+            color: #e74c3c;
+            font-size: 13px;
+            margin-top: -15px;
+            margin-bottom: 15px;
+            padding: 8px 12px;
+            background: rgba(231, 76, 60, 0.1);
+            border-radius: 8px;
+            border-left: 4px solid #e74c3c;
+        }
+
+        .success {
+            display: none;
+            color: #27ae60;
+            font-size: 14px;
+            margin-bottom: 20px;
+            padding: 12px 16px;
+            background: rgba(39, 174, 96, 0.1);
+            border-radius: 8px;
+            border-left: 4px solid #27ae60;
+            font-weight: 500;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            color: #00A8FF;
+            font-weight: 500;
+            margin-top: 20px;
+            padding: 12px;
+            background: rgba(0, 168, 255, 0.1);
+            border-radius: 8px;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 15% auto;
+            padding: 30px;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            animation: modalSlideIn 0.3s ease-out;
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .modal h3 {
+            color: #003366;
+            margin-bottom: 15px;
+            font-size: 20px;
+        }
+
+        .modal p {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 16px;
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+        }
+
+        .btn-confirm, .btn-cancel {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            min-width: 100px;
+        }
+
+        .btn-confirm {
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(231, 76, 60, 0.3);
+        }
+
+        .btn-confirm:hover {
+            background: linear-gradient(135deg, #c0392b 0%, #a93226 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(231, 76, 60, 0.4);
+        }
+
+        .btn-cancel {
+            background: #ecf0f1;
+            color: #7f8c8d;
+            border: 2px solid #bdc3c7;
+        }
+
+        .btn-cancel:hover {
+            background: #d5dbdb;
+            border-color: #95a5a6;
+            color: #5d6d7e;
+        }
+
+        @media (max-width: 768px) {
+            nav.menu-lateral {
+                width: 60px;
+            }
+
+            nav.menu-lateral:hover {
+                width: 250px;
+            }
+
+            .conteudo {
+                margin-left: 60px;
+            }
+
+            nav.menu-lateral:hover ~ .conteudo {
+                margin-left: 250px;
+            }
+
+            form {
+                margin: 20px;
+                padding: 30px 20px;
+                max-width: none;
+            }
+
+            .form-row, .form-row-3 {
+                grid-template-columns: 1fr;
+            }
+
+            #header-bg {
+                padding: 15px 20px;
+            }
+
+            #logo {
+                font-size: 18px;
+            }
+
+            .modal-content {
+                margin: 25% auto;
+                padding: 25px 20px;
+            }
+        }
+
+        .item-menu.active a {
+            background: rgba(255, 255, 255, 0.2) !important;
+            border-left: 4px solid white;
+            box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.1);
+        }
+
+        .item-menu.active a .icon > i {
+            color: #ffffff;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+        }
+
+        .item-menu.active a .txt-link {
+            font-weight: 700;
+            color: #ffffff;
+        }
+
+        form {
+            backdrop-filter: blur(20px);
+            background: rgba(255, 255, 255, 0.95);
+        }
+
+        .help-text {
+            font-size: 12px;
+            color: #666;
+            margin-top: -15px;
+            margin-bottom: 15px;
+            font-style: italic;
+        }
+    </style>
+</head>
+
+<body>
+<nav class="menu-lateral">
+    <div class="title">
+        <img src="/css/images/logo_blue_white.png" width="50" height="50" alt="Logo Blue Wave" onerror="this.style.display='none';" />
+        <h1>Blue Wave</h1>
+    </div>
+
+    <div class="menu-items">
+        <ul>
+            <li class="item-menu">
+                <a href="/vagas/listaVaga">
+                    <span class="icon"><i class="bi bi-briefcase"></i></span>
+                    <span class="txt-link">Listar Vagas</span>
+                </a>
+            </li>
+            <li class="item-menu active">
+                <a href="/vagas/homeOng">
+                    <span class="icon"><i class="bi bi-person-add"></i></span>
+                    <span class="txt-link">Cadastrar Vagas</span>
+                </a>
+            </li>
+            <li class="item-menu">
+                <a href="/vagas/finalizarCadastro">
+                    <span class="icon"><i class="bi bi-building"></i></span>
+                    <span class="txt-link">Finalizar Cadastro</span>
+                </a>
+            </li>
+            <li class="item-menu">
+                <a href="/vagas/perfil">
+                    <span class="icon"><i class="bi bi-person-circle"></i></span>
+                    <span class="txt-link">Perfil da ONG</span>
+                </a>
+            </li>
+            <li class="item-menu">
+                <a href="/vagas/configuracoes">
+                    <span class="icon"><i class="bi bi-gear"></i></span>
+                    <span class="txt-link">Configurações</span>
+                </a>
+            </li>
+            <li class="item-menu">
+                <a href="#">
+                    <span class="icon"><i class="bi bi-megaphone"></i></span>
+                    <span class="txt-link">Mensagens</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="logout-section">
+        <div class="logout-item" onclick="showLogoutModal()">
+            <a href="#" onclick="event.preventDefault()">
+                <span class="icon"><i class="bi bi-box-arrow-right"></i></span>
+                <span class="txt-link">Sair</span>
+            </a>
+        </div>
+    </div>
+</nav>
+
+<!-- Modal de confirmação de logout -->
+<div id="logoutModal" class="modal">
+    <div class="modal-content">
+        <h3>Confirmar Logout</h3>
+        <p>Tem certeza de que deseja sair do sistema?</p>
+        <div class="modal-buttons">
+            <button class="btn-cancel" onclick="hideLogoutModal()">Cancelar</button>
+            <button class="btn-confirm" onclick="confirmLogout()">Sair</button>
+        </div>
+    </div>
+</div>
+
+<div class="conteudo">
     <div id="header-bg">
         <header id="header">
-          <a id="logo" href="/">BLUE WAVE</a>
-          <nav id="nav">
-            <button id="btn-mobile">
-              <span id="hambuger"></span>
-            </button>
-           
-            <ul id="menu">
-              <li><a href="/vagas/listaVaga">Lista Vagas</a></li>
-              <li><a href="/vagas/homeOng">Cadastra Vaga</a></li>
-              
-            </ul>
-          </nav>
+            <a id="logo" href="/">Painel de Controle -- Cadastrar Vagas</a>
         </header>
-      </div>
+    </div>
 
-      <div>
+    <form onsubmit="vaga(event)">
+        <div class="success" id="successMessage"></div>
 
-        <form onsubmit="vaga(event)">
-          <label for="nome" >Nome Da Vaga</label><br>
-          <input type="text" id="nome" placeholder="Nome"><br>
-          <label for="quatidade" >quantidade de vagas</label><br>
-          <input type="text" id="quatidade" placeholder="quatidade"><br>
+        <!-- Seção: Informações Básicas -->
+        <div class="form-section">
+            <h3 class="section-title">
+                <i class="bi bi-info-circle"></i>
+                Informações Básicas
+            </h3>
 
-          <label for="quatidade" >Descrição da vagas</label><br>
-          <input type="text" id="desc" placeholder="descrição"><br>
-          <button type="submit">Cadastra Vaga</button>
-        </form>
-      </div>
-    
-    
-</body>
+            <label for="imagem">Imagem da Vaga *</label>
+            <input type="file" id="imagem" name="imagem" accept="image/*" required onchange="previewImage(this)">
+            <div class="file-info">Formatos aceitos: JPG, PNG, GIF. Tamanho máximo: 5MB</div>
+            <div class="error" id="imagemError"></div>
+
+            <div class="preview-container">
+                <img id="imagePreview" class="preview-image" alt="Preview da imagem">
+            </div>
+
+            <label for="nome">Nome da Vaga *</label>
+            <input type="text" id="nome" placeholder="Nome da vaga" required maxlength="100">
+            <div class="error" id="nomeError"></div>
+
+            <div class="form-row">
+                <div class="form-col">
+                    <label for="quantidade">Quantidade de Vagas *</label>
+                    <input type="number" id="quantidade" placeholder="Quantidade" required min="1" max="1000">
+                    <div class="error" id="quantidadeError"></div>
+                </div>
+                <div class="form-col">
+                    <label for="dataBrasil">Data da Vaga *</label>
+                    <input type="text" id="dataBrasil" placeholder="dd/mm/aaaa" required maxlength="10">
+                    <div class="error" id="dataError"></div>
+                </div>
+            </div>
+
+            <label for="desc">Descrição da Vaga</label>
+            <textarea id="desc" placeholder="Descrição detalhada da vaga..." maxlength="1000"></textarea>
+            <div class="error" id="descError"></div>
+        </div>
+
+        <!-- Seção: Local da Vaga -->
+        <div class="form-section">
+            <h3 class="section-title">
+                <i class="bi bi-geo-alt"></i>
+                Local da Vaga
+            </h3>
+
+            <div class="checkbox-group">
+                <input type="checkbox" id="usarEnderecoOng" name="usarEnderecoOng">
+                <label for="usarEnderecoOng">Usar o endereço da ONG</label>
+            </div>
+
+            <label for="localReferencia">Local de Referência</label>
+            <input type="text" id="localReferencia" placeholder="Ex: Sede da ONG, Parque Municipal, Centro Comunitário..." maxlength="100">
+            <div class="help-text">Nome do local onde a atividade será realizada</div>
+
+            <label for="cep">CEP</label>
+            <input type="text" id="cep" placeholder="00000-000" maxlength="9">
+            <div class="error" id="cepError"></div>
+
+            <div class="form-row">
+                <div class="form-col">
+                    <label for="logradouro">Logradouro</label>
+                    <input type="text" id="logradouro" placeholder="Rua, Avenida, etc." maxlength="100">
+                </div>
+                <div class="form-col">
+                    <label for="numero">Número</label>
+                    <input type="text" id="numero" placeholder="123" maxlength="10">
+                </div>
+            </div>
+
+            <label for="complemento">Complemento</label>
+            <input type="text" id="complemento" placeholder="Apartamento, Sala, etc." maxlength="50">
+
+            <label for="bairro">Bairro</label>
+            <input type="text" id="bairro" placeholder="Nome do bairro" maxlength="50">
+
+            <div class="form-row">
+                <div class="form-col">
+                    <label for="cidade">Cidade</label>
+                    <input type="text" id="cidade" placeholder="Nome da cidade" maxlength="50">
+                </div>
+                <div class="form-col">
+                    <label for="estado">Estado</label>
+                    <select id="estado" name="estado">
+                        <option value="">Selecione o estado</option>
+                        <option value="AC">Acre</option>
+                        <option value="AL">Alagoas</option>
+                        <option value="AP">Amapá</option>
+                        <option value="AM">Amazonas</option>
+                        <option value="BA">Bahia</option>
+                        <option value="CE">Ceará</option>
+                        <option value="DF">Distrito Federal</option>
+                        <option value="ES">Espírito Santo</option>
+                        <option value="GO">Goiás</option>
+                        <option value="MA">Maranhão</option>
+                        <option value="MT">Mato Grosso</option>
+                        <option value="MS">Mato Grosso do Sul</option>
+                        <option value="MG">Minas Gerais</option>
+                        <option value="PA">Pará</option>
+                        <option value="PB">Paraíba</option>
+                        <option value="PR">Paraná</option>
+                        <option value="PE">Pernambuco</option>
+                        <option value="PI">Piauí</option>
+                        <option value="RJ">Rio de Janeiro</option>
+                        <option value="RN">Rio Grande do Norte</option>
+                        <option value="RS">Rio Grande do Sul</option>
+                        <option value="RO">Rondônia</option>
+                        <option value="RR">Roraima</option>
+                        <option value="SC">Santa Catarina</option>
+                        <option value="SP">São Paulo</option>
+                        <option value="SE">Sergipe</option>
+                        <option value="TO">Tocantins</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="loading" id="loading">Cadastrando vaga, aguarde...</div>
+        <button type="submit" id="submitBtn">Cadastrar Vaga</button>
+    </form>
+</div>
+
 <script>
-  async function vaga(event) {
-    event.preventDefault();
-
-    const nome = document.getElementById("nome").value;
-    const quantidade = document.getElementById("quatidade").value;
-    const descricao = document.getElementById("desc").value;
-
-    const vagaData = {
-      nome: nome,
-      quantidade: quantidade,
-      descri: descricao
+    // Dados da ONG (serão preenchidos pelo Thymeleaf)
+    const ongData = {
+        logradouro: /*[[${ong?.logradouro}]]*/ '',
+        numero: /*[[${ong?.numero}]]*/ '',
+        complemento: /*[[${ong?.complemento}]]*/ '',
+        bairro: /*[[${ong?.bairro}]]*/ '',
+        cidade: /*[[${ong?.cidade}]]*/ '',
+        estado: /*[[${ong?.estado}]]*/ '',
+        cep: /*[[${ong?.cep}]]*/ ''
     };
 
-    try {
-      const response = await fetch("http://localhost:8080/vagas/homeOng", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(vagaData)
-      });
-
-      if (response.ok) {
-        alert("Vaga cadastrada com sucesso!");
-      } else {
-        alert("Erro ao cadastrar vaga.");
-      }
-    } catch (error) {
-      console.error("Erro na requisição:", error);
-      alert("Erro na requisição.");
+    // Funções de logout
+    function showLogoutModal() {
+        document.getElementById('logoutModal').style.display = 'block';
     }
-  }
+
+    function hideLogoutModal() {
+        document.getElementById('logoutModal').style.display = 'none';
+    }
+
+    function confirmLogout() {
+        window.location.href = '/login/logout';
+    }
+
+    // Fecha o modal se clicar fora dele
+    window.onclick = function(event) {
+        const modal = document.getElementById('logoutModal');
+        if (event.target === modal) {
+            hideLogoutModal();
+        }
+    }
+
+    // Função para preview da imagem
+    function previewImage(input) {
+        const preview = document.getElementById('imagePreview');
+        const errorDiv = document.getElementById('imagemError');
+
+        if (input.files && input.files[0]) {
+            const file = input.files[0];
+
+            // Validações
+            if (!file.type.startsWith('image/')) {
+                showError('imagemError', 'Por favor, selecione apenas arquivos de imagem.');
+                input.value = '';
+                preview.style.display = 'none';
+                return;
+            }
+
+            if (file.size > 5 * 1024 * 1024) { // 5MB
+                showError('imagemError', 'A imagem deve ter no máximo 5MB.');
+                input.value = '';
+                preview.style.display = 'none';
+                return;
+            }
+
+            hideError('imagemError');
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                preview.src = e.target.result;
+                preview.style.display = 'block';
+            };
+            reader.readAsDataURL(file);
+        } else {
+            preview.style.display = 'none';
+        }
+    }
+
+    // Função para mostrar erro
+    function showError(elementId, message) {
+        const errorDiv = document.getElementById(elementId);
+        errorDiv.textContent = message;
+        errorDiv.style.display = 'block';
+    }
+
+    // Função para esconder erro
+    function hideError(elementId) {
+        const errorDiv = document.getElementById(elementId);
+        errorDiv.style.display = 'none';
+    }
+
+    // Função para mostrar sucesso
+    function showSuccess(message) {
+        const successDiv = document.getElementById('successMessage');
+        successDiv.textContent = message;
+        successDiv.style.display = 'block';
+        setTimeout(() => {
+            successDiv.style.display = 'none';
+        }, 5000);
+    }
+
+    // Função para formatar data brasileira (dd/mm/aaaa)
+    function formatDateBR(input) {
+        let value = input.value.replace(/\D/g, ''); // Remove caracteres não numéricos
+
+        if (value.length >= 2) {
+            value = value.substring(0, 2) + '/' + value.substring(2);
+        }
+        if (value.length >= 5) {
+            value = value.substring(0, 5) + '/' + value.substring(5, 9);
+        }
+
+        input.value = value;
+    }
+
+    // Função para formatar CEP
+    function formatCEP(input) {
+        let value = input.value.replace(/\D/g, '');
+        if (value.length > 5) {
+            value = value.substring(0, 5) + '-' + value.substring(5, 8);
+        }
+        input.value = value;
+    }
+
+    // Função para converter data brasileira (dd/mm/aaaa) para formato ISO (aaaa-mm-dd)
+    function convertToISO(dateBR) {
+        const parts = dateBR.split('/');
+        if (parts.length === 3) {
+            const day = parts[0].padStart(2, '0');
+            const month = parts[1].padStart(2, '0');
+            const year = parts[2];
+            return `${year}-${month}-${day}`;
+        }
+        return null;
+    }
+
+    // Função para validar data brasileira
+    function isValidBRDate(dateBR) {
+        const regex = /^(\d{2})\/(\d{2})\/(\d{4})$/;
+        const match = dateBR.match(regex);
+
+        if (!match) return false;
+
+        const day = parseInt(match[1], 10);
+        const month = parseInt(match[2], 10);
+        const year = parseInt(match[3], 10);
+
+        // Verifica se os valores são válidos
+        if (month < 1 || month > 12) return false;
+        if (day < 1 || day > 31) return false;
+        if (year < 2024 || year > 2030) return false; // Limite razoável
+
+        // Verifica se a data existe
+        const date = new Date(year, month - 1, day);
+        return date.getFullYear() === year &&
+            date.getMonth() === (month - 1) &&
+            date.getDate() === day;
+    }
+
+    // Função para validar se a data é futura (não permite hoje nem passado)
+    function isValidFutureDate(dateBR) {
+        if (!isValidBRDate(dateBR)) return false;
+
+        const dateISO = convertToISO(dateBR);
+        if (!dateISO) return false;
+
+        const selectedDate = new Date(dateISO + 'T00:00:00-03:00');
+        const today = new Date();
+
+        const todayBrazil = new Date(today.toLocaleString("en-US", {timeZone: "America/Sao_Paulo"}));
+
+        selectedDate.setHours(0, 0, 0, 0);
+        todayBrazil.setHours(0, 0, 0, 0);
+
+        return selectedDate > todayBrazil;
+    }
+
+    // Configuração do campo de data brasileiro
+    document.getElementById('dataBrasil').addEventListener('input', function() {
+        formatDateBR(this);
+    });
+
+    document.getElementById('dataBrasil').addEventListener('blur', function() {
+        const dateBR = this.value.trim();
+
+        if (dateBR && dateBR.length === 10) {
+            if (!isValidBRDate(dateBR)) {
+                showError('dataError', 'Data inválida. Use o formato dd/mm/aaaa.');
+                return;
+            }
+
+            if (!isValidFutureDate(dateBR)) {
+                showError('dataError', 'A data da vaga deve ser no futuro.');
+                this.value = '';
+                return;
+            }
+
+            hideError('dataError');
+        }
+    });
+
+    // Configuração do campo de CEP
+    document.getElementById('cep').addEventListener('input', function() {
+        formatCEP(this);
+    });
+
+    document.getElementById('cep').addEventListener('blur', function() {
+        const cep = this.value.replace(/\D/g, '');
+        if (cep.length === 8) {
+            fetch(`https://viacep.com.br/ws/${cep}/json/`)
+                .then(response => response.json())
+                .then(data => {
+                    if (!data.erro) {
+                        document.getElementById('logradouro').value = data.logradouro || '';
+                        document.getElementById('bairro').value = data.bairro || '';
+                        document.getElementById('cidade').value = data.localidade || '';
+                        document.getElementById('estado').value = data.uf || '';
+                    } else {
+                        showError('cepError', 'CEP não encontrado');
+                    }
+                })
+                .catch(error => {
+                    console.error('Erro ao buscar CEP:', error);
+                });
+        }
+    });
+
+    // Checkbox para usar endereço da ONG
+    document.getElementById('usarEnderecoOng').addEventListener('change', function() {
+        if (this.checked) {
+            // Preenche os campos com os dados da ONG
+            document.getElementById('logradouro').value = ongData.logradouro || '';
+            document.getElementById('numero').value = ongData.numero || '';
+            document.getElementById('complemento').value = ongData.complemento || '';
+            document.getElementById('bairro').value = ongData.bairro || '';
+            document.getElementById('cidade').value = ongData.cidade || '';
+            document.getElementById('estado').value = ongData.estado || '';
+            document.getElementById('cep').value = ongData.cep ? formatCEPValue(ongData.cep) : '';
+
+            // Desabilita os campos
+            document.getElementById('logradouro').disabled = true;
+            document.getElementById('numero').disabled = true;
+            document.getElementById('complemento').disabled = true;
+            document.getElementById('bairro').disabled = true;
+            document.getElementById('cidade').disabled = true;
+            document.getElementById('estado').disabled = true;
+            document.getElementById('cep').disabled = true;
+        } else {
+            // Limpa e habilita os campos
+            document.getElementById('logradouro').value = '';
+            document.getElementById('numero').value = '';
+            document.getElementById('complemento').value = '';
+            document.getElementById('bairro').value = '';
+            document.getElementById('cidade').value = '';
+            document.getElementById('estado').value = '';
+            document.getElementById('cep').value = '';
+
+            document.getElementById('logradouro').disabled = false;
+            document.getElementById('numero').disabled = false;
+            document.getElementById('complemento').disabled = false;
+            document.getElementById('bairro').disabled = false;
+            document.getElementById('cidade').disabled = false;
+            document.getElementById('estado').disabled = false;
+            document.getElementById('cep').disabled = false;
+        }
+    });
+
+    function formatCEPValue(cep) {
+        if (!cep) return '';
+        const cleaned = cep.replace(/\D/g, '');
+        if (cleaned.length === 8) {
+            return cleaned.substring(0, 5) + '-' + cleaned.substring(5);
+        }
+        return cep;
+    }
+
+    // Define a data mínima como amanhã no placeholder
+    function setPlaceholderDate() {
+        const today = new Date();
+        const todayBrazil = new Date(today.toLocaleString("en-US", {timeZone: "America/Sao_Paulo"}));
+        const tomorrow = new Date(todayBrazil);
+        tomorrow.setDate(tomorrow.getDate() + 1);
+
+        const day = String(tomorrow.getDate()).padStart(2, '0');
+        const month = String(tomorrow.getMonth() + 1).padStart(2, '0');
+        const year = tomorrow.getFullYear();
+
+        document.getElementById('dataBrasil').placeholder = `Ex: ${day}/${month}/${year}`;
+    }
+
+    // Chama a função ao carregar a página
+    setPlaceholderDate();
+
+    // Função principal para cadastrar vaga
+    async function vaga(event) {
+        event.preventDefault();
+
+        // Limpa mensagens anteriores
+        ['nomeError', 'quantidadeError', 'descError', 'dataError', 'imagemError', 'cepError'].forEach(hideError);
+
+        const nome = document.getElementById("nome").value.trim();
+        const quantidade = parseInt(document.getElementById("quantidade").value, 10);
+        const descricao = document.getElementById("desc").value.trim();
+        const dataBR = document.getElementById("dataBrasil").value.trim();
+        const imagemFile = document.getElementById("imagem").files[0];
+
+        // Dados do local
+        const localReferencia = document.getElementById("localReferencia").value.trim();
+        const cep = document.getElementById("cep").value.replace(/\D/g, '');
+        const logradouro = document.getElementById("logradouro").value.trim();
+        const numero = document.getElementById("numero").value.trim();
+        const complemento = document.getElementById("complemento").value.trim();
+        const bairro = document.getElementById("bairro").value.trim();
+        const cidade = document.getElementById("cidade").value.trim();
+        const estado = document.getElementById("estado").value;
+
+        let hasError = false;
+
+        // Validações
+        if (!nome) {
+            showError('nomeError', 'Nome da vaga é obrigatório.');
+            hasError = true;
+        } else if (nome.length < 3) {
+            showError('nomeError', 'Nome da vaga deve ter pelo menos 3 caracteres.');
+            hasError = true;
+        }
+
+        if (!quantidade || quantidade < 1 || quantidade > 1000) {
+            showError('quantidadeError', 'Quantidade deve ser entre 1 e 1000.');
+            hasError = true;
+        }
+
+        if (!dataBR) {
+            showError('dataError', 'Data da vaga é obrigatória.');
+            hasError = true;
+        } else if (!isValidBRDate(dataBR)) {
+            showError('dataError', 'Data inválida. Use o formato dd/mm/aaaa.');
+            hasError = true;
+        } else if (!isValidFutureDate(dataBR)) {
+            showError('dataError', 'A data da vaga deve ser no futuro.');
+            hasError = true;
+        }
+
+        if (!imagemFile) {
+            showError('imagemError', 'Imagem da vaga é obrigatória.');
+            hasError = true;
+        }
+
+        if (hasError) {
+            return;
+        }
+
+        // Mostra loading
+        document.getElementById('loading').style.display = 'block';
+        document.getElementById('submitBtn').disabled = true;
+
+        try {
+            // Converte a data para formato ISO
+            const dataISO = convertToISO(dataBR);
+
+            // Cria FormData para enviar arquivo
+            const formData = new FormData();
+            formData.append('nome', nome);
+            formData.append('quantidade', quantidade);
+            formData.append('descri', descricao);
+            formData.append('data', dataISO);
+            formData.append('imagem', imagemFile);
+
+            // Adiciona dados do local
+            formData.append('localReferencia', localReferencia);
+            formData.append('cep', cep);
+            formData.append('logradouro', logradouro);
+            formData.append('numero', numero);
+            formData.append('complemento', complemento);
+            formData.append('bairro', bairro);
+            formData.append('cidade', cidade);
+            formData.append('estado', estado);
+
+            // Envia a requisição para a rota correta do Spring Boot
+            const response = await fetch('/vagas/homeOng', {
+                method: 'POST',
+                body: formData
+            });
+
+            if (response.ok) {
+                const result = await response.text();
+
+                // Limpa o formulário
+                document.querySelector('form').reset();
+                document.getElementById('imagePreview').style.display = 'none';
+
+                // Mostra mensagem de sucesso
+                showSuccess(result || 'Vaga cadastrada com sucesso!');
+
+                // Redireciona após 2 segundos
+                setTimeout(() => {
+                    window.location.href = '/vagas/listaVaga';
+                }, 2000);
+
+            } else {
+                const errorMessage = await response.text();
+                throw new Error(errorMessage || 'Erro ao cadastrar vaga');
+            }
+
+        } catch (error) {
+            console.error('Erro:', error);
+
+            // Mostra mensagem de erro
+            if (error.message.includes('Acesso não autorizado')) {
+                showError('nomeError', 'Sessão expirada. Faça login novamente.');
+                setTimeout(() => {
+                    window.location.href = '/login/ong';
+                }, 2000);
+            } else if (error.message.includes('fetch')) {
+                showError('nomeError', 'Erro de conexão. Verifique sua internet e tente novamente.');
+            } else {
+                showError('nomeError', error.message || 'Erro ao cadastrar vaga. Tente novamente.');
+            }
+
+        } finally {
+            // Esconde loading e reabilita botão
+            document.getElementById('loading').style.display = 'none';
+            document.getElementById('submitBtn').disabled = false;
+        }
+    }
+
+    // Adiciona validação em tempo real nos campos
+    document.getElementById('nome').addEventListener('input', function() {
+        if (this.value.trim().length >= 3) {
+            hideError('nomeError');
+        }
+    });
+
+    document.getElementById('quantidade').addEventListener('input', function() {
+        const value = parseInt(this.value, 10);
+        if (value >= 1 && value <= 1000) {
+            hideError('quantidadeError');
+        }
+    });
+
+    // Previne envio do formulário com Enter em campos específicos
+    document.addEventListener('keydown', function(event) {
+        if (event.key === 'Enter' && event.target.type !== 'submit' && event.target.tagName !== 'TEXTAREA') {
+            event.preventDefault();
+        }
+    });
 </script>
+</body>
 </html>

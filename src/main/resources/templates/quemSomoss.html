@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Blue Wave – Quem Somos</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Reset & Base */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+            color: #1e293b;
+            line-height: 1.6;
+        }
+
+        /* Header */
+        #header-bg {
+            background: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        #header {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        #logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #0ea5e9;
+            text-decoration: none;
+            letter-spacing: 1px;
+        }
+
+        #nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        #nav a {
+            color: #0ea5e9;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+        }
+
+        #nav a:hover {
+            background: #f1f5f9;
+            color: #0284c7;
+            transform: translateY(-2px);
+        }
+
+        #btn-mobile {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .hamburger-line {
+            width: 25px;
+            height: 2px;
+            background: #0ea5e9;
+            transition: all 0.3s ease;
+        }
+
+        /* Hero Section with Beach Background */
+        #about-hero {
+            position: relative;
+            height: 70vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: url('static/css/images/praia1.jpeg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            color: white;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        #about-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(14, 165, 233, 0.3);
+            z-index: 1;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .hero-content {
+            z-index: 2;
+            position: relative;
+        }
+
+        #about-hero h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+        }
+
+        #about-hero p {
+            font-size: 1.3rem;
+            font-weight: 400;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.6;
+            opacity: 0.95;
+            text-shadow: 1px 1px 6px rgba(0, 0, 0, 0.7);
+        }
+
+        /* Main Content */
+        #about-content {
+            padding: 4rem 0;
+            background: #f8fafc;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .info-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .info-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .card-header {
+            height: 60px;
+            background: linear-gradient(135deg, #0ea5e9, #06b6d4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            font-weight: 600;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card-header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+            transform: rotate(45deg);
+            animation: shine 3s infinite;
+        }
+
+        @keyframes shine {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            50% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+
+        .card-content {
+            padding: 2rem;
+        }
+
+        .card-content h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #0ea5e9;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .card-content p {
+            color: #475569;
+            margin-bottom: 1rem;
+            font-size: 1.05rem;
+            line-height: 1.7;
+        }
+
+        .card-content ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .card-content ul li {
+            color: #475569;
+            margin-bottom: 1rem;
+            padding-left: 2rem;
+            position: relative;
+            font-size: 1rem;
+            line-height: 1.6;
+            transition: all 0.3s ease;
+        }
+
+        .card-content ul li:hover {
+            color: #0ea5e9;
+            transform: translateX(5px);
+        }
+
+        .card-content ul li::before {
+            content: '🌊';
+            position: absolute;
+            left: 0;
+            top: 0;
+            font-size: 1.2rem;
+        }
+
+        .card-content ul li strong {
+            color: #0ea5e9;
+            font-weight: 600;
+        }
+
+        /* Special Cards */
+        .team-card {
+            grid-column: 1 / -1;
+            background: linear-gradient(135deg, #f8fafc, #e2e8f0);
+        }
+
+        .team-card .card-header {
+            background: linear-gradient(135deg, #1e293b, #334155);
+        }
+
+        .team-image {
+            width: 100%;
+            max-height: 300px;
+            object-fit: cover;
+            border-radius: 15px;
+            margin: 1.5rem 0;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .team-image:hover {
+            transform: scale(1.02);
+        }
+
+        /* How it works section */
+        .how-it-works {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            margin: 2rem 0;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .step {
+            text-align: center;
+            padding: 1.5rem;
+            border-radius: 15px;
+            background: #f8fafc;
+            transition: all 0.3s ease;
+        }
+
+        .step:hover {
+            background: #e2e8f0;
+            transform: translateY(-5px);
+        }
+
+        .step-number {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #0ea5e9, #06b6d4);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.25rem;
+            margin: 0 auto 1rem;
+        }
+
+        .step h4 {
+            color: #1e293b;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .step p {
+            color: #64748b;
+            font-size: 0.95rem;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            text-align: center;
+            margin-top: 3rem;
+            padding: 3rem 2rem;
+            background: linear-gradient(135deg, #0ea5e9, #06b6d4);
+            border-radius: 20px;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+
+        .cta-section h3 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+            position: relative;
+            z-index: 2;
+        }
+
+        .cta-section p {
+            margin-bottom: 2rem;
+            opacity: 0.95;
+            font-size: 1.2rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            position: relative;
+            z-index: 2;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 25px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            font-size: 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255,255,255,0.2);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: all 0.5s ease;
+        }
+
+        .btn:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .btn-primary {
+            background: white;
+            color: #0ea5e9;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+
+        .btn-secondary:hover {
+            background: white;
+            color: #0ea5e9;
+            transform: translateY(-3px);
+        }
+
+        /* Footer */
+        #footer {
+            background: linear-gradient(135deg, #1e293b, #334155);
+            color: white;
+            padding: 4rem 0 2rem;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 3rem;
+            max-width: 1200px;
+            margin: 0 auto 2rem;
+        }
+
+        .footer-section h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: #0ea5e9;
+        }
+
+        .footer-section p,
+        .footer-section ul li a {
+            color: #cbd5e1;
+            line-height: 1.6;
+            text-decoration: none;
+        }
+
+        .footer-section ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-section ul li a:hover {
+            color: #0ea5e9;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+            background: rgba(14, 165, 233, 0.1);
+            border-radius: 50%;
+            color: #0ea5e9;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-size: 1.2rem;
+        }
+
+        .social-links a:hover {
+            background: #0ea5e9;
+            color: white;
+            transform: translateY(-3px) scale(1.1);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #475569;
+            padding-top: 2rem;
+            text-align: center;
+            color: #94a3b8;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-bottom p {
+            margin-bottom: 0.5rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            #nav ul {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: white;
+                flex-direction: column;
+                padding: 1rem;
+                box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            }
+
+            #nav ul.active {
+                display: flex;
+            }
+
+            #btn-mobile {
+                display: flex;
+            }
+
+            #header {
+                padding: 1rem;
+            }
+
+            #logo {
+                font-size: 1.5rem;
+            }
+
+            #about-hero {
+                background-attachment: scroll;
+            }
+
+            #about-hero h1 {
+                font-size: 2.5rem;
+            }
+
+            #about-hero p {
+                font-size: 1.1rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .cards-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .steps-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .btn {
+                width: 100%;
+                max-width: 300px;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .social-links {
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            #about-hero h1 {
+                font-size: 2rem;
+            }
+
+            .section-title {
+                font-size: 1.75rem;
+            }
+
+            .card-content {
+                padding: 1.5rem;
+            }
+
+            .cta-section {
+                padding: 2rem 1rem;
+            }
+
+            .cta-section h3 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Header -->
+<div id="header-bg">
+    <header id="header">
+        <a id="logo" href="/">BLUE WAVE</a>
+        <nav id="nav">
+            <button id="btn-mobile" aria-label="Abrir menu">
+                <div class="hamburger-line"></div>
+                <div class="hamburger-line"></div>
+                <div class="hamburger-line"></div>
+            </button>
+            <ul id="menu">
+                <li><a href="#about-content">Quem Somos?</a></li>
+                <li><a href="/ongForm">Sou uma ONG</a></li>
+                <li><a href="/voluntarioForm">Quero ser voluntário</a></li>
+                <li><a href="/login">Entrar</a></li>
+            </ul>
+        </nav>
+    </header>
+</div>
+
+<!-- Hero Section with Beach Background -->
+<section id="about-hero">
+    <div class="container">
+        <div class="hero-content">
+            <h1>Quem Somos</h1>
+            <p>
+                O Blue Wave é uma plataforma dedicada a conectar ONGs de preservação marinha a voluntários apaixonados pelo oceano. Nossa missão é facilitar parcerias que gerem impacto positivo na conservação dos mares.
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- About Content -->
+<section id="about-content">
+    <div class="container">
+        <h2 class="section-title">Conheça Nossa História</h2>
+
+        <div class="cards-grid">
+            <div class="info-card">
+                <div class="card-header">
+                    <span>🎯 Nossa Missão</span>
+                </div>
+                <div class="card-content">
+                    <h3>🌊 Conectando Pessoas e Oceanos</h3>
+                    <p>Conectar voluntários engajados a organizações sem fins lucrativos que trabalham na preservação dos ecossistemas marinhos, criando uma rede colaborativa de proteção aos oceanos.</p>
+                    <ul>
+                        <li>Apoiar ações de limpeza de praias e manguezais</li>
+                        <li>Promover campanhas de conscientização sobre o impacto do plástico nos oceanos</li>
+                        <li>Incentivar pesquisas e monitoramento de espécies marinhas</li>
+                        <li>Facilitar a educação ambiental em comunidades costeiras</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="info-card">
+                <div class="card-header">
+                    <span>🔮 Nossa Visão</span>
+                </div>
+                <div class="card-content">
+                    <h3>🚀 Futuro Sustentável</h3>
+                    <p>Ser a principal ponte entre voluntários and ONGs ambientais em toda a costa brasileira, ampliando a rede de apoio a iniciativas sustentáveis e criando um movimento nacional de preservação marinha que inspire futuras gerações.</p>
+                </div>
+            </div>
+
+            <div class="info-card">
+                <div class="card-header">
+                    <span>💎 Nossos Valores</span>
+                </div>
+                <div class="card-content">
+                    <h3>⭐ Princípios que nos Guiam</h3>
+                    <ul>
+                        <li><strong>Transparência:</strong> Todas as ONGs cadastradas passam por um rigoroso processo de verificação para garantir a legitimidade dos projetos.</li>
+                        <li><strong>Colaboração:</strong> Incentivamos parcerias duradouras e ações conjuntas que multipliquem o impacto positivo.</li>
+                        <li><strong>Educação:</strong> Acreditamos que a informação e conscientização são a base para mudanças comportamentais efetivas.</li>
+                        <li><strong>Sustentabilidade:</strong> Priorizamos iniciativas que respeitam o meio ambiente e promovem práticas sustentáveis.</li>
+                        <li><strong>Inovação:</strong> Utilizamos tecnologia para otimizar conexões e maximizar resultados na conservação marinha.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="info-card team-card">
+                <div class="card-header">
+                    <span>👥 Nossa Equipe</span>
+                </div>
+                <div class="card-content">
+                    <h3>🤝 Time Multidisciplinar</h3>
+                    <p>Contamos com um time multidisciplinar formado por biólogos marinhos, desenvolvedores de software, designers UX/UI, especialistas em marketing digital e voluntários experientes em projetos ambientais.</p>
+                    <p>Nossa equipe trabalha continuamente para:</p>
+                    <ul>
+                        <li>Desenvolver funcionalidades que facilitem a busca por oportunidades de voluntariado</li>
+                        <li>Manter a plataforma segura, intuitiva e de fácil navegação</li>
+                        <li>Acompanhar e mensurar o impacto das ações através de relatórios detalhados</li>
+                        <li>Fornecer suporte contínuo e especializado para ONGs e voluntários</li>
+                        <li>Promover eventos e workshops sobre conservação marinha</li>
+                    </ul>
+                    <img src="static/css/images/equipe-azul.jpeg" alt="Equipe Blue Wave trabalhando em projetos de conservação marinha" class="team-image" />
+                </div>
+            </div>
+        </div>
+
+        <div class="how-it-works">
+            <h3 style="text-align: center; color: #0ea5e9; font-size: 1.8rem; margin-bottom: 1rem;">🔄 Como Funciona</h3>
+            <div class="steps-grid">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h4>Para ONGs</h4>
+                    <p>Cadastre sua organização na plataforma, detalhe seus projetos, necessidades específicas e cronograma de atividades. Após nosso processo de verificação, suas oportunidades ficam disponíveis.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h4>Para Voluntários</h4>
+                    <p>Crie um perfil gratuito, explore oportunidades compatíveis com sua disponibilidade, habilidades e localização. Conecte-se diretamente com ONGs.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h4>Faça a Diferença</h4>
+                    <p>Participe de projetos que fazem a diferença na preservação marinha e ajude a construir um futuro mais sustentável para nossos oceanos.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="cta-section">
+            <h3>🌊 Junte-se ao Movimento Blue Wave</h3>
+            <p>Seja parte dessa transformação! Cada ação conta na preservação dos nossos oceanos. Juntos, podemos criar um futuro mais sustentável para a vida marinha.</p>
+            <div class="cta-buttons">
+                <a href="/voluntarioForm" class="btn btn-primary">🙋‍♂️ Quero ser voluntário</a>
+                <a href="/ongForm" class="btn btn-secondary">🏢 Sou uma ONG</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer id="footer">
+    <div class="container">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Sobre o Blue Wave</h3>
+                <p>Plataforma que conecta ONGs e voluntários para projetos de preservação marinha, criando uma rede colaborativa de proteção aos oceanos brasileiros.</p>
+                <div class="social-links">
+                    <a href="https://facebook.com/bluewave" target="_blank" aria-label="Facebook">📘</a>
+                    <a href="https://instagram.com/bluewave" target="_blank" aria-label="Instagram">📷</a>
+                    <a href="https://twitter.com/bluewave" target="_blank" aria-label="Twitter">🐦</a>
+                    <a href="https://linkedin.com/company/bluewave" target="_blank" aria-label="LinkedIn">💼</a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>Links Rápidos</h3>
+                <ul>
+                    <li><a href="#about-content">Quem Somos?</a></li>
+                    <li><a href="/ongForm">Sou uma ONG</a></li>
+                    <li><a href="/voluntarioForm">Quero ser voluntário</a></li>
+                    <li><a href="/login">Entrar</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Suporte</h3>
+                <ul>
+                    <li><a href="#help">Central de Ajuda</a></li>
+                    <li><a href="#contact">Contato</a></li>
+                    <li><a href="#faq">FAQ</a></li>
+                    <li><a href="#terms">Termos de Uso</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contato</h3>
+                <p>📧 contato@bluewave.org</p>
+                <p>📞 (11) 4000-1234</p>
+                <p>📍 São Paulo, SP - Brasil</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2025 Blue Wave. Todos os direitos reservados.</p>
+            <p>Preservando oceanos, conectando pessoas, transformando o futuro.</p>
+        </div>
+    </div>
+</footer>
+
+<!-- Mobile Menu Script -->
+<script>
+    const btnMobile = document.getElementById('btn-mobile');
+    const menu = document.getElementById('menu');
+
+    function toggleMenu(event) {
+        if (event.type === 'touchstart') event.preventDefault();
+        menu.classList.toggle('active');
+        btnMobile.classList.toggle('active');
+        const expanded = btnMobile.getAttribute('aria-expanded') === 'true' || false;
+        btnMobile.setAttribute('aria-expanded', !expanded);
+    }
+
+    btnMobile.addEventListener('click', toggleMenu);
+    btnMobile.addEventListener('touchstart', toggleMenu);
+
+    // Smooth scrolling for anchor links with offset for sticky header
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                const headerHeight = document.getElementById('header-bg').offsetHeight;
+                const targetPosition = target.offsetTop - headerHeight - 20;
+
+                window.scrollTo({
+                    top: targetPosition,
+                    behavior: 'smooth'
+                });
+            }
+        });
+    });
+
+    // Add scroll effect to hero section
+    window.addEventListener('scroll', () => {
+        const scrolled = window.pageYOffset;
+        const hero = document.getElementById('about-hero');
+        if (hero) {
+            hero.style.transform = `translateY(${scrolled * 0.5}px)`;
+        }
+    });
+
+    // Add intersection observer for card animations
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
+            }
+        });
+    }, observerOptions);
+
+    // Observe all cards
+    document.addEventListener('DOMContentLoaded', () => {
+        const cards = document.querySelectorAll('.info-card, .step');
+        cards.forEach((card, index) => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(30px)';
+            card.style.transition = `all 0.6s ease ${index * 0.1}s`;
+            observer.observe(card);
+        });
+    });
+
+    // Add button click effects
+    document.querySelectorAll('.btn').forEach(btn => {

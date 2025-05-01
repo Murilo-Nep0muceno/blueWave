@@ -1,0 +1,1451 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vagas Disponíveis - Blue Wave</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', 'Roboto', sans-serif;
+    }
+
+    body {
+      height: 100vh;
+      background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    /* Menu Lateral */
+    nav.menu-lateral {
+      width: 80px;
+      height: 100vh;
+      background: linear-gradient(180deg, #00A8FF 0%, #0078D4 100%);
+      padding: 20px 0;
+      box-shadow: 0 0 30px rgba(0, 168, 255, 0.3);
+      position: fixed;
+      top: 0;
+      left: 0;
+      overflow: hidden;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      z-index: 1000;
+      display: flex;
+      flex-direction: column;
+    }
+
+    nav.menu-lateral:hover {
+      width: 280px;
+      box-shadow: 0 0 40px rgba(0, 168, 255, 0.4);
+    }
+
+    .title {
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      margin-bottom: 30px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      padding-bottom: 20px;
+    }
+
+    .title h1 {
+      display: none;
+      margin-left: 15px;
+      color: white;
+      font-size: 20px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+    }
+
+    nav.menu-lateral:hover .title h1 {
+      display: block;
+      animation: fadeInSlide 0.3s ease-out;
+    }
+
+    @keyframes fadeInSlide {
+      from {
+        opacity: 0;
+        transform: translateX(-10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    .menu-items {
+      flex: 1;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0 10px;
+    }
+
+    ul li.item-menu {
+      margin-bottom: 8px;
+      border-radius: 12px;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+
+    ul li.item-menu:hover {
+      background: rgba(255, 255, 255, 0.15);
+      transform: translateX(5px);
+    }
+
+    ul li.item-menu.active {
+      background: rgba(255, 255, 255, 0.2);
+      box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.1);
+    }
+
+    ul li.item-menu a {
+      color: white;
+      text-decoration: none;
+      font-size: 16px;
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      transition: all 0.3s ease;
+      border-radius: 12px;
+    }
+
+    ul li.item-menu a .icon > i {
+      font-size: 24px;
+      width: 24px;
+      text-align: center;
+    }
+
+    ul li.item-menu a .txt-link {
+      margin-left: 20px;
+      white-space: nowrap;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      font-weight: 500;
+    }
+
+    nav.menu-lateral:hover .txt-link {
+      opacity: 1;
+    }
+
+    /* Seção de logout */
+    .logout-section {
+      padding: 0 10px;
+      margin-top: auto;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding-top: 20px;
+    }
+
+    .logout-item {
+      margin-bottom: 8px;
+      border-radius: 12px;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .logout-item:hover {
+      background: rgba(255, 76, 76, 0.2);
+      transform: translateX(5px);
+    }
+
+    .logout-item a {
+      color: white;
+      text-decoration: none;
+      font-size: 16px;
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      transition: all 0.3s ease;
+      border-radius: 12px;
+    }
+
+    .logout-item a:hover {
+      color: #ffcccc;
+    }
+
+    .logout-item a .icon > i {
+      font-size: 24px;
+      width: 24px;
+      text-align: center;
+    }
+
+    .logout-item a .txt-link {
+      margin-left: 20px;
+      white-space: nowrap;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      font-weight: 500;
+    }
+
+    nav.menu-lateral:hover .logout-item .txt-link {
+      opacity: 1;
+    }
+
+    /* Conteúdo Principal */
+    .conteudo {
+      margin-left: 80px;
+      transition: margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      min-height: 100vh;
+    }
+
+    nav.menu-lateral:hover ~ .conteudo {
+      margin-left: 280px;
+    }
+
+    #header-bg {
+      background: linear-gradient(135deg, #003366 0%, #004080 100%);
+      padding: 20px 30px;
+      box-shadow: 0 2px 20px rgba(0, 51, 102, 0.3);
+    }
+
+    #header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: white;
+    }
+
+    #logo {
+      font-size: 24px;
+      color: white;
+      text-decoration: none;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+
+    /* Container Principal */
+    .main-container {
+      max-width: 1400px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+
+    /* Cabeçalho da Seção */
+    .section-header {
+      background: white;
+      border-radius: 20px;
+      padding: 30px;
+      margin-bottom: 30px;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .section-title {
+      color: #003366;
+      font-size: 28px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .section-title i {
+      color: #00A8FF;
+      font-size: 32px;
+    }
+
+    .stats-container {
+      display: flex;
+      gap: 20px;
+    }
+
+    .stat-item {
+      text-align: center;
+      padding: 15px 20px;
+      background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+      border-radius: 12px;
+      border-left: 4px solid #00A8FF;
+    }
+
+    .stat-value {
+      font-size: 24px;
+      font-weight: 700;
+      color: #00A8FF;
+      margin-bottom: 5px;
+    }
+
+    .stat-label {
+      font-size: 12px;
+      color: #666;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    /* Filtros */
+    .filters-container {
+      background: white;
+      border-radius: 15px;
+      padding: 20px;
+      margin-bottom: 30px;
+      box-shadow: 0 3px 15px rgba(0, 0, 0, 0.06);
+      display: flex;
+      gap: 20px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .filter-group {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .filter-label {
+      font-size: 12px;
+      color: #666;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .filter-select, .filter-input {
+      padding: 10px 15px;
+      border: 2px solid #e9ecef;
+      border-radius: 8px;
+      font-size: 14px;
+      transition: all 0.3s ease;
+      background: white;
+    }
+
+    .filter-select:focus, .filter-input:focus {
+      border-color: #00A8FF;
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(0, 168, 255, 0.1);
+    }
+
+    .filter-buttons {
+      display: flex;
+      gap: 10px;
+      margin-left: auto;
+    }
+
+    .btn {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #00A8FF 0%, #0078D4 100%);
+      color: white;
+      box-shadow: 0 4px 15px rgba(0, 168, 255, 0.3);
+    }
+
+    .btn-primary:hover {
+      background: linear-gradient(135deg, #0078D4 0%, #005a9f 100%);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0, 168, 255, 0.4);
+    }
+
+    .btn-secondary {
+      background: #f8f9fa;
+      color: #666;
+      border: 2px solid #e9ecef;
+    }
+
+    .btn-secondary:hover {
+      background: #e9ecef;
+      color: #495057;
+    }
+
+    /* Grid de Vagas */
+    .vagas-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+      gap: 25px;
+      margin-bottom: 40px;
+    }
+
+    .vaga-card {
+      background: white;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+      transition: all 0.3s ease;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .vaga-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+    }
+
+    .vaga-image {
+      height: 220px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .vaga-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+
+    .vaga-card:hover .vaga-image img {
+      transform: scale(1.05);
+    }
+
+    .vaga-image-placeholder {
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, #e9ecef 0%, #f8f9fa 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #adb5bd;
+      font-size: 48px;
+    }
+
+    .vaga-badge {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      background: rgba(40, 167, 69, 0.9);
+      color: white;
+      backdrop-filter: blur(10px);
+    }
+
+    .vaga-urgente {
+      background: rgba(255, 193, 7, 0.9);
+      color: #212529;
+    }
+
+    .vaga-content {
+      padding: 25px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+
+    .vaga-header {
+      margin-bottom: 15px;
+    }
+
+    .vaga-title {
+      font-size: 22px;
+      font-weight: 700;
+      color: #003366;
+      margin-bottom: 8px;
+      line-height: 1.3;
+    }
+
+    .vaga-ong {
+      color: #00A8FF;
+      font-size: 14px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .vaga-details {
+      margin-bottom: 20px;
+    }
+
+    .detail-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 8px;
+      font-size: 14px;
+      color: #666;
+    }
+
+    .detail-item i {
+      color: #00A8FF;
+      width: 16px;
+      text-align: center;
+    }
+
+    .detail-urgente {
+      color: #dc3545;
+      font-weight: 600;
+    }
+
+    .vaga-description {
+      color: #666;
+      font-size: 14px;
+      line-height: 1.6;
+      margin-bottom: 20px;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      flex: 1;
+    }
+
+    .vaga-actions {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+      margin-top: auto;
+    }
+
+    .btn-inscrever {
+      background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+      color: white;
+      padding: 12px 24px;
+      border-radius: 10px;
+      border: none;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex: 1;
+      max-width: 200px;
+      justify-content: center;
+    }
+
+    .btn-inscrever:hover {
+      background: linear-gradient(135deg, #20c997 0%, #17a2b8 100%);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(40, 167, 69, 0.3);
+    }
+
+    .btn-inscrever:disabled {
+      background: #6c757d;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+    }
+
+    .btn-ja-inscrito {
+      background: linear-gradient(135deg, #ffc107 0%, #fd7e14 100%);
+      color: #212529;
+    }
+
+    .btn-esgotada {
+      background: #6c757d;
+      color: white;
+    }
+
+    .vagas-disponiveis {
+      color: #28a745;
+      font-size: 12px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      white-space: nowrap;
+    }
+
+    .vagas-poucas {
+      color: #ffc107;
+    }
+
+    .vagas-esgotadas {
+      color: #dc3545;
+    }
+
+    /* Estados Vazios */
+    .empty-state {
+      background: white;
+      border-radius: 20px;
+      padding: 60px 40px;
+      text-align: center;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+    }
+
+    .empty-icon {
+      font-size: 64px;
+      color: #dee2e6;
+      margin-bottom: 20px;
+    }
+
+    .empty-title {
+      font-size: 24px;
+      color: #003366;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .empty-description {
+      color: #666;
+      font-size: 16px;
+      margin-bottom: 30px;
+    }
+
+    /* Modal */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 2000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(5px);
+    }
+
+    .modal-content {
+      background-color: white;
+      margin: 15% auto;
+      padding: 30px;
+      border-radius: 20px;
+      width: 90%;
+      max-width: 450px;
+      text-align: center;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      animation: modalSlideIn 0.3s ease-out;
+    }
+
+    @keyframes modalSlideIn {
+      from {
+        opacity: 0;
+        transform: translateY(-50px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .modal h3 {
+      color: #003366;
+      margin-bottom: 15px;
+      font-size: 22px;
+      font-weight: 700;
+    }
+
+    .modal p {
+      color: #666;
+      margin-bottom: 30px;
+      font-size: 16px;
+      line-height: 1.5;
+    }
+
+    .modal-buttons {
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+    }
+
+    .btn-confirm {
+      background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+      color: white;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 12px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      min-width: 120px;
+    }
+
+    .btn-confirm:hover {
+      background: linear-gradient(135deg, #c82333 0%, #a71e2a 100%);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(220, 53, 69, 0.4);
+    }
+
+    .btn-modal-cancel {
+      background: #f8f9fa;
+      color: #666;
+      border: 2px solid #e9ecef;
+      padding: 12px 24px;
+      border-radius: 12px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      min-width: 120px;
+    }
+
+    .btn-modal-cancel:hover {
+      background: #e9ecef;
+      color: #495057;
+    }
+
+    /* Loading Overlay Melhorado */
+    .loading-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      z-index: 9999;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .loading-content {
+      background: white;
+      padding: 40px;
+      border-radius: 20px;
+      text-align: center;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      animation: modalSlideIn 0.3s ease-out;
+    }
+
+    .loading-spinner {
+      width: 60px;
+      height: 60px;
+      border: 5px solid #e9ecef;
+      border-top: 5px solid #00A8FF;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin: 0 auto 20px;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .loading-text {
+      color: #003366;
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+
+    .loading-subtext {
+      color: #666;
+      font-size: 14px;
+    }
+
+    /* Toast Notifications */
+    .toast {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      padding: 15px 25px;
+      border-radius: 12px;
+      color: white;
+      font-weight: 600;
+      z-index: 9999;
+      animation: slideInToast 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      max-width: 400px;
+    }
+
+    .toast.success {
+      background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+    }
+
+    .toast.error {
+      background: linear-gradient(135deg, #dc3545 0%, #fd7e14 100%);
+    }
+
+    .toast.warning {
+      background: linear-gradient(135deg, #ffc107 0%, #fd7e14 100%);
+      color: #212529;
+    }
+
+    @keyframes slideInToast {
+      from {
+        transform: translateX(100%);
+        opacity: 0;
+      }
+      to {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
+
+    /* Responsivo */
+    @media (max-width: 768px) {
+      nav.menu-lateral {
+        width: 60px;
+      }
+
+      nav.menu-lateral:hover {
+        width: 250px;
+      }
+
+      .conteudo {
+        margin-left: 60px;
+      }
+
+      nav.menu-lateral:hover ~ .conteudo {
+        margin-left: 250px;
+      }
+
+      .vagas-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .section-header {
+        flex-direction: column;
+        gap: 20px;
+        text-align: center;
+      }
+
+      .stats-container {
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+
+      .filters-container {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .filter-buttons {
+        margin-left: 0;
+        justify-content: center;
+      }
+
+      .modal-content {
+        margin: 25% auto;
+        padding: 25px 20px;
+      }
+
+      .vaga-actions {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .btn-inscrever {
+        max-width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+<!-- Menu lateral -->
+<nav class="menu-lateral">
+  <div class="title">
+    <img th:src="@{/css/images/logo_blue_white.png}" width="50" height="50" alt="Logo Blue Wave" />
+    <h1>Blue Wave</h1>
+  </div>
+
+  <div class="menu-items">
+    <ul>
+      <li class="item-menu active">
+        <a href="/inscricao/vagasVoluntario">
+          <span class="icon"><i class="bi bi-briefcase"></i></span>
+          <span class="txt-link">Vagas</span>
+        </a>
+      </li>
+      <li class="item-menu">
+        <a href="/inscricao/minhasVagas">
+          <span class="icon"><i class="bi bi-journal-check"></i></span>
+          <span class="txt-link">Minhas Inscrições</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+
+  <div class="logout-section">
+    <div class="logout-item" onclick="showLogoutModal()">
+      <a href="#" onclick="event.preventDefault()">
+        <span class="icon"><i class="bi bi-box-arrow-right"></i></span>
+        <span class="txt-link">Sair</span>
+      </a>
+    </div>
+  </div>
+</nav>
+
+<!-- Modal de confirmação de logout -->
+<div id="logoutModal" class="modal">
+  <div class="modal-content">
+    <h3>Confirmar Logout</h3>
+    <p>Tem certeza de que deseja sair do sistema?</p>
+    <div class="modal-buttons">
+      <button class="btn-modal-cancel" onclick="hideLogoutModal()">Cancelar</button>
+      <button class="btn-confirm" onclick="confirmLogout()">Sair</button>
+    </div>
+  </div>
+</div>
+
+<!-- Loading Overlay Melhorado -->
+<div class="loading-overlay" id="loadingOverlay">
+  <div class="loading-content">
+    <div class="loading-spinner"></div>
+    <div class="loading-text">Processando Inscrição</div>
+    <div class="loading-subtext">Por favor, aguarde...</div>
+  </div>
+</div>
+
+<!-- Conteúdo principal -->
+<div class="conteudo">
+  <div id="header-bg">
+    <header id="header">
+      <a id="logo" th:href="@{/}">
+        Vagas Disponíveis - <span th:text="${nome}">Voluntário</span>
+      </a>
+    </header>
+  </div>
+
+  <div class="main-container">
+    <!-- Cabeçalho da Seção -->
+    <div class="section-header">
+      <div class="section-title">
+        <i class="bi bi-briefcase"></i>
+        Vagas Disponíveis
+      </div>
+      <div class="stats-container">
+        <div class="stat-item">
+          <div class="stat-value" th:text="${vagas.size()}">0</div>
+          <div class="stat-label">Total</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value" id="vagasUrgenteCount">0</div>
+          <div class="stat-label">Urgentes</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value" id="vagasHojeCount">0</div>
+          <div class="stat-label">Hoje</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Filtros -->
+    <div class="filters-container">
+      <div class="filter-group">
+        <label class="filter-label">Categoria</label>
+        <select class="filter-select" id="categoriaFilter">
+          <option value="">Todas</option>
+          <option value="urgente">Urgentes</option>
+          <option value="hoje">Hoje</option>
+          <option value="semana">Esta Semana</option>
+        </select>
+      </div>
+      <div class="filter-group">
+        <label class="filter-label">Buscar</label>
+        <input type="text" class="filter-input" id="searchFilter" placeholder="Nome da vaga ou ONG...">
+      </div>
+      <div class="filter-group">
+        <label class="filter-label">Ordenar por</label>
+        <select class="filter-select" id="sortFilter">
+          <option value="data">Data</option>
+          <option value="nome">Nome</option>
+          <option value="vagas">Vagas Disponíveis</option>
+        </select>
+      </div>
+      <div class="filter-buttons">
+        <button class="btn btn-secondary" onclick="clearFilters()">
+          <i class="bi bi-arrow-clockwise"></i>
+          Limpar
+        </button>
+        <a href="/inscricao/minhasVagas" class="btn btn-primary">
+          <i class="bi bi-journal-check"></i>
+          Minhas Inscrições
+        </a>
+      </div>
+    </div>
+
+    <!-- Grid de Vagas -->
+    <div class="vagas-grid" id="vagasGrid">
+      <div th:each="vaga : ${vagas}" class="vaga-card"
+           th:data-categoria="${#temporals.format(vaga.data, 'yyyy-MM-dd') == #temporals.format(#temporals.createNow(), 'yyyy-MM-dd') ? 'hoje' : (vaga.quantidade <= 2 ? 'urgente' : 'normal')}"
+           th:data-data="${vaga.data}"
+           th:data-nome="${vaga.nome}"
+           th:data-vagas="${vaga.quantidade}">
+
+        <!-- Imagem da Vaga -->
+        <div class="vaga-image">
+          <img th:if="${vaga.imagemPath != null}"
+               th:src="${vaga.imagemPath}"
+               th:alt="${vaga.nome}"
+               onerror="this.parentElement.innerHTML='<div class=\'vaga-image-placeholder\'><i class=\'bi bi-image\'></i></div>'">
+          <div th:unless="${vaga.imagemPath != null}" class="vaga-image-placeholder">
+            <i class="bi bi-image"></i>
+          </div>
+
+          <!-- Badge da Vaga -->
+          <div class="vaga-badge"
+               th:classappend="${vaga.quantidade <= 2 ? 'vaga-urgente' : ''}"
+               th:if="${#temporals.format(vaga.data, 'yyyy-MM-dd') == #temporals.format(#temporals.createNow(), 'yyyy-MM-dd') or vaga.quantidade <= 2}">
+            <span th:if="${#temporals.format(vaga.data, 'yyyy-MM-dd') == #temporals.format(#temporals.createNow(), 'yyyy-MM-dd')}">Hoje</span>
+            <span th:unless="${#temporals.format(vaga.data, 'yyyy-MM-dd') == #temporals.format(#temporals.createNow(), 'yyyy-MM-dd')}">
+              <span th:if="${vaga.quantidade <= 2}">Urgente</span>
+            </span>
+          </div>
+        </div>
+
+        <!-- Conteúdo da Vaga -->
+        <div class="vaga-content">
+          <div class="vaga-header">
+            <h3 class="vaga-title" th:text="${vaga.nome}">Nome da Vaga</h3>
+            <div class="vaga-ong">
+              <i class="bi bi-building"></i>
+              <span th:text="${vaga.ong.nome}">Nome da ONG</span>
+            </div>
+          </div>
+
+          <div class="vaga-details">
+            <div class="detail-item">
+              <i class="bi bi-calendar-event"></i>
+              <span th:text="${#temporals.format(vaga.data, 'dd/MM/yyyy')}">Data</span>
+              <span th:if="${#temporals.format(vaga.data, 'yyyy-MM-dd') == #temporals.format(#temporals.createNow(), 'yyyy-MM-dd')}"
+                    class="detail-urgente">(Hoje!)</span>
+            </div>
+            <div class="detail-item">
+              <i class="bi bi-people"></i>
+              <span th:text="${vaga.quantidade} + ' vagas disponíveis'">Vagas</span>
+            </div>
+            <div class="detail-item">
+              <i class="bi bi-geo-alt"></i>
+              <span th:text="${vaga.ong.cidade + ', ' + vaga.ong.estado}">Local</span>
+            </div>
+          </div>
+
+          <div class="vaga-description" th:text="${vaga.descri}">
+            Descrição da vaga...
+          </div>
+
+          <div class="vaga-actions">
+            <button class="btn-inscrever"
+                    th:data-vaga-id="${vaga.id}"
+                    th:data-vaga-nome="${vaga.nome}"
+                    th:disabled="${vaga.quantidade <= 0}"
+                    onclick="inscrever(this)">
+              <i class="bi bi-plus-circle"></i>
+              <span th:if="${vaga.quantidade > 0}">Inscrever-se</span>
+              <span th:unless="${vaga.quantidade > 0}">Esgotada</span>
+            </button>
+
+            <div class="vagas-disponiveis"
+                 th:classappend="${vaga.quantidade <= 2 ? 'vagas-poucas' : (vaga.quantidade == 0 ? 'vagas-esgotadas' : '')}">
+              <i class="bi bi-clock"></i>
+              <span th:if="${vaga.quantidade > 2}" th:text="${vaga.quantidade} + ' vagas'">Disponível</span>
+              <span th:if="${vaga.quantidade <= 2 and vaga.quantidade > 0}" th:text="'Últimas ' + ${vaga.quantidade} + ' vagas!'">Poucas vagas</span>
+              <span th:if="${vaga.quantidade == 0}">Esgotada</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Estado Vazio -->
+    <div class="empty-state" id="emptyState" style="display: none;">
+      <div class="empty-icon">
+        <i class="bi bi-search"></i>
+      </div>
+      <h3 class="empty-title">Nenhuma vaga encontrada</h3>
+      <p class="empty-description" id="emptyMessage">
+        Não há vagas disponíveis no momento.
+      </p>
+      <button class="btn btn-primary" onclick="clearFilters()">
+        <i class="bi bi-arrow-clockwise"></i>
+        Limpar Filtros
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Funções de logout
+  function showLogoutModal() {
+    document.getElementById('logoutModal').style.display = 'block';
+  }
+
+  function hideLogoutModal() {
+    document.getElementById('logoutModal').style.display = 'none';
+  }
+
+  function confirmLogout() {
+    // Fazer logout via AJAX
+    fetch('/logout', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      }
+    })
+            .then(response => {
+              if (response.ok) {
+                window.location.href = '/login/voluntario';
+              } else {
+                showToast('Erro ao fazer logout', 'error');
+              }
+            })
+            .catch(error => {
+              console.error('Erro:', error);
+              showToast('Erro ao fazer logout', 'error');
+            });
+  }
+
+  // Função para inscrever em uma vaga
+  function inscrever(button) {
+    const vagaId = button.dataset.vagaId;
+    const vagaNome = button.dataset.vagaNome;
+
+    // Mostrar loading
+    document.getElementById('loadingOverlay').style.display = 'flex';
+
+    // Desabilitar botão temporariamente
+    button.disabled = true;
+    const originalText = button.innerHTML;
+    button.innerHTML = '<i class="bi bi-hourglass-split"></i> Processando...';
+
+    fetch('/inscricao/inscrever', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      },
+      body: 'vagaId=' + encodeURIComponent(vagaId)
+    })
+            .then(response => response.text())
+            .then(result => {
+              // Esconder loading
+              document.getElementById('loadingOverlay').style.display = 'none';
+
+              if (result === 'ok') {
+                showToast('Inscrição realizada com sucesso!', 'success');
+                button.innerHTML = '<i class="bi bi-check-circle"></i> Inscrito';
+                button.className = 'btn-inscrever btn-ja-inscrito';
+                button.disabled = true;
+
+                // Atualizar quantidade de vagas no card
+                const card = button.closest('.vaga-card');
+                const vagasDispElement = card.querySelector('.vagas-disponiveis span');
+                const currentCount = parseInt(card.dataset.vagas) - 1;
+                card.dataset.vagas = currentCount;
+
+                if (currentCount > 2) {
+                  vagasDispElement.textContent = currentCount + ' vagas';
+                  vagasDispElement.parentElement.className = 'vagas-disponiveis';
+                } else if (currentCount > 0) {
+                  vagasDispElement.textContent = 'Últimas ' + currentCount + ' vagas!';
+                  vagasDispElement.parentElement.className = 'vagas-disponiveis vagas-poucas';
+                } else {
+                  vagasDispElement.textContent = 'Esgotada';
+                  vagasDispElement.parentElement.className = 'vagas-disponiveis vagas-esgotadas';
+                  button.innerHTML = '<i class="bi bi-x-circle"></i> Esgotada';
+                  button.className = 'btn-inscrever btn-esgotada';
+                }
+
+                // Atualizar estatísticas
+                updateStats();
+
+              } else if (result === 'já inscrito') {
+                showToast('Você já está inscrito nesta vaga.', 'warning');
+                button.innerHTML = '<i class="bi bi-check-circle"></i> Já Inscrito';
+                button.className = 'btn-inscrever btn-ja-inscrito';
+                button.disabled = true;
+              } else if (result.startsWith('erro: já inscrito em vaga nesta data')) {
+                showToast('Você já está inscrito em outra vaga nesta data!', 'error');
+                button.disabled = false;
+                button.innerHTML = originalText;
+              } else if (result.startsWith('erro: esta vaga já expirou')) {
+                showToast('Esta vaga já expirou!', 'error');
+                button.disabled = true;
+                button.innerHTML = '<i class="bi bi-x-circle"></i> Expirada';
+                button.className = 'btn-inscrever btn-esgotada';
+              } else if (result.startsWith('erro: não há vagas disponíveis')) {
+                showToast('Não há mais vagas disponíveis!', 'error');
+                button.innerHTML = '<i class="bi bi-x-circle"></i> Esgotada';
+                button.className = 'btn-inscrever btn-esgotada';
+                button.disabled = true;
+              } else if (result.startsWith('erro: não autenticado')) {
+                showToast('Você precisa estar logado para se inscrever!', 'error');
+                setTimeout(() => {
+                  window.location.href = '/login/voluntario';
+                }, 2000);
+              } else if (result.startsWith('erro')) {
+                showToast(result.replace('erro: ', ''), 'error');
+                button.disabled = false;
+                button.innerHTML = originalText;
+              } else {
+                showToast('Resposta inesperada: ' + result, 'error');
+                button.disabled = false;
+                button.innerHTML = originalText;
+              }
+            })
+            .catch(error => {
+              console.error('Erro:', error);
+              document.getElementById('loadingOverlay').style.display = 'none';
+              showToast('Erro ao processar inscrição', 'error');
+              button.disabled = false;
+              button.innerHTML = originalText;
+            });
+  }
+
+  // Filtros
+  function filterVagas() {
+    const categoriaFilter = document.getElementById('categoriaFilter').value;
+    const searchFilter = document.getElementById('searchFilter').value.toLowerCase();
+    const sortFilter = document.getElementById('sortFilter').value;
+    const cards = Array.from(document.querySelectorAll('.vaga-card'));
+    let visibleCount = 0;
+
+    // Filtrar cards
+    cards.forEach(card => {
+      const categoria = card.dataset.categoria;
+      const nome = card.dataset.nome.toLowerCase();
+      const ong = card.querySelector('.vaga-ong span').textContent.toLowerCase();
+
+      // Verificar filtros
+      const categoriaMatch = !categoriaFilter || categoria === categoriaFilter ||
+              (categoriaFilter === 'semana' && isThisWeek(card.dataset.data));
+      const searchMatch = !searchFilter ||
+              nome.includes(searchFilter) ||
+              ong.includes(searchFilter);
+
+      if (categoriaMatch && searchMatch) {
+        card.style.display = 'block';
+        visibleCount++;
+      } else {
+        card.style.display = 'none';
+      }
+    });
+
+    // Ordenar cards visíveis
+    const visibleCards = cards.filter(card => card.style.display !== 'none');
+    sortCards(visibleCards, sortFilter);
+
+    // Atualizar estado vazio
+    checkEmptyState(visibleCount, categoriaFilter, searchFilter);
+  }
+
+  // Função para verificar se a data é desta semana
+  function isThisWeek(dateString) {
+    const date = new Date(dateString);
+    const today = new Date();
+    const weekStart = new Date(today.setDate(today.getDate() - today.getDay()));
+    const weekEnd = new Date(today.setDate(today.getDate() - today.getDay() + 6));
+    return date >= weekStart && date <= weekEnd;
+  }
+
+  // Ordenar cards
+  function sortCards(cards, sortBy) {
+    const container = document.getElementById('vagasGrid');
+
+    cards.sort((a, b) => {
+      switch (sortBy) {
+        case 'nome':
+          return a.dataset.nome.localeCompare(b.dataset.nome);
+        case 'vagas':
+          return parseInt(b.dataset.vagas) - parseInt(a.dataset.vagas);
+        case 'data':
+        default:
+          return new Date(a.dataset.data) - new Date(b.dataset.data);
+      }
+    });
+
+    // Reordenar no DOM
+    cards.forEach(card => container.appendChild(card));
+  }
+
+  // Limpar filtros
+  function clearFilters() {
+    document.getElementById('categoriaFilter').value = '';
+    document.getElementById('searchFilter').value = '';
+    document.getElementById('sortFilter').value = 'data';
+    filterVagas();
+  }
+
+  // Verificar estado vazio
+  function checkEmptyState(visibleCount, categoriaFilter = '', searchFilter = '') {
+    const cards = document.querySelectorAll('.vaga-card');
+    const emptyState = document.getElementById('emptyState');
+    const vagasGrid = document.getElementById('vagasGrid');
+    const emptyMessage = document.getElementById('emptyMessage');
+
+    if (cards.length === 0) {
+      emptyMessage.textContent = 'Não há vagas disponíveis no momento.';
+      emptyState.style.display = 'block';
+      vagasGrid.style.display = 'none';
+    } else if (visibleCount === 0) {
+      if (categoriaFilter || searchFilter) {
+        emptyMessage.textContent = 'Nenhuma vaga encontrada com os filtros aplicados.';
+      } else {
+        emptyMessage.textContent = 'Nenhuma vaga encontrada.';
+      }
+      emptyState.style.display = 'block';
+      vagasGrid.style.display = 'none';
+    } else {
+      emptyState.style.display = 'none';
+      vagasGrid.style.display = 'grid';
+    }
+  }
+
+  // Atualizar estatísticas
+  function updateStats() {
+    const cards = document.querySelectorAll('.vaga-card');
+    let urgentes = 0;
+    let hoje = 0;
+
+    cards.forEach(card => {
+      const categoria = card.dataset.categoria;
+      const vagas = parseInt(card.dataset.vagas);
+
+      if (categoria === 'hoje') {
+        hoje++;
+      } else if (vagas <= 2 && vagas > 0) {
+        urgentes++;
+      }
+    });
+
+    document.getElementById('vagasUrgenteCount').textContent = urgentes;
+    document.getElementById('vagasHojeCount').textContent = hoje;
+  }
+
+  // Mostrar toast
+  function showToast(message, type = 'success') {
+    // Remove toast existente
+    const existingToast = document.querySelector('.toast');
+    if (existingToast) {
+      existingToast.remove();
+    }
+
+    const toast = document.createElement('div');
+    toast.className = `toast ${type}`;
+
+    const icon = type === 'success' ? 'check-circle' :
+            type === 'error' ? 'x-circle' : 'exclamation-triangle';
+
+    toast.innerHTML = `
+        <i class="bi bi-${icon}"></i>
+        <span>${message}</span>
+    `;
+
+    document.body.appendChild(toast);
+
+    // Auto remove após 5 segundos
+    setTimeout(() => {
+      toast.style.animation = 'slideOutToast 0.3s ease';
+      setTimeout(() => toast.remove(), 300);
+    }, 5000);
+  }
+
+  // Event listeners
+  document.addEventListener('DOMContentLoaded', function() {
+    // Configurar filtros
+    document.getElementById('categoriaFilter').addEventListener('change', filterVagas);
+    document.getElementById('searchFilter').addEventListener('input', filterVagas);
+    document.getElementById('sortFilter').addEventListener('change', filterVagas);
+
+    // Atualizar estatísticas iniciais
+    updateStats();
+
+    // Verificar estado vazio inicial
+    checkEmptyState();
+
+    // Verificar se o usuário já está inscrito em alguma vaga
+    checkUserInscriptions();
+
+    // Fechar modais ao clicar fora
+    window.addEventListener('click', function(event) {
+      const logoutModal = document.getElementById('logoutModal');
+
+      if (event.target === logoutModal) {
+        hideLogoutModal();
+      }
+    });
+
+    // Adicionar animação aos cards
+    const cards = document.querySelectorAll('.vaga-card');
+    cards.forEach((card, index) => {
+      card.style.opacity = '0';
+      card.style.transform = 'translateY(20px)';
+
+      setTimeout(() => {
+        card.style.transition = 'all 0.5s ease';
+        card.style.opacity = '1';
+        card.style.transform = 'translateY(0)';
+      }, index * 100);
+    });
+  });
+
+  // Verificar inscrições do usuário
+  function checkUserInscriptions() {
+    const buttons = document.querySelectorAll('.btn-inscrever');
+
+    buttons.forEach(button => {
+      const vagaId = button.dataset.vagaId;
+
+      fetch(`/inscricao/verificar/${vagaId}`)
+              .then(response => response.json())
+              .then(data => {
+                if (data.inscrito) {
+                  button.innerHTML = '<i class="bi bi-check-circle"></i> Já Inscrito';
+                  button.className = 'btn-inscrever btn-ja-inscrito';
+                  button.disabled = true;
+                }
+              })
+              .catch(error => {
+                console.error('Erro ao verificar inscrição:', error);
+              });
+    });
+  }
+
+  // Adicionar estilos de animação
+  const style = document.createElement('style');
+  style.textContent = `
+    @keyframes slideOutToast {
+        from {
+            transform: translateX(0);
+            opacity: 1;
+        }
+        to {
+            transform: translateX(100%);
+            opacity: 0;
+        }
+    }
+
+    .btn-inscrever.btn-ja-inscrito {
+        background: linear-gradient(135deg, #ffc107 0%, #fd7e14 100%) !important;
+        color: #212529 !important;
+    }
+
+    .btn-inscrever.btn-esgotada {
+        background: #6c757d !important;
+        color: white !important;
+    }
+
+    .vaga-card[data-categoria="urgente"] {
+        border-left: 4px solid #ffc107;
+    }
+
+    .vaga-card[data-categoria="hoje"] {
+        border-left: 4px solid #dc3545;
+        animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+        0% {
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+        }
+        50% {
+            box-shadow: 0 5px 30px rgba(220, 53, 69, 0.3);
+        }
+        100% {
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+        }
+    }
+`;
+  document.head.appendChild(style);
+</script>
+</body>
+</html>
