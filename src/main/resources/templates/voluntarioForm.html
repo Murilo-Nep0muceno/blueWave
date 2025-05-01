@@ -5,98 +5,516 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blue Wave</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" th:href="@{/css/style.css}" href="/static/css/style.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: url('/static/css/images/praia1.jpeg') center/cover no-repeat fixed;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(14, 165, 233, 0.3);
+            z-index: -1;
+        }
+
+        #header-bg {
+            background: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        #header {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        #logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #0ea5e9;
+            text-decoration: none;
+            letter-spacing: 1px;
+        }
+
+        #nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        #nav a {
+            color: #0ea5e9;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+        }
+
+        #nav a:hover {
+            background: #f1f5f9;
+            color: #0284c7;
+            transform: translateY(-2px);
+        }
+
+        #btn-mobile {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        #hambuger {
+            display: block;
+            width: 25px;
+            height: 2px;
+            background: #0ea5e9;
+            position: relative;
+        }
+
+        #hambuger::before,
+        #hambuger::after {
+            content: '';
+            display: block;
+            width: 25px;
+            height: 2px;
+            background: #0ea5e9;
+            position: absolute;
+        }
+
+        #hambuger::before {
+            top: -8px;
+        }
+
+        #hambuger::after {
+            bottom: -8px;
+        }
+
+        /* Seção da imagem removida - agora é background do body */
+        #img-back {
+            display: none;
+        }
+
+        /* Container do formulário */
+        #form-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 3rem 2rem;
+            min-height: calc(100vh - 80px);
+        }
+
+        #form-cadastro {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 3rem;
+            max-width: 500px;
+            width: 100%;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            animation: fadeInUp 0.5s ease;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        #form-cadastro h1 {
+            color: #1e293b;
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        #form-cadastro > div {
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .label {
+            display: block;
+            color: #374151;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="password"],
+        input[type="tel"],
+        input[type="date"],
+        select {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 2px solid #e5e7eb;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: white;
+            font-family: 'Inter', sans-serif;
+        }
+
+        input:focus,
+        select:focus {
+            outline: none;
+            border-color: #0ea5e9;
+            box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.1);
+        }
+
+        input::placeholder {
+            color: #9ca3af;
+        }
+
+        select {
+            cursor: pointer;
+        }
+
+        .error {
+            display: none;
+            background: #fee2e2;
+            color: #dc2626;
+            padding: 0.5rem;
+            border-radius: 8px;
+            margin-bottom: 0.5rem;
+            font-size: 0.85rem;
+            text-align: center;
+        }
+
+        .error.show {
+            display: block;
+        }
+
+        #btn-cadastro {
+            width: 100%;
+            padding: 0.75rem;
+            background: linear-gradient(135deg, #0ea5e9, #0284c7);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Inter', sans-serif;
+        }
+
+        #btn-cadastro:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(14, 165, 233, 0.3);
+        }
+
+        #btn-cadastro:active {
+            transform: translateY(0);
+        }
+
+        /* Validação visual */
+        input.invalid {
+            border-color: #dc2626;
+            box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.1);
+        }
+
+        input.valid {
+            border-color: #059669;
+            box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.1);
+        }
+
+        /* Responsivo */
+        @media (max-width: 768px) {
+            #nav ul {
+                display: none;
+            }
+
+            #btn-mobile {
+                display: block;
+            }
+
+            #header {
+                padding: 1rem;
+            }
+
+
+
+            #form-container {
+                padding: 2rem 1rem;
+            }
+
+            #form-cadastro {
+                padding: 2rem 1.5rem;
+            }
+
+            #logo {
+                font-size: 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            #form-cadastro {
+                padding: 1.5rem 1rem;
+            }
+
+            #form-cadastro h1 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
 </head>
 <body>
-    <div id="header-bg">
-        <header id="header">
-          <a id="logo" href="/">BLUE WAVE</a>
-          <nav id="nav">
+<div id="header-bg">
+    <header id="header">
+        <a id="logo" href="/">BLUE WAVE</a>
+        <nav id="nav">
             <button id="btn-mobile">
-              <span id="hambuger"></span>
+                <span id="hambuger"></span>
             </button>
-           
+
             <ul id="menu">
-              <li><a href="">Quem Somos?</a></li>
-              <li><a href="/ongForm">Sou um ONG</a></li>
-              <li><a href="/voluntarioForm">Quero ser voluntário</a></li>
-              <li><a href="/login">Entrar</a></li>
+                <li><a href="">Quem Somos?</a></li>
+                <li><a href="/ongForm">Sou um ONG</a></li>
+                <li><a href="/voluntarioForm">Quero ser voluntário</a></li>
+                <li><a href="/login">Entrar</a></li>
             </ul>
-          </nav>
-        </header>
-      </div>
-      
-      <section id="img-back">
-        <img th:src="@{/css/images/praia1.jpeg}" src="/static/css/images/praia1.jpeg" alt="">
-      </section>
+        </nav>
+    </header>
+</div>
 
-      <section id="form-container">
-        <!-- onsubmit="send(event)" -->
-        <form onsubmit="form1(event)"  id="form-cadastro" >
-          <h1>Cadastro BlueWave</h1>
-      
-          <div>
-              <label id="error_name" class="error">Nome Invalido</label>
-              <label class="label" for="nomeVoluntario">Nome Completo</label>
-              <input type="text" id="nomeVoluntario" name="nomeVoluntario" onchange="nomeValid()" placeholder="Digite seu nome completo">
-          </div>
-      
-          <div>
-              <label id="error_cpf" class="error">Cpf Invalido</label>
-              <label class="label" for="cpf">CPF</label>
-              <input type="text" onchange="cpfValid()" id="cpf" name="cpf"  placeholder="Ex: 12345678901" title="CPF inválido. Exemplo: 12345678901">
-          </div>
-      
-          <div>
-            <label id="error_email" class="error">Email Invalido</label>
-              <label class="label" for="email">Email</label>
-              <input type="email" onchange="emailValid()" id="email" name="email"  placeholder="Digite seu e-mail" maxlength="100">
-          </div>
-      
-          <div>
-            <label id="error_senha" class="error">senha Invalida</label>
-              <label class="label" for="senha">Senha</label>
-              <input onchange="senhaValid()"  type="password" id="senha" name="senha"  minlength="8" placeholder="Senha com no mínimo 8 caracteres">
-          </div>
+<section id="img-back">
+    <img src="/static/css/images/praia1.jpeg" alt="">
+</section>
 
-          <div>
-            <label id="error_senhaConfirmar" class="error">senha Diferente</label>
-              <label class="label" for="senha">Confirme sua Senha</label>
-              <input onchange="senhaConfirmaValid()" type="password" id="senhaConfirmar" name="senha"  minlength="8" placeholder="Senha com no mínimo 8 caracteres">
-          </div>
-      
-          <div>
-            <label id="error_telefone" class="error">Telefone Invalido</label>
-              <label class="label" for="telefone">Telefone</label>
-              <input onchange="telefoneValid()" type="tel" id="telefone" name="telefone"  placeholder="Ex: 11987654321" title="Número de telefone inválido. Exemplo: 11987654321">
-          </div>
-      
-          <div>
-            <label id="error_data" class="error">Data Invalida</label>
-              <label class="label" for="dataNascimento">Data de Nascimento</label>
-              <input onchange="validaData()" type="date" id="dataNascimento" name="dataNascimento" >
-          </div>
-      
-          <div id="genero">
-              <label class="label" for="sexo">Selecione o Gênero</label>
-              <select name="sexo" id="sexo" required>
-                  <option value="masculino">Masculino</option>
-                  <option value="feminino">Feminino</option>
-                  <option value="indefinido">Indefinido</option>
-              </select>
-          </div>
-      
-          <div>
-              <button  type="submit" id="btn-cadastro">Cadastrar</button>
-          </div>
-      </form>
-      
-        
-      </section>
+<section id="form-container">
+    <form onsubmit="form1(event)" id="form-cadastro">
+        <h1>Cadastro de Voluntário BlueWave</h1>
 
-  </body>
-  <script  src="/static/scripts/main.js" th:src="@{/scripts/main.js}" ></script>
+        <div>
+            <label id="error_name" class="error">Nome Inválido</label>
+            <label class="label" for="nomeVoluntario">Nome Completo</label>
+            <input type="text" id="nomeVoluntario" name="nomeVoluntario" onchange="nomeValid()" placeholder="Digite seu nome completo">
+        </div>
 
+        <div>
+            <label id="error_cpf" class="error">CPF Inválido</label>
+            <label class="label" for="cpf">CPF</label>
+            <input type="text" onchange="cpfValid()" id="cpf" name="cpf" placeholder="Ex: 12345678901" title="CPF inválido. Exemplo: 12345678901">
+        </div>
+
+        <div>
+            <label id="error_email" class="error">Email Inválido</label>
+            <label class="label" for="email">Email</label>
+            <input type="email" onchange="emailValid()" id="email" name="email" placeholder="Digite seu e-mail" maxlength="100">
+        </div>
+
+        <div>
+            <label id="error_senha" class="error">Senha Inválida</label>
+            <label class="label" for="senha">Senha</label>
+            <input onchange="senhaValid()" type="password" id="senha" name="senha" minlength="8" placeholder="Senha com no mínimo 8 caracteres">
+        </div>
+
+        <div>
+            <label id="error_senhaConfirmar" class="error">Senhas Diferentes</label>
+            <label class="label" for="senhaConfirmar">Confirme sua Senha</label>
+            <input onchange="senhaConfirmaValid()" type="password" id="senhaConfirmar" name="senhaConfirmar" minlength="8" placeholder="Confirme sua senha">
+        </div>
+
+        <div>
+            <label id="error_telefone" class="error">Telefone Inválido</label>
+            <label class="label" for="telefone">Telefone</label>
+            <input onchange="telefoneValid()" type="tel" id="telefone" name="telefone" placeholder="Ex: 11987654321" title="Número de telefone inválido. Exemplo: 11987654321">
+        </div>
+
+        <div>
+            <label id="error_data" class="error">Data Inválida</label>
+            <label class="label" for="dataNascimento">Data de Nascimento</label>
+            <input onchange="validaData()" type="date" id="dataNascimento" name="dataNascimento">
+        </div>
+
+        <div id="genero">
+            <label class="label" for="sexo">Selecione o Gênero</label>
+            <select name="sexo" id="sexo" required>
+                <option value="">Selecione...</option>
+                <option value="masculino">Masculino</option>
+                <option value="feminino">Feminino</option>
+                <option value="indefinido">Indefinido</option>
+            </select>
+        </div>
+
+        <div>
+            <button type="submit" id="btn-cadastro">Cadastrar</button>
+        </div>
+    </form>
+</section>
+
+<script>
+    // Funções de validação básicas para demonstração
+    function nomeValid() {
+        const nome = document.getElementById('nomeVoluntario');
+        const error = document.getElementById('error_name');
+
+        if (nome.value.length < 3) {
+            error.classList.add('show');
+            nome.classList.add('invalid');
+            nome.classList.remove('valid');
+        } else {
+            error.classList.remove('show');
+            nome.classList.remove('invalid');
+            nome.classList.add('valid');
+        }
+    }
+
+    function cpfValid() {
+        const cpf = document.getElementById('cpf');
+        const error = document.getElementById('error_cpf');
+        const cpfValue = cpf.value.replace(/\D/g, '');
+
+        if (cpfValue.length !== 11) {
+            error.classList.add('show');
+            cpf.classList.add('invalid');
+            cpf.classList.remove('valid');
+        } else {
+            error.classList.remove('show');
+            cpf.classList.remove('invalid');
+            cpf.classList.add('valid');
+        }
+    }
+
+    function emailValid() {
+        const email = document.getElementById('email');
+        const error = document.getElementById('error_email');
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        if (!emailRegex.test(email.value)) {
+            error.classList.add('show');
+            email.classList.add('invalid');
+            email.classList.remove('valid');
+        } else {
+            error.classList.remove('show');
+            email.classList.remove('invalid');
+            email.classList.add('valid');
+        }
+    }
+
+    function senhaValid() {
+        const senha = document.getElementById('senha');
+        const error = document.getElementById('error_senha');
+
+        if (senha.value.length < 8) {
+            error.classList.add('show');
+            senha.classList.add('invalid');
+            senha.classList.remove('valid');
+        } else {
+            error.classList.remove('show');
+            senha.classList.remove('invalid');
+            senha.classList.add('valid');
+        }
+    }
+
+    function senhaConfirmaValid() {
+        const senha = document.getElementById('senha');
+        const senhaConfirmar = document.getElementById('senhaConfirmar');
+        const error = document.getElementById('error_senhaConfirmar');
+
+        if (senha.value !== senhaConfirmar.value) {
+            error.classList.add('show');
+            senhaConfirmar.classList.add('invalid');
+            senhaConfirmar.classList.remove('valid');
+        } else {
+            error.classList.remove('show');
+            senhaConfirmar.classList.remove('invalid');
+            senhaConfirmar.classList.add('valid');
+        }
+    }
+
+    function telefoneValid() {
+        const telefone = document.getElementById('telefone');
+        const error = document.getElementById('error_telefone');
+        const telefoneValue = telefone.value.replace(/\D/g, '');
+
+        if (telefoneValue.length < 10 || telefoneValue.length > 11) {
+            error.classList.add('show');
+            telefone.classList.add('invalid');
+            telefone.classList.remove('valid');
+        } else {
+            error.classList.remove('show');
+            telefone.classList.remove('invalid');
+            telefone.classList.add('valid');
+        }
+    }
+
+    function validaData() {
+        const data = document.getElementById('dataNascimento');
+        const error = document.getElementById('error_data');
+        const hoje = new Date();
+        const nascimento = new Date(data.value);
+        const idade = hoje.getFullYear() - nascimento.getFullYear();
+
+        if (idade < 16 || idade > 100) {
+            error.classList.add('show');
+            data.classList.add('invalid');
+            data.classList.remove('valid');
+        } else {
+            error.classList.remove('show');
+            data.classList.remove('invalid');
+            data.classList.add('valid');
+        }
+    }
+
+    function form1(event) {
+        event.preventDefault();
+
+        // Validar todos os campos
+        nomeValid();
+        cpfValid();
+        emailValid();
+        senhaValid();
+        senhaConfirmaValid();
+        telefoneValid();
+        validaData();
+
+        // Verificar se há erros
+        const errors = document.querySelectorAll('.error.show');
+        const invalids = document.querySelectorAll('.invalid');
+
+        if (errors.length === 0 && invalids.length === 0) {
+            alert('Cadastro realizado com sucesso!');
+            // Aqui você pode fazer o envio do formulário
+        } else {
+            alert('Por favor, corrija os erros no formulário.');
+        }
+    }
+
+    // Menu mobile
+    const btnMobile = document.getElementById('btn-mobile');
+    const menu = document.getElementById('menu');
+
+    btnMobile.addEventListener('click', function() {
+        menu.classList.toggle('active');
+    });
+</script>
+</body>
 </html>

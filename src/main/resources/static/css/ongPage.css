@@ -1,0 +1,251 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+  }
+
+  body {
+    height: 100vh;
+    background-color: #f1f1f1;
+  }
+
+  nav.menu-lateral {
+    width: 80px;
+    height: 100%;
+    background-color: #00A8FF;
+    padding: 40px 0 40px 1%;
+    box-shadow: 3px 0 0 #003366;
+    position: fixed;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+    transition: 0.2s;
+  }
+
+  nav.menu-lateral:hover {
+    width: 300px;
+  }
+
+  .title {
+    display: flex;
+    align-items: center;
+  }
+
+  .title h1 {
+    display: none;
+    margin-left: 10px;
+    color: white;
+    margin-bottom: 10px;
+  }
+
+  nav.menu-lateral:hover .title h1 {
+    display: block;
+  }
+
+  .btn-expandir > i {
+    color: white;
+    font-size: 30px;
+    cursor: pointer;
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  ul li.item-menu {
+    margin-bottom: 10px;
+  }
+
+  ul li.item-menu:hover {
+    background-color: #003366;
+  }
+
+  ul li.item-menu a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    padding: 20px 4%;
+    display: flex;
+    align-items: center;
+  }
+
+  ul li.item-menu a .icon > i {
+    font-size: 30px;
+  }
+
+  ul li.item-menu a .txt-link {
+    margin-left: 20px;
+    white-space: nowrap;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  nav.menu-lateral:hover .txt-link {
+    opacity: 1;
+  }
+
+  /* Conteúdo ao lado do menu */
+  .conteudo {
+    margin-left: 80px;
+    padding: 20px;
+    transition: margin-left 0.2s;
+  }
+
+  nav.menu-lateral:hover ~ .conteudo {
+    margin-left: 300px;
+  }
+
+  /* Header */
+  #header-bg {
+    background-color: #003366;
+    padding: 10px 20px;
+  }
+
+  #header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+  }
+
+  #logo {
+    font-size: 24px;
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+  }
+
+  #nav ul {
+    display: flex;
+    gap: 20px;
+  }
+
+  #nav ul li {
+    list-style: none;
+  }
+
+  #nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+  }
+
+  h1 {
+    margin-top: 20px;
+    color: #003366;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background-color: white;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  }
+
+  th, td {
+    padding: 12px;
+    border: 1px solid #ccc;
+    text-align: left;
+  }
+
+  th {
+    background-color: #00A8FF;
+    color: white;
+  }
+/* *{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Roboto';
+}
+
+body{
+    height: 100vh;
+}
+
+nav.menu-lateral{
+    width: 80px;
+    height: 100%;
+    background-color: #00A8FF;
+    padding: 40px 0px 40px 1%;
+    box-shadow: 3px 0 0 #003366;
+    position: fixed;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+    transition: .2s;
+}
+.title{
+    display: flex;
+    align-items: center;
+}
+
+.title h1{
+    display: none;
+    margin-left: 5px;
+    color: white;
+}
+
+
+nav.menu-lateral:hover{
+    width: 300px;
+    
+}
+
+nav.menu-lateral:hover .title h1{
+    display: block;
+}
+
+
+.btn-expandir > i{
+    color: white;
+    font-size: 30px;
+    cursor: pointer;
+}
+
+ul{
+    height: 100%;
+    list-style-type: none;
+
+}
+
+ul li.item-menu:hover{
+    background-color: #003366;
+}
+
+ul li.ativo{
+    background-color: #003366;
+}
+
+ul li.item-menu a{
+    color: white;
+    text-decoration: none;
+    font-size: 20px;
+    padding: 20px 4%;
+    display: flex;
+    margin-bottom: 20px;
+    line-height: 30px;
+    white-space: nowrap;
+}
+
+ul li.item-menu a .txt-link{
+    margin-left: 40px;
+}
+
+ul li.item-menu a .icon > i{
+    font-size: 30px;
+    margin-left: 5px;
+}
+.conteudo {
+    position: relative;
+    margin-left: 80px; 
+    padding: 20px;
+    transition: margin-left 0.2s;
+}
+
+nav.menu-lateral:hover ~ .conteudo {
+    margin-left: 300px; 
+} */

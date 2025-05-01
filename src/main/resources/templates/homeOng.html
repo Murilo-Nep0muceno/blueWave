@@ -1,80 +1,925 @@
+<!--homeOng nome do arquiv-->
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blue Wave</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" th:href="@{/css/style.css}">
-<body>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', 'Roboto', sans-serif;
+        }
+
+        body {
+            height: 100vh;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        nav.menu-lateral {
+            width: 80px;
+            height: 100vh;
+            background: linear-gradient(180deg, #00A8FF 0%, #0078D4 100%);
+            padding: 20px 0;
+            box-shadow: 0 0 30px rgba(0, 168, 255, 0.3);
+            position: fixed;
+            top: 0;
+            left: 0;
+            overflow: hidden;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+        }
+
+        nav.menu-lateral:hover {
+            width: 280px;
+            box-shadow: 0 0 40px rgba(0, 168, 255, 0.4);
+        }
+
+        .title {
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+            margin-bottom: 30px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 20px;
+        }
+
+        .title h1 {
+            display: none;
+            margin-left: 15px;
+            color: white;
+            font-size: 20px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        nav.menu-lateral:hover .title h1 {
+            display: block;
+            animation: fadeInSlide 0.3s ease-out;
+        }
+
+        @keyframes fadeInSlide {
+            from {
+                opacity: 0;
+                transform: translateX(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .menu-items {
+            flex: 1;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0 10px;
+        }
+
+        ul li.item-menu {
+            margin-bottom: 8px;
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        ul li.item-menu:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateX(5px);
+        }
+
+        ul li.item-menu a {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            padding: 16px 20px;
+            display: flex;
+            align-items: center;
+            transition: all 0.3s ease;
+            border-radius: 12px;
+        }
+
+        ul li.item-menu a .icon > i {
+            font-size: 24px;
+            width: 24px;
+            text-align: center;
+        }
+
+        ul li.item-menu a .txt-link {
+            margin-left: 20px;
+            white-space: nowrap;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            font-weight: 500;
+        }
+
+        nav.menu-lateral:hover .txt-link {
+            opacity: 1;
+        }
+
+        /* Seção de logout */
+        .logout-section {
+            padding: 0 10px;
+            margin-top: auto;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 20px;
+        }
+
+        .logout-item {
+            margin-bottom: 8px;
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .logout-item:hover {
+            background: rgba(255, 76, 76, 0.2);
+            transform: translateX(5px);
+        }
+
+        .logout-item a {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            padding: 16px 20px;
+            display: flex;
+            align-items: center;
+            transition: all 0.3s ease;
+            border-radius: 12px;
+        }
+
+        .logout-item a:hover {
+            color: #ffcccc;
+        }
+
+        .logout-item a .icon > i {
+            font-size: 24px;
+            width: 24px;
+            text-align: center;
+        }
+
+        .logout-item a .txt-link {
+            margin-left: 20px;
+            white-space: nowrap;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            font-weight: 500;
+        }
+
+        nav.menu-lateral:hover .logout-item .txt-link {
+            opacity: 1;
+        }
+
+        .conteudo {
+            margin-left: 80px;
+            transition: margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            min-height: 100vh;
+        }
+
+        nav.menu-lateral:hover ~ .conteudo {
+            margin-left: 280px;
+        }
+
+        #header-bg {
+            background: linear-gradient(135deg, #003366 0%, #004080 100%);
+            padding: 20px 30px;
+            box-shadow: 0 2px 20px rgba(0, 51, 102, 0.3);
+        }
+
+        #header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: white;
+        }
+
+        #logo {
+            font-size: 24px;
+            color: white;
+            text-decoration: none;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        form {
+            margin: 40px auto;
+            background: white;
+            padding: 40px;
+            max-width: 600px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            border-radius: 20px;
+            position: relative;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        form label {
+            font-weight: 600;
+            display: block;
+            margin-bottom: 8px;
+            color: #003366;
+            font-size: 15px;
+        }
+
+        form input, textarea {
+            width: 100%;
+            padding: 14px 16px;
+            margin-bottom: 20px;
+            border: 2px solid #e1e5e9;
+            border-radius: 12px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            background: #fafbfc;
+        }
+
+        form input:focus, textarea:focus {
+            outline: none;
+            border-color: #00A8FF;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(0, 168, 255, 0.1);
+            transform: translateY(-1px);
+        }
+
+        form input[type="file"] {
+            padding: 12px;
+            background: white;
+            border: 2px dashed #00A8FF;
+            cursor: pointer;
+        }
+
+        form input[type="file"]:hover {
+            background: rgba(0, 168, 255, 0.05);
+        }
+
+        /* Estilo específico para o campo de data brasileiro */
+        form input[type="text"]#dataBrasil {
+            background: white;
+            position: relative;
+        }
+
+        form input[type="text"]#dataBrasil::placeholder {
+            color: #999;
+            font-style: italic;
+        }
+
+        form button {
+            display: block;
+            margin: 30px auto 0;
+            padding: 16px 32px;
+            background: linear-gradient(135deg, #00A8FF 0%, #0078D4 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 168, 255, 0.3);
+            min-width: 200px;
+        }
+
+        form button:hover {
+            background: linear-gradient(135deg, #0078D4 0%, #005a9f 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 168, 255, 0.4);
+        }
+
+        form button:active {
+            transform: translateY(0);
+        }
+
+        form button:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        textarea {
+            margin: 15px 0;
+            height: 120px;
+            resize: vertical;
+            min-height: 80px;
+            max-height: 200px;
+        }
+
+        .file-info {
+            font-size: 12px;
+            color: #666;
+            margin-top: -15px;
+            margin-bottom: 20px;
+            font-style: italic;
+        }
+
+        .preview-container {
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .preview-image {
+            display: none;
+            max-width: 300px;
+            max-height: 200px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            border: 3px solid #f0f0f0;
+        }
+
+        .error {
+            display: none;
+            color: #e74c3c;
+            font-size: 13px;
+            margin-top: -15px;
+            margin-bottom: 15px;
+            padding: 8px 12px;
+            background: rgba(231, 76, 60, 0.1);
+            border-radius: 8px;
+            border-left: 4px solid #e74c3c;
+        }
+
+        .success {
+            display: none;
+            color: #27ae60;
+            font-size: 14px;
+            margin-bottom: 20px;
+            padding: 12px 16px;
+            background: rgba(39, 174, 96, 0.1);
+            border-radius: 8px;
+            border-left: 4px solid #27ae60;
+            font-weight: 500;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            color: #00A8FF;
+            font-weight: 500;
+            margin-top: 20px;
+            padding: 12px;
+            background: rgba(0, 168, 255, 0.1);
+            border-radius: 8px;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        /* Modal de confirmação de logout */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 15% auto;
+            padding: 30px;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            animation: modalSlideIn 0.3s ease-out;
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .modal h3 {
+            color: #003366;
+            margin-bottom: 15px;
+            font-size: 20px;
+        }
+
+        .modal p {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 16px;
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+        }
+
+        .btn-confirm, .btn-cancel {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            min-width: 100px;
+        }
+
+        .btn-confirm {
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(231, 76, 60, 0.3);
+        }
+
+        .btn-confirm:hover {
+            background: linear-gradient(135deg, #c0392b 0%, #a93226 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(231, 76, 60, 0.4);
+        }
+
+        .btn-cancel {
+            background: #ecf0f1;
+            color: #7f8c8d;
+            border: 2px solid #bdc3c7;
+        }
+
+        .btn-cancel:hover {
+            background: #d5dbdb;
+            border-color: #95a5a6;
+            color: #5d6d7e;
+        }
+
+        /* Melhorias responsivas */
+        @media (max-width: 768px) {
+            nav.menu-lateral {
+                width: 60px;
+            }
+
+            nav.menu-lateral:hover {
+                width: 250px;
+            }
+
+            .conteudo {
+                margin-left: 60px;
+            }
+
+            nav.menu-lateral:hover ~ .conteudo {
+                margin-left: 250px;
+            }
+
+            form {
+                margin: 20px;
+                padding: 30px 20px;
+                max-width: none;
+            }
+
+            #header-bg {
+                padding: 15px 20px;
+            }
+
+            #logo {
+                font-size: 18px;
+            }
+
+            .modal-content {
+                margin: 25% auto;
+                padding: 25px 20px;
+            }
+        }
+
+        /* Animações suaves para transições */
+        * {
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Estilo para o item de menu ativo */
+        ul li.item-menu a[style*="background-color"] {
+            background: rgba(255, 255, 255, 0.2) !important;
+            border-left: 4px solid white;
+        }
+
+        /* Efeito glassmorphism sutil */
+        form {
+            backdrop-filter: blur(20px);
+            background: rgba(255, 255, 255, 0.95);
+        }
+    </style>
+</head>
+
+<body>
+<nav class="menu-lateral">
+    <div class="title">
+        <img th:src="@{/css/images/logo_blue_white.png}" width="50px" height="50px" alt="Blue Wave Logo">
+        <h1>Blue Wave</h1>
+    </div>
+
+    <div class="menu-items">
+        <ul>
+            <li class="item-menu">
+                <a href="/vagas/listaVaga">
+                    <span class="icon"><i class="bi bi-briefcase"></i></span>
+                    <span class="txt-link">Listar Vagas</span>
+                </a>
+            </li>
+            <li class="item-menu">
+                <a href="/vagas/homeOng" style="background-color: rgba(255,255,255,0.1);">
+                    <span class="icon"><i class="bi bi-person-add"></i></span>
+                    <span class="txt-link">Cadastrar Vagas</span>
+                </a>
+            </li>
+            <li class="item-menu">
+                <a href="#">
+                    <span class="icon"><i class="bi bi-megaphone"></i></span>
+                    <span class="txt-link">Reports</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="logout-section">
+        <div class="logout-item" onclick="showLogoutModal()">
+            <a href="#" onclick="event.preventDefault()">
+                <span class="icon"><i class="bi bi-box-arrow-right"></i></span>
+                <span class="txt-link">Sair</span>
+            </a>
+        </div>
+    </div>
+</nav>
+
+<!-- Modal de confirmação de logout -->
+<div id="logoutModal" class="modal">
+    <div class="modal-content">
+        <h3>Confirmar Logout</h3>
+        <p>Tem certeza de que deseja sair do sistema?</p>
+        <div class="modal-buttons">
+            <button class="btn-cancel" onclick="hideLogoutModal()">Cancelar</button>
+            <button class="btn-confirm" onclick="confirmLogout()">Sair</button>
+        </div>
+    </div>
+</div>
+
+<div class="conteudo">
     <div id="header-bg">
         <header id="header">
-          <a id="logo" href="/">BLUE WAVE</a>
-          <nav id="nav">
-            <button id="btn-mobile">
-              <span id="hambuger"></span>
-            </button>
-           
-            <ul id="menu">
-              <li><a href="/vagas/listaVaga">Lista Vagas</a></li>
-              <li><a href="/vagas/homeOng">Cadastra Vaga</a></li>
-              
-            </ul>
-          </nav>
+            <a id="logo" href="/">Painel de Controle -- Cadastrar Vagas</a>
         </header>
-      </div>
+    </div>
 
-      <div>
+    <form onsubmit="vaga(event)">
+        <div class="success" id="successMessage"></div>
 
-        <form onsubmit="vaga(event)">
-          <label for="nome" >Nome Da Vaga</label><br>
-          <input type="text" id="nome" placeholder="Nome"><br>
-          <label for="quatidade" >quantidade de vagas</label><br>
-          <input type="text" id="quatidade" placeholder="quatidade"><br>
+        <label for="imagem">Imagem da Vaga *</label>
+        <input type="file" id="imagem" name="imagem" accept="image/*" required onchange="previewImage(this)">
+        <div class="file-info">Formatos aceitos: JPG, PNG, GIF. Tamanho máximo: 5MB</div>
+        <div class="error" id="imagemError"></div>
 
-          <label for="quatidade" >Descrição da vagas</label><br>
-          <input type="text" id="desc" placeholder="descrição"><br>
-          <button type="submit">Cadastra Vaga</button>
-        </form>
-      </div>
-    
-    
-</body>
+        <div class="preview-container">
+            <img id="imagePreview" class="preview-image" alt="Preview da imagem">
+        </div>
+
+        <label for="nome">Nome da Vaga *</label>
+        <input type="text" id="nome" placeholder="Nome da vaga" required maxlength="100">
+        <div class="error" id="nomeError"></div>
+
+        <label for="quantidade">Quantidade de Vagas *</label>
+        <input type="number" id="quantidade" placeholder="Quantidade" required min="1" max="1000">
+        <div class="error" id="quantidadeError"></div>
+
+        <label for="desc">Descrição da Vaga</label>
+        <textarea id="desc" placeholder="Descrição detalhada da vaga..." maxlength="1000"></textarea>
+        <div class="error" id="descError"></div>
+
+        <label for="dataBrasil">Data da Vaga *</label>
+        <input type="text" id="dataBrasil" placeholder="dd/mm/aaaa" required maxlength="10">
+        <div class="error" id="dataError"></div>
+
+        <div class="loading" id="loading">Cadastrando vaga, aguarde...</div>
+        <button type="submit" id="submitBtn">Cadastrar Vaga</button>
+    </form>
+</div>
+
 <script>
-  async function vaga(event) {
-    event.preventDefault();
-
-    const nome = document.getElementById("nome").value;
-    const quantidade = document.getElementById("quatidade").value;
-    const descricao = document.getElementById("desc").value;
-
-    const vagaData = {
-      nome: nome,
-      quantidade: quantidade,
-      descri: descricao
-    };
-
-    try {
-      const response = await fetch("http://localhost:8080/vagas/homeOng", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(vagaData)
-      });
-
-      if (response.ok) {
-        alert("Vaga cadastrada com sucesso!");
-      } else {
-        alert("Erro ao cadastrar vaga.");
-      }
-    } catch (error) {
-      console.error("Erro na requisição:", error);
-      alert("Erro na requisição.");
+    // Funções de logout
+    function showLogoutModal() {
+        document.getElementById('logoutModal').style.display = 'block';
     }
-  }
+
+    function hideLogoutModal() {
+        document.getElementById('logoutModal').style.display = 'none';
+    }
+
+    function confirmLogout() {
+        // Aqui você pode fazer uma requisição para invalidar a sessão no servidor
+        // Exemplo:
+        // fetch('/logout', { method: 'POST' })
+        //     .then(() => {
+        //         window.location.href = '/login';
+        //     });
+
+        // Por enquanto, apenas redireciona para a página de login
+        alert('Logout realizado com sucesso!');
+        window.location.href = '/login'; // Altere para sua rota de login
+    }
+
+    // Fecha o modal se clicar fora dele
+    window.onclick = function(event) {
+        const modal = document.getElementById('logoutModal');
+        if (event.target === modal) {
+            hideLogoutModal();
+        }
+    }
+
+    // Função para preview da imagem
+    function previewImage(input) {
+        const preview = document.getElementById('imagePreview');
+        const errorDiv = document.getElementById('imagemError');
+
+        if (input.files && input.files[0]) {
+            const file = input.files[0];
+
+            // Validações
+            if (!file.type.startsWith('image/')) {
+                showError('imagemError', 'Por favor, selecione apenas arquivos de imagem.');
+                input.value = '';
+                preview.style.display = 'none';
+                return;
+            }
+
+            if (file.size > 5 * 1024 * 1024) { // 5MB
+                showError('imagemError', 'A imagem deve ter no máximo 5MB.');
+                input.value = '';
+                preview.style.display = 'none';
+                return;
+            }
+
+            hideError('imagemError');
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                preview.src = e.target.result;
+                preview.style.display = 'block';
+            };
+            reader.readAsDataURL(file);
+        } else {
+            preview.style.display = 'none';
+        }
+    }
+
+    // Função para mostrar erro
+    function showError(elementId, message) {
+        const errorDiv = document.getElementById(elementId);
+        errorDiv.textContent = message;
+        errorDiv.style.display = 'block';
+    }
+
+    // Função para esconder erro
+    function hideError(elementId) {
+        const errorDiv = document.getElementById(elementId);
+        errorDiv.style.display = 'none';
+    }
+
+    // Função para mostrar sucesso
+    function showSuccess(message) {
+        const successDiv = document.getElementById('successMessage');
+        successDiv.textContent = message;
+        successDiv.style.display = 'block';
+        setTimeout(() => {
+            successDiv.style.display = 'none';
+        }, 5000);
+    }
+
+    // Função para formatar data brasileira (dd/mm/aaaa)
+    function formatDateBR(input) {
+        let value = input.value.replace(/\D/g, ''); // Remove caracteres não numéricos
+
+        if (value.length >= 2) {
+            value = value.substring(0, 2) + '/' + value.substring(2);
+        }
+        if (value.length >= 5) {
+            value = value.substring(0, 5) + '/' + value.substring(5, 9);
+        }
+
+        input.value = value;
+    }
+
+    // Função para converter data brasileira (dd/mm/aaaa) para formato ISO (aaaa-mm-dd)
+    function convertToISO(dateBR) {
+        const parts = dateBR.split('/');
+        if (parts.length === 3) {
+            const day = parts[0].padStart(2, '0');
+            const month = parts[1].padStart(2, '0');
+            const year = parts[2];
+            return `${year}-${month}-${day}`;
+        }
+        return null;
+    }
+
+    // Função para converter data ISO (aaaa-mm-dd) para formato brasileiro (dd/mm/aaaa)
+    function convertToBR(dateISO) {
+        const parts = dateISO.split('-');
+        if (parts.length === 3) {
+            const year = parts[0];
+            const month = parts[1];
+            const day = parts[2];
+            return `${day}/${month}/${year}`;
+        }
+        return null;
+    }
+
+    // Função para validar data brasileira
+    function isValidBRDate(dateBR) {
+        const regex = /^(\d{2})\/(\d{2})\/(\d{4})$/;
+        const match = dateBR.match(regex);
+
+        if (!match) return false;
+
+        const day = parseInt(match[1], 10);
+        const month = parseInt(match[2], 10);
+        const year = parseInt(match[3], 10);
+
+        // Verifica se os valores são válidos
+        if (month < 1 || month > 12) return false;
+        if (day < 1 || day > 31) return false;
+        if (year < 2024 || year > 2030) return false; // Limite razoável
+
+        // Verifica se a data existe
+        const date = new Date(year, month - 1, day);
+        return date.getFullYear() === year &&
+            date.getMonth() === (month - 1) &&
+            date.getDate() === day;
+    }
+
+    // Função para validar se a data é futura (não permite hoje nem passado)
+    function isValidFutureDate(dateBR) {
+        if (!isValidBRDate(dateBR)) return false;
+
+        const dateISO = convertToISO(dateBR);
+        if (!dateISO) return false;
+
+        const selectedDate = new Date(dateISO + 'T00:00:00-03:00'); // Força fuso horário brasileiro
+        const today = new Date();
+
+        // Converte para fuso horário brasileiro
+        const todayBrazil = new Date(today.toLocaleString("en-US", {timeZone: "America/Sao_Paulo"}));
+
+        // Remove a parte do horário para comparar apenas as datas
+        selectedDate.setHours(0, 0, 0, 0);
+        todayBrazil.setHours(0, 0, 0, 0);
+
+        // A data deve ser maior que hoje (não permite hoje)
+        return selectedDate > todayBrazil;
+    }
+
+    // Configuração do campo de data brasileiro
+    document.getElementById('dataBrasil').addEventListener('input', function() {
+        formatDateBR(this);
+    });
+
+    document.getElementById('dataBrasil').addEventListener('blur', function() {
+        const dateBR = this.value.trim();
+
+        if (dateBR && dateBR.length === 10) {
+            if (!isValidBRDate(dateBR)) {
+                showError('dataError', 'Data inválida. Use o formato dd/mm/aaaa.');
+                return;
+            }
+
+            if (!isValidFutureDate(dateBR)) {
+                showError('dataError', 'A data da vaga deve ser no futuro (não é permitido hoje ou datas passadas).');
+                this.value = '';
+                return;
+            }
+
+            hideError('dataError');
+        }
+    });
+
+    // Define a data mínima como amanhã no placeholder
+    function setPlaceholderDate() {
+        const today = new Date();
+        const todayBrazil = new Date(today.toLocaleString("en-US", {timeZone: "America/Sao_Paulo"}));
+        const tomorrow = new Date(todayBrazil);
+        tomorrow.setDate(tomorrow.getDate() + 1);
+
+        const day = String(tomorrow.getDate()).padStart(2, '0');
+        const month = String(tomorrow.getMonth() + 1).padStart(2, '0');
+        const year = tomorrow.getFullYear();
+
+        document.getElementById('dataBrasil').placeholder = `Ex: ${day}/${month}/${year}`;
+    }
+
+    // Chama a função ao carregar a página
+    setPlaceholderDate();
+
+    async function vaga(event) {
+        event.preventDefault();
+
+        // Limpa mensagens anteriores
+        ['nomeError', 'quantidadeError', 'descError', 'dataError', 'imagemError'].forEach(hideError);
+
+        const nome = document.getElementById("nome").value.trim();
+        const quantidade = parseInt(document.getElementById("quantidade").value, 10);
+        const descricao = document.getElementById("desc").value.trim();
+        const dataBR = document.getElementById("dataBrasil").value.trim();
+        const imagemFile = document.getElementById("imagem").files[0];
+
+        // Validações do lado cliente
+        let hasError = false;
+
+        if (!nome) {
+            showError('nomeError', 'Nome da vaga é obrigatório.');
+            hasError = true;
+        }
+
+        if (!quantidade || quantidade <= 0) {
+            showError('quantidadeError', 'Quantidade deve ser maior que zero.');
+            hasError = true;
+        }
+
+        if (!dataBR) {
+            showError('dataError', 'Data da vaga é obrigatória.');
+            hasError = true;
+        } else if (!isValidBRDate(dataBR)) {
+            showError('dataError', 'Data inválida. Use o formato dd/mm/aaaa.');
+            hasError = true;
+        } else if (!isValidFutureDate(dataBR)) {
+            showError('dataError', 'A data da vaga deve ser no futuro (não é permitido hoje ou datas passadas).');
+            hasError = true;
+        }
+
+        if (!imagemFile) {
+            showError('imagemError', 'Imagem é obrigatória.');
+            hasError = true;
+        }
+
+        if (hasError) {
+            return;
+        }
+
+        // Converte data brasileira para formato ISO para envio
+        const dateISO = convertToISO(dataBR);
+
+        // Prepara FormData
+        const formData = new FormData();
+        formData.append("nome", nome);
+        formData.append("quantidade", quantidade);
+        formData.append("descri", descricao);
+        formData.append("data", dateISO); // Envia no formato ISO
+        formData.append("imagem", imagemFile);
+
+        // Desabilita o botão e mostra loading
+        const submitBtn = document.getElementById('submitBtn');
+        const loading = document.getElementById('loading');
+        submitBtn.disabled = true;
+        loading.style.display = 'block';
+
+        try {
+            const response = await fetch("/vagas/homeOng", {
+                method: "POST",
+                body: formData,
+            });
+
+            const responseText = await response.text();
+
+            if (response.ok) {
+                showSuccess("Vaga cadastrada com sucesso!");
+                document.querySelector('form').reset();
+                document.getElementById('imagePreview').style.display = 'none';
+                // Redefine o placeholder após reset do formulário
+                setPlaceholderDate();
+            } else {
+                // Tenta mostrar a mensagem de erro específica do servidor
+                showError('imagemError', responseText || "Erro ao cadastrar vaga.");
+            }
+        } catch (error) {
+            console.error("Erro na requisição:", error);
+            showError('imagemError', "Erro de conexão. Tente novamente.");
+        } finally {
+            // Reabilita o botão e esconde loading
+            submitBtn.disabled = false;
+            loading.style.display = 'none';
+        }
+    }
 </script>
+</body>
 </html>

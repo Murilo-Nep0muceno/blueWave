@@ -1,46 +1,515 @@
-<DOCTYPE html>
+<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-      <meta charset="UTF-8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blue Wave</title>
+    <title>Blue Wave - Lista de Vagas</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', 'Roboto', sans-serif;
+        }
+
+        body {
+            height: 100vh;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        nav.menu-lateral {
+            width: 80px;
+            height: 100vh;
+            background: linear-gradient(180deg, #00A8FF 0%, #0078D4 100%);
+            padding: 20px 0;
+            box-shadow: 0 0 30px rgba(0, 168, 255, 0.3);
+            position: fixed;
+            top: 0;
+            left: 0;
+            overflow: hidden;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 1000;
+        }
+
+        nav.menu-lateral:hover {
+            width: 280px;
+            box-shadow: 0 0 40px rgba(0, 168, 255, 0.4);
+        }
+
+        .title {
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+            margin-bottom: 30px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 20px;
+        }
+
+        .title h1 {
+            display: none;
+            margin-left: 15px;
+            color: white;
+            font-size: 20px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        nav.menu-lateral:hover .title h1 {
+            display: block;
+            animation: fadeInSlide 0.3s ease-out;
+        }
+
+        @keyframes fadeInSlide {
+            from {
+                opacity: 0;
+                transform: translateX(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        ul {
+            list-style: none;
+            padding: 0 10px;
+        }
+
+        ul li.item-menu {
+            margin-bottom: 8px;
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        ul li.item-menu:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateX(5px);
+        }
+
+        ul li.item-menu a {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            padding: 16px 20px;
+            display: flex;
+            align-items: center;
+            transition: all 0.3s ease;
+            border-radius: 12px;
+        }
+
+        ul li.item-menu a .icon > i {
+            font-size: 24px;
+            width: 24px;
+            text-align: center;
+        }
+
+        ul li.item-menu a .txt-link {
+            margin-left: 20px;
+            white-space: nowrap;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            font-weight: 500;
+        }
+
+        nav.menu-lateral:hover .txt-link {
+            opacity: 1;
+        }
+
+        .conteudo {
+            margin-left: 80px;
+            transition: margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            min-height: 100vh;
+        }
+
+        nav.menu-lateral:hover ~ .conteudo {
+            margin-left: 280px;
+        }
+
+        #header-bg {
+            background: linear-gradient(135deg, #003366 0%, #004080 100%);
+            padding: 20px 30px;
+            box-shadow: 0 2px 20px rgba(0, 51, 102, 0.3);
+        }
+
+        #header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: white;
+        }
+
+        #logo {
+            font-size: 24px;
+            color: white;
+            text-decoration: none;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        .page-title {
+            color: #003366;
+            margin: 30px 30px 20px;
+            font-size: 28px;
+            font-weight: 600;
+        }
+
+        /* Estilos para cards de vagas */
+        .vagas-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 20px;
+            margin: 20px 30px;
+        }
+
+        .vaga-card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .vaga-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .vaga-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-bottom: 3px solid #00A8FF;
+            display: block;
+        }
+
+        .vaga-content {
+            padding: 20px;
+        }
+
+        .vaga-nome {
+            font-size: 20px;
+            font-weight: 600;
+            color: #003366;
+            margin-bottom: 10px;
+        }
+
+        .vaga-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .vaga-quantidade {
+            background: linear-gradient(135deg, #00A8FF 0%, #0078D4 100%);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 12px;
+        }
+
+        .vaga-data {
+            font-weight: 600;
+            color: #003366;
+        }
+
+        .vaga-descricao {
+            color: #555;
+            margin-bottom: 15px;
+            line-height: 1.5;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .vaga-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn {
+            padding: 10px 14px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+            flex: 1;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #00A8FF 0%, #0078D4 100%);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #0078D4 0%, #005a9f 100%);
+            transform: translateY(-1px);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, #6c757d 0%, #5a6268 100%);
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: linear-gradient(135deg, #5a6268 0%, #495057 100%);
+            transform: translateY(-1px);
+        }
+
+        .btn-danger {
+            background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: linear-gradient(135deg, #c82333 0%, #a71e2a 100%);
+            transform: translateY(-1px);
+        }
+
+        .no-vagas {
+            text-align: center;
+            padding: 40px;
+            color: #666;
+            font-size: 18px;
+            background: white;
+            border-radius: 12px;
+            margin: 30px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Placeholder para imagens que falharam ao carregar */
+        .image-placeholder {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #6c757d;
+            font-size: 16px;
+            border-bottom: 3px solid #00A8FF;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .image-placeholder i {
+            font-size: 48px;
+        }
+
+        .error-message {
+            background: rgba(248, 215, 218, 0.9);
+            color: #721c24;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 30px;
+            border: 1px solid #f5c6cb;
+            border-left: 4px solid #dc3545;
+        }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            nav.menu-lateral {
+                width: 60px;
+            }
+
+            nav.menu-lateral:hover {
+                width: 250px;
+            }
+
+            .conteudo {
+                margin-left: 60px;
+            }
+
+            nav.menu-lateral:hover ~ .conteudo {
+                margin-left: 250px;
+            }
+
+            .vagas-container {
+                grid-template-columns: 1fr;
+                margin: 20px 15px;
+            }
+
+            .vaga-actions {
+                flex-direction: column;
+            }
+
+            .page-title {
+                margin: 20px 15px;
+                font-size: 24px;
+            }
+
+            #header-bg {
+                padding: 15px 20px;
+            }
+
+            .no-vagas {
+                margin: 20px 15px;
+            }
+        }
+
+        /* Estilo para o item de menu ativo */
+        ul li.item-menu a[style*="background-color"] {
+            background: rgba(255, 255, 255, 0.2) !important;
+        }
+    </style>
 </head>
 <body>
+<!-- Menu lateral -->
+<nav class="menu-lateral">
+    <div class="title">
+        <img src="/css/images/logo_blue_white.png" width="50" height="50" alt="Logo Blue Wave" onerror="this.style.display='none';" />
+        <h1>Blue Wave</h1>
+    </div>
+    <ul>
+        <li class="item-menu">
+            <a href="/vagas/listaVaga" style="background-color: rgba(255,255,255,0.1);">
+                <span class="icon"><i class="bi bi-briefcase"></i></span>
+                <span class="txt-link">Listar Vagas</span>
+            </a>
+        </li>
+        <li class="item-menu">
+            <a href="/vagas/homeOng">
+                <span class="icon"><i class="bi bi-person-add"></i></span>
+                <span class="txt-link">Cadastrar Vagas</span>
+            </a>
+        </li>
+        <li class="item-menu">
+            <a href="#">
+                <span class="icon"><i class="bi bi-megaphone"></i></span>
+                <span class="txt-link">Reports</span>
+            </a>
+        </li>
+    </ul>
+</nav>
+
+<!-- Conteúdo principal -->
+<div class="conteudo">
     <div id="header-bg">
         <header id="header">
-          <a id="logo" href="/">BLUE WAVE</a>
-          <nav id="nav">
-            <button id="btn-mobile">
-              <span id="hambuger"></span>
-            </button>
-           
-            <ul id="menu">
-              <li><a href="/vagas/listaVaga">Lista Vagas</a></li>
-              <li><a href="/vagas/homeOng">Cadastra Vaga</a></li>
-              
-            </ul>
-          </nav>
+            <a id="logo" href="/">Gerenciar Vagas</a>
         </header>
-      </div>
-    <h1>Vagas Disponíveis</h1>
-    
-    <table border="1">
-        <tr>
-            <th>ID</th>
-            <th>Nome</th>
-            <th>Descrição</th>
-            <th>Quantidade</th>
-        </tr>
-        <tr th:each="vaga : ${vagas}">
-            <td th:text="${vaga.id}"></td>
-            <td th:text="${vaga.nome}"></td>
-            <td th:text="${vaga.descri}"></td>
-            <td th:text="${vaga.quantidade}"></td>
-        </tr>
-    </table>
+    </div>
+
+    <h1 class="page-title">Vagas Cadastradas</h1>
+
+    <!-- Mensagem de erro se houver -->
+    <div th:if="${erro}" class="error-message">
+        <i class="bi bi-exclamation-triangle"></i>
+        <span th:text="${erro}">Erro</span>
+    </div>
+
+    <!-- Container de vagas -->
+    <div class="vagas-container" th:if="${vagas != null and not #lists.isEmpty(vagas)}">
+        <div class="vaga-card" th:each="vaga : ${vagas}">
+            <!-- Imagem da vaga -->
+            <div th:if="${vaga.imagemPath != null and vaga.imagemPath != ''}">
+                <img th:src="${vaga.imagemPath}"
+                     th:alt="${vaga.nome}"
+                     class="vaga-image"
+                     onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <div class="image-placeholder" style="display: none;">
+                    <i class="bi bi-image"></i>
+                    <span>Imagem não encontrada</span>
+                </div>
+            </div>
+
+            <!-- Placeholder caso não tenha imagem -->
+            <div class="image-placeholder" th:if="${vaga.imagemPath == null or vaga.imagemPath == ''}">
+                <i class="bi bi-image"></i>
+                <span>Sem imagem</span>
+            </div>
+
+            <div class="vaga-content">
+                <h3 class="vaga-nome" th:text="${vaga.nome}">Nome da Vaga</h3>
+
+                <div class="vaga-info">
+                        <span class="vaga-quantidade">
+                            <span th:text="${vaga.quantidade}">0</span> vagas
+                        </span>
+                    <span class="vaga-data" th:if="${vaga.data != null}" th:text="${#temporals.format(vaga.data, 'dd/MM/yyyy')}">01/01/2024</span>
+                    <span class="vaga-data" th:if="${vaga.data == null}">Data não informada</span>
+                </div>
+
+                <p class="vaga-descricao" th:text="${vaga.descri != null ? vaga.descri : 'Sem descrição'}">Descrição da vaga...</p>
+
+                <div class="vaga-actions">
+                    <button class="btn btn-primary"
+                            th:attr="onclick=|editarVaga(${vaga.id})|">
+                        <i class="bi bi-pencil"></i> Editar
+                    </button>
+
+                    <button class="btn btn-secondary"
+                            th:attr="onclick=|visualizarVaga(${vaga.id})|">
+                        <i class="bi bi-eye"></i> Ver Detalhes
+                    </button>
+
+                    <button class="btn btn-danger"
+                            th:attr="onclick=|excluirVaga(${vaga.id}, '${vaga.nome}')|">
+                        <i class="bi bi-trash"></i> Excluir
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mensagem quando não há vagas -->
+    <div class="no-vagas" th:if="${vagas == null or #lists.isEmpty(vagas)}">
+        <i class="bi bi-briefcase" style="font-size: 64px; color: #ccc; margin-bottom: 20px;"></i>
+        <p>Nenhuma vaga cadastrada ainda.</p>
+        <a href="/vagas/homeOng" class="btn btn-primary" style="margin-top: 20px;">
+            <i class="bi bi-plus-circle"></i> Cadastrar Nova Vaga
+        </a>
+    </div>
+</div>
+
+<script>
+    function editarVaga(id) {
+        window.location.href = `/vagas/editar/${id}`;
+    }
+
+    function visualizarVaga(id) {
+        alert(`Visualizar detalhes da vaga ID: ${id}`);
+    }
+
+    function excluirVaga(id, nome) {
+        if (confirm(`Tem certeza que deseja excluir a vaga "${nome}"?\n\nEsta ação não pode ser desfeita.`)) {
+            fetch(`/vagas/${id}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            })
+                .then(response => {
+                    if (response.ok) {
+                        alert('Vaga excluída com sucesso!');
+                        window.location.reload();
+                    } else {
+                        alert('Erro ao excluir vaga. Tente novamente.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Erro:', error);
+                    alert('Erro ao excluir vaga. Tente novamente.');
+                });
+        }
+    }
+</script>
 </body>
 </html>

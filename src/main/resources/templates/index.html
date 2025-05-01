@@ -1,123 +1,505 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blue Wave</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" th:href="@{/css/style.css}">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blue Wave - Conectando pessoas e ONGs</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #f8fafc;
+    }
+
+    /* Header */
+    #header-bg {
+      background: white;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    #header {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    #logo {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #0ea5e9;
+      text-decoration: none;
+      letter-spacing: 1px;
+    }
+
+    #nav ul {
+      display: flex;
+      list-style: none;
+      gap: 2rem;
+      align-items: center;
+    }
+
+    #nav a {
+      color: #0ea5e9;
+      text-decoration: none;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+    }
+
+    #nav a:hover {
+      background: #f1f5f9;
+      color: #0284c7;
+      transform: translateY(-2px);
+    }
+
+    #btn-mobile {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .hamburger-line {
+      width: 25px;
+      height: 2px;
+      background: #0ea5e9;
+      transition: all 0.3s ease;
+    }
+
+    /* Hero Section with Beach Background */
+    #beach-home {
+      position: relative;
+      height: 70vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-image: url('/css/images/praia1.jpeg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      color: white;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    #beach-title {
+      z-index: 2;
+      position: relative;
+    }
+
+    #beach-title h1 {
+      font-size: 3.5rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      line-height: 1.2;
+      text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+    }
+
+    #beach-title h2 {
+      font-size: 1.3rem;
+      font-weight: 400;
+      max-width: 800px;
+      margin: 0 auto;
+      line-height: 1.6;
+      opacity: 0.95;
+      text-shadow: 1px 1px 6px rgba(0, 0, 0, 0.7);
+    }
+
+    /* Cards Section */
+    #cards-background {
+      padding: 4rem 0;
+      background: #f8fafc;
+    }
+
+    #cards-section-title {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    #cards-section-title h2 {
+      font-size: 2.5rem;
+      font-weight: 600;
+      color: #1e293b;
+      margin-bottom: 1rem;
+    }
+
+    #cards-section-title p {
+      font-size: 1.1rem;
+      color: #64748b;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    #cards-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    .card {
+      background: white;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+    }
+
+    .card-img {
+      height: 200px;
+      background: linear-gradient(45deg, #0ea5e9, #06b6d4);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+
+    .card:hover .card-img img {
+      transform: scale(1.1);
+    }
+
+    .card-content {
+      padding: 1.5rem;
+    }
+
+    .card-content h3 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: #1e293b;
+      margin-bottom: 0.75rem;
+      line-height: 1.3;
+    }
+
+    .card-content p {
+      color: #64748b;
+      font-size: 0.95rem;
+      line-height: 1.6;
+      margin-bottom: 1rem;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .card-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 1rem;
+      border-top: 1px solid #e2e8f0;
+    }
+
+    .card-location {
+      color: #0ea5e9;
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+
+    .card-date {
+      color: #94a3b8;
+      font-size: 0.85rem;
+    }
+
+    /* Loading and Empty States */
+    #loading-cards {
+      display: none;
+      text-align: center;
+      padding: 3rem;
+    }
+
+    .loading-spinner {
+      width: 40px;
+      height: 40px;
+      border: 4px solid #e2e8f0;
+      border-top: 4px solid #0ea5e9;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin: 0 auto 1rem;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    #empty-state {
+      display: none;
+      text-align: center;
+      padding: 3rem;
+      color: #64748b;
+    }
+
+    #empty-state h3 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      color: #475569;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      #nav ul {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: white;
+        flex-direction: column;
+        padding: 1rem;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      #nav ul.active {
+        display: flex;
+      }
+
+      #btn-mobile {
+        display: flex;
+      }
+
+      #header {
+        padding: 1rem;
+      }
+
+      #logo {
+        font-size: 1.5rem;
+      }
+
+      #beach-home {
+        background-attachment: scroll;
+      }
+
+      #beach-title h1 {
+        font-size: 2.5rem;
+      }
+
+      #beach-title h2 {
+        font-size: 1.1rem;
+      }
+
+      #cards-section-title h2 {
+        font-size: 2rem;
+      }
+
+      #cards-container {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      #beach-title h1 {
+        font-size: 2rem;
+      }
+
+      #cards-section-title h2 {
+        font-size: 1.75rem;
+      }
+
+      .card-content {
+        padding: 1rem;
+      }
+    }
+  </style>
+</head>
 <body>
+<div id="header-bg">
+  <header id="header">
+    <a id="logo" href="/">BLUE WAVE</a>
+    <nav id="nav">
+      <button id="btn-mobile">
+        <div class="hamburger-line"></div>
+        <div class="hamburger-line"></div>
+        <div class="hamburger-line"></div>
+      </button>
+      <ul id="menu">
+        <li><a href="#about">Quem Somos?</a></li>
+        <li><a href="/ongForm">Sou uma ONG</a></li>
+        <li><a href="/voluntarioForm">Quero ser voluntário</a></li>
+        <li><a href="/login">Entrar</a></li>
+      </ul>
+    </nav>
+  </header>
+</div>
 
-    <div id="header-bg">
-        <header id="header">
-          <a id="logo" href="/">BLUE WAVE</a>
-          <nav id="nav">
-            <button id="btn-mobile">
-              <span id="hambuger"></span>
-            </button>
-           
-            <ul id="menu">
-              <li><a href="">Quem Somos?</a></li>
-              <li><a href="/ongForm">Sou um ONG</a></li>
-              <li><a href="/voluntarioForm">Quero ser voluntário</a></li>
-              <li><a href="/login">Entrar</a></li>
-            </ul>
-          </nav>
-        </header>
-      </div>
+<section id="beach-home">
+  <div class="container">
+    <div id="beach-title">
+      <h1>Transforme vidas e seja parte da mudança!</h1>
+      <h2>Conectamos pessoas e ONGs em prol de um mundo melhor.
+        Descubra projetos, envolva-se em causas inspiradoras e seja parte
+        da mudança que o mundo precisa.</h2>
+    </div>
+  </div>
+</section>
 
-      <section class="" id="beach-home">
+<section class="container" id="cards-background">
+  <div id="cards-section-title">
+    <h2>Oportunidades de Voluntariado</h2>
+    <p>Descubra projetos incríveis e faça a diferença na sua comunidade</p>
+  </div>
 
-        <div id="beach-img-background">
-          <img th:src="@{/css/images/praia1.jpeg}" alt="">
-        </div>
-      
-        <div class="container">
+  <!-- Loading State -->
+  <div id="loading-cards">
+    <div class="loading-spinner"></div>
+    <p>Carregando oportunidades...</p>
+  </div>
 
+  <!-- Empty State -->
+  <div id="empty-state">
+    <h3>Nenhuma oportunidade disponível</h3>
+    <p>No momento não há vagas de voluntariado cadastradas. Volte em breve!</p>
+  </div>
 
-        <div  id="beach-title">
-          <h1>Transforme vidas e 
-            seja parte da mudança!</h1>
-            <h2>Conectamos pessoas e ONGs em prol de um mundo melhor. 
-              Descubra projetos, envolva-se em causas inspiradoras e seja parte 
-              da mudança.</h2>
+  <!-- Cards Container -->
+  <div id="cards-container">
+    <!-- Cards serão inseridos aqui via JavaScript -->
+  </div>
+</section>
 
-        </div>
-      </div>
-      
-      </section>
+<script>
+  // Mobile Menu Toggle
+  const btnMobile = document.getElementById('btn-mobile');
+  const menu = document.getElementById('menu');
 
+  if (btnMobile && menu) {
+    btnMobile.addEventListener('click', function() {
+      menu.classList.toggle('active');
+    });
+  }
 
-      <section class="container" id="cards-background" >
-        <div id="card">
-          <div class="cards">
-            <div class="card-img">
-                <img th:src="@{css/images/praiaCard1.jpeg}" alt="">
-            </div>
+  // Dados de exemplo para demonstração
+  const exemploVagas = [
+    {
+      id: 1,
+      titulo: "Preservação da Fauna Marinha",
+      descricao: "Ajude no monitoramento e reabilitação de espécies marinhas ameaçadas, contribuindo para a preservação da biodiversidade dos oceanos.",
+      localizacao: "São Paulo, SP",
+      dataPublicacao: "2025-05-20"
+    },
+    {
+      id: 2,
+      titulo: "Limpeza de Praias e Manguezais",
+      descricao: "Participe de ações de limpeza em praias e manguezais, ajudando a remover resíduos e conscientizar a comunidade.",
+      localizacao: "Santos, SP",
+      dataPublicacao: "2025-05-18"
+    },
+    {
+      id: 3,
+      titulo: "Educação Ambiental",
+      descricao: "Inspire crianças e adultos a cuidarem do meio ambiente, promovendo palestras e oficinas sobre preservação marinha.",
+      localizacao: "Rio de Janeiro, RJ",
+      dataPublicacao: "2025-05-15"
+    },
+    {
+      id: 4,
+      titulo: "Pesquisa e Monitoramento",
+      descricao: "Apoie projetos de pesquisa e monitoramento das condições das praias e ecossistemas marinhos.",
+      localizacao: "Florianópolis, SC",
+      dataPublicacao: "2025-05-12"
+    }
+  ];
 
-            <div class="card-texto">
-              <h3>Preservação da Fauna Marinha</h3>
-              <p>Ajude no monitoramento e reabilitação de espécies marinhas ameaçadas, contribuindo para a preservação da biodiversidade dos oceanos.   Atividades:  Alimentação de animais resgat...</p>
-              
-                <span>São Paula, SP</span>
-            </div>         
-          </div>
+  // Função para formatar data
+  function formatarData(dataString) {
+    const data = new Date(dataString);
+    const dia = data.getDate().toString().padStart(2, '0');
+    const mes = (data.getMonth() + 1).toString().padStart(2, '0');
+    const ano = data.getFullYear();
+    return dia + '/' + mes + '/' + ano;
+  }
 
-          <div class="cards">
-            <div class="card-img">
-                <img th:src="@{css/images/praiaCard2.jpeg}" alt="">
-            </div>
+  // Função para criar HTML do card
+  function criarCardHTML(vaga) {
+    return '<div class="card" onclick="abrirVaga(' + vaga.id + ')">' +
+            '<div class="card-img">' +
+            '<div style="width: 100%; height: 100%; background: linear-gradient(45deg, #0ea5e9, #06b6d4); display: flex; align-items: center; justify-content: center; color: white; font-size: 1.2rem; font-weight: 600;">🌊 Blue Wave</div>' +
+            '</div>' +
+            '<div class="card-content">' +
+            '<h3>' + vaga.titulo + '</h3>' +
+            '<p>' + vaga.descricao + '</p>' +
+            '<div class="card-footer">' +
+            '<span class="card-location">📍 ' + vaga.localizacao + '</span>' +
+            '<span class="card-date">' + formatarData(vaga.dataPublicacao) + '</span>' +
+            '</div>' +
+            '</div>' +
+            '</div>';
+  }
 
-            <div class="card-texto">
-              <h3>Preservação da Fauna Marinha</h3>
-              <p>Participe de ações de limpeza em praias e manguezais, ajudando a remover resíduos e conscientizar a comunidade sobre o impacto dos plásticos no ecossistema marinho.   Atividades: Coleta d..</p>
-             
-                <span>São Paula, SP</span>
-            </div>
-         
-         
-          </div>
+  // Função para carregar vagas
+  function carregarVagas() {
+    const loadingElement = document.getElementById('loading-cars');
+    const emptyStateElement = document.getElementById('empty-state');
+    const cardsContainer = document.getElementById('cards-container');
 
+    // Para demonstração, usar dados de exemplo
+    setTimeout(function() {
+      if (exemploVagas.length === 0) {
+        emptyStateElement.style.display = 'block';
+      } else {
+        let cardsHTML = '';
+        for (let i = 0; i < exemploVagas.length; i++) {
+          cardsHTML += criarCardHTML(exemploVagas[i]);
+        }
+        cardsContainer.innerHTML = cardsHTML;
+      }
+    }, 500);
+  }
 
-          <div class="cards">
-            <div class="card-img">
-                <img th:src="@{css/images/praiaCard3.jpeg}" alt="">
-            </div>
+  // Função para abrir detalhes da vaga
+  function abrirVaga(vagaId) {
+    console.log('Abrindo vaga:', vagaId);
+    // Aqui você pode redirecionar para a página de detalhes:
+    // window.location.href = '/vaga/' + vagaId;
+    alert('Vaga #' + vagaId + ' selecionada! Implemente a navegação aqui.');
+  }
 
-            <div class="card-texto">
-              <h3>Preservação da Fauna Marinha</h3>
-              <p>Inspire crianças e adultos a cuidarem do meio ambiente, promovendo palestras e oficinas sobre preservação marinha e sustentabilidade.   Atividades: Organização de eventos educat...</p>
-             
-                <span>São Paula, SP</span>
-              
-            </div>
-         
-         
-          </div>
+  // Carregar vagas quando a página carregar
+  document.addEventListener('DOMContentLoaded', function() {
+    carregarVagas();
+  });
 
-
-          <div class="cards">
-            <div class="card-img">
-                <img th:src="@{css/images/praiaCard4.jpeg}" alt="">
-            </div>
-
-            <div class="card-texto">
-              <h3>Preservação da Fauna Marinha</h3>
-              <p>Apoie projetos de pesquisa e monitoramento das condições das praias e ecossistemas marinhos, contribuindo com dados que ajudam na preservação ambiental.   Atividades: Análise de qualidad...</p>
-             
-                <span>São Paula, SP</span>
-              
-            </div>
-         
-         
-          </div>
-        </div>
-
-      </section>
-    
-    
+  // Função para recarregar vagas (pode ser chamada quando necessário)
+  function recarregarVagas() {
+    const cardsContainer = document.getElementById('cards-container');
+    cardsContainer.innerHTML = '';
+    carregarVagas();
+  }
+</script>
 </body>
-<script src="/js/main.js"></script>
 </html>
