@@ -7,48 +7,54 @@ import com.blueWave.BlueWave.repository.OngRepository;
 import com.blueWave.BlueWave.repository.VoluntarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 @RestController
 @RequestMapping("/login")
+@SessionAttributes("userEmail")
 public class LoginController {
 
-    @Autowired
-    private  OngRepository or;
+    @Autowired private OngRepository or;
+    @Autowired private VoluntarioRepository vr;
 
-    @Autowired
-    private VoluntarioRepository vr;
+    @ModelAttribute("userEmail")
+    public String userEmail() {
+        return null;
+    }
 
     @GetMapping()
     public ModelAndView login(){
-        ModelAndView mv = new ModelAndView("login");
-        return mv;
+        return new ModelAndView("login");
     }
 
-    @PostMapping
+    @PostMapping()
     public ModelAndView logarSistema(
             @RequestParam String email,
             @RequestParam String senha,
-            @RequestParam String tipo) {
+            @RequestParam String tipo,
+            Model model) {
 
-        ModelAndView mv = new ModelAndView("login");
         BCryptPasswordEncoder bc = new BCryptPasswordEncoder();
 
-        if (tipo.equalsIgnoreCase("voluntario")) {
+        if ("voluntario".equalsIgnoreCase(tipo)) {
             Voluntario voluntario = vr.findByEmail(email);
             if (voluntario != null && bc.matches(senha, voluntario.getSenha())) {
-                mv.setViewName("homeVoluntario");
-                return mv;
+                model.addAttribute("userEmail", email);
+                return new ModelAndView("redirect:/inscricao/vagasVoluntario");
             }
-        } else if (tipo.equalsIgnoreCase("ong")) {
+        }
+        else if ("ong".equalsIgnoreCase(tipo)) {
             Ong ong = or.findByEmail(email);
             if (ong != null && bc.matches(senha, ong.getSenha())) {
-                mv.setViewName("homeOng");
-                return mv;
+                model.addAttribute("userEmail", email);
+                return new ModelAndView("redirect:/vagas/homeOng");
             }
         }
 
+        ModelAndView mv = new ModelAndView("login");
+        mv.addObject("error","Credenciais inválidas");
         return mv;
     }
 }

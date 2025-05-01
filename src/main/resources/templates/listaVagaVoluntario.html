@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Listar e Inscrever Vagas</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Roboto', sans-serif; }
+    body { height: 100vh; background-color: #f1f1f1; }
+    nav.menu-lateral { width: 80px; height: 100%; background-color: #00A8FF; padding: 40px 0 40px 1%; box-shadow: 3px 0 0 #003366; position: fixed; top: 0; left: 0; overflow: hidden; transition: 0.2s; }
+    nav.menu-lateral:hover { width: 300px; }
+    .title { display: flex; align-items: center; }
+    .title h1 { display: none; margin-left: 10px; color: white; }
+    nav.menu-lateral:hover .title h1 { display: block; }
+    ul { list-style: none; padding: 0; }
+    ul li.item-menu { margin-bottom: 10px; }
+    ul li.item-menu:hover { background-color: #003366; }
+    ul li.item-menu a { color: white; text-decoration: none; font-size: 18px; padding: 20px 4%; display: flex; align-items: center; }
+    ul li.item-menu a .icon > i { font-size: 30px; }
+    ul li.item-menu a .txt-link { margin-left: 20px; white-space: nowrap; opacity: 0; transition: opacity 0.3s; }
+    nav.menu-lateral:hover .txt-link { opacity: 1; }
+    .conteudo { margin-left: 80px; padding: 20px; transition: margin-left 0.2s; }
+    nav.menu-lateral:hover ~ .conteudo { margin-left: 300px; }
+    #header-bg { background-color: #003366; padding: 10px 20px; }
+    #header { display: flex; justify-content: space-between; align-items: center; color: white; }
+    #logo { font-size: 24px; color: white; text-decoration: none; font-weight: bold; }
+    table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+    th, td { border: 1px solid #ccc; padding: 10px; text-align: left; }
+    th { background-color: #007acc; color: white; }
+    button { padding: 8px 16px; background-color: #00A8FF; color: white; border: none; border-radius: 4px; cursor: pointer; }
+    button:hover { background-color: #007acc; }
+  </style>
+</head>
+<body>
+  <!-- Menu lateral -->
+  <nav class="menu-lateral">
+    <div class="title">
+      <img th:src="@{/css/images/logo_blue_white.png}" width="50" height="50" alt="Logo Blue Wave" />
+      <h1>Blue Wave</h1>
+    </div>
+    <ul>
+      <li class="item-menu">
+        <a href="/inscricao/vagasVoluntario"><span class="icon"><i class="bi bi-briefcase"></i></span><span class="txt-link">Vagas</span></a>
+      </li>
+      <li class="item-menu">
+        <a href="/inscricao/minhasVagas"><span class="icon"><i class="bi bi-journal-check"></i></span><span class="txt-link">Minhas Inscrições</span></a>
+      </li>
+    </ul>
+  </nav>
+
+<!-- Menu lateral -->
+<nav class="menu-lateral">
+  <div class="title">
+    <img th:src="@{/css/images/logo_blue_white.png}" width="50" height="50" alt="Logo Blue Wave" />
+    <h1>Blue Wave</h1>
+  </div>
+  <ul>
+    <li class="item-menu">
+      <a href="/inscricao/vagasVoluntario">
+        <span class="icon"><i class="bi bi-briefcase"></i></span>
+        <span class="txt-link">Vagas</span>
+      </a>
+    </li>
+    <li class="item-menu">
+      <a href="/inscricao/minhasVagas">
+        <span class="icon"><i class="bi bi-journal-check"></i></span>
+        <span class="txt-link">Minhas Inscrições</span>
+      </a>
+    </li>
+  </ul>
+</nav>
+
+<!-- Conteúdo principal -->
+<div class="conteudo">
+  <div id="header-bg">
+    <header id="header">
+      <a id="logo" th:href="@{/}">Vagas de: 
+        <span th:text="${nome}">test</span>
+      </a>
+    </header>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Nome</th>
+        <th>Quantidade</th>
+        <th>Descrição</th>
+        <th>Data da Vaga</th>
+        <th>Ação</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr th:each="vaga : ${vagas}">
+        <td th:text="${vaga.nome}"></td>
+        <td th:text="${vaga.quantidade}"></td>
+        <td th:text="${vaga.descri}"></td>
+        <td th:text="${#temporals.format(vaga.data, 'dd/MM/yyyy')}"></td>
+        <td>
+          <button th:data-vaga-id="${vaga.id}" onclick="inscrever(this.dataset.vagaId)">
+            Inscrever
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<script>
+function inscrever(vagaId) {
+  fetch('/inscricao/inscrever', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+    body: 'vagaId=' + encodeURIComponent(vagaId)
+  })
+  .then(res => res.text())
+  .then(txt => {
+    if (txt === 'ok')                alert('Inscrição realizada com sucesso!');
+    else if (txt === 'já inscrito')  alert('Você já está inscrito nesta vaga.');
+    else if (txt.startsWith('erro')) alert(txt);
+    else                             alert('Resposta inesperada: ' + txt);
+  });
+}
+</script>
+</body>
+</html>

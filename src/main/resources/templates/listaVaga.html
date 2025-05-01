@@ -8,39 +8,145 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" th:href="@{/css/style.css}">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link rel="stylesheet" th:href="@{/css/ongPage.css} ">
+
 </head>
 <body>
-    <div id="header-bg">
+
+    <nav class="menu-lateral">
+      <div class="title">
+        <img  th:src="@{/css/images/logo_blue_white.png}" width="50px" height="50px" alt="">
+        <h1>Blue Wave</h1>
+       
+      </div>
+        <ul>
+  
+
+     
+          <li class="item-menu">
+            <a href="/vagas/listaVaga">
+              <span class="icon"><i class="bi bi-briefcase"></i></span>
+              <span class="txt-link">Listar Vagas</span>
+            </a>
+          </li>
+          <li class="item-menu">
+            <a href="/vagas/homeOng">
+              <span class="icon"><i class="bi bi-person-add"></i></span>
+              <span class="txt-link">Cadastrar Vagas</span>
+            </a>
+          </li>
+          <li class="item-menu">
+            <a href="#">
+              <span class="icon"><i class="bi bi-megaphone"></i></span>
+              <span class="txt-link">Reports</span>
+            </a>
+          </li>
+        </ul>
+
+    </nav>
+
+
+    <div class="conteudo">
+      <div id="header-bg">
         <header id="header">
-          <a id="logo" href="/">BLUE WAVE</a>
-          <nav id="nav">
-            <button id="btn-mobile">
-              <span id="hambuger"></span>
-            </button>
-           
-            <ul id="menu">
-              <li><a href="/vagas/listaVaga">Lista Vagas</a></li>
-              <li><a href="/vagas/homeOng">Cadastra Vaga</a></li>
-              
-            </ul>
-          </nav>
+          <span id="logo" href="/">Painel de Controle -- Vagas Cadastradas</span>
         </header>
       </div>
-    <h1>Vagas Disponíveis</h1>
     
-    <table border="1">
-        <tr>
+      <h1>Vagas Disponíveis</h1>
+    
+      <table border="1">
+        <thead>
+          <tr>
             <th>ID</th>
             <th>Nome</th>
             <th>Descrição</th>
             <th>Quantidade</th>
-        </tr>
-        <tr th:each="vaga : ${vagas}">
+            <th>Data</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr th:each="vaga : ${vagas}" th:attr="data-id=${vaga.id}">
             <td th:text="${vaga.id}"></td>
-            <td th:text="${vaga.nome}"></td>
-            <td th:text="${vaga.descri}"></td>
-            <td th:text="${vaga.quantidade}"></td>
-        </tr>
-    </table>
-</body>
+            <td class="nome" th:text="${vaga.nome}"></td>
+            <td class="descri" th:text="${vaga.descri}"></td>
+            <td class="quant" th:text="${vaga.quantidade}"></td>
+            <td class="data" th:text="${vaga.data}"></td>
+            <td>
+              <button type="button" class="btn-editar" th:attr="data-id=${vaga.id}">Editar</button>
+              <button type="button" class="btn-excluir" th:attr="data-id=${vaga.id}">Excluir</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    
+    <script th:inline="javascript" defer>
+      document.addEventListener('DOMContentLoaded', () => {
+        // Função para editar vaga
+        function editVaga(id) {
+          const row = document.querySelector(`tr[data-id="${id}"]`);
+          const nomeOld  = row.querySelector('.nome').textContent;
+          const descrOld = row.querySelector('.descri').textContent;
+          const quantOld = row.querySelector('.quant').textContent;
+          const dataOld  = row.querySelector('.data').textContent;
+    
+          const nomeNew  = prompt('Nome da vaga:', nomeOld);
+          const descrNew = prompt('Descrição da vaga:', descrOld);
+          const quantNew = prompt('Quantidade:', quantOld);
+          const dataNew  = prompt('Data (YYYY-MM-DD):', dataOld);
+          if (nomeNew == null || descrNew == null || quantNew == null || dataNew == null) return;
+    
+          const payload = {
+            nome: nomeNew,
+            descri: descrNew,
+            quantidade: parseInt(quantNew, 10),
+            data: dataNew
+          };
+    
+          fetch(`/vagas/${id}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+          }).then(res => {
+            if (res.ok) {
+              // Atualiza a tabela em tela
+              row.querySelector('.nome').textContent   = nomeNew;
+              row.querySelector('.descri').textContent = descrNew;
+              row.querySelector('.quant').textContent  = quantNew;
+              row.querySelector('.data').textContent   = dataNew;
+            } else {
+              alert('Erro ao atualizar vaga.');
+            }
+          });
+        }
+    
+        // Função para excluir vaga
+        function deleteVaga(id) {
+          if (!confirm(`Confirma exclusão da vaga #${id}?`)) return;
+          fetch(`/vagas/${id}`, { method: 'DELETE' })
+            .then(res => {
+              if (res.status === 204) {
+                document.querySelector(`tr[data-id="${id}"]`).remove();
+              } else {
+                alert('Erro ao excluir vaga.');
+              }
+            });
+        }
+    
+        // Conecta os botões aos data-id
+        document.querySelectorAll('.btn-editar').forEach(btn => {
+          btn.addEventListener('click', () => editVaga(btn.getAttribute('data-id')));
+        });
+        document.querySelectorAll('.btn-excluir').forEach(btn => {
+          btn.addEventListener('click', () => deleteVaga(btn.getAttribute('data-id')));
+        });
+      });
+    </script>
+      
+    </body>
+    
 </html>
