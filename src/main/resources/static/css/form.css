@@ -20,7 +20,7 @@
 
 }
 
-#form-cadastro label{
+.label{
     display: block;
     margin-top: 0.8rem;
     margin-bottom: 0.3rem;
@@ -60,4 +60,15 @@
 #btn-cadastro:hover{
     background-color: #0398e2;
 
+}
+
+.error{
+    margin-top: 0.8rem;
+    margin-bottom: 0.3rem;
+    background-color: red ;
+    padding: 5px 10px;
+}
+
+#error_name, #error_cpf,#error_email,#error_senha,#error_senhaConfirmar,#error_telefone,#error_data,#error_cep,#error_cnpj{
+    display: none ;
 }

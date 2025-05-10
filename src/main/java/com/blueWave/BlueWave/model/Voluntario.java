@@ -2,8 +2,10 @@ package com.blueWave.BlueWave.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Pattern;
+import org.hibernate.validator.constraints.br.CPF;
 
 @Entity
 public class Voluntario {
@@ -12,27 +14,27 @@ public class Voluntario {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Pattern(regexp = "^(?!(\\d)\\1{10})\\d{11}$")
+    @CPF
     private String cpf;
 
-    @NotEmpty
+    @NotBlank
     private String nomeVoluntario;
 
-    @NotEmpty
+    @NotBlank
     @Email(message = "Email inválido")
     private String email;
 
-    @NotEmpty
+    @NotBlank
     @Pattern(regexp = "^\\d{11}$", message = "Telefone inválido. Deve ter 11 dígitos.")
     private String telefone;
 
-    @NotEmpty
+    @NotBlank
     private String dataNascimento;
 
-    @NotEmpty
+    @NotBlank
     private String sexo;
 
-    @NotEmpty
+    @NotBlank
     private String senha;
 
     public String getSenha() {

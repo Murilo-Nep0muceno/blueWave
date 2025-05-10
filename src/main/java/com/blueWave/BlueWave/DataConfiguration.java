@@ -20,11 +20,9 @@ public class DataConfiguration {
         driverManagerDataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
         driverManagerDataSource.setUrl("jdbc:mysql://localhost:3306/bluewave");
         driverManagerDataSource.setUsername("root");
-        driverManagerDataSource.setPassword("root");
+        driverManagerDataSource.setPassword("f*aD3$g6D4!@z5");
         return driverManagerDataSource;
     }
-
-
     @Bean
     public JpaVendorAdapter jpaVendorAdapter(){
         HibernateJpaVendorAdapter adapter = new HibernateJpaVendorAdapter();
@@ -39,4 +37,3 @@ public class DataConfiguration {
     }
 
 }
-
