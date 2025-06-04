@@ -1,6 +1,7 @@
 package com.blueWave.BlueWave.config;
 
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -11,7 +12,22 @@ import java.io.File;
 public class WebConfig implements WebMvcConfigurer {
 
     @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        System.out.println("🌐 Configurando CORS para API...");
+
+        registry.addMapping("/api/**")
+                .allowedOrigins("*")
+                .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
+                .allowedHeaders("*")
+                .allowCredentials(false);
+
+        System.out.println("✅ CORS configurado para /api/**");
+    }
+
+    @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        System.out.println("📁 Configurando manipuladores de recursos...");
+
         // Configuração para servir arquivos estáticos da pasta uploads
         String uploadPath = "file:" + System.getProperty("user.dir") + File.separator + "uploads" + File.separator;
 
@@ -20,7 +36,7 @@ public class WebConfig implements WebMvcConfigurer {
                 .setCachePeriod(3600) // Cache por 1 hora
                 .resourceChain(true);
 
-        // Configuração para recursos estáticos (CSS, JS, imagens) - ordem mais específica primeiro
+        // Configuração para recursos estáticos (CSS, JS, imagens)
         registry.addResourceHandler("/css/**")
                 .addResourceLocations("classpath:/static/css/")
                 .setCachePeriod(3600);
@@ -46,6 +62,8 @@ public class WebConfig implements WebMvcConfigurer {
         registry.addResourceHandler("/favicon.ico")
                 .addResourceLocations("classpath:/static/")
                 .setCachePeriod(3600);
+
+        System.out.println("✅ Manipuladores de recursos configurados");
     }
 
     @Override

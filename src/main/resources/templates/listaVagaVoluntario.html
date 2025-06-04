@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-
+<!--lista vaga  voluntario-->
   <style>
     * {
       margin: 0;
@@ -464,6 +464,13 @@
       display: flex;
       align-items: center;
       gap: 5px;
+      cursor: pointer;
+      transition: color 0.3s ease;
+    }
+
+    .vaga-ong:hover {
+      color: #0078D4;
+      text-decoration: underline;
     }
 
     .vaga-details {
@@ -510,6 +517,13 @@
       margin-top: auto;
     }
 
+    .action-buttons {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
     .btn-inscrever {
       background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
       color: white;
@@ -523,10 +537,83 @@
       display: flex;
       align-items: center;
       gap: 8px;
-      flex: 1;
-      max-width: 200px;
+      min-width: 140px;
       justify-content: center;
     }
+
+
+    .btn-inscrever.btn-ja-inscrito {
+      background: linear-gradient(135deg, #ffc107 0%, #fd7e14 100%) !important;
+      color: #212529 !important;
+    }
+
+    .btn-inscrever.btn-esgotada {
+      background: #6c757d !important;
+      color: white !important;
+    }
+
+    .vaga-card[data-categoria="urgente"] {
+      border-left: 4px solid #ffc107;
+    }
+
+    .vaga-card[data-categoria="hoje"] {
+      border-left: 4px solid #dc3545;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0% {
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+      }
+      50% {
+        box-shadow: 0 5px 30px rgba(220, 53, 69, 0.3);
+      }
+      100% {
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+      }
+    }
+
+    .spinner-border {
+      display: inline-block;
+      width: 1rem;
+      height: 1rem;
+      vertical-align: text-bottom;
+      border: .15em solid currentColor;
+      border-right-color: transparent;
+      border-radius: 50%;
+      animation: spinner-border .75s linear infinite;
+    }
+
+    .spinner-border-sm {
+      width: 0.8rem;
+      height: 0.8rem;
+      border-width: .1em;
+    }
+
+    @keyframes spinner-border {
+      to { transform: rotate(360deg); }
+    }
+
+    .mr-2 {
+      margin-right: 0.5rem;
+    }
+
+   crever {
+        background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+        color: white;
+        padding: 12px 24px;
+        border-radius: 10px;
+        border: none;
+        cursor: pointer;
+        font-size: 14px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        min-width: 140px;
+        justify-content: center;
+      }
 
     .btn-inscrever:hover {
       background: linear-gradient(135deg, #20c997 0%, #17a2b8 100%);
@@ -548,6 +635,64 @@
 
     .btn-esgotada {
       background: #6c757d;
+      color: white;
+    }
+    .btn-ong {
+      background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+
+      color: white;
+      padding: 10px 16px;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      text-decoration: none;
+      min-width: 90px;
+      justify-content: center;
+    }
+
+
+    .btn-ong:hover {
+      background: linear-gradient(135deg, #138496 0%, #0f6674 100%);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba(23, 162, 184, 0.3);
+      color: white;
+      text-decoration: none;
+    }
+    .btn-report {
+      background: linear-gradient(135deg, #ffc107 0%, #fd7e14 100%);
+      color: #212529;
+      padding: 10px 16px;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      min-width: 90px;
+      justify-content: center;
+    }
+
+
+    .btn-report:hover {
+      background: linear-gradient(135deg, #fd7e14 0%, #dc3545 100%);
+      color: white;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba(255, 193, 7, 0.3);
+    }
+
+    .btn-report:disabled {
+      background: #6c757d;
+      cursor: not-allowed;
+      transform: none;
       color: white;
     }
 
@@ -622,6 +767,24 @@
       animation: modalSlideIn 0.3s ease-out;
     }
 
+    /* Modal específico para perfil da ONG */
+    #ongProfileModal .modal-content {
+      max-width: 900px;
+      max-height: 90vh;
+      overflow-y: auto;
+      text-align: left;
+      margin: 5% auto;
+    }
+
+    /* Modal específico para report */
+    #reportModal .modal-content {
+      max-width: 600px;
+      max-height: 90vh;
+      overflow-y: auto;
+      text-align: left;
+      margin: 5% auto;
+    }
+
     @keyframes modalSlideIn {
       from {
         opacity: 0;
@@ -688,6 +851,64 @@
     .btn-modal-cancel:hover {
       background: #e9ecef;
       color: #495057;
+    }
+
+    /* Sistema de Avaliação por Estrelas */
+    .star-rating {
+      display: flex;
+      gap: 5px;
+    }
+
+    .star {
+      cursor: pointer;
+      font-size: 24px;
+      color: #ddd;
+      transition: all 0.2s ease;
+      user-select: none;
+    }
+
+    .star:hover {
+      transform: scale(1.1);
+    }
+
+    .star.active {
+      color: #ffc107;
+    }
+
+    .star.hover {
+      color: #ffb300;
+    }
+
+    /* Área de Upload */
+    #uploadArea {
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    #uploadArea:hover {
+      border-color: #00A8FF;
+      background: #f0f8ff;
+    }
+
+    #uploadArea.dragover {
+      border-color: #00A8FF;
+      background: #e3f2fd;
+      transform: scale(1.02);
+    }
+
+    /* Preview de evidência */
+    #evidencePreview {
+      border: 2px solid #28a745;
+      background: #f8fff8;
+    }
+
+    /* Estados de validação */
+    .invalid {
+      border-color: #dc3545 !important;
+    }
+
+    .valid {
+      border-color: #28a745 !important;
     }
 
     /* Loading Overlay Melhorado */
@@ -837,6 +1058,11 @@
       .btn-inscrever {
         max-width: 100%;
       }
+
+      .action-buttons {
+        flex-direction: column;
+        gap: 8px;
+      }
     }
   </style>
 </head>
@@ -883,6 +1109,261 @@
     <div class="modal-buttons">
       <button class="btn-modal-cancel" onclick="hideLogoutModal()">Cancelar</button>
       <button class="btn-confirm" onclick="confirmLogout()">Sair</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal de reportar vaga -->
+<div id="reportModal" class="modal">
+  <div class="modal-content" style="max-width: 600px; max-height: 90vh; overflow-y: auto;">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px;">
+      <h3 style="margin: 0; color: #003366;">
+        <i class="bi bi-flag" style="color: #dc3545; margin-right: 10px;"></i>
+        Reportar Vaga
+      </h3>
+      <button onclick="closeReportModal()" style="background: none; border: none; font-size: 24px; color: #666; cursor: pointer; padding: 5px;">
+        <i class="bi bi-x"></i>
+      </button>
+    </div>
+
+    <div style="background: #f8f9fa; padding: 15px; border-radius: 10px; margin-bottom: 20px; border-left: 4px solid #dc3545;">
+      <p style="margin: 0; color: #666; font-size: 14px;">
+        <strong>Vaga:</strong> <span id="reportVagaNome" style="color: #003366;"></span>
+      </p>
+      <p style="margin: 5px 0 0 0; color: #666; font-size: 14px;">
+        <strong>ONG:</strong> <span id="reportOngNome" style="color: #003366;"></span>
+      </p>
+    </div>
+
+    <form id="reportForm" enctype="multipart/form-data">
+      <!-- Assunto do Report -->
+      <div style="margin-bottom: 20px;">
+        <label style="display: block; font-weight: 600; color: #003366; margin-bottom: 8px; font-size: 14px;">
+          Assunto do Report *
+        </label>
+        <select id="reportSubject" name="assunto" required style="width: 100%; padding: 12px; border: 2px solid #e9ecef; border-radius: 8px; font-size: 14px; background: white;">
+          <option value="">Selecione o motivo</option>
+          <option value="informacoes_falsas">Informações falsas ou enganosas</option>
+          <option value="vaga_inexistente">Vaga não existe ou já foi preenchida</option>
+          <option value="discriminacao">Discriminação ou preconceito</option>
+          <option value="conteudo_inadequado">Conteúdo inadequado ou ofensivo</option>
+          <option value="exploracao">Exploração de voluntários</option>
+          <option value="ong_suspeita">ONG suspeita ou fraudulenta</option>
+          <option value="local_perigoso">Local perigoso ou inadequado</option>
+          <option value="nao_pagamento">Não cumprimento de promessas</option>
+          <option value="outros">Outros motivos</option>
+        </select>
+      </div>
+
+      <!-- Avaliação da ONG -->
+      <div style="margin-bottom: 20px;">
+        <label style="display: block; font-weight: 600; color: #003366; margin-bottom: 12px; font-size: 14px;">
+          Como você avalia esta ONG?
+        </label>
+        <div style="display: flex; align-items: center; gap: 15px;">
+          <div class="star-rating" id="starRating">
+            <span class="star" data-rating="1"><i class="bi bi-star"></i></span>
+            <span class="star" data-rating="2"><i class="bi bi-star"></i></span>
+            <span class="star" data-rating="3"><i class="bi bi-star"></i></span>
+            <span class="star" data-rating="4"><i class="bi bi-star"></i></span>
+            <span class="star" data-rating="5"><i class="bi bi-star"></i></span>
+          </div>
+          <span id="ratingText" style="color: #666; font-size: 14px;">Clique nas estrelas para avaliar</span>
+          <input type="hidden" id="reportRating" name="avaliacao" value="">
+        </div>
+      </div>
+
+      <!-- Descrição Detalhada -->
+      <div style="margin-bottom: 20px;">
+        <label style="display: block; font-weight: 600; color: #003366; margin-bottom: 8px; font-size: 14px;">
+          Descrição detalhada *
+        </label>
+        <textarea id="reportReason"
+                  name="motivo"
+                  placeholder="Descreva detalhadamente o problema encontrado... (mínimo 20 caracteres)"
+                  style="width: 100%; height: 120px; padding: 12px; border: 2px solid #e9ecef; border-radius: 8px; resize: vertical; font-family: inherit; font-size: 14px; line-height: 1.4;"
+                  maxlength="2000"
+                  required
+                  oninput="updateCharCounter()"></textarea>
+        <div style="display: flex; justify-content: space-between; margin-top: 5px; font-size: 12px;">
+          <span style="color: #999;">Mínimo 20 caracteres</span>
+          <span id="charCounter" style="color: #666;">0/2000 caracteres</span>
+        </div>
+      </div>
+
+      <!-- Upload de Evidência -->
+      <div style="margin-bottom: 25px;">
+        <label style="display: block; font-weight: 600; color: #003366; margin-bottom: 8px; font-size: 14px;">
+          Evidência (Opcional)
+        </label>
+        <div style="border: 2px dashed #e9ecef; border-radius: 12px; padding: 20px; text-align: center; background: #f8f9fa; transition: all 0.3s ease;" id="uploadArea">
+          <div style="margin-bottom: 15px;">
+            <i class="bi bi-cloud-upload" style="font-size: 32px; color: #adb5bd;"></i>
+          </div>
+          <p style="margin: 0 0 10px 0; color: #666; font-size: 14px;">
+            Clique para adicionar uma imagem ou arraste aqui
+          </p>
+          <p style="margin: 0; color: #999; font-size: 12px;">
+            Formatos aceitos: JPG, PNG, GIF, PDF (máx. 5MB)
+          </p>
+          <input type="file" id="reportEvidence" name="evidencia" accept="image/*,.pdf" style="display: none;" onchange="handleFileUpload(this)">
+        </div>
+
+        <!-- Preview da evidência -->
+        <div id="evidencePreview" style="display: none; margin-top: 15px; padding: 15px; background: white; border-radius: 8px; border: 1px solid #e9ecef;">
+          <div style="display: flex; align-items: center; justify-content: space-between;">
+            <div style="display: flex; align-items: center; gap: 10px;">
+              <i class="bi bi-file-earmark-image" style="font-size: 24px; color: #28a745;"></i>
+              <div>
+                <div id="fileName" style="font-weight: 500; color: #003366; font-size: 14px;"></div>
+                <div id="fileSize" style="color: #666; font-size: 12px;"></div>
+              </div>
+            </div>
+            <button type="button" onclick="removeEvidence()" style="background: none; border: none; color: #dc3545; cursor: pointer; padding: 5px;">
+              <i class="bi bi-trash"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Informações Adicionais -->
+      <div style="background: #e3f2fd; padding: 15px; border-radius: 10px; margin-bottom: 25px; border-left: 4px solid #2196f3;">
+        <h5 style="margin: 0 0 10px 0; color: #1976d2; font-size: 14px;">
+          <i class="bi bi-info-circle"></i> Informações sobre o Report
+        </h5>
+        <ul style="margin: 0; padding-left: 20px; color: #666; font-size: 13px; line-height: 1.6;">
+          <li>Seu report será analisado pela nossa equipe em até 48 horas</li>
+          <li>Você receberá uma resposta por email sobre o resultado</li>
+          <li>Reports falsos podem resultar em suspensão da conta</li>
+          <li>Sua identidade será mantida em sigilo</li>
+        </ul>
+      </div>
+
+      <!-- Botões -->
+      <div style="display: flex; gap: 15px; justify-content: center;">
+        <button type="button" class="btn-modal-cancel" onclick="closeReportModal()">
+          <i class="bi bi-x-circle"></i> Cancelar
+        </button>
+        <button type="submit" id="confirmReportBtn" class="btn-confirm" style="min-width: 150px;">
+          <i class="bi bi-flag"></i> Enviar Report
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Modal de Perfil da ONG -->
+<div id="ongProfileModal" class="modal">
+  <div class="modal-content" style="max-width: 900px; max-height: 90vh; overflow-y: auto;">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
+      <h3 style="color: #003366; font-size: 28px; margin: 0;">
+        <i class="bi bi-building" style="color: #00A8FF; margin-right: 10px;"></i>
+        Perfil da ONG
+      </h3>
+      <button onclick="closeOngProfileModal()" style="background: none; border: none; font-size: 24px; color: #666; cursor: pointer; padding: 5px;">
+        <i class="bi bi-x"></i>
+      </button>
+    </div>
+
+    <div id="ongProfileContent">
+      <!-- Header do Perfil -->
+      <div style="background: linear-gradient(135deg, #00A8FF 0%, #0078D4 100%); border-radius: 15px; padding: 30px; margin-bottom: 25px; position: relative; overflow: hidden;">
+        <div style="display: flex; align-items: center; gap: 25px; position: relative; z-index: 1;">
+          <!-- Logo da ONG -->
+          <div style="flex-shrink: 0;">
+            <div id="ongLogoContainer" style="width: 120px; height: 120px; border-radius: 15px; overflow: hidden; background: white; display: flex; align-items: center; justify-content: center; box-shadow: 0 8px 25px rgba(0,0,0,0.2);">
+              <div id="ongLogoPlaceholder" style="color: #ccc; font-size: 48px;">
+                <i class="bi bi-building"></i>
+              </div>
+            </div>
+          </div>
+
+          <!-- Informações Básicas -->
+          <div style="flex: 1; color: white;">
+            <h2 id="ongModalNome" style="font-size: 32px; margin-bottom: 8px; text-shadow: 0 2px 10px rgba(0,0,0,0.3);">Nome da ONG</h2>
+            <p id="ongModalCnpj" style="font-size: 16px; opacity: 0.9; margin-bottom: 15px;">CNPJ: 00.000.000/0000-00</p>
+
+            <!-- Estatísticas -->
+            <div style="display: flex; gap: 20px; margin-top: 20px;">
+              <div style="background: rgba(255,255,255,0.2); padding: 15px 20px; border-radius: 10px; text-align: center; backdrop-filter: blur(10px);">
+                <div id="ongTotalVagas" style="font-size: 24px; font-weight: 700;">0</div>
+                <div style="font-size: 12px; opacity: 0.8;">Total de Vagas</div>
+              </div>
+              <div style="background: rgba(255,255,255,0.2); padding: 15px 20px; border-radius: 10px; text-align: center; backdrop-filter: blur(10px);">
+                <div id="ongVagasAtivas" style="font-size: 24px; font-weight: 700;">0</div>
+                <div style="font-size: 12px; opacity: 0.8;">Vagas Ativas</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Seções de Informação -->
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 25px;">
+        <!-- Sobre a ONG -->
+        <div style="grid-column: 1 / -1; background: white; border-radius: 15px; padding: 25px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+          <h4 style="color: #003366; font-size: 18px; margin-bottom: 15px; display: flex; align-items: center; gap: 10px;">
+            <i class="bi bi-info-circle" style="color: #00A8FF;"></i>
+            Sobre a ONG
+          </h4>
+          <div id="ongModalDescricao" style="color: #666; line-height: 1.6;">
+            Descrição da ONG...
+          </div>
+        </div>
+
+        <!-- Informações de Contato -->
+        <div style="background: white; border-radius: 15px; padding: 25px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+          <h4 style="color: #003366; font-size: 18px; margin-bottom: 15px; display: flex; align-items: center; gap: 10px;">
+            <i class="bi bi-telephone" style="color: #00A8FF;"></i>
+            Contato
+          </h4>
+          <div style="space-y: 10px;">
+            <div style="margin-bottom: 10px;">
+              <strong style="color: #003366;">E-mail:</strong>
+              <div id="ongModalEmail" style="color: #00A8FF; word-break: break-all;">email@ong.com</div>
+            </div>
+            <div style="margin-bottom: 10px;">
+              <strong style="color: #003366;">Telefone:</strong>
+              <div id="ongModalTelefone" style="color: #666;">(00) 00000-0000</div>
+            </div>
+            <div id="ongModalSiteContainer" style="margin-bottom: 10px; display: none;">
+              <strong style="color: #003366;">Website:</strong>
+              <div id="ongModalSite" style="color: #00A8FF; word-break: break-all;">www.ong.com</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Endereço -->
+        <div style="background: white; border-radius: 15px; padding: 25px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+          <h4 style="color: #003366; font-size: 18px; margin-bottom: 15px; display: flex; align-items: center; gap: 10px;">
+            <i class="bi bi-geo-alt" style="color: #00A8FF;"></i>
+            Localização
+          </h4>
+          <div id="ongModalEndereco" style="color: #666; line-height: 1.6;">
+            Endereço da ONG...
+          </div>
+        </div>
+      </div>
+
+      <!-- Redes Sociais -->
+      <div style="background: white; border-radius: 15px; padding: 25px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+        <h4 style="color: #003366; font-size: 18px; margin-bottom: 15px; display: flex; align-items: center; gap: 10px;">
+          <i class="bi bi-share" style="color: #00A8FF;"></i>
+          Redes Sociais
+        </h4>
+        <div id="ongModalSociais" style="display: flex; gap: 15px; flex-wrap: wrap;">
+          <!-- Links sociais serão inseridos aqui dinamicamente -->
+        </div>
+        <div id="ongModalNoSociais" style="color: #999; font-style: italic; display: none;">
+          Nenhuma rede social cadastrada
+        </div>
+      </div>
+    </div>
+
+    <!-- Loading -->
+    <div id="ongProfileLoading" style="display: none; text-align: center; padding: 50px;">
+      <div style="display: inline-block; width: 40px; height: 40px; border: 4px solid #f3f3f3; border-top: 4px solid #00A8FF; border-radius: 50%; animation: spin 1s linear infinite;"></div>
+      <p style="margin-top: 15px; color: #666;">Carregando perfil da ONG...</p>
     </div>
   </div>
 </div>
@@ -997,7 +1478,7 @@
         <div class="vaga-content">
           <div class="vaga-header">
             <h3 class="vaga-title" th:text="${vaga.nome}">Nome da Vaga</h3>
-            <div class="vaga-ong">
+            <div class="vaga-ong" onclick="showOngProfileModal(this)" th:data-ong-id="${vaga.ong.id}">
               <i class="bi bi-building"></i>
               <span th:text="${vaga.ong.nome}">Nome da ONG</span>
             </div>
@@ -1025,15 +1506,30 @@
           </div>
 
           <div class="vaga-actions">
-            <button class="btn-inscrever"
-                    th:data-vaga-id="${vaga.id}"
-                    th:data-vaga-nome="${vaga.nome}"
-                    th:disabled="${vaga.quantidade <= 0}"
-                    onclick="inscrever(this)">
-              <i class="bi bi-plus-circle"></i>
-              <span th:if="${vaga.quantidade > 0}">Inscrever-se</span>
-              <span th:unless="${vaga.quantidade > 0}">Esgotada</span>
-            </button>
+            <div class="action-buttons">
+              <button class="btn-inscrever"
+                      th:data-vaga-id="${vaga.id}"
+                      th:data-vaga-nome="${vaga.nome}"
+                      th:disabled="${vaga.quantidade <= 0}"
+                      onclick="inscrever(this)">
+                <i class="bi bi-plus-circle"></i>
+                <span th:if="${vaga.quantidade > 0}">Inscrever-se</span>
+                <span th:unless="${vaga.quantidade > 0}">Esgotada</span>
+              </button>
+
+              <button class="btn-ong" onclick="showOngProfileModal(this)" th:data-ong-id="${vaga.ong.id}">
+                <i class="bi bi-person-badge"></i>
+                Ver ONG
+              </button>
+
+              <button class="btn-report"
+                      th:data-vaga-id="${vaga.id}"
+                      th:data-vaga-nome="${vaga.nome}"
+                      onclick="showReportModal(this)">
+                <i class="bi bi-flag"></i>
+                Reportar
+              </button>
+            </div>
 
             <div class="vagas-disponiveis"
                  th:classappend="${vaga.quantidade <= 2 ? 'vagas-poucas' : (vaga.quantidade == 0 ? 'vagas-esgotadas' : '')}">
@@ -1063,8 +1559,10 @@
     </div>
   </div>
 </div>
-
 <script>
+  let currentReportVagaId = null;
+  let currentRating = 0;
+
   // Funções de logout
   function showLogoutModal() {
     document.getElementById('logoutModal').style.display = 'block';
@@ -1075,7 +1573,6 @@
   }
 
   function confirmLogout() {
-    // Fazer logout via AJAX
     fetch('/logout', {
       method: 'POST',
       headers: {
@@ -1100,10 +1597,8 @@
     const vagaId = button.dataset.vagaId;
     const vagaNome = button.dataset.vagaNome;
 
-    // Mostrar loading
     document.getElementById('loadingOverlay').style.display = 'flex';
 
-    // Desabilitar botão temporariamente
     button.disabled = true;
     const originalText = button.innerHTML;
     button.innerHTML = '<i class="bi bi-hourglass-split"></i> Processando...';
@@ -1117,16 +1612,16 @@
     })
             .then(response => response.text())
             .then(result => {
-              // Esconder loading
               document.getElementById('loadingOverlay').style.display = 'none';
 
               if (result === 'ok') {
                 showToast('Inscrição realizada com sucesso!', 'success');
                 button.innerHTML = '<i class="bi bi-check-circle"></i> Inscrito';
                 button.className = 'btn-inscrever btn-ja-inscrito';
+                button.style.background = 'linear-gradient(135deg, #ffc107 0%, #fd7e14 100%)';
+                button.style.color = '#212529';
                 button.disabled = true;
 
-                // Atualizar quantidade de vagas no card
                 const card = button.closest('.vaga-card');
                 const vagasDispElement = card.querySelector('.vagas-disponiveis span');
                 const currentCount = parseInt(card.dataset.vagas) - 1;
@@ -1143,15 +1638,18 @@
                   vagasDispElement.parentElement.className = 'vagas-disponiveis vagas-esgotadas';
                   button.innerHTML = '<i class="bi bi-x-circle"></i> Esgotada';
                   button.className = 'btn-inscrever btn-esgotada';
+                  button.style.background = '#6c757d';
+                  button.style.color = 'white';
                 }
 
-                // Atualizar estatísticas
                 updateStats();
 
               } else if (result === 'já inscrito') {
                 showToast('Você já está inscrito nesta vaga.', 'warning');
                 button.innerHTML = '<i class="bi bi-check-circle"></i> Já Inscrito';
                 button.className = 'btn-inscrever btn-ja-inscrito';
+                button.style.background = 'linear-gradient(135deg, #ffc107 0%, #fd7e14 100%)';
+                button.style.color = '#212529';
                 button.disabled = true;
               } else if (result.startsWith('erro: já inscrito em vaga nesta data')) {
                 showToast('Você já está inscrito em outra vaga nesta data!', 'error');
@@ -1162,10 +1660,14 @@
                 button.disabled = true;
                 button.innerHTML = '<i class="bi bi-x-circle"></i> Expirada';
                 button.className = 'btn-inscrever btn-esgotada';
+                button.style.background = '#6c757d';
+                button.style.color = 'white';
               } else if (result.startsWith('erro: não há vagas disponíveis')) {
                 showToast('Não há mais vagas disponíveis!', 'error');
                 button.innerHTML = '<i class="bi bi-x-circle"></i> Esgotada';
                 button.className = 'btn-inscrever btn-esgotada';
+                button.style.background = '#6c757d';
+                button.style.color = 'white';
                 button.disabled = true;
               } else if (result.startsWith('erro: não autenticado')) {
                 showToast('Você precisa estar logado para se inscrever!', 'error');
@@ -1191,6 +1693,416 @@
             });
   }
 
+  // Funções do modal de report
+  function showReportModal(button) {
+    currentReportVagaId = button.dataset.vagaId;
+    const vagaNome = button.dataset.vagaNome;
+    const ongNome = button.closest('.vaga-card').querySelector('.vaga-ong span').textContent;
+
+    fetch(`/inscricao/podeReportar/${currentReportVagaId}`)
+            .then(response => response.json())
+            .then(data => {
+              if (!data.podeReportar) {
+                if (data.motivo === "Já reportado") {
+                  showToast('Você já reportou esta vaga anteriormente', 'warning');
+                } else {
+                  showToast('Não é possível reportar esta vaga: ' + data.motivo, 'error');
+                }
+                return;
+              }
+
+              document.getElementById('reportVagaNome').textContent = vagaNome;
+              document.getElementById('reportOngNome').textContent = ongNome;
+              resetReportForm();
+              document.getElementById('reportModal').style.display = 'block';
+            })
+            .catch(error => {
+              console.error('Erro ao verificar report:', error);
+              document.getElementById('reportVagaNome').textContent = vagaNome;
+              document.getElementById('reportOngNome').textContent = ongNome;
+              resetReportForm();
+              document.getElementById('reportModal').style.display = 'block';
+            });
+  }
+
+  function closeReportModal() {
+    document.getElementById('reportModal').style.display = 'none';
+    currentReportVagaId = null;
+    resetReportForm();
+  }
+
+  function resetReportForm() {
+    document.getElementById('reportForm').reset();
+    currentRating = 0;
+    updateStarRating();
+    document.getElementById('ratingText').textContent = 'Clique nas estrelas para avaliar';
+    updateCharCounter();
+    removeEvidence();
+  }
+
+  // Sistema de Avaliação por Estrelas
+  function initStarRating() {
+    const stars = document.querySelectorAll('.star');
+
+    stars.forEach((star, index) => {
+      star.addEventListener('click', function() {
+        currentRating = parseInt(this.dataset.rating);
+        document.getElementById('reportRating').value = currentRating;
+        updateStarRating();
+        updateRatingText();
+      });
+
+      star.addEventListener('mouseenter', function() {
+        const hoverRating = parseInt(this.dataset.rating);
+        highlightStars(hoverRating, 'hover');
+      });
+
+      star.addEventListener('mouseleave', function() {
+        updateStarRating();
+      });
+    });
+  }
+
+  function highlightStars(rating, className = 'active') {
+    const stars = document.querySelectorAll('.star');
+    stars.forEach((star, index) => {
+      star.classList.remove('active', 'hover');
+      if (index < rating) {
+        star.classList.add(className);
+        star.innerHTML = '<i class="bi bi-star-fill"></i>';
+      } else {
+        star.innerHTML = '<i class="bi bi-star"></i>';
+      }
+    });
+  }
+
+  function updateStarRating() {
+    highlightStars(currentRating, 'active');
+  }
+
+  function updateRatingText() {
+    const texts = {
+      1: 'Muito ruim',
+      2: 'Ruim',
+      3: 'Regular',
+      4: 'Boa',
+      5: 'Excelente'
+    };
+
+    const text = currentRating > 0 ? texts[currentRating] : 'Clique nas estrelas para avaliar';
+    document.getElementById('ratingText').textContent = text;
+  }
+
+  // Sistema de Upload de Arquivo
+  function initFileUpload() {
+    const uploadArea = document.getElementById('uploadArea');
+    const fileInput = document.getElementById('reportEvidence');
+
+    uploadArea.addEventListener('click', () => {
+      fileInput.click();
+    });
+
+    uploadArea.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      uploadArea.classList.add('dragover');
+    });
+
+    uploadArea.addEventListener('dragleave', () => {
+      uploadArea.classList.remove('dragover');
+    });
+
+    uploadArea.addEventListener('drop', (e) => {
+      e.preventDefault();
+      uploadArea.classList.remove('dragover');
+
+      const files = e.dataTransfer.files;
+      if (files.length > 0) {
+        fileInput.files = files;
+        handleFileUpload(fileInput);
+      }
+    });
+  }
+
+  function handleFileUpload(input) {
+    const file = input.files[0];
+    if (!file) return;
+
+    const allowedTypes = ['image/jpeg', 'image/png', 'image/gif', 'application/pdf'];
+    if (!allowedTypes.includes(file.type)) {
+      showToast('Formato de arquivo não suportado. Use JPG, PNG, GIF ou PDF.', 'error');
+      input.value = '';
+      return;
+    }
+
+    if (file.size > 5 * 1024 * 1024) {
+      showToast('Arquivo muito grande. Tamanho máximo: 5MB.', 'error');
+      input.value = '';
+      return;
+    }
+
+    showFilePreview(file);
+  }
+
+  function showFilePreview(file) {
+    const preview = document.getElementById('evidencePreview');
+    const fileName = document.getElementById('fileName');
+    const fileSize = document.getElementById('fileSize');
+
+    fileName.textContent = file.name;
+    fileSize.textContent = formatFileSize(file.size);
+    preview.style.display = 'block';
+  }
+
+  function removeEvidence() {
+    document.getElementById('reportEvidence').value = '';
+    document.getElementById('evidencePreview').style.display = 'none';
+  }
+
+  function formatFileSize(bytes) {
+    if (bytes === 0) return '0 Bytes';
+    const k = 1024;
+    const sizes = ['Bytes', 'KB', 'MB'];
+    const i = Math.floor(Math.log(bytes) / Math.log(k));
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+  }
+
+  function updateCharCounter() {
+    const textarea = document.getElementById('reportReason');
+    const counter = document.getElementById('charCounter');
+    const currentLength = textarea.value.length;
+
+    counter.textContent = `${currentLength}/2000 caracteres`;
+
+    textarea.classList.remove('invalid', 'valid');
+    if (currentLength < 20 && currentLength > 0) {
+      textarea.classList.add('invalid');
+      counter.style.color = '#dc3545';
+    } else if (currentLength >= 20) {
+      textarea.classList.add('valid');
+      counter.style.color = '#28a745';
+    } else {
+      counter.style.color = '#666';
+    }
+  }
+
+  function initReportForm() {
+    const reportForm = document.getElementById('reportForm');
+
+    reportForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const assunto = document.getElementById('reportSubject').value;
+      const motivo = document.getElementById('reportReason').value.trim();
+
+      if (!assunto) {
+        showToast('Por favor, selecione o assunto do report', 'warning');
+        return;
+      }
+
+      if (motivo.length < 20) {
+        showToast('A descrição deve ter pelo menos 20 caracteres', 'warning');
+        return;
+      }
+
+      const confirmBtn = document.getElementById('confirmReportBtn');
+      confirmBtn.disabled = true;
+      confirmBtn.innerHTML = '<i class="bi bi-hourglass-split"></i> Enviando...';
+
+      const formData = new FormData(this);
+      formData.append('vagaId', currentReportVagaId);
+
+      if (currentRating > 0) {
+        formData.append('avaliacao', currentRating);
+      }
+
+      fetch('/inscricao/reportar', {
+        method: 'POST',
+        body: formData
+      })
+              .then(response => response.text())
+              .then(data => {
+                if (data === 'ok') {
+                  showToast('Report enviado com sucesso! Nossa equipe irá analisar em até 48 horas.', 'success');
+                  closeReportModal();
+
+                  const reportButton = document.querySelector(`[data-vaga-id="${currentReportVagaId}"]`);
+                  if (reportButton) {
+                    reportButton.disabled = true;
+                    reportButton.innerHTML = '<i class="bi bi-check-circle"></i> Reportado';
+                    reportButton.style.background = '#6c757d';
+                    reportButton.style.cursor = 'not-allowed';
+                  }
+                } else {
+                  const errorMessage = data.startsWith('erro: ') ? data.substring(6) : data;
+                  showToast(errorMessage, 'error');
+                }
+              })
+              .catch(error => {
+                console.error('Erro:', error);
+                showToast('Erro ao enviar report. Tente novamente.', 'error');
+              })
+              .finally(() => {
+                confirmBtn.disabled = false;
+                confirmBtn.innerHTML = '<i class="bi bi-flag"></i> Enviar Report';
+              });
+    });
+  }
+
+  // Ver perfil da ONG - Modal
+  function showOngProfileModal(element) {
+    const ongId = element.dataset.ongId;
+
+    document.getElementById('ongProfileModal').style.display = 'block';
+    document.getElementById('ongProfileLoading').style.display = 'block';
+    document.getElementById('ongProfileContent').style.display = 'none';
+
+    fetch(`/api/ong/perfil/${ongId}`)
+            .then(response => {
+              if (!response.ok) {
+                throw new Error('ONG não encontrada');
+              }
+              return response.json();
+            })
+            .then(ong => {
+              populateOngModal(ong);
+              document.getElementById('ongProfileLoading').style.display = 'none';
+              document.getElementById('ongProfileContent').style.display = 'block';
+            })
+            .catch(error => {
+              console.error('Erro ao carregar perfil da ONG:', error);
+
+              document.getElementById('ongProfileLoading').innerHTML = `
+        <div style="text-align: center; padding: 50px;">
+          <i class="bi bi-exclamation-triangle" style="font-size: 48px; color: #dc3545; margin-bottom: 15px;"></i>
+          <h4 style="color: #dc3545; margin-bottom: 10px;">Erro ao Carregar</h4>
+          <p style="color: #666;">Não foi possível carregar o perfil desta ONG.</p>
+          <button onclick="closeOngProfileModal()" style="margin-top: 15px; padding: 10px 20px; background: #dc3545; color: white; border: none; border-radius: 8px; cursor: pointer;">
+            Fechar
+          </button>
+        </div>
+      `;
+            });
+  }
+
+  function populateOngModal(ong) {
+    document.getElementById('ongModalNome').textContent = ong.nome || 'Nome não informado';
+    document.getElementById('ongModalCnpj').textContent = `CNPJ: ${formatCnpj(ong.cnpj) || 'Não informado'}`;
+
+    const logoContainer = document.getElementById('ongLogoContainer');
+
+    if (ong.logoUrl && ong.logoUrl !== '') {
+      logoContainer.innerHTML = `<img src="${ong.logoUrl}" alt="Logo da ONG" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.style.display='none'; this.parentElement.innerHTML='<div style=\\"color: #ccc; font-size: 48px;\\"><i class=\\"bi bi-building\\"></i></div>';">`;
+    } else {
+      logoContainer.innerHTML = '<div style="color: #ccc; font-size: 48px;"><i class="bi bi-building"></i></div>';
+    }
+
+    document.getElementById('ongTotalVagas').textContent = ong.totalVagas || '0';
+    document.getElementById('ongVagasAtivas').textContent = ong.vagasAtivas || '0';
+
+    const descricao = ong.descricao && ong.descricao.trim() !== '' ? ong.descricao : 'Esta ONG ainda não adicionou uma descrição.';
+    document.getElementById('ongModalDescricao').textContent = descricao;
+
+    document.getElementById('ongModalEmail').textContent = ong.email || 'Não informado';
+    document.getElementById('ongModalTelefone').textContent = formatTelefone(ong.telefone) || 'Não informado';
+
+    const siteContainer = document.getElementById('ongModalSiteContainer');
+    const siteElement = document.getElementById('ongModalSite');
+    if (ong.site && ong.site.trim() !== '') {
+      siteElement.innerHTML = `<a href="${ong.site}" target="_blank" style="color: #00A8FF; text-decoration: none;">${ong.site}</a>`;
+      siteContainer.style.display = 'block';
+    } else {
+      siteContainer.style.display = 'none';
+    }
+
+    const endereco = formatEndereco(ong);
+    document.getElementById('ongModalEndereco').textContent = endereco;
+
+    const sociaisContainer = document.getElementById('ongModalSociais');
+    const noSociaisElement = document.getElementById('ongModalNoSociais');
+
+    let temRedesSociais = false;
+    let sociaisHtml = '';
+
+    if (ong.facebook && ong.facebook.trim() !== '') {
+      const facebookUrl = ong.facebook.startsWith('http') ? ong.facebook : `https://facebook.com/${ong.facebook}`;
+      sociaisHtml += `
+        <a href="${facebookUrl}" target="_blank" style="display: inline-flex; align-items: center; justify-content: center; width: 45px; height: 45px; background: #4267B2; color: white; border-radius: 10px; text-decoration: none; transition: transform 0.3s ease;" onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform='translateY(0)'">
+          <i class="bi bi-facebook" style="font-size: 20px;"></i>
+        </a>
+      `;
+      temRedesSociais = true;
+    }
+
+    if (ong.instagram && ong.instagram.trim() !== '') {
+      const instagramUrl = ong.instagram.startsWith('http') ? ong.instagram : `https://instagram.com/${ong.instagram}`;
+      sociaisHtml += `
+        <a href="${instagramUrl}" target="_blank" style="display: inline-flex; align-items: center; justify-content: center; width: 45px; height: 45px; background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); color: white; border-radius: 10px; text-decoration: none; transition: transform 0.3s ease;" onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform='translateY(0)'">
+          <i class="bi bi-instagram" style="font-size: 20px;"></i>
+        </a>
+      `;
+      temRedesSociais = true;
+    }
+
+    if (ong.site && ong.site.trim() !== '') {
+      sociaisHtml += `
+        <a href="${ong.site}" target="_blank" style="display: inline-flex; align-items: center; justify-content: center; width: 45px; height: 45px; background: #28a745; color: white; border-radius: 10px; text-decoration: none; transition: transform 0.3s ease;" onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform='translateY(0)'">
+          <i class="bi bi-globe" style="font-size: 20px;"></i>
+        </a>
+      `;
+      temRedesSociais = true;
+    }
+
+    if (temRedesSociais) {
+      sociaisContainer.innerHTML = sociaisHtml;
+      sociaisContainer.style.display = 'flex';
+      noSociaisElement.style.display = 'none';
+    } else {
+      sociaisContainer.style.display = 'none';
+      noSociaisElement.style.display = 'block';
+    }
+  }
+
+  function closeOngProfileModal() {
+    document.getElementById('ongProfileModal').style.display = 'none';
+  }
+
+  function formatCnpj(cnpj) {
+    if (!cnpj) return null;
+    const cleaned = cnpj.replace(/\D/g, '');
+    if (cleaned.length === 14) {
+      return cleaned.replace(/(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/, '$1.$2.$3/$4-$5');
+    }
+    return cnpj;
+  }
+
+  function formatTelefone(telefone) {
+    if (!telefone) return null;
+    const cleaned = telefone.replace(/\D/g, '');
+    if (cleaned.length === 11) {
+      return cleaned.replace(/(\d{2})(\d{5})(\d{4})/, '($1) $2-$3');
+    } else if (cleaned.length === 10) {
+      return cleaned.replace(/(\d{2})(\d{4})(\d{4})/, '($1) $2-$3');
+    }
+    return telefone;
+  }
+
+  function formatEndereco(ong) {
+    const partes = [];
+
+    if (ong.logradouro) partes.push(ong.logradouro);
+    if (ong.numero) partes.push(ong.numero);
+    if (ong.complemento) partes.push(`- ${ong.complemento}`);
+    if (ong.bairro) partes.push(ong.bairro);
+    if (ong.cidade) partes.push(ong.cidade);
+    if (ong.estado) partes.push(ong.estado);
+    if (ong.cep) {
+      const cepFormatado = ong.cep.replace(/(\d{5})(\d{3})/, '$1-$2');
+      partes.push(`CEP: ${cepFormatado}`);
+    }
+
+    return partes.length > 0 ? partes.join(', ') : 'Endereço não informado';
+  }
+
   // Filtros
   function filterVagas() {
     const categoriaFilter = document.getElementById('categoriaFilter').value;
@@ -1199,13 +2111,11 @@
     const cards = Array.from(document.querySelectorAll('.vaga-card'));
     let visibleCount = 0;
 
-    // Filtrar cards
     cards.forEach(card => {
       const categoria = card.dataset.categoria;
       const nome = card.dataset.nome.toLowerCase();
       const ong = card.querySelector('.vaga-ong span').textContent.toLowerCase();
 
-      // Verificar filtros
       const categoriaMatch = !categoriaFilter || categoria === categoriaFilter ||
               (categoriaFilter === 'semana' && isThisWeek(card.dataset.data));
       const searchMatch = !searchFilter ||
@@ -1220,15 +2130,12 @@
       }
     });
 
-    // Ordenar cards visíveis
     const visibleCards = cards.filter(card => card.style.display !== 'none');
     sortCards(visibleCards, sortFilter);
 
-    // Atualizar estado vazio
     checkEmptyState(visibleCount, categoriaFilter, searchFilter);
   }
 
-  // Função para verificar se a data é desta semana
   function isThisWeek(dateString) {
     const date = new Date(dateString);
     const today = new Date();
@@ -1237,7 +2144,6 @@
     return date >= weekStart && date <= weekEnd;
   }
 
-  // Ordenar cards
   function sortCards(cards, sortBy) {
     const container = document.getElementById('vagasGrid');
 
@@ -1253,11 +2159,9 @@
       }
     });
 
-    // Reordenar no DOM
     cards.forEach(card => container.appendChild(card));
   }
 
-  // Limpar filtros
   function clearFilters() {
     document.getElementById('categoriaFilter').value = '';
     document.getElementById('searchFilter').value = '';
@@ -1265,7 +2169,6 @@
     filterVagas();
   }
 
-  // Verificar estado vazio
   function checkEmptyState(visibleCount, categoriaFilter = '', searchFilter = '') {
     const cards = document.querySelectorAll('.vaga-card');
     const emptyState = document.getElementById('emptyState');
@@ -1290,7 +2193,6 @@
     }
   }
 
-  // Atualizar estatísticas
   function updateStats() {
     const cards = document.querySelectorAll('.vaga-card');
     let urgentes = 0;
@@ -1311,9 +2213,7 @@
     document.getElementById('vagasHojeCount').textContent = hoje;
   }
 
-  // Mostrar toast
   function showToast(message, type = 'success') {
-    // Remove toast existente
     const existingToast = document.querySelector('.toast');
     if (existingToast) {
       existingToast.remove();
@@ -1332,53 +2232,12 @@
 
     document.body.appendChild(toast);
 
-    // Auto remove após 5 segundos
     setTimeout(() => {
       toast.style.animation = 'slideOutToast 0.3s ease';
       setTimeout(() => toast.remove(), 300);
     }, 5000);
   }
 
-  // Event listeners
-  document.addEventListener('DOMContentLoaded', function() {
-    // Configurar filtros
-    document.getElementById('categoriaFilter').addEventListener('change', filterVagas);
-    document.getElementById('searchFilter').addEventListener('input', filterVagas);
-    document.getElementById('sortFilter').addEventListener('change', filterVagas);
-
-    // Atualizar estatísticas iniciais
-    updateStats();
-
-    // Verificar estado vazio inicial
-    checkEmptyState();
-
-    // Verificar se o usuário já está inscrito em alguma vaga
-    checkUserInscriptions();
-
-    // Fechar modais ao clicar fora
-    window.addEventListener('click', function(event) {
-      const logoutModal = document.getElementById('logoutModal');
-
-      if (event.target === logoutModal) {
-        hideLogoutModal();
-      }
-    });
-
-    // Adicionar animação aos cards
-    const cards = document.querySelectorAll('.vaga-card');
-    cards.forEach((card, index) => {
-      card.style.opacity = '0';
-      card.style.transform = 'translateY(20px)';
-
-      setTimeout(() => {
-        card.style.transition = 'all 0.5s ease';
-        card.style.opacity = '1';
-        card.style.transform = 'translateY(0)';
-      }, index * 100);
-    });
-  });
-
-  // Verificar inscrições do usuário
   function checkUserInscriptions() {
     const buttons = document.querySelectorAll('.btn-inscrever');
 
@@ -1391,6 +2250,8 @@
                 if (data.inscrito) {
                   button.innerHTML = '<i class="bi bi-check-circle"></i> Já Inscrito';
                   button.className = 'btn-inscrever btn-ja-inscrito';
+                  button.style.background = 'linear-gradient(135deg, #ffc107 0%, #fd7e14 100%)';
+                  button.style.color = '#212529';
                   button.disabled = true;
                 }
               })
@@ -1399,6 +2260,76 @@
               });
     });
   }
+
+  function checkReportButtons() {
+    const reportButtons = document.querySelectorAll('.btn-report');
+
+    reportButtons.forEach(button => {
+      const vagaId = button.dataset.vagaId;
+
+      fetch(`/inscricao/podeReportar/${vagaId}`)
+              .then(response => response.json())
+              .then(data => {
+                if (!data.podeReportar && data.motivo === "Já reportado") {
+                  button.disabled = true;
+                  button.innerHTML = '<i class="bi bi-check-circle"></i> Reportado';
+                  button.style.background = '#6c757d';
+                  button.style.cursor = 'not-allowed';
+                }
+              })
+              .catch(error => {
+                console.error('Erro ao verificar status do report:', error);
+              });
+    });
+  }
+
+  // Event listeners
+  document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('categoriaFilter').addEventListener('change', filterVagas);
+    document.getElementById('searchFilter').addEventListener('input', filterVagas);
+    document.getElementById('sortFilter').addEventListener('change', filterVagas);
+
+    initStarRating();
+    initFileUpload();
+    initReportForm();
+
+    // Inicializar contador se o elemento existir
+    const reportReason = document.getElementById('reportReason');
+    if (reportReason) {
+      updateCharCounter();
+    }
+
+    updateStats();
+    checkEmptyState();
+    checkUserInscriptions();
+    checkReportButtons();
+
+    window.addEventListener('click', function(event) {
+      const logoutModal = document.getElementById('logoutModal');
+      const reportModal = document.getElementById('reportModal');
+      const ongProfileModal = document.getElementById('ongProfileModal');
+
+      if (event.target === logoutModal) {
+        hideLogoutModal();
+      } else if (event.target === reportModal) {
+        closeReportModal();
+      } else if (event.target === ongProfileModal) {
+        closeOngProfileModal();
+      }
+    });
+
+    const cards = document.querySelectorAll('.vaga-card');
+    cards.forEach((card, index) => {
+      card.style.opacity = '0';
+      card.style.transform = 'translateY(20px)';
+
+      setTimeout(() => {
+        card.style.transition = 'all 0.5s ease';
+        card.style.opacity = '1';
+        card.style.transform = 'translateY(0)';
+      }, index * 100);
+    });
+  });
 
   // Adicionar estilos de animação
   const style = document.createElement('style');
@@ -1414,6 +2345,7 @@
         }
     }
 
+    /* Estilos dos botões de inscrição */
     .btn-inscrever.btn-ja-inscrito {
         background: linear-gradient(135deg, #ffc107 0%, #fd7e14 100%) !important;
         color: #212529 !important;
@@ -1444,7 +2376,90 @@
             box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
         }
     }
-`;
+
+    .spinner-border {
+        display: inline-block;
+        width: 1rem;
+        height: 1rem;
+        vertical-align: text-bottom;
+        border: .15em solid currentColor;
+        border-right-color: transparent;
+        border-radius: 50%;
+        animation: spinner-border .75s linear infinite;
+    }
+
+    .spinner-border-sm {
+        width: 0.8rem;
+        height: 0.8rem;
+        border-width: .1em;
+    }
+
+    @keyframes spinner-border {
+        to { transform: rotate(360deg); }
+    }
+
+    .mr-2 {
+        margin-right: 0.5rem;
+    }
+
+    /* Estados de validação */
+    .invalid {
+        border-color: #dc3545 !important;
+    }
+
+    .valid {
+        border-color: #28a745 !important;
+    }
+
+    /* Sistema de Avaliação por Estrelas */
+    .star-rating {
+        display: flex;
+        gap: 5px;
+    }
+
+    .star {
+        cursor: pointer;
+        font-size: 24px;
+        color: #ddd;
+        transition: all 0.2s ease;
+        user-select: none;
+    }
+
+    .star:hover {
+        transform: scale(1.1);
+    }
+
+    .star.active {
+        color: #ffc107;
+    }
+
+    .star.hover {
+        color: #ffb300;
+    }
+
+    /* Área de Upload */
+    #uploadArea {
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    #uploadArea:hover {
+        border-color: #00A8FF;
+        background: #f0f8ff;
+    }
+
+    #uploadArea.dragover {
+        border-color: #00A8FF;
+        background: #e3f2fd;
+        transform: scale(1.02);
+    }
+
+    /* Preview de evidência */
+    #evidencePreview {
+        border: 2px solid #28a745;
+        background: #f8fff8;
+    }
+  `;
   document.head.appendChild(style);
 </script>
 </body>

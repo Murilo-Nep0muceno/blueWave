@@ -11,6 +11,8 @@ import java.util.List;
 
 public interface VagasRepository extends JpaRepository<Vagas, Long> {
 
+    // ===== MÉTODOS EXISTENTES (MANTIDOS INTACTOS) =====
+
     // Busca vagas por ONG
     List<Vagas> findByOng(Ong ong);
 
@@ -24,8 +26,6 @@ public interface VagasRepository extends JpaRepository<Vagas, Long> {
     // Busca vagas ativas com join na ONG para otimizar a consulta
     @Query("SELECT v FROM Vagas v JOIN FETCH v.ong WHERE v.data >= :dataAtual ORDER BY v.data ASC")
     List<Vagas> findVagasAtivasComOng(@Param("dataAtual") LocalDate dataAtual);
-
-
 
     // Busca vagas por cidade
     @Query("SELECT v FROM Vagas v JOIN v.ong o WHERE o.cidade = :cidade AND v.data >= :dataAtual ORDER BY v.data ASC")
@@ -53,4 +53,25 @@ public interface VagasRepository extends JpaRepository<Vagas, Long> {
             "AND v.data >= :dataAtual " +
             "ORDER BY v.data ASC")
     List<Vagas> findActiveVagasWithOng(@Param("dataAtual") LocalDate dataAtual);
+
+    // ===== NOVOS MÉTODOS NECESSÁRIOS PARA O CONFIGURACOES CONTROLLER =====
+
+    // Contar vagas por ONG (necessário para estatísticas)
+    long countByOng(Ong ong);
+
+    // Buscar vagas por status (usando o enum existente)
+    @Query("SELECT v FROM Vagas v WHERE v.status = :status")
+    List<Vagas> findByStatus(@Param("status") Vagas.StatusVaga status);
+
+    // Buscar vagas por ONG e status
+    @Query("SELECT v FROM Vagas v WHERE v.ong = :ong AND v.status = :status")
+    List<Vagas> findByOngAndStatus(@Param("ong") Ong ong, @Param("status") Vagas.StatusVaga status);
+
+    // Buscar vagas que acontecem amanhã (para sistema de lembretes)
+    @Query("SELECT v FROM Vagas v WHERE v.data = :amanha AND v.status = 'ATIVA'")
+    List<Vagas> findVagasAmanha(@Param("amanha") LocalDate amanha);
+
+    // Buscar vagas que acontecem hoje
+    @Query("SELECT v FROM Vagas v WHERE v.data = :hoje AND v.status = 'ATIVA'")
+    List<Vagas> findVagasHoje(@Param("hoje") LocalDate hoje);
 }

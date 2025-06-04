@@ -1,11 +1,17 @@
 package com.blueWave.BlueWave.controller;
 
 import com.blueWave.BlueWave.model.Ong;
+import com.blueWave.BlueWave.model.Vagas;
+import com.blueWave.BlueWave.model.Voluntario;
 import com.blueWave.BlueWave.repository.OngRepository;
+import com.blueWave.BlueWave.repository.VagasRepository;
+import com.blueWave.BlueWave.repository.VoluntarioRepository;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.annotation.Validated;
@@ -13,7 +19,10 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import jakarta.validation.Valid;
+
+import java.time.LocalDate;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -24,6 +33,12 @@ public class OngController {
 
     @Autowired
     private OngRepository ongRepository;
+
+    @Autowired
+    private VagasRepository vagasRepository;
+
+    @Autowired
+    private VoluntarioRepository voluntarioRepository;
 
     @GetMapping
     public ModelAndView form(){
@@ -94,6 +109,78 @@ public class OngController {
             error.put("message", "Erro interno do servidor. Tente novamente mais tarde.");
             error.put("details", e.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(error);
+        }
+    }
+
+
+    // Método para verificar se é voluntário logado
+    private boolean isVoluntarioLoggedIn(HttpSession session) {
+        String userType = (String) session.getAttribute("userType");
+        String userEmail = (String) session.getAttribute("userEmail");
+        return "voluntario".equals(userType) && userEmail != null;
+    }
+
+    // Método para obter voluntário logado
+    private Voluntario getLoggedVoluntario(HttpSession session) {
+        if (!isVoluntarioLoggedIn(session)) {
+            return null;
+        }
+        String userEmail = (String) session.getAttribute("userEmail");
+        return voluntarioRepository.findByEmail(userEmail);
+    }
+
+    @GetMapping("/perfil/{ongId}")
+    @Transactional(readOnly = true)
+    public ModelAndView verPerfilOng(@PathVariable Long ongId, HttpSession session) {
+        // Verificar se é voluntário logado
+        if (!isVoluntarioLoggedIn(session)) {
+            return new ModelAndView("redirect:/login/voluntario");
+        }
+
+        Voluntario voluntario = getLoggedVoluntario(session);
+        if (voluntario == null) {
+            return new ModelAndView("redirect:/login/voluntario");
+        }
+
+        try {
+            // Buscar a ONG
+            Ong ong = ongRepository.findById(ongId).orElse(null);
+            if (ong == null) {
+                ModelAndView mv = new ModelAndView("redirect:/inscricao/minhasVagas");
+                return mv;
+            }
+
+            // Buscar vagas ativas da ONG
+            List<Vagas> vagasAtivas = vagasRepository.findByOngId(ongId)
+                    .stream()
+                    .filter(vaga ->
+                            vaga.getStatus() == Vagas.StatusVaga.ATIVA &&
+                                    (vaga.getData().isAfter(LocalDate.now()) || vaga.getData().equals(LocalDate.now()))
+                    )
+                    .toList();
+
+            // Contar total de vagas da ONG (incluindo encerradas)
+            List<Vagas> todasVagas = vagasRepository.findByOngId(ongId);
+            long totalVagas = todasVagas.size();
+            long vagasEncerradas = todasVagas.stream()
+                    .filter(vaga ->
+                            vaga.getData().isBefore(LocalDate.now()) ||
+                                    vaga.getStatus() != Vagas.StatusVaga.ATIVA
+                    )
+                    .count();
+
+            ModelAndView mv = new ModelAndView("perfilOng");
+            mv.addObject("nomeVoluntario", voluntario.getNomeVoluntario());
+            mv.addObject("ong", ong);
+            mv.addObject("vagasAtivas", vagasAtivas);
+            mv.addObject("totalVagas", totalVagas);
+            mv.addObject("totalVagasAtivas", vagasAtivas.size());
+            mv.addObject("totalVagasEncerradas", vagasEncerradas);
+
+            return mv;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ModelAndView("redirect:/inscricao/minhasVagas");
         }
     }
 }
