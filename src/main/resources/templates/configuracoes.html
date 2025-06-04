@@ -4,11 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blue Wave - Configurações</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -129,6 +125,11 @@
             opacity: 1;
         }
 
+        ul li.item-menu.active a {
+            background: rgba(255, 255, 255, 0.2) !important;
+            border-left: 4px solid white;
+        }
+
         .logout-section {
             padding: 0 10px;
             margin-top: auto;
@@ -213,19 +214,19 @@
             letter-spacing: 0.5px;
         }
 
-        .item-menu.active a {
-            background: rgba(255, 255, 255, 0.2) !important;
-            border-left: 4px solid white;
-            box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.1);
+        .page-title {
+            margin: 40px 30px 30px;
+            color: #003366;
+            font-size: 28px;
+            font-weight: 700;
         }
 
-        /* Estilos da página de configurações */
         .config-container {
-            max-width: 1400px;
-            margin: 40px auto;
-            padding: 0 20px;
+            padding: 0 30px;
+            margin-bottom: 40px;
         }
 
+        /* Estatísticas */
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -235,27 +236,16 @@
 
         .stat-card {
             background: white;
-            border-radius: 16px;
+            border-radius: 15px;
             padding: 25px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
             transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .stat-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 4px;
-            height: 100%;
-            background: linear-gradient(180deg, #00A8FF 0%, #0078D4 100%);
+            border: 1px solid rgba(0, 168, 255, 0.1);
         }
 
         .stat-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
         }
 
         .stat-header {
@@ -281,15 +271,15 @@
         }
 
         .stat-icon.vagas {
-            background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%);
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
         }
 
         .stat-icon.voluntarios {
-            background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%);
+            background: linear-gradient(135deg, #ffc107 0%, #fd7e14 100%);
         }
 
         .stat-icon.ativas {
-            background: linear-gradient(135deg, #9b59b6 0%, #8e44ad 100%);
+            background: linear-gradient(135deg, #6f42c1 0%, #e83e8c 100%);
         }
 
         .stat-value {
@@ -305,12 +295,14 @@
             font-weight: 500;
         }
 
+        /* Seção de filtros */
         .filters-section {
             background: white;
-            border-radius: 16px;
+            border-radius: 15px;
             padding: 25px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
             margin-bottom: 30px;
+            border: 1px solid rgba(0, 168, 255, 0.1);
         }
 
         .filters-header {
@@ -409,11 +401,13 @@
             box-shadow: 0 5px 15px rgba(0, 168, 255, 0.3);
         }
 
+        /* Seção de inscrições */
         .inscricoes-section {
             background: white;
-            border-radius: 16px;
+            border-radius: 15px;
             padding: 25px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(0, 168, 255, 0.1);
         }
 
         .section-header {
@@ -515,7 +509,7 @@
         }
 
         .actions-cell {
-            width: 120px;
+            width: 200px;
         }
 
         .btn-action {
@@ -527,6 +521,7 @@
             cursor: pointer;
             transition: all 0.3s ease;
             margin-right: 5px;
+            margin-bottom: 3px;
         }
 
         .btn-view {
@@ -536,6 +531,27 @@
 
         .btn-view:hover {
             background: #2980b9;
+            transform: translateY(-1px);
+        }
+
+        .btn-report {
+            background: linear-gradient(135deg, #ffc107 0%, #fd7e14 100%);
+            color: #212529;
+        }
+
+        .btn-report:hover {
+            background: linear-gradient(135deg, #fd7e14 0%, #dc3545 100%);
+            color: white;
+            transform: translateY(-1px);
+        }
+
+        .btn-notify {
+            background: linear-gradient(135deg, #17a2b8 0%, #138496 100%);
+            color: white;
+        }
+
+        .btn-notify:hover {
+            background: linear-gradient(135deg, #138496 0%, #0f6674 100%);
             transform: translateY(-1px);
         }
 
@@ -549,6 +565,7 @@
             transform: translateY(-1px);
         }
 
+        /* Paginação */
         .pagination {
             display: flex;
             justify-content: center;
@@ -584,6 +601,7 @@
             cursor: not-allowed;
         }
 
+        /* Estado vazio */
         .empty-state {
             text-align: center;
             padding: 60px 20px;
@@ -626,7 +644,9 @@
             padding: 30px;
             border-radius: 20px;
             width: 90%;
-            max-width: 500px;
+            max-width: 600px;
+            max-height: 80vh;
+            overflow-y: auto;
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
             animation: modalSlideIn 0.3s ease-out;
         }
@@ -646,7 +666,9 @@
             color: #003366;
             margin-bottom: 20px;
             font-size: 24px;
-            text-align: center;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
         .modal-body {
@@ -673,7 +695,7 @@
             justify-content: center;
         }
 
-        .btn-confirm, .btn-cancel {
+        .btn-confirm, .btn-cancel, .btn-modal-cancel {
             padding: 12px 24px;
             border: none;
             border-radius: 12px;
@@ -696,13 +718,13 @@
             box-shadow: 0 6px 20px rgba(231, 76, 60, 0.4);
         }
 
-        .btn-cancel {
+        .btn-cancel, .btn-modal-cancel {
             background: #ecf0f1;
             color: #7f8c8d;
             border: 2px solid #bdc3c7;
         }
 
-        .btn-cancel:hover {
+        .btn-cancel:hover, .btn-modal-cancel:hover {
             background: #d5dbdb;
             border-color: #95a5a6;
             color: #5d6d7e;
@@ -760,7 +782,20 @@
             }
 
             .config-container {
-                padding: 0 15px;
+                padding: 0 20px;
+            }
+
+            .page-title {
+                margin: 30px 20px 20px;
+                font-size: 24px;
+            }
+
+            #header-bg {
+                padding: 15px 20px;
+            }
+
+            #logo {
+                font-size: 18px;
             }
 
             .inscricoes-table {
@@ -778,17 +813,25 @@
             }
 
             .actions-cell {
-                width: 80px;
+                width: 140px;
             }
 
             .btn-action {
                 padding: 4px 8px;
                 font-size: 11px;
             }
+
+            .modal-content {
+                margin: 10% auto;
+                padding: 25px 20px;
+                width: 95%;
+            }
         }
     </style>
 </head>
+
 <body>
+<!-- Menu lateral -->
 <nav class="menu-lateral">
     <div class="title">
         <img src="/css/images/logo_blue_white.png" width="50" height="50" alt="Logo Blue Wave" onerror="this.style.display='none';" />
@@ -848,7 +891,7 @@
 
 <!-- Modal de confirmação de logout -->
 <div id="logoutModal" class="modal">
-    <div class="modal-content">
+    <div class="modal-content" style="max-width: 400px; text-align: center;">
         <h3>Confirmar Logout</h3>
         <p>Tem certeza de que deseja sair do sistema?</p>
         <div class="modal-buttons">
@@ -866,25 +909,26 @@
             <!-- Detalhes serão carregados aqui -->
         </div>
         <div class="modal-buttons">
-            <button class="btn-cancel" onclick="hideVolunteerModal()">Fechar</button>
+            <button class="btn-modal-cancel" onclick="hideVolunteerModal()">Fechar</button>
         </div>
     </div>
 </div>
 
 <!-- Modal de confirmação de remoção -->
 <div id="removeModal" class="modal">
-    <div class="modal-content">
+    <div class="modal-content" style="max-width: 400px; text-align: center;">
         <h3>Confirmar Remoção</h3>
         <div class="modal-body">
             <p id="removeMessage">Tem certeza de que deseja remover este voluntário?</p>
         </div>
         <div class="modal-buttons">
-            <button class="btn-cancel" onclick="hideRemoveModal()">Cancelar</button>
+            <button class="btn-modal-cancel" onclick="hideRemoveModal()">Cancelar</button>
             <button class="btn-confirm" onclick="confirmRemove()">Remover</button>
         </div>
     </div>
 </div>
 
+<!-- Conteúdo principal -->
 <div class="conteudo">
     <div id="header-bg">
         <header id="header">
@@ -892,13 +936,15 @@
         </header>
     </div>
 
+    <h1 class="page-title">Gerenciar Inscrições</h1>
+
     <div class="config-container">
         <!-- Estatísticas -->
         <div class="stats-grid">
             <div class="stat-card">
                 <div class="stat-header">
                     <div>
-                        <div class="stat-value" th:text="${estatisticas.totalInscricoes}">0</div>
+                        <div class="stat-value" th:text="${estatisticas.totalInscricoes}">127</div>
                         <div class="stat-label">Total de Inscrições</div>
                     </div>
                     <div class="stat-icon inscricoes">
@@ -910,7 +956,7 @@
             <div class="stat-card">
                 <div class="stat-header">
                     <div>
-                        <div class="stat-value" th:text="${estatisticas.totalVagas}">0</div>
+                        <div class="stat-value" th:text="${estatisticas.totalVagas}">18</div>
                         <div class="stat-label">Vagas Criadas</div>
                     </div>
                     <div class="stat-icon vagas">
@@ -922,7 +968,7 @@
             <div class="stat-card">
                 <div class="stat-header">
                     <div>
-                        <div class="stat-value" th:text="${estatisticas.voluntariosUnicos}">0</div>
+                        <div class="stat-value" th:text="${estatisticas.voluntariosUnicos}">85</div>
                         <div class="stat-label">Voluntários Únicos</div>
                     </div>
                     <div class="stat-icon voluntarios">
@@ -934,7 +980,7 @@
             <div class="stat-card">
                 <div class="stat-header">
                     <div>
-                        <div class="stat-value" th:text="${estatisticas.vagasComInscricoes}">0</div>
+                        <div class="stat-value" th:text="${estatisticas.vagasComInscricoes}">12</div>
                         <div class="stat-label">Vagas com Inscrições</div>
                     </div>
                     <div class="stat-icon ativas">
@@ -1000,12 +1046,12 @@
                 </div>
             </div>
 
-            <div th:if="${inscricoes.size() > 0}">
+            <div th:if="${inscricoes != null and inscricoes.size() > 0}">
                 <table class="inscricoes-table">
                     <thead>
                     <tr>
                         <th class="checkbox-cell">
-                            <input type="checkbox" id="selectAll" class="custom-checkbox" onchange="toggleSelectAll()">
+                            <input type="checkbox" id="selectAll" class="custom-checkbox">
                         </th>
                         <th>Voluntário</th>
                         <th>Vaga</th>
@@ -1014,10 +1060,13 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:each="inscricao : ${inscricoes}">
+                    <tr th:each="inscricao : ${inscricoes}" class="inscricao-row"
+                        th:data-inscricao-id="${inscricao.id}"
+                        th:data-voluntario-id="${inscricao.voluntario.id}"
+                        th:data-voluntario-nome="${inscricao.voluntario.nomeVoluntario}">
                         <td class="checkbox-cell">
                             <input type="checkbox" class="custom-checkbox volunteer-checkbox"
-                                   th:value="${inscricao.id}" onchange="updateBulkActions()">
+                                   th:value="${inscricao.id}">
                         </td>
                         <td>
                             <div class="voluntario-info">
@@ -1044,12 +1093,28 @@
                         </td>
                         <td class="actions-cell">
                             <button class="btn-action btn-view"
-                                    th:onclick="'showVolunteerDetails(' + ${inscricao.voluntario.id} + ')'"
+                                    th:data-voluntario-id="${inscricao.voluntario.id}"
                                     title="Ver detalhes">
                                 <i class="bi bi-eye"></i>
                             </button>
+
+                            <button class="btn-action btn-report"
+                                    th:data-inscricao-id="${inscricao.id}"
+                                    th:data-voluntario-nome="${inscricao.voluntario.nomeVoluntario}"
+                                    title="Reportar voluntário">
+                                <i class="bi bi-flag"></i>
+                            </button>
+
+                            <button class="btn-action btn-notify"
+                                    th:data-inscricao-id="${inscricao.id}"
+                                    th:data-voluntario-nome="${inscricao.voluntario.nomeVoluntario}"
+                                    title="Enviar notificação">
+                                <i class="bi bi-bell"></i>
+                            </button>
+
                             <button class="btn-action btn-remove"
-                                    th:onclick="'showRemoveModal(' + ${inscricao.id} + ', \'' + ${inscricao.voluntario.nomeVoluntario} + '\')'"
+                                    th:data-inscricao-id="${inscricao.id}"
+                                    th:data-voluntario-nome="${inscricao.voluntario.nomeVoluntario}"
                                     title="Remover voluntário">
                                 <i class="bi bi-trash"></i>
                             </button>
@@ -1066,15 +1131,15 @@
                         <i class="bi bi-chevron-left"></i>
                     </a>
                     <span th:unless="${hasPrevious}" class="disabled">
-            <i class="bi bi-chevron-left"></i>
-          </span>
+                        <i class="bi bi-chevron-left"></i>
+                    </span>
 
                     <span th:each="i : ${#numbers.sequence(0, totalPages - 1)}" th:if="${i >= currentPage - 2 and i <= currentPage + 2}">
-            <a th:if="${i != currentPage}"
-               th:href="@{/vagas/configuracoes(page=${i}, size=${size}, search=${search}, vagaFilter=${vagaFilter})}"
-               th:text="${i + 1}">1</a>
-            <span th:if="${i == currentPage}" class="current" th:text="${i + 1}">1</span>
-          </span>
+                        <a th:if="${i != currentPage}"
+                           th:href="@{/vagas/configuracoes(page=${i}, size=${size}, search=${search}, vagaFilter=${vagaFilter})}"
+                           th:text="${i + 1}">1</a>
+                        <span th:if="${i == currentPage}" class="current" th:text="${i + 1}">1</span>
+                    </span>
 
                     <a th:if="${hasNext}"
                        th:href="@{/vagas/configuracoes(page=${currentPage + 1}, size=${size}, search=${search}, vagaFilter=${vagaFilter})}"
@@ -1082,13 +1147,13 @@
                         <i class="bi bi-chevron-right"></i>
                     </a>
                     <span th:unless="${hasNext}" class="disabled">
-            <i class="bi bi-chevron-right"></i>
-          </span>
+                        <i class="bi bi-chevron-right"></i>
+                    </span>
                 </div>
             </div>
 
             <!-- Estado vazio -->
-            <div th:if="${inscricoes.size() == 0}" class="empty-state">
+            <div th:if="${inscricoes == null or inscricoes.size() == 0}" class="empty-state">
                 <i class="bi bi-inbox"></i>
                 <h3>Nenhuma inscrição encontrada</h3>
                 <p th:if="${search != '' or vagaFilter != ''}">
@@ -1111,8 +1176,17 @@
 </div>
 
 <script>
+    // Variáveis globais
     let selectedInscricoes = [];
     let currentRemoveId = null;
+
+    // Definir todas as funções no escopo global antes de qualquer uso
+    window.showVolunteerDetails = showVolunteerDetails;
+    window.updateBulkActions = updateBulkActions;
+    window.toggleSelectAll = toggleSelectAll;
+    window.showRemoveModal = showRemoveModal;
+    window.showReportVolunteerModal = showReportVolunteerModal;
+    window.showNotifyModal = showNotifyModal;
 
     // Funções do modal de logout
     function showLogoutModal() {
@@ -1144,31 +1218,31 @@
                     detailsDiv.innerHTML = `<p style="color: red; text-align: center;">${data.erro}</p>`;
                 } else {
                     detailsDiv.innerHTML = `
-            <div class="volunteer-detail">
-              <strong>Nome:</strong>
-              <span>${data.nome}</span>
-            </div>
-            <div class="volunteer-detail">
-              <strong>E-mail:</strong>
-              <span>${data.email}</span>
-            </div>
-            <div class="volunteer-detail">
-              <strong>Telefone:</strong>
-              <span>${data.telefone}</span>
-            </div>
-            <div class="volunteer-detail">
-              <strong>CPF:</strong>
-              <span>${data.cpf}</span>
-            </div>
-            <div class="volunteer-detail">
-              <strong>Data de Nascimento:</strong>
-              <span>${data.dataNascimento}</span>
-            </div>
-            <div class="volunteer-detail">
-              <strong>Sexo:</strong>
-              <span>${data.sexo}</span>
-            </div>
-          `;
+                        <div class="volunteer-detail">
+                            <strong>Nome:</strong>
+                            <span>${data.nome}</span>
+                        </div>
+                        <div class="volunteer-detail">
+                            <strong>E-mail:</strong>
+                            <span>${data.email}</span>
+                        </div>
+                        <div class="volunteer-detail">
+                            <strong>Telefone:</strong>
+                            <span>${data.telefone || 'Não informado'}</span>
+                        </div>
+                        <div class="volunteer-detail">
+                            <strong>CPF:</strong>
+                            <span>${data.cpf || 'Não informado'}</span>
+                        </div>
+                        <div class="volunteer-detail">
+                            <strong>Data de Nascimento:</strong>
+                            <span>${data.dataNascimento || 'Não informado'}</span>
+                        </div>
+                        <div class="volunteer-detail">
+                            <strong>Sexo:</strong>
+                            <span>${data.sexo || 'Não informado'}</span>
+                        </div>
+                    `;
                 }
             })
             .catch(error => {
@@ -1183,10 +1257,35 @@
 
     // Funções do modal de remoção
     function showRemoveModal(inscricaoId, voluntarioNome) {
-        currentRemoveId = inscricaoId;
-        document.getElementById('removeMessage').textContent =
-            `Tem certeza de que deseja remover o voluntário "${voluntarioNome}" desta vaga?`;
-        document.getElementById('removeModal').style.display = 'block';
+        console.log('showRemoveModal chamado com:', {inscricaoId, voluntarioNome});
+
+        // Validar parâmetros
+        if (!inscricaoId || !voluntarioNome) {
+            console.error('Parâmetros inválidos para showRemoveModal:', {inscricaoId, voluntarioNome});
+            showMessage('Erro: Dados da inscrição não encontrados', 'error');
+            return;
+        }
+
+        // Converter para número e validar
+        const id = parseInt(inscricaoId);
+        if (isNaN(id) || id <= 0) {
+            console.error('ID de inscrição inválido:', inscricaoId);
+            showMessage('Erro: ID da inscrição inválido', 'error');
+            return;
+        }
+
+        currentRemoveId = id;
+        console.log('currentRemoveId definido como:', currentRemoveId);
+
+        const messageElement = document.getElementById('removeMessage');
+        if (messageElement) {
+            messageElement.textContent = `Tem certeza de que deseja remover o voluntário "${voluntarioNome}" desta vaga?`;
+        }
+
+        const modal = document.getElementById('removeModal');
+        if (modal) {
+            modal.style.display = 'block';
+        }
     }
 
     function hideRemoveModal() {
@@ -1195,40 +1294,497 @@
     }
 
     function confirmRemove() {
-        if (!currentRemoveId) return;
+        if (!currentRemoveId) {
+            console.error('currentRemoveId não definido');
+            showMessage('Erro: ID da inscrição não encontrado', 'error');
+            return;
+        }
+
+        console.log('Confirmando remoção do ID:', currentRemoveId);
+
+        // Validar se é um número válido
+        const id = parseInt(currentRemoveId);
+        if (isNaN(id) || id <= 0) {
+            console.error('ID inválido:', currentRemoveId);
+            showMessage('Erro: ID da inscrição inválido', 'error');
+            return;
+        }
 
         showLoading(true);
         hideRemoveModal();
 
-        fetch(`/vagas/configuracoes/remover-voluntario/${currentRemoveId}`, {
+        fetch(`/vagas/configuracoes/remover-voluntario/${id}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             }
         })
-            .then(response => response.text())
+            .then(response => {
+                console.log('Response status:', response.status);
+                return response.text();
+            })
             .then(data => {
+                console.log('Response data:', data);
                 showLoading(false);
                 if (data === 'ok') {
-                    showSuccessMessage('Voluntário removido com sucesso!');
+                    showMessage('Voluntário removido com sucesso!', 'success');
                     setTimeout(() => {
                         window.location.reload();
                     }, 1500);
                 } else {
-                    showErrorMessage('Erro ao remover voluntário: ' + data);
+                    // Se a resposta for um JSON de erro, tentar parsear
+                    try {
+                        const errorObj = JSON.parse(data);
+                        showMessage(`Erro: ${errorObj.message || 'Erro interno do servidor'}`, 'error');
+                    } catch (e) {
+                        showMessage('Erro ao remover voluntário: ' + data, 'error');
+                    }
                 }
             })
             .catch(error => {
                 showLoading(false);
-                console.error('Erro:', error);
-                showErrorMessage('Erro ao remover voluntário.');
+                console.error('Erro na requisição:', error);
+                showMessage('Erro ao remover voluntário. Verifique sua conexão.', 'error');
             });
+    }
+
+    // Placeholder functions for report and notify modals - IMPLEMENTAÇÃO REAL
+    function showReportVolunteerModal(inscricaoId, voluntarioNome) {
+        console.log('Abrindo modal de report para:', {inscricaoId, voluntarioNome});
+
+        // Implementar modal de report quando necessário
+        const reportHtml = `
+        <div id="reportModal" class="modal" style="display: block;">
+            <div class="modal-content" style="max-width: 600px; max-height: 90vh; overflow-y: auto;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px;">
+                    <h3 style="margin: 0; color: #003366;">
+                        <i class="bi bi-flag" style="color: #dc3545; margin-right: 10px;"></i>
+                        Reportar Voluntário
+                    </h3>
+                    <button onclick="hideReportModal()" style="background: none; border: none; font-size: 24px; color: #666; cursor: pointer; padding: 5px;">
+                        <i class="bi bi-x"></i>
+                    </button>
+                </div>
+
+                <div style="background: #f8f9fa; padding: 15px; border-radius: 10px; margin-bottom: 20px; border-left: 4px solid #dc3545;">
+                    <p style="margin: 0; color: #666; font-size: 14px;">
+                        <strong>Voluntário:</strong> <span style="color: #003366;">${voluntarioNome}</span>
+                    </p>
+                </div>
+
+                <form id="reportForm">
+                    <input type="hidden" id="reportInscricaoId" value="${inscricaoId}">
+
+                    <!-- Assunto do Report -->
+        <div style="margin-bottom: 20px;">
+        <label style="display: block; font-weight: 600; color: #003366; margin-bottom: 8px; font-size: 14px;">
+        Assunto do Report *
+        </label>
+        <select id="reportSubject" name="assunto" required style="width: 100%; padding: 12px; border: 2px solid #e9ecef; border-radius: 8px; font-size: 14px; background: white;">
+        <option value="">Selecione o motivo</option>
+        <option value="NAO_COMPARECEU">Não compareceu à atividade</option>
+        <option value="COMPORTAMENTO_INADEQUADO">Comportamento inadequado</option>
+        <option value="DESRESPEITO">Desrespeito a outros voluntários ou beneficiários</option>
+        <option value="NAO_SEGUIU_INSTRUCOES">Não seguiu instruções da ONG</option>
+        <option value="ABANDONO_ATIVIDADE">Abandonou a atividade sem aviso</option>
+        <option value="INFORMACOES_FALSAS">Forneceu informações falsas</option>
+        <option value="VIOLACAO_REGRAS">Violação das regras da ONG</option>
+        <option value="FALTA_COMPROMISSO">Falta de compromisso</option>
+        <option value="OUTROS">Outros motivos</option>
+        </select>
+        </div>
+
+            <!-- Descrição Detalhada -->
+        <div style="margin-bottom: 20px;">
+        <label style="display: block; font-weight: 600; color: #003366; margin-bottom: 8px; font-size: 14px;">
+        Descrição detalhada *
+        </label>
+        <textarea id="reportReason"
+        name="motivo"
+        placeholder="Descreva detalhadamente o problema encontrado... (mínimo 20 caracteres)"
+        style="width: 100%; height: 120px; padding: 12px; border: 2px solid #e9ecef; border-radius: 8px; resize: vertical; font-family: inherit; font-size: 14px; line-height: 1.4;"
+        maxlength="2000"
+        required
+        oninput="updateReportCharCounter()"></textarea>
+        <div style="display: flex; justify-content: space-between; margin-top: 5px; font-size: 12px;">
+        <span style="color: #999;">Mínimo 20 caracteres</span>
+        <span id="reportCharCounter" style="color: #666;">0/2000 caracteres</span>
+        </div>
+        </div>
+
+            <!-- Upload de Evidência -->
+        <div style="margin-bottom: 25px;">
+        <label style="display: block; font-weight: 600; color: #003366; margin-bottom: 8px; font-size: 14px;">
+        Evidência (Opcional)
+        </label>
+        <div style="border: 2px dashed #e9ecef; border-radius: 12px; padding: 20px; text-align: center; background: #f8f9fa; transition: all 0.3s ease; cursor: pointer;" id="reportUploadArea" onclick="document.getElementById('reportEvidence').click()">
+        <div style="margin-bottom: 15px;">
+        <i class="bi bi-cloud-upload" style="font-size: 32px; color: #adb5bd;"></i>
+        </div>
+        <p style="margin: 0 0 10px 0; color: #666; font-size: 14px;">
+        Clique para adicionar uma evidência
+        </p>
+        <p style="margin: 0; color: #999; font-size: 12px;">
+        Formatos aceitos: JPG, PNG, GIF, PDF (máx. 5MB)
+        </p>
+        <input type="file" id="reportEvidence" name="evidencia" accept="image/*,.pdf" style="display: none;" onchange="handleReportFileUpload(this)">
+        </div>
+
+            <!-- Preview da evidência -->
+        <div id="reportEvidencePreview" style="display: none; margin-top: 15px; padding: 15px; background: white; border-radius: 8px; border: 1px solid #e9ecef;">
+        <div style="display: flex; align-items: center; justify-content: space-between;">
+        <div style="display: flex; align-items: center; gap: 10px;">
+        <i class="bi bi-file-earmark-image" style="font-size: 24px; color: #28a745;"></i>
+        <div>
+        <div id="reportFileName" style="font-weight: 500; color: #003366; font-size: 14px;"></div>
+        <div id="reportFileSize" style="color: #666; font-size: 12px;"></div>
+        </div>
+        </div>
+        <button type="button" onclick="removeReportEvidence()" style="background: none; border: none; color: #dc3545; cursor: pointer; padding: 5px;">
+        <i class="bi bi-trash"></i>
+        </button>
+        </div>
+        </div>
+        </div>
+
+            <!-- Botões -->
+        <div style="display: flex; gap: 15px; justify-content: center;">
+        <button type="button" class="btn-modal-cancel" onclick="hideReportModal()">
+        <i class="bi bi-x-circle"></i> Cancelar
+        </button>
+        <button type="submit" id="confirmReportBtn" class="btn-confirm" style="min-width: 150px;">
+        <i class="bi bi-flag"></i> Enviar Report
+        </button>
+        </div>
+        </form>
+        </div>
+        </div>`;
+
+        // Adicionar o modal ao body
+        document.body.insertAdjacentHTML('beforeend', reportHtml);
+
+        // Inicializar funcionalidades do modal
+        initReportModal();
+    }
+
+    function showNotifyModal(inscricaoId, voluntarioNome) {
+        console.log('Abrindo modal de notificação para:', {inscricaoId, voluntarioNome});
+
+        const notifyHtml = `
+        <div id="notifyModal" class="modal" style="display: block;">
+        <div class="modal-content" style="max-width: 500px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px;">
+        <h3 style="margin: 0; color: #003366;">
+        <i class="bi bi-bell" style="color: #007bff; margin-right: 10px;"></i>
+        Enviar Notificação
+        </h3>
+        <button onclick="hideNotifyModal()" style="background: none; border: none; font-size: 24px; color: #666; cursor: pointer; padding: 5px;">
+        <i class="bi bi-x"></i>
+        </button>
+        </div>
+
+        <div style="background: #e3f2fd; padding: 15px; border-radius: 10px; margin-bottom: 20px; border-left: 4px solid #2196f3;">
+        <p style="margin: 0; color: #666; font-size: 14px;">
+        <strong>Voluntário:</strong> <span style="color: #003366;">${voluntarioNome}</span>
+        </p>
+        </div>
+
+        <form id="notifyForm">
+        <input type="hidden" id="notifyInscricaoId" value="${inscricaoId}">
+
+            <!-- Tipo da Notificação -->
+        <div style="margin-bottom: 20px;">
+        <label style="display: block; font-weight: 600; color: #003366; margin-bottom: 8px; font-size: 14px;">
+        Tipo da Notificação *
+        </label>
+        <select id="notifyType" name="tipo" required style="width: 100%; padding: 12px; border: 2px solid #e9ecef; border-radius: 8px; font-size: 14px; background: white;">
+        <option value="">Selecione o tipo</option>
+        <option value="INFORMACAO_GERAL">Informação Geral</option>
+        <option value="LEMBRETE">Lembrete</option>
+        <option value="ADVERTENCIA">Advertência</option>
+        <option value="PARABENIZACAO">Parabéns</option>
+        <option value="VAGA_ATUALIZADA">Vaga Atualizada</option>
+        </select>
+        </div>
+
+            <!-- Prioridade -->
+        <div style="margin-bottom: 20px;">
+        <label style="display: block; font-weight: 600; color: #003366; margin-bottom: 8px; font-size: 14px;">
+        Prioridade
+        </label>
+        <select id="notifyPriority" name="prioridade" style="width: 100%; padding: 12px; border: 2px solid #e9ecef; border-radius: 8px; font-size: 14px; background: white;">
+        <option value="NORMAL">Normal</option>
+        <option value="ALTA">Alta</option>
+        <option value="URGENTE">Urgente</option>
+        </select>
+        </div>
+
+            <!-- Título -->
+        <div style="margin-bottom: 20px;">
+        <label style="display: block; font-weight: 600; color: #003366; margin-bottom: 8px; font-size: 14px;">
+        Título *
+        </label>
+        <input type="text" id="notifyTitle" name="titulo" required maxlength="255"
+        placeholder="Título da notificação..."
+        style="width: 100%; padding: 12px; border: 2px solid #e9ecef; border-radius: 8px; font-size: 14px;">
+        </div>
+
+            <!-- Mensagem -->
+        <div style="margin-bottom: 25px;">
+        <label style="display: block; font-weight: 600; color: #003366; margin-bottom: 8px; font-size: 14px;">
+        Mensagem *
+        </label>
+        <textarea id="notifyMessage" name="mensagem" required maxlength="2000"
+        placeholder="Digite sua mensagem... (mínimo 10 caracteres)"
+        style="width: 100%; height: 100px; padding: 12px; border: 2px solid #e9ecef; border-radius: 8px; resize: vertical; font-family: inherit; font-size: 14px; line-height: 1.4;"
+        oninput="updateNotifyCharCounter()"></textarea>
+        <div style="display: flex; justify-content: space-between; margin-top: 5px; font-size: 12px;">
+        <span style="color: #999;">Mínimo 10 caracteres</span>
+        <span id="notifyCharCounter" style="color: #666;">0/2000 caracteres</span>
+        </div>
+        </div>
+
+            <!-- Botões -->
+        <div style="display: flex; gap: 15px; justify-content: center;">
+        <button type="button" class="btn-modal-cancel" onclick="hideNotifyModal()">
+        <i class="bi bi-x-circle"></i> Cancelar
+        </button>
+        <button type="submit" id="confirmNotifyBtn" class="btn-confirm" style="min-width: 150px; background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);">
+        <i class="bi bi-bell"></i> Enviar Notificação
+        </button>
+        </div>
+        </form>
+        </div>
+        </div>`;
+
+        // Adicionar o modal ao body
+        document.body.insertAdjacentHTML('beforeend', notifyHtml);
+
+        // Inicializar funcionalidades do modal
+        initNotifyModal();
+    }
+
+    // Funções para esconder os modais
+    function hideReportModal() {
+        const modal = document.getElementById('reportModal');
+        if (modal) {
+            modal.remove();
+        }
+    }
+
+    function hideNotifyModal() {
+        const modal = document.getElementById('notifyModal');
+        if (modal) {
+            modal.remove();
+        }
+    }
+
+    // Inicialização do modal de report
+    function initReportModal() {
+        const form = document.getElementById('reportForm');
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const assunto = document.getElementById('reportSubject').value;
+            const motivo = document.getElementById('reportReason').value.trim();
+            const inscricaoId = document.getElementById('reportInscricaoId').value;
+
+            if (!assunto) {
+                showMessage('Por favor, selecione o assunto do report', 'warning');
+                return;
+            }
+
+            if (motivo.length < 20) {
+                showMessage('A descrição deve ter pelo menos 20 caracteres', 'warning');
+                return;
+            }
+
+            const confirmBtn = document.getElementById('confirmReportBtn');
+            confirmBtn.disabled = true;
+            confirmBtn.innerHTML = '<i class="bi bi-hourglass-split"></i> Enviando...';
+
+            const formData = new FormData(form);
+
+            fetch(`/vagas/configuracoes/reportar-voluntario/${inscricaoId}`, {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.text())
+            .then(data => {
+                if (data === 'Report enviado com sucesso!') {
+                    showMessage('Report enviado com sucesso! Nossa equipe irá analisar.', 'success');
+                    hideReportModal();
+                } else {
+                    showMessage(data, 'error');
+                }
+            })
+            .catch(error => {
+                console.error('Erro:', error);
+                showMessage('Erro ao enviar report. Tente novamente.', 'error');
+            })
+            .finally(() => {
+                confirmBtn.disabled = false;
+                confirmBtn.innerHTML = '<i class="bi bi-flag"></i> Enviar Report';
+            });
+        });
+
+        // Inicializar contador de caracteres
+        updateReportCharCounter();
+    }
+
+    // Inicialização do modal de notificação
+    function initNotifyModal() {
+        const form = document.getElementById('notifyForm');
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const tipo = document.getElementById('notifyType').value;
+            const titulo = document.getElementById('notifyTitle').value.trim();
+            const mensagem = document.getElementById('notifyMessage').value.trim();
+            const inscricaoId = document.getElementById('notifyInscricaoId').value;
+
+            if (!tipo) {
+                showMessage('Por favor, selecione o tipo da notificação', 'warning');
+                return;
+            }
+
+            if (!titulo) {
+                showMessage('Título é obrigatório', 'warning');
+                return;
+            }
+
+            if (mensagem.length < 10) {
+                showMessage('A mensagem deve ter pelo menos 10 caracteres', 'warning');
+                return;
+            }
+
+            const confirmBtn = document.getElementById('confirmNotifyBtn');
+            confirmBtn.disabled = true;
+            confirmBtn.innerHTML = '<i class="bi bi-hourglass-split"></i> Enviando...';
+
+            const formData = new FormData(form);
+
+            fetch(`/vagas/configuracoes/enviar-notificacao/${inscricaoId}`, {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.text())
+            .then(data => {
+                if (data === 'Notificação enviada com sucesso!') {
+                    showMessage('Notificação enviada com sucesso!', 'success');
+                    hideNotifyModal();
+                } else {
+                    showMessage(data, 'error');
+                }
+            })
+            .catch(error => {
+                console.error('Erro:', error);
+                showMessage('Erro ao enviar notificação. Tente novamente.', 'error');
+            })
+            .finally(() => {
+                confirmBtn.disabled = false;
+                confirmBtn.innerHTML = '<i class="bi bi-bell"></i> Enviar Notificação';
+            });
+        });
+
+        // Inicializar contador de caracteres
+        updateNotifyCharCounter();
+    }
+
+    // Funções auxiliares para upload de evidência
+    function handleReportFileUpload(input) {
+        const file = input.files[0];
+        if (!file) return;
+
+        const allowedTypes = ['image/jpeg', 'image/png', 'image/gif', 'application/pdf'];
+        if (!allowedTypes.includes(file.type)) {
+            showMessage('Formato de arquivo não suportado. Use JPG, PNG, GIF ou PDF.', 'error');
+            input.value = '';
+            return;
+        }
+
+        if (file.size > 5 * 1024 * 1024) {
+            showMessage('Arquivo muito grande. Tamanho máximo: 5MB.', 'error');
+            input.value = '';
+            return;
+        }
+
+        showReportFilePreview(file);
+    }
+
+    function showReportFilePreview(file) {
+        const preview = document.getElementById('reportEvidencePreview');
+        const fileName = document.getElementById('reportFileName');
+        const fileSize = document.getElementById('reportFileSize');
+
+        fileName.textContent = file.name;
+        fileSize.textContent = formatFileSize(file.size);
+        preview.style.display = 'block';
+    }
+
+    function removeReportEvidence() {
+        document.getElementById('reportEvidence').value = '';
+        document.getElementById('reportEvidencePreview').style.display = 'none';
+    }
+
+    function updateReportCharCounter() {
+        const textarea = document.getElementById('reportReason');
+        const counter = document.getElementById('reportCharCounter');
+
+        if (!textarea || !counter) return;
+
+        const currentLength = textarea.value.length;
+        counter.textContent = `${currentLength}/2000 caracteres`;
+
+        textarea.classList.remove('invalid', 'valid');
+        if (currentLength < 20 && currentLength > 0) {
+        textarea.classList.add('invalid');
+        counter.style.color = '#dc3545';
+        } else if (currentLength >= 20) {
+        textarea.classList.add('valid');
+        counter.style.color = '#28a745';
+        } else {
+        counter.style.color = '#666';
+        }
+        }
+
+    function updateNotifyCharCounter() {
+        const textarea = document.getElementById('notifyMessage');
+        const counter = document.getElementById('notifyCharCounter');
+
+        if (!textarea || !counter) return;
+
+        const currentLength = textarea.value.length;
+        counter.textContent = `${currentLength}/2000 caracteres`;
+
+        textarea.classList.remove('invalid', 'valid');
+        if (currentLength < 10 && currentLength > 0) {
+            textarea.classList.add('invalid');
+            counter.style.color = '#dc3545';
+        } else if (currentLength >= 10) {
+            textarea.classList.add('valid');
+            counter.style.color = '#28a745';
+        } else {
+            counter.style.color = '#666';
+        }
+    }
+
+    function formatFileSize(bytes) {
+        if (bytes === 0) return '0 Bytes';
+        const k = 1024;
+        const sizes = ['Bytes', 'KB', 'MB'];
+        const i = Math.floor(Math.log(bytes) / Math.log(k));
+        return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
     }
 
     // Funções de seleção múltipla
     function toggleSelectAll() {
         const selectAllCheckbox = document.getElementById('selectAll');
         const checkboxes = document.querySelectorAll('.volunteer-checkbox');
+
+        if (!selectAllCheckbox || !checkboxes) return;
 
         checkboxes.forEach(checkbox => {
             checkbox.checked = selectAllCheckbox.checked;
@@ -1242,27 +1798,31 @@
         const bulkBtn = document.getElementById('bulkRemoveBtn');
         const selectAllCheckbox = document.getElementById('selectAll');
 
+        if (!bulkBtn) return;
+
         selectedInscricoes = Array.from(checkboxes).map(cb => parseInt(cb.value));
 
         if (selectedInscricoes.length > 0) {
-            bulkBtn.style.display = 'block';
-            bulkBtn.textContent = `Remover ${selectedInscricoes.length} selecionado${selectedInscricoes.length > 1 ? 's' : ''}`;
+            bulkBtn.style.display = 'inline-flex';
+            bulkBtn.innerHTML = `<i class="bi bi-trash"></i> Remover ${selectedInscricoes.length} selecionado${selectedInscricoes.length > 1 ? 's' : ''}`;
         } else {
             bulkBtn.style.display = 'none';
         }
 
         // Atualizar estado do checkbox "selecionar todos"
-        const allCheckboxes = document.querySelectorAll('.volunteer-checkbox');
-        const checkedCheckboxes = document.querySelectorAll('.volunteer-checkbox:checked');
+        if (selectAllCheckbox) {
+            const allCheckboxes = document.querySelectorAll('.volunteer-checkbox');
+            const checkedCheckboxes = document.querySelectorAll('.volunteer-checkbox:checked');
 
-        if (checkedCheckboxes.length === 0) {
-            selectAllCheckbox.indeterminate = false;
-            selectAllCheckbox.checked = false;
-        } else if (checkedCheckboxes.length === allCheckboxes.length) {
-            selectAllCheckbox.indeterminate = false;
-            selectAllCheckbox.checked = true;
-        } else {
-            selectAllCheckbox.indeterminate = true;
+            if (checkedCheckboxes.length === 0) {
+                selectAllCheckbox.indeterminate = false;
+                selectAllCheckbox.checked = false;
+            } else if (checkedCheckboxes.length === allCheckboxes.length) {
+                selectAllCheckbox.indeterminate = false;
+                selectAllCheckbox.checked = true;
+            } else {
+                selectAllCheckbox.indeterminate = true;
+            }
         }
     }
 
@@ -1286,18 +1846,18 @@
                 .then(data => {
                     showLoading(false);
                     if (data.startsWith('ok:')) {
-                        showSuccessMessage(data.substring(3));
+                        showMessage(data.substring(3), 'success');
                         setTimeout(() => {
                             window.location.reload();
                         }, 1500);
                     } else {
-                        showErrorMessage('Erro: ' + data);
+                        showMessage('Erro: ' + data, 'error');
                     }
                 })
                 .catch(error => {
                     showLoading(false);
                     console.error('Erro:', error);
-                    showErrorMessage('Erro ao remover voluntários.');
+                    showMessage('Erro ao remover voluntários.', 'error');
                 });
         }
     }
@@ -1307,32 +1867,27 @@
         document.getElementById('loading').style.display = show ? 'block' : 'none';
     }
 
-    function showSuccessMessage(message) {
-        showMessage(message, 'success');
-    }
-
-    function showErrorMessage(message) {
-        showMessage(message, 'error');
-    }
-
     function showMessage(message, type) {
         const messageDiv = document.createElement('div');
         messageDiv.textContent = message;
         messageDiv.style.cssText = `
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      padding: 15px 25px;
-      border-radius: 8px;
-      font-weight: 600;
-      z-index: 9999;
-      animation: slideInRight 0.3s ease;
-      max-width: 400px;
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-    `;
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 25px;
+            border-radius: 8px;
+            font-weight: 600;
+            z-index: 9999;
+            animation: slideInRight 0.3s ease;
+            max-width: 400px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        `;
 
         if (type === 'success') {
             messageDiv.style.background = '#27ae60';
+            messageDiv.style.color = 'white';
+        } else if (type === 'warning') {
+            messageDiv.style.background = '#f39c12';
             messageDiv.style.color = 'white';
         } else {
             messageDiv.style.background = '#e74c3c';
@@ -1364,36 +1919,148 @@
 
     // Inicialização da página
     document.addEventListener('DOMContentLoaded', function() {
+        console.log('Sistema de configurações carregado');
+
+        // Adicionar event listeners aos botões usando delegação de eventos
+        document.addEventListener('click', function(e) {
+            // Procurar pelo botão clicado, considerando que o clique pode ser no ícone
+            const target = e.target.closest('button');
+            if (!target) return;
+
+            // Debug: log do elemento clicado
+            console.log('Botão clicado:', target);
+            console.log('Classes:', target.className);
+            console.log('Dataset:', target.dataset);
+
+            // Botões de ação da tabela
+            if (target.classList.contains('btn-view')) {
+                const voluntarioId = target.getAttribute('data-voluntario-id') || target.dataset.voluntarioId;
+                console.log('voluntarioId capturado:', voluntarioId);
+                if (voluntarioId) {
+                    showVolunteerDetails(voluntarioId);
+                } else {
+                    console.error('voluntarioId não encontrado');
+                }
+            }
+
+            if (target.classList.contains('btn-report')) {
+                const inscricaoId = target.getAttribute('data-inscricao-id') || target.dataset.inscricaoId;
+                const voluntarioNome = target.getAttribute('data-voluntario-nome') || target.dataset.voluntarioNome;
+                console.log('Report - inscricaoId:', inscricaoId, 'voluntarioNome:', voluntarioNome);
+                if (inscricaoId && voluntarioNome) {
+                    showReportVolunteerModal(inscricaoId, voluntarioNome);
+                } else {
+                    console.error('Dados não encontrados para report:', {inscricaoId, voluntarioNome});
+                }
+            }
+
+            if (target.classList.contains('btn-notify')) {
+                const inscricaoId = target.getAttribute('data-inscricao-id') || target.dataset.inscricaoId;
+                const voluntarioNome = target.getAttribute('data-voluntario-nome') || target.dataset.voluntarioNome;
+                console.log('Notify - inscricaoId:', inscricaoId, 'voluntarioNome:', voluntarioNome);
+                if (inscricaoId && voluntarioNome) {
+                    showNotifyModal(inscricaoId, voluntarioNome);
+                } else {
+                    console.error('Dados não encontrados para notify:', {inscricaoId, voluntarioNome});
+                }
+            }
+
+            if (target.classList.contains('btn-remove')) {
+                let inscricaoId = target.getAttribute('data-inscricao-id') || target.dataset.inscricaoId;
+                let voluntarioNome = target.getAttribute('data-voluntario-nome') || target.dataset.voluntarioNome;
+
+                // Fallback: tentar pegar dados da linha da tabela se não encontrar no botão
+                if (!inscricaoId || !voluntarioNome) {
+                    console.log('Tentando fallback para pegar dados da linha...');
+                    const row = target.closest('tr');
+                    if (row) {
+                        console.log('Row encontrada:', row);
+                        console.log('Row dataset:', row.dataset);
+
+                        // Tentar pegar do dataset da linha
+                        inscricaoId = inscricaoId || row.getAttribute('data-inscricao-id') || row.dataset.inscricaoId;
+                        voluntarioNome = voluntarioNome || row.getAttribute('data-voluntario-nome') || row.dataset.voluntarioNome;
+
+                        // Se ainda não encontrou, tentar pegar do checkbox
+                        if (!inscricaoId) {
+                            const checkbox = row.querySelector('.volunteer-checkbox');
+                            if (checkbox) {
+                                inscricaoId = checkbox.value;
+                                console.log('inscricaoId do checkbox:', inscricaoId);
+                            }
+                        }
+
+                        // Se ainda não encontrou o nome, tentar pegar do texto da célula
+                        if (!voluntarioNome) {
+                            const nomeElement = row.querySelector('.voluntario-nome');
+                            if (nomeElement) {
+                                voluntarioNome = nomeElement.textContent.trim();
+                                console.log('voluntarioNome do texto:', voluntarioNome);
+                            }
+                        }
+                    }
+                }
+
+                console.log('Remove - valores finais:', {inscricaoId, voluntarioNome});
+                if (inscricaoId && voluntarioNome) {
+                    showRemoveModal(inscricaoId, voluntarioNome);
+                } else {
+                    console.error('Dados não encontrados para remoção:', {inscricaoId, voluntarioNome});
+                    alert('Erro: Não foi possível identificar a inscrição. Tente recarregar a página.');
+                }
+            }
+        });
+
+        // Event listener para checkboxes
+        document.addEventListener('change', function(e) {
+            if (e.target.id === 'selectAll') {
+                toggleSelectAll();
+            } else if (e.target.classList.contains('volunteer-checkbox')) {
+                updateBulkActions();
+            }
+        });
+
         // Adicionar animações CSS
         const style = document.createElement('style');
         style.textContent = `
-      @keyframes slideInRight {
-        from {
-          transform: translateX(100%);
-          opacity: 0;
-        }
-        to {
-          transform: translateX(0);
-          opacity: 1;
-        }
-      }
+            @keyframes slideInRight {
+                from {
+                    transform: translateX(100%);
+                    opacity: 0;
+                }
+                to {
+                    transform: translateX(0);
+                    opacity: 1;
+                }
+            }
 
-      @keyframes slideOutRight {
-        from {
-          transform: translateX(0);
-          opacity: 1;
-        }
-        to {
-          transform: translateX(100%);
-          opacity: 0;
-        }
-      }
-
-      .volunteer-checkbox:checked + label {
-        background: #00A8FF;
-      }
-    `;
+            @keyframes slideOutRight {
+                from {
+                    transform: translateX(0);
+                    opacity: 1;
+                }
+                to {
+                    transform: translateX(100%);
+                    opacity: 0;
+                }
+            }
+        `;
         document.head.appendChild(style);
+
+        // Debug: verificar se os data attributes estão sendo criados corretamente
+        console.log('Verificando data attributes na tabela...');
+        const buttons = document.querySelectorAll('.btn-action');
+        buttons.forEach((button, index) => {
+            console.log(`Botão ${index}:`, {
+                classes: button.className,
+                dataset: button.dataset,
+                attributes: {
+                    'data-inscricao-id': button.getAttribute('data-inscricao-id'),
+                    'data-voluntario-id': button.getAttribute('data-voluntario-id'),
+                    'data-voluntario-nome': button.getAttribute('data-voluntario-nome')
+                }
+            });
+        });
 
         // Inicializar ações bulk
         updateBulkActions();
@@ -1423,23 +2090,22 @@
                 card.style.transform = 'translateY(0)';
             }, index * 100);
         });
+
+        // Garantir que todas as funções estejam disponíveis globalmente
+        window.showVolunteerDetails = showVolunteerDetails;
+        window.updateBulkActions = updateBulkActions;
+        window.toggleSelectAll = toggleSelectAll;
+        window.showRemoveModal = showRemoveModal;
+        window.hideRemoveModal = hideRemoveModal;
+        window.confirmRemove = confirmRemove;
+        window.showReportVolunteerModal = showReportVolunteerModal;
+        window.showNotifyModal = showNotifyModal;
+        window.bulkRemove = bulkRemove;
+        window.showLogoutModal = showLogoutModal;
+        window.hideLogoutModal = hideLogoutModal;
+        window.confirmLogout = confirmLogout;
+        window.hideVolunteerModal = hideVolunteerModal;
     });
-
-    // Formatação de data e hora
-    function formatDateTime(dateString) {
-        const date = new Date(dateString);
-        return date.toLocaleDateString('pt-BR') + ' ' + date.toLocaleTimeString('pt-BR', {
-            hour: '2-digit',
-            minute: '2-digit'
-        });
-    }
-
-    // Auto-refresh da página a cada 5 minutos (opcional)
-    // setInterval(() => {
-    //   if (!document.querySelector('.modal[style*="block"]')) {
-    //     window.location.reload();
-    //   }
-    // }, 300000);
 </script>
 
 </body>

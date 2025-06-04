@@ -9,6 +9,7 @@ import lombok.Setter;
 import org.hibernate.validator.constraints.br.CPF;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -62,6 +63,65 @@ public class Voluntario {
     @JsonIgnore
     private List<Inscricao> inscricoes = new ArrayList<>();
 
+    // Campos para sistema de banimento
+    @Column(name = "ativo", nullable = false)
+    private Boolean ativo = true;
+
+    @Column(name = "banido", nullable = false)
+    private Boolean banido = false;
+
+    @Column(name = "data_banimento")
+    private LocalDateTime dataBanimento;
+
+    @Column(name = "motivo_banimento", length = 500)
+    private String motivoBanimento;
+
+    @Column(name = "admin_responsavel_banimento", length = 100)
+    private String adminResponsavelBanimento;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "tipo_banimento")
+    private TipoBanimento tipoBanimento;
+
+    @Column(name = "data_fim_banimento")
+    private LocalDateTime dataFimBanimento; // Para banimentos temporários
+
+    // Enum para tipo de banimento (adicionar dentro da classe Voluntario)
+    public enum TipoBanimento {
+        TEMPORARIO("Temporário"),
+        PERMANENTE("Permanente");
+
+        private final String descricao;
+
+        TipoBanimento(String descricao) {
+            this.descricao = descricao;
+        }
+
+        public String getDescricao() {
+            return descricao;
+        }
+    }
+
+    // Métodos utilitários para banimento (adicionar na classe Voluntario)
+    public boolean isAtivo() {
+        return ativo && !isBanido();
+    }
+
+    public boolean isBanido() {
+        if (!banido) return false;
+
+        // Se for banimento temporário, verificar se ainda está em vigor
+        if (tipoBanimento == TipoBanimento.TEMPORARIO && dataFimBanimento != null) {
+            return LocalDateTime.now().isBefore(dataFimBanimento);
+        }
+
+        // Banimento permanente
+        return true;
+    }
+
+    public boolean podeLogar() {
+        return isAtivo();
+    }
     // Método para limpar dados antes de salvar
     @PrePersist
     @PreUpdate

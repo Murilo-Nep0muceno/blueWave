@@ -8,8 +8,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-
+<!--lista vaga  voluntario-->
   <style>
+    /* Reset e configurações base */
     * {
       margin: 0;
       padding: 0;
@@ -24,7 +25,7 @@
       line-height: 1.6;
     }
 
-    /* Menu Lateral */
+    /* ==================== MENU LATERAL ==================== */
     nav.menu-lateral {
       width: 80px;
       height: 100vh;
@@ -46,6 +47,7 @@
       box-shadow: 0 0 40px rgba(0, 168, 255, 0.4);
     }
 
+    /* Título do menu */
     .title {
       display: flex;
       align-items: center;
@@ -69,6 +71,7 @@
       animation: fadeInSlide 0.3s ease-out;
     }
 
+    /* Animação do título */
     @keyframes fadeInSlide {
       from {
         opacity: 0;
@@ -80,6 +83,7 @@
       }
     }
 
+    /* Items do menu */
     .menu-items {
       flex: 1;
     }
@@ -189,7 +193,7 @@
       opacity: 1;
     }
 
-    /* Conteúdo Principal */
+    /* ==================== CONTEÚDO PRINCIPAL ==================== */
     .conteudo {
       margin-left: 80px;
       transition: margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -200,6 +204,7 @@
       margin-left: 280px;
     }
 
+    /* Header */
     #header-bg {
       background: linear-gradient(135deg, #003366 0%, #004080 100%);
       padding: 20px 30px;
@@ -228,7 +233,7 @@
       padding: 0 20px;
     }
 
-    /* Cabeçalho da Seção */
+    /* ==================== CABEÇALHO DA SEÇÃO ==================== */
     .section-header {
       background: white;
       border-radius: 20px;
@@ -281,7 +286,7 @@
       letter-spacing: 0.5px;
     }
 
-    /* Filtros */
+    /* ==================== FILTROS ==================== */
     .filters-container {
       background: white;
       border-radius: 15px;
@@ -329,6 +334,7 @@
       margin-left: auto;
     }
 
+    /* ==================== BOTÕES ==================== */
     .btn {
       padding: 10px 20px;
       border: none;
@@ -366,7 +372,141 @@
       color: #495057;
     }
 
-    /* Grid de Vagas */
+    .btn-inscrever {
+      background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+      color: white;
+      padding: 12px 24px;
+      border-radius: 10px;
+      border: none;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      min-width: 140px;
+      justify-content: center;
+    }
+
+    .btn-inscrever:hover {
+      background: linear-gradient(135deg, #20c997 0%, #17a2b8 100%);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(40, 167, 69, 0.3);
+    }
+
+    .btn-inscrever:disabled {
+      background: #6c757d;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+    }
+
+    .btn-inscrever.btn-ja-inscrito {
+      background: linear-gradient(135deg, #ffc107 0%, #fd7e14 100%) !important;
+      color: #212529 !important;
+    }
+
+    .btn-inscrever.btn-esgotada {
+      background: #6c757d !important;
+      color: white !important;
+    }
+
+    .btn-ong {
+      background: linear-gradient(135deg, #17a2b8 0%, #138496 100%);
+      color: white;
+      padding: 10px 16px;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      text-decoration: none;
+      min-width: 90px;
+      justify-content: center;
+    }
+
+    .btn-ong:hover {
+      background: linear-gradient(135deg, #138496 0%, #0f6674 100%);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba(23, 162, 184, 0.3);
+      color: white;
+      text-decoration: none;
+    }
+
+    .btn-report {
+      background: linear-gradient(135deg, #ffc107 0%, #fd7e14 100%);
+      color: #212529;
+      padding: 10px 16px;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      min-width: 90px;
+      justify-content: center;
+    }
+
+    .btn-report:hover {
+      background: linear-gradient(135deg, #fd7e14 0%, #dc3545 100%);
+      color: white;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba(255, 193, 7, 0.3);
+    }
+
+    .btn-report:disabled {
+      background: #6c757d;
+      cursor: not-allowed;
+      transform: none;
+      color: white;
+    }
+
+    .btn-confirm {
+      background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+      color: white;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 12px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      min-width: 120px;
+    }
+
+    .btn-confirm:hover {
+      background: linear-gradient(135deg, #c82333 0%, #a71e2a 100%);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(220, 53, 69, 0.4);
+    }
+
+    .btn-modal-cancel {
+      background: #f8f9fa;
+      color: #666;
+      border: 2px solid #e9ecef;
+      padding: 12px 24px;
+      border-radius: 12px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      min-width: 120px;
+    }
+
+    .btn-modal-cancel:hover {
+      background: #e9ecef;
+      color: #495057;
+    }
+
+    /* ==================== GRID DE VAGAS ==================== */
     .vagas-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
@@ -464,6 +604,13 @@
       display: flex;
       align-items: center;
       gap: 5px;
+      cursor: pointer;
+      transition: color 0.3s ease;
+    }
+
+    .vaga-ong:hover {
+      color: #0078D4;
+      text-decoration: underline;
     }
 
     .vaga-details {
@@ -510,45 +657,11 @@
       margin-top: auto;
     }
 
-    .btn-inscrever {
-      background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
-      color: white;
-      padding: 12px 24px;
-      border-radius: 10px;
-      border: none;
-      cursor: pointer;
-      font-size: 14px;
-      font-weight: 600;
-      transition: all 0.3s ease;
+    .action-buttons {
       display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
       align-items: center;
-      gap: 8px;
-      flex: 1;
-      max-width: 200px;
-      justify-content: center;
-    }
-
-    .btn-inscrever:hover {
-      background: linear-gradient(135deg, #20c997 0%, #17a2b8 100%);
-      transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(40, 167, 69, 0.3);
-    }
-
-    .btn-inscrever:disabled {
-      background: #6c757d;
-      cursor: not-allowed;
-      transform: none;
-      box-shadow: none;
-    }
-
-    .btn-ja-inscrito {
-      background: linear-gradient(135deg, #ffc107 0%, #fd7e14 100%);
-      color: #212529;
-    }
-
-    .btn-esgotada {
-      background: #6c757d;
-      color: white;
     }
 
     .vagas-disponiveis {
@@ -569,13 +682,35 @@
       color: #dc3545;
     }
 
-    /* Estados Vazios */
+    .vaga-card[data-categoria="urgente"] {
+      border-left: 4px solid #ffc107;
+    }
+
+    .vaga-card[data-categoria="hoje"] {
+      border-left: 4px solid #dc3545;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0% {
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+      }
+      50% {
+        box-shadow: 0 5px 30px rgba(220, 53, 69, 0.3);
+      }
+      100% {
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+      }
+    }
+
+    /* ==================== ESTADO VAZIO ==================== */
     .empty-state {
       background: white;
       border-radius: 20px;
       padding: 60px 40px;
       text-align: center;
       box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+      display: none;
     }
 
     .empty-icon {
@@ -597,7 +732,7 @@
       margin-bottom: 30px;
     }
 
-    /* Modal */
+    /* ==================== MODAIS ==================== */
     .modal {
       display: none;
       position: fixed;
@@ -622,6 +757,22 @@
       animation: modalSlideIn 0.3s ease-out;
     }
 
+    .modal-content.report-modal {
+      max-width: 600px;
+      max-height: 90vh;
+      overflow-y: auto;
+      text-align: left;
+      margin: 5% auto;
+    }
+
+    .modal-content.ong-modal {
+      max-width: 900px;
+      max-height: 90vh;
+      overflow-y: auto;
+      text-align: left;
+      margin: 5% auto;
+    }
+
     @keyframes modalSlideIn {
       from {
         opacity: 0;
@@ -631,6 +782,39 @@
         opacity: 1;
         transform: translateY(0);
       }
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 25px;
+    }
+
+    .modal-header h3 {
+      color: #003366;
+      margin: 0;
+      font-size: 22px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .close-btn {
+      background: none;
+      border: none;
+      font-size: 24px;
+      color: #666;
+      cursor: pointer;
+      padding: 5px;
+      border-radius: 50%;
+      transition: all 0.3s ease;
+    }
+
+    .close-btn:hover {
+      background: #f8f9fa;
+      color: #dc3545;
     }
 
     .modal h3 {
@@ -653,44 +837,437 @@
       justify-content: center;
     }
 
-    .btn-confirm {
-      background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
-      color: white;
-      padding: 12px 24px;
-      border: none;
-      border-radius: 12px;
-      font-size: 14px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      min-width: 120px;
-    }
-
-    .btn-confirm:hover {
-      background: linear-gradient(135deg, #c82333 0%, #a71e2a 100%);
-      transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(220, 53, 69, 0.4);
-    }
-
-    .btn-modal-cancel {
+    /* ==================== FORMULÁRIO DE REPORT ==================== */
+    .vaga-info-card {
       background: #f8f9fa;
+      padding: 15px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      border-left: 4px solid #dc3545;
+    }
+
+    .vaga-info-card p {
+      margin: 0;
       color: #666;
-      border: 2px solid #e9ecef;
-      padding: 12px 24px;
-      border-radius: 12px;
       font-size: 14px;
+    }
+
+    .vaga-info-card strong {
+      color: #003366;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
       font-weight: 600;
+      color: #003366;
+      margin-bottom: 8px;
+      font-size: 14px;
+    }
+
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 12px;
+      border: 2px solid #e9ecef;
+      border-radius: 8px;
+      font-size: 14px;
+      background: white;
+      transition: all 0.3s ease;
+    }
+
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: #00A8FF;
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(0, 168, 255, 0.1);
+    }
+
+    .form-group textarea {
+      height: 120px;
+      resize: vertical;
+      font-family: inherit;
+      line-height: 1.4;
+    }
+
+    .char-counter-container {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 5px;
+      font-size: 12px;
+    }
+
+    .min-chars {
+      color: #999;
+    }
+
+    #charCounter {
+      color: #666;
+    }
+
+    /* Sistema de Avaliação por Estrelas */
+    .rating-container {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .star-rating {
+      display: flex;
+      gap: 5px;
+    }
+
+    .star {
+      cursor: pointer;
+      font-size: 24px;
+      color: #ddd;
+      transition: all 0.2s ease;
+      user-select: none;
+    }
+
+    .star:hover {
+      transform: scale(1.1);
+    }
+
+    .star.active {
+      color: #ffc107;
+    }
+
+    .star.hover {
+      color: #ffb300;
+    }
+
+    #ratingText {
+      color: #666;
+      font-size: 14px;
+    }
+
+    /* Área de Upload */
+    .upload-area {
       cursor: pointer;
       transition: all 0.3s ease;
-      min-width: 120px;
+      border: 2px dashed #e9ecef;
+      border-radius: 12px;
+      padding: 20px;
+      text-align: center;
+      background: #f8f9fa;
     }
 
-    .btn-modal-cancel:hover {
-      background: #e9ecef;
-      color: #495057;
+    .upload-area:hover {
+      border-color: #00A8FF;
+      background: #f0f8ff;
     }
 
-    /* Loading Overlay Melhorado */
+    .upload-area.dragover {
+      border-color: #00A8FF;
+      background: #e3f2fd;
+      transform: scale(1.02);
+    }
+
+    .upload-icon {
+      margin-bottom: 15px;
+    }
+
+    .upload-icon i {
+      font-size: 32px;
+      color: #adb5bd;
+    }
+
+    .upload-text {
+      margin: 0 0 10px 0;
+      color: #666;
+      font-size: 14px;
+    }
+
+    .upload-subtext {
+      margin: 0;
+      color: #999;
+      font-size: 12px;
+    }
+
+    .upload-area input[type="file"] {
+      display: none;
+    }
+
+    /* Preview de evidência */
+    .evidence-preview {
+      display: none;
+      margin-top: 15px;
+      padding: 15px;
+      background: white;
+      border-radius: 8px;
+      border: 2px solid #28a745;
+    }
+
+    .file-info {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .file-details {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .file-details i {
+      font-size: 24px;
+      color: #28a745;
+    }
+
+    #fileName {
+      font-weight: 500;
+      color: #003366;
+      font-size: 14px;
+    }
+
+    #fileSize {
+      color: #666;
+      font-size: 12px;
+    }
+
+    .remove-btn {
+      background: none;
+      border: none;
+      color: #dc3545;
+      cursor: pointer;
+      padding: 5px;
+      border-radius: 50%;
+      transition: all 0.3s ease;
+    }
+
+    .remove-btn:hover {
+      background: #f8f9fa;
+    }
+
+    /* Informações Adicionais */
+    .info-card {
+      background: #e3f2fd;
+      padding: 15px;
+      border-radius: 10px;
+      margin-bottom: 25px;
+      border-left: 4px solid #2196f3;
+    }
+
+    .info-card h5 {
+      margin: 0 0 10px 0;
+      color: #1976d2;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .info-card ul {
+      margin: 0;
+      padding-left: 20px;
+      color: #666;
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    /* ==================== MODAL PERFIL DA ONG ==================== */
+    .ong-header {
+      background: linear-gradient(135deg, #00A8FF 0%, #0078D4 100%);
+      border-radius: 15px;
+      padding: 30px;
+      margin-bottom: 25px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .ong-main-info {
+      display: flex;
+      align-items: center;
+      gap: 25px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .ong-logo-container {
+      flex-shrink: 0;
+    }
+
+    #ongLogoContainer {
+      width: 120px;
+      height: 120px;
+      border-radius: 15px;
+      overflow: hidden;
+      background: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+    }
+
+    #ongLogoPlaceholder {
+      color: #ccc;
+      font-size: 48px;
+    }
+
+    #ongLogoContainer img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .ong-basic-info {
+      flex: 1;
+      color: white;
+    }
+
+    .ong-basic-info h2 {
+      font-size: 32px;
+      margin-bottom: 8px;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+    }
+
+    .ong-basic-info p {
+      font-size: 16px;
+      opacity: 0.9;
+      margin-bottom: 15px;
+    }
+
+    .ong-stats {
+      display: flex;
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    .stat-card {
+      background: rgba(255,255,255,0.2);
+      padding: 15px 20px;
+      border-radius: 10px;
+      text-align: center;
+      backdrop-filter: blur(10px);
+    }
+
+    .stat-card .stat-value {
+      font-size: 24px;
+      font-weight: 700;
+      color: white;
+    }
+
+    .stat-card .stat-label {
+      font-size: 12px;
+      opacity: 0.8;
+      color: white;
+    }
+
+    .ong-info-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-bottom: 25px;
+    }
+
+    .info-section {
+      background: white;
+      border-radius: 15px;
+      padding: 25px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+
+    .info-section.full-width {
+      grid-column: 1 / -1;
+    }
+
+    .info-section h4 {
+      color: #003366;
+      font-size: 18px;
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .info-section h4 i {
+      color: #00A8FF;
+    }
+
+    .info-section div {
+      color: #666;
+      line-height: 1.6;
+    }
+
+    .contact-info {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .contact-item {
+      margin-bottom: 10px;
+    }
+
+    .contact-item strong {
+      color: #003366;
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .contact-item div {
+      color: #666;
+      word-break: break-all;
+    }
+
+    #ongModalEmail,
+    #ongModalSite a {
+      color: #00A8FF;
+    }
+
+    #ongModalSiteContainer {
+      display: none;
+    }
+
+    .social-section {
+      grid-column: 1 / -1;
+    }
+
+    .social-links {
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+
+    .social-links a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 45px;
+      height: 45px;
+      color: white;
+      border-radius: 10px;
+      text-decoration: none;
+      transition: transform 0.3s ease;
+    }
+
+    .social-links a:hover {
+      transform: translateY(-3px);
+    }
+
+    .no-socials {
+      color: #999;
+      font-style: italic;
+      display: none;
+    }
+
+    .loading-state {
+      display: none;
+      text-align: center;
+      padding: 50px;
+    }
+
+    .loading-state p {
+      margin-top: 15px;
+      color: #666;
+    }
+
+    /* ==================== LOADING OVERLAY ==================== */
     .loading-overlay {
       display: none;
       position: fixed;
@@ -740,7 +1317,7 @@
       font-size: 14px;
     }
 
-    /* Toast Notifications */
+    /* ==================== TOAST NOTIFICATIONS ==================== */
     .toast {
       position: fixed;
       bottom: 20px;
@@ -755,6 +1332,7 @@
       align-items: center;
       gap: 10px;
       max-width: 400px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
     }
 
     .toast.success {
@@ -781,7 +1359,98 @@
       }
     }
 
-    /* Responsivo */
+    @keyframes slideOutToast {
+      from {
+        transform: translateX(0);
+        opacity: 1;
+      }
+      to {
+        transform: translateX(100%);
+        opacity: 0;
+      }
+    }
+
+    /* ==================== SPINNERS E LOADING ==================== */
+    .spinner-border {
+      display: inline-block;
+      width: 1rem;
+      height: 1rem;
+      vertical-align: text-bottom;
+      border: .15em solid currentColor;
+      border-right-color: transparent;
+      border-radius: 50%;
+      animation: spinner-border .75s linear infinite;
+    }
+
+    .spinner-border-sm {
+      width: 0.8rem;
+      height: 0.8rem;
+      border-width: .1em;
+    }
+
+    @keyframes spinner-border {
+      to { transform: rotate(360deg); }
+    }
+
+    .mr-2 {
+      margin-right: 0.5rem;
+    }
+
+    /* ==================== ESTADOS DE VALIDAÇÃO ==================== */
+    .invalid {
+      border-color: #dc3545 !important;
+      box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25) !important;
+    }
+
+    .valid {
+      border-color: #28a745 !important;
+      box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25) !important;
+    }
+
+    /* ==================== UTILITIES ==================== */
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    .loading {
+      opacity: 0.6;
+      pointer-events: none;
+    }
+
+    .btn-loading {
+      position: relative;
+    }
+
+    .btn-loading::after {
+      content: '';
+      position: absolute;
+      width: 16px;
+      height: 16px;
+      margin: auto;
+      border: 2px solid transparent;
+      border-top-color: currentColor;
+      border-radius: 50%;
+      animation: spinner-border 0.75s linear infinite;
+    }
+
+    /* ==================== FOCUS STATES ==================== */
+    button:focus,
+    input:focus,
+    select:focus,
+    textarea:focus {
+      outline: 2px solid #00A8FF;
+      outline-offset: 2px;
+    }
+
+    /* ==================== RESPONSIVO ==================== */
     @media (max-width: 768px) {
       nav.menu-lateral {
         width: 60px;
@@ -829,6 +1498,12 @@
         padding: 25px 20px;
       }
 
+      .modal-content.report-modal,
+      .modal-content.ong-modal {
+        margin: 10% auto;
+        padding: 20px;
+      }
+
       .vaga-actions {
         flex-direction: column;
         align-items: stretch;
@@ -836,6 +1511,105 @@
 
       .btn-inscrever {
         max-width: 100%;
+      }
+
+      .action-buttons {
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .ong-main-info {
+        flex-direction: column;
+        text-align: center;
+        gap: 20px;
+      }
+
+      .ong-stats {
+        justify-content: center;
+      }
+
+      .ong-info-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .toast {
+        right: 10px;
+        left: 10px;
+        min-width: auto;
+      }
+
+      .star {
+        font-size: 20px;
+        padding: 3px;
+      }
+
+      .upload-area {
+        padding: 15px;
+      }
+
+      .rating-container {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .main-container {
+        padding: 0 15px;
+      }
+
+      .section-header {
+        padding: 20px;
+      }
+
+      .section-title {
+        font-size: 24px;
+      }
+
+      .vagas-grid {
+        gap: 15px;
+      }
+
+      .vaga-content {
+        padding: 20px;
+      }
+
+      .vaga-title {
+        font-size: 18px;
+      }
+
+      .modal-content {
+        width: 95%;
+        margin: 20% auto;
+        padding: 20px;
+      }
+
+      .modal-content.report-modal,
+      .modal-content.ong-modal {
+        margin: 5% auto;
+        padding: 15px;
+      }
+
+      .ong-header {
+        padding: 20px;
+      }
+
+      #ongLogoContainer {
+        width: 80px;
+        height: 80px;
+      }
+
+      .ong-basic-info h2 {
+        font-size: 24px;
+      }
+
+      .stat-card {
+        padding: 10px 15px;
+      }
+
+      .info-section {
+        padding: 20px;
       }
     }
   </style>
@@ -887,7 +1661,227 @@
   </div>
 </div>
 
-<!-- Loading Overlay Melhorado -->
+<!-- Modal de reportar vaga -->
+<div id="reportModal" class="modal">
+  <div class="modal-content report-modal">
+    <div class="modal-header">
+      <h3>
+        <i class="bi bi-flag"></i>
+        Reportar Vaga
+      </h3>
+      <button onclick="closeReportModal()" class="close-btn">
+        <i class="bi bi-x"></i>
+      </button>
+    </div>
+
+    <div class="vaga-info-card">
+      <p><strong>Vaga:</strong> <span id="reportVagaNome"></span></p>
+      <p><strong>ONG:</strong> <span id="reportOngNome"></span></p>
+    </div>
+
+    <form id="reportForm" enctype="multipart/form-data">
+      <!-- Assunto do Report -->
+      <div class="form-group">
+        <label for="reportSubject">Assunto do Report *</label>
+        <select id="reportSubject" name="assunto" required>
+          <option value="">Selecione o motivo</option>
+          <option value="informacoes_falsas">Informações falsas ou enganosas</option>
+          <option value="vaga_inexistente">Vaga não existe ou já foi preenchida</option>
+          <option value="discriminacao">Discriminação ou preconceito</option>
+          <option value="conteudo_inadequado">Conteúdo inadequado ou ofensivo</option>
+          <option value="exploracao">Exploração de voluntários</option>
+          <option value="ong_suspeita">ONG suspeita ou fraudulenta</option>
+          <option value="local_perigoso">Local perigoso ou inadequado</option>
+          <option value="nao_pagamento">Não cumprimento de promessas</option>
+          <option value="outros">Outros motivos</option>
+        </select>
+      </div>
+
+      <!-- Avaliação da ONG -->
+      <div class="form-group">
+        <label>Como você avalia esta ONG?</label>
+        <div class="rating-container">
+          <div class="star-rating" id="starRating">
+            <span class="star" data-rating="1"><i class="bi bi-star"></i></span>
+            <span class="star" data-rating="2"><i class="bi bi-star"></i></span>
+            <span class="star" data-rating="3"><i class="bi bi-star"></i></span>
+            <span class="star" data-rating="4"><i class="bi bi-star"></i></span>
+            <span class="star" data-rating="5"><i class="bi bi-star"></i></span>
+          </div>
+          <span id="ratingText">Clique nas estrelas para avaliar</span>
+          <input type="hidden" id="reportRating" name="avaliacao" value="">
+        </div>
+      </div>
+
+      <!-- Descrição Detalhada -->
+      <div class="form-group">
+        <label for="reportReason">Descrição detalhada *</label>
+        <textarea id="reportReason"
+                  name="motivo"
+                  placeholder="Descreva detalhadamente o problema encontrado... (mínimo 20 caracteres)"
+                  maxlength="2000"
+                  required
+                  oninput="updateCharCounter()"></textarea>
+        <div class="char-counter-container">
+          <span class="min-chars">Mínimo 20 caracteres</span>
+          <span id="charCounter">0/2000 caracteres</span>
+        </div>
+      </div>
+
+      <!-- Upload de Evidência -->
+      <div class="form-group">
+        <label>Evidência (Opcional)</label>
+        <div id="uploadArea" class="upload-area">
+          <div class="upload-icon">
+            <i class="bi bi-cloud-upload"></i>
+          </div>
+          <p class="upload-text">Clique para adicionar uma imagem ou arraste aqui</p>
+          <p class="upload-subtext">Formatos aceitos: JPG, PNG, GIF, PDF (máx. 5MB)</p>
+          <input type="file" id="reportEvidence" name="evidencia" accept="image/*,.pdf" onchange="handleFileUpload(this)">
+        </div>
+
+        <!-- Preview da evidência -->
+        <div id="evidencePreview" class="evidence-preview">
+          <div class="file-info">
+            <div class="file-details">
+              <i class="bi bi-file-earmark-image"></i>
+              <div>
+                <div id="fileName"></div>
+                <div id="fileSize"></div>
+              </div>
+            </div>
+            <button type="button" onclick="removeEvidence()" class="remove-btn">
+              <i class="bi bi-trash"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Informações Adicionais -->
+      <div class="info-card">
+        <h5><i class="bi bi-info-circle"></i> Informações sobre o Report</h5>
+        <ul>
+          <li>Seu report será analisado pela nossa equipe em até 48 horas</li>
+          <li>Você receberá uma resposta por email sobre o resultado</li>
+          <li>Reports falsos podem resultar em suspensão da conta</li>
+          <li>Sua identidade será mantida em sigilo</li>
+        </ul>
+      </div>
+
+      <!-- Botões -->
+      <div class="modal-buttons">
+        <button type="button" class="btn-modal-cancel" onclick="closeReportModal()">
+          <i class="bi bi-x-circle"></i> Cancelar
+        </button>
+        <button type="submit" id="confirmReportBtn" class="btn-confirm">
+          <i class="bi bi-flag"></i> Enviar Report
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Modal de Perfil da ONG -->
+<div id="ongProfileModal" class="modal">
+  <div class="modal-content ong-modal">
+    <div class="modal-header">
+      <h3>
+        <i class="bi bi-building"></i>
+        Perfil da ONG
+      </h3>
+      <button onclick="closeOngProfileModal()" class="close-btn">
+        <i class="bi bi-x"></i>
+      </button>
+    </div>
+
+    <div id="ongProfileContent">
+      <!-- Header do Perfil -->
+      <div class="ong-header">
+        <div class="ong-main-info">
+          <!-- Logo da ONG -->
+          <div class="ong-logo-container">
+            <div id="ongLogoContainer">
+              <div id="ongLogoPlaceholder">
+                <i class="bi bi-building"></i>
+              </div>
+            </div>
+          </div>
+
+          <!-- Informações Básicas -->
+          <div class="ong-basic-info">
+            <h2 id="ongModalNome">Nome da ONG</h2>
+            <p id="ongModalCnpj">CNPJ: 00.000.000/0000-00</p>
+
+            <!-- Estatísticas -->
+            <div class="ong-stats">
+              <div class="stat-card">
+                <div id="ongTotalVagas" class="stat-value">0</div>
+                <div class="stat-label">Total de Vagas</div>
+              </div>
+              <div class="stat-card">
+                <div id="ongVagasAtivas" class="stat-value">0</div>
+                <div class="stat-label">Vagas Ativas</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Seções de Informação -->
+      <div class="ong-info-grid">
+        <!-- Sobre a ONG -->
+        <div class="info-section full-width">
+          <h4><i class="bi bi-info-circle"></i> Sobre a ONG</h4>
+          <div id="ongModalDescricao">Descrição da ONG...</div>
+        </div>
+
+        <!-- Informações de Contato -->
+        <div class="info-section">
+          <h4><i class="bi bi-telephone"></i> Contato</h4>
+          <div class="contact-info">
+            <div class="contact-item">
+              <strong>E-mail:</strong>
+              <div id="ongModalEmail">email@ong.com</div>
+            </div>
+            <div class="contact-item">
+              <strong>Telefone:</strong>
+              <div id="ongModalTelefone">(00) 00000-0000</div>
+            </div>
+            <div id="ongModalSiteContainer" class="contact-item">
+              <strong>Website:</strong>
+              <div id="ongModalSite">www.ong.com</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Endereço -->
+        <div class="info-section">
+          <h4><i class="bi bi-geo-alt"></i> Localização</h4>
+          <div id="ongModalEndereco">Endereço da ONG...</div>
+        </div>
+      </div>
+
+      <!-- Redes Sociais -->
+      <div class="info-section social-section">
+        <h4><i class="bi bi-share"></i> Redes Sociais</h4>
+        <div id="ongModalSociais" class="social-links">
+          <!-- Links sociais serão inseridos aqui dinamicamente -->
+        </div>
+        <div id="ongModalNoSociais" class="no-socials">
+          Nenhuma rede social cadastrada
+        </div>
+      </div>
+    </div>
+
+    <!-- Loading -->
+    <div id="ongProfileLoading" class="loading-state">
+      <div class="loading-spinner"></div>
+      <p>Carregando perfil da ONG...</p>
+    </div>
+  </div>
+</div>
+
+<!-- Loading Overlay -->
 <div class="loading-overlay" id="loadingOverlay">
   <div class="loading-content">
     <div class="loading-spinner"></div>
@@ -988,8 +1982,8 @@
                th:if="${#temporals.format(vaga.data, 'yyyy-MM-dd') == #temporals.format(#temporals.createNow(), 'yyyy-MM-dd') or vaga.quantidade <= 2}">
             <span th:if="${#temporals.format(vaga.data, 'yyyy-MM-dd') == #temporals.format(#temporals.createNow(), 'yyyy-MM-dd')}">Hoje</span>
             <span th:unless="${#temporals.format(vaga.data, 'yyyy-MM-dd') == #temporals.format(#temporals.createNow(), 'yyyy-MM-dd')}">
-              <span th:if="${vaga.quantidade <= 2}">Urgente</span>
-            </span>
+                <span th:if="${vaga.quantidade <= 2}">Urgente</span>
+              </span>
           </div>
         </div>
 
@@ -997,7 +1991,7 @@
         <div class="vaga-content">
           <div class="vaga-header">
             <h3 class="vaga-title" th:text="${vaga.nome}">Nome da Vaga</h3>
-            <div class="vaga-ong">
+            <div class="vaga-ong" onclick="showOngProfileModal(this)" th:data-ong-id="${vaga.ong.id}">
               <i class="bi bi-building"></i>
               <span th:text="${vaga.ong.nome}">Nome da ONG</span>
             </div>
@@ -1025,15 +2019,30 @@
           </div>
 
           <div class="vaga-actions">
-            <button class="btn-inscrever"
-                    th:data-vaga-id="${vaga.id}"
-                    th:data-vaga-nome="${vaga.nome}"
-                    th:disabled="${vaga.quantidade <= 0}"
-                    onclick="inscrever(this)">
-              <i class="bi bi-plus-circle"></i>
-              <span th:if="${vaga.quantidade > 0}">Inscrever-se</span>
-              <span th:unless="${vaga.quantidade > 0}">Esgotada</span>
-            </button>
+            <div class="action-buttons">
+              <button class="btn-inscrever"
+                      th:data-vaga-id="${vaga.id}"
+                      th:data-vaga-nome="${vaga.nome}"
+                      th:disabled="${vaga.quantidade <= 0}"
+                      onclick="inscrever(this)">
+                <i class="bi bi-plus-circle"></i>
+                <span th:if="${vaga.quantidade > 0}">Inscrever-se</span>
+                <span th:unless="${vaga.quantidade > 0}">Esgotada</span>
+              </button>
+
+              <button class="btn-ong" onclick="showOngProfileModal(this)" th:data-ong-id="${vaga.ong.id}">
+                <i class="bi bi-person-badge"></i>
+                Ver ONG
+              </button>
+
+              <button class="btn-report"
+                      th:data-vaga-id="${vaga.id}"
+                      th:data-vaga-nome="${vaga.nome}"
+                      onclick="showReportModal(this)">
+                <i class="bi bi-flag"></i>
+                Reportar
+              </button>
+            </div>
 
             <div class="vagas-disponiveis"
                  th:classappend="${vaga.quantidade <= 2 ? 'vagas-poucas' : (vaga.quantidade == 0 ? 'vagas-esgotadas' : '')}">
@@ -1048,7 +2057,7 @@
     </div>
 
     <!-- Estado Vazio -->
-    <div class="empty-state" id="emptyState" style="display: none;">
+    <div class="empty-state" id="emptyState">
       <div class="empty-icon">
         <i class="bi bi-search"></i>
       </div>
@@ -1063,19 +2072,27 @@
     </div>
   </div>
 </div>
-
 <script>
-  // Funções de logout
+  // Variáveis globais
+  let currentReportVagaId = null;
+  let currentRating = 0;
+
+  // === FUNÇÕES DE LOGOUT ===
   function showLogoutModal() {
-    document.getElementById('logoutModal').style.display = 'block';
+    const modal = document.getElementById('logoutModal');
+    if (modal) {
+      modal.style.display = 'block';
+    }
   }
 
   function hideLogoutModal() {
-    document.getElementById('logoutModal').style.display = 'none';
+    const modal = document.getElementById('logoutModal');
+    if (modal) {
+      modal.style.display = 'none';
+    }
   }
 
   function confirmLogout() {
-    // Fazer logout via AJAX
     fetch('/logout', {
       method: 'POST',
       headers: {
@@ -1095,15 +2112,23 @@
             });
   }
 
-  // Função para inscrever em uma vaga
+  // === FUNÇÃO DE INSCRIÇÃO ===
   function inscrever(button) {
+    if (!button || button.disabled) return;
+
     const vagaId = button.dataset.vagaId;
     const vagaNome = button.dataset.vagaNome;
 
-    // Mostrar loading
-    document.getElementById('loadingOverlay').style.display = 'flex';
+    if (!vagaId) {
+      showToast('Erro: ID da vaga não encontrado', 'error');
+      return;
+    }
 
-    // Desabilitar botão temporariamente
+    const loadingOverlay = document.getElementById('loadingOverlay');
+    if (loadingOverlay) {
+      loadingOverlay.style.display = 'flex';
+    }
+
     button.disabled = true;
     const originalText = button.innerHTML;
     button.innerHTML = '<i class="bi bi-hourglass-split"></i> Processando...';
@@ -1115,97 +2140,716 @@
       },
       body: 'vagaId=' + encodeURIComponent(vagaId)
     })
-            .then(response => response.text())
+            .then(response => {
+              if (loadingOverlay) {
+                loadingOverlay.style.display = 'none';
+              }
+
+              // Verifica se a resposta foi bem-sucedida
+              if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+              }
+
+              return response.text();
+            })
             .then(result => {
-              // Esconder loading
-              document.getElementById('loadingOverlay').style.display = 'none';
+              console.log('Resposta do servidor:', result); // Debug log
+
+              // Remove espaços em branco e quebras de linha da resposta
+              result = result.trim();
 
               if (result === 'ok') {
                 showToast('Inscrição realizada com sucesso!', 'success');
-                button.innerHTML = '<i class="bi bi-check-circle"></i> Inscrito';
-                button.className = 'btn-inscrever btn-ja-inscrito';
-                button.disabled = true;
-
-                // Atualizar quantidade de vagas no card
-                const card = button.closest('.vaga-card');
-                const vagasDispElement = card.querySelector('.vagas-disponiveis span');
-                const currentCount = parseInt(card.dataset.vagas) - 1;
-                card.dataset.vagas = currentCount;
-
-                if (currentCount > 2) {
-                  vagasDispElement.textContent = currentCount + ' vagas';
-                  vagasDispElement.parentElement.className = 'vagas-disponiveis';
-                } else if (currentCount > 0) {
-                  vagasDispElement.textContent = 'Últimas ' + currentCount + ' vagas!';
-                  vagasDispElement.parentElement.className = 'vagas-disponiveis vagas-poucas';
-                } else {
-                  vagasDispElement.textContent = 'Esgotada';
-                  vagasDispElement.parentElement.className = 'vagas-disponiveis vagas-esgotadas';
-                  button.innerHTML = '<i class="bi bi-x-circle"></i> Esgotada';
-                  button.className = 'btn-inscrever btn-esgotada';
-                }
-
-                // Atualizar estatísticas
+                updateButtonToInscrito(button);
+                updateVagasCount(button);
                 updateStats();
-
               } else if (result === 'já inscrito') {
                 showToast('Você já está inscrito nesta vaga.', 'warning');
-                button.innerHTML = '<i class="bi bi-check-circle"></i> Já Inscrito';
-                button.className = 'btn-inscrever btn-ja-inscrito';
-                button.disabled = true;
-              } else if (result.startsWith('erro: já inscrito em vaga nesta data')) {
+                updateButtonToInscrito(button);
+              } else if (result.includes('já inscrito em vaga nesta data')) {
                 showToast('Você já está inscrito em outra vaga nesta data!', 'error');
-                button.disabled = false;
-                button.innerHTML = originalText;
-              } else if (result.startsWith('erro: esta vaga já expirou')) {
+                resetButton(button, originalText);
+              } else if (result.includes('esta vaga já expirou')) {
                 showToast('Esta vaga já expirou!', 'error');
-                button.disabled = true;
-                button.innerHTML = '<i class="bi bi-x-circle"></i> Expirada';
-                button.className = 'btn-inscrever btn-esgotada';
-              } else if (result.startsWith('erro: não há vagas disponíveis')) {
+                updateButtonToExpired(button);
+              } else if (result.includes('não há vagas disponíveis')) {
                 showToast('Não há mais vagas disponíveis!', 'error');
-                button.innerHTML = '<i class="bi bi-x-circle"></i> Esgotada';
-                button.className = 'btn-inscrever btn-esgotada';
-                button.disabled = true;
-              } else if (result.startsWith('erro: não autenticado')) {
+                updateButtonToEsgotada(button);
+              } else if (result.includes('não autenticado')) {
                 showToast('Você precisa estar logado para se inscrever!', 'error');
                 setTimeout(() => {
                   window.location.href = '/login/voluntario';
                 }, 2000);
-              } else if (result.startsWith('erro')) {
-                showToast(result.replace('erro: ', ''), 'error');
-                button.disabled = false;
-                button.innerHTML = originalText;
+              } else if (result.startsWith('erro:') || result.includes('erro')) {
+                const errorMessage = result.replace(/^erro:\s*/, '').trim();
+                showToast(errorMessage || 'Erro desconhecido', 'error');
+                resetButton(button, originalText);
+              } else if (result === '') {
+                // Resposta vazia pode indicar sucesso em alguns casos
+                showToast('Inscrição processada com sucesso!', 'success');
+                updateButtonToInscrito(button);
+                updateVagasCount(button);
+                updateStats();
               } else {
-                showToast('Resposta inesperada: ' + result, 'error');
-                button.disabled = false;
-                button.innerHTML = originalText;
+                // Log da resposta inesperada para debug
+                console.warn('Resposta inesperada do servidor:', result);
+
+                // Tenta interpretar se foi sucesso baseado em indicadores
+                if (result.toLowerCase().includes('sucesso') ||
+                        result.toLowerCase().includes('inscrito') ||
+                        result.toLowerCase().includes('confirmado')) {
+                  showToast('Inscrição realizada com sucesso!', 'success');
+                  updateButtonToInscrito(button);
+                  updateVagasCount(button);
+                  updateStats();
+                } else {
+                  showToast(`Resposta inesperada do servidor: ${result}`, 'warning');
+                  // Mesmo com resposta inesperada, verifica se a inscrição foi efetivada
+                  setTimeout(() => {
+                    checkSpecificInscription(vagaId, button);
+                  }, 1000);
+                }
               }
             })
             .catch(error => {
               console.error('Erro:', error);
-              document.getElementById('loadingOverlay').style.display = 'none';
+              if (loadingOverlay) {
+                loadingOverlay.style.display = 'none';
+              }
               showToast('Erro ao processar inscrição', 'error');
-              button.disabled = false;
-              button.innerHTML = originalText;
+              resetButton(button, originalText);
             });
   }
 
-  // Filtros
+  // Funções auxiliares para atualizar botões
+  function updateButtonToInscrito(button) {
+    if (!button) return;
+
+    button.innerHTML = '<i class="bi bi-check-circle"></i> Inscrito';
+    button.className = 'btn-inscrever btn-ja-inscrito';
+
+    // Remove estilos inline conflitantes
+    button.style.removeProperty('background');
+    button.style.removeProperty('color');
+
+    // Aplica estilos específicos
+    button.style.cssText = `
+    background: linear-gradient(135deg, #ffc107 0%, #fd7e14 100%) !important;
+    color: #212529 !important;
+    cursor: default !important;
+    border: none !important;
+  `;
+
+    button.disabled = true;
+
+    // Adiciona uma pequena animação para chamar atenção
+    button.style.transform = 'scale(1.05)';
+    setTimeout(() => {
+      button.style.transform = 'scale(1)';
+      button.style.transition = 'all 0.3s ease';
+    }, 150);
+
+    console.log('Botão atualizado para inscrito:', button);
+  }
+
+  function updateButtonToEsgotada(button) {
+    button.innerHTML = '<i class="bi bi-x-circle"></i> Esgotada';
+    button.className = 'btn-inscrever btn-esgotada';
+    button.style.background = '#6c757d';
+    button.style.color = 'white';
+    button.disabled = true;
+  }
+
+  function updateButtonToExpired(button) {
+    button.innerHTML = '<i class="bi bi-x-circle"></i> Expirada';
+    button.className = 'btn-inscrever btn-esgotada';
+    button.style.background = '#6c757d';
+    button.style.color = 'white';
+    button.disabled = true;
+  }
+
+  function resetButton(button, originalText) {
+    button.disabled = false;
+    button.innerHTML = originalText;
+  }
+
+  function updateVagasCount(button) {
+    const card = button.closest('.vaga-card');
+    if (!card) return;
+
+    const vagasDispElement = card.querySelector('.vagas-disponiveis span');
+    if (!vagasDispElement) return;
+
+    const currentCount = Math.max(0, parseInt(card.dataset.vagas || 0) - 1);
+    card.dataset.vagas = currentCount;
+
+    const parentElement = vagasDispElement.parentElement;
+
+    if (currentCount > 2) {
+      vagasDispElement.textContent = currentCount + ' vagas';
+      parentElement.className = 'vagas-disponiveis';
+    } else if (currentCount > 0) {
+      vagasDispElement.textContent = 'Últimas ' + currentCount + ' vagas!';
+      parentElement.className = 'vagas-disponiveis vagas-poucas';
+    } else {
+      vagasDispElement.textContent = 'Esgotada';
+      parentElement.className = 'vagas-disponiveis vagas-esgotadas';
+      updateButtonToEsgotada(button);
+    }
+  }
+
+  // === FUNÇÕES DO MODAL DE REPORT ===
+  function showReportModal(button) {
+    if (!button) return;
+
+    currentReportVagaId = button.dataset.vagaId;
+    const vagaNome = button.dataset.vagaNome;
+    const ongElement = button.closest('.vaga-card')?.querySelector('.vaga-ong span');
+    const ongNome = ongElement ? ongElement.textContent : 'Não informado';
+
+    if (!currentReportVagaId) {
+      showToast('Erro: ID da vaga não encontrado', 'error');
+      return;
+    }
+
+    fetch(`/inscricao/podeReportar/${currentReportVagaId}`)
+            .then(response => response.json())
+            .then(data => {
+              if (!data.podeReportar) {
+                if (data.motivo === "Já reportado") {
+                  showToast('Você já reportou esta vaga anteriormente', 'warning');
+                } else {
+                  showToast('Não é possível reportar esta vaga: ' + data.motivo, 'error');
+                }
+                return;
+              }
+
+              populateReportModal(vagaNome, ongNome);
+              showModalElement('reportModal');
+            })
+            .catch(error => {
+              console.error('Erro ao verificar report:', error);
+              populateReportModal(vagaNome, ongNome);
+              showModalElement('reportModal');
+            });
+  }
+
+  function populateReportModal(vagaNome, ongNome) {
+    const reportVagaElement = document.getElementById('reportVagaNome');
+    const reportOngElement = document.getElementById('reportOngNome');
+
+    if (reportVagaElement) reportVagaElement.textContent = vagaNome || 'Não informado';
+    if (reportOngElement) reportOngElement.textContent = ongNome || 'Não informado';
+
+    resetReportForm();
+  }
+
+  function closeReportModal() {
+    hideModalElement('reportModal');
+    currentReportVagaId = null;
+    resetReportForm();
+  }
+
+  function resetReportForm() {
+    const form = document.getElementById('reportForm');
+    if (form) {
+      form.reset();
+    }
+
+    currentRating = 0;
+    updateStarRating();
+
+    const ratingText = document.getElementById('ratingText');
+    if (ratingText) {
+      ratingText.textContent = 'Clique nas estrelas para avaliar';
+    }
+
+    updateCharCounter();
+    removeEvidence();
+  }
+
+  // === SISTEMA DE AVALIAÇÃO POR ESTRELAS ===
+  function initStarRating() {
+    const stars = document.querySelectorAll('.star');
+
+    stars.forEach((star, index) => {
+      // Remove event listeners anteriores para evitar duplicação
+      star.replaceWith(star.cloneNode(true));
+    });
+
+    // Readiciona event listeners aos novos elementos
+    document.querySelectorAll('.star').forEach((star, index) => {
+      star.addEventListener('click', function() {
+        currentRating = parseInt(this.dataset.rating) || 0;
+        const ratingInput = document.getElementById('reportRating');
+        if (ratingInput) {
+          ratingInput.value = currentRating;
+        }
+        updateStarRating();
+        updateRatingText();
+      });
+
+      star.addEventListener('mouseenter', function() {
+        const hoverRating = parseInt(this.dataset.rating) || 0;
+        highlightStars(hoverRating, 'hover');
+      });
+
+      star.addEventListener('mouseleave', function() {
+        updateStarRating();
+      });
+    });
+  }
+
+  function highlightStars(rating, className = 'active') {
+    const stars = document.querySelectorAll('.star');
+    stars.forEach((star, index) => {
+      star.classList.remove('active', 'hover');
+      if (index < rating) {
+        star.classList.add(className);
+        star.innerHTML = '<i class="bi bi-star-fill"></i>';
+      } else {
+        star.innerHTML = '<i class="bi bi-star"></i>';
+      }
+    });
+  }
+
+  function updateStarRating() {
+    highlightStars(currentRating, 'active');
+  }
+
+  function updateRatingText() {
+    const texts = {
+      1: 'Muito ruim',
+      2: 'Ruim',
+      3: 'Regular',
+      4: 'Boa',
+      5: 'Excelente'
+    };
+
+    const text = currentRating > 0 ? texts[currentRating] : 'Clique nas estrelas para avaliar';
+    const ratingTextElement = document.getElementById('ratingText');
+    if (ratingTextElement) {
+      ratingTextElement.textContent = text;
+    }
+  }
+
+  // === SISTEMA DE UPLOAD DE ARQUIVO ===
+  function initFileUpload() {
+    const uploadArea = document.getElementById('uploadArea');
+    const fileInput = document.getElementById('reportEvidence');
+
+    if (!uploadArea || !fileInput) return;
+
+    // Remove event listeners anteriores
+    uploadArea.replaceWith(uploadArea.cloneNode(true));
+    const newUploadArea = document.getElementById('uploadArea');
+
+    newUploadArea.addEventListener('click', () => {
+      fileInput.click();
+    });
+
+    newUploadArea.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      newUploadArea.classList.add('dragover');
+    });
+
+    newUploadArea.addEventListener('dragleave', (e) => {
+      // Verifica se realmente saiu da área
+      if (!newUploadArea.contains(e.relatedTarget)) {
+        newUploadArea.classList.remove('dragover');
+      }
+    });
+
+    newUploadArea.addEventListener('drop', (e) => {
+      e.preventDefault();
+      newUploadArea.classList.remove('dragover');
+
+      const files = e.dataTransfer.files;
+      if (files.length > 0) {
+        fileInput.files = files;
+        handleFileUpload(fileInput);
+      }
+    });
+
+    fileInput.addEventListener('change', function() {
+      handleFileUpload(this);
+    });
+  }
+
+  function handleFileUpload(input) {
+    const file = input.files[0];
+    if (!file) return;
+
+    const allowedTypes = ['image/jpeg', 'image/png', 'image/gif', 'application/pdf'];
+    if (!allowedTypes.includes(file.type)) {
+      showToast('Formato de arquivo não suportado. Use JPG, PNG, GIF ou PDF.', 'error');
+      input.value = '';
+      return;
+    }
+
+    if (file.size > 5 * 1024 * 1024) { // 5MB
+      showToast('Arquivo muito grande. Tamanho máximo: 5MB.', 'error');
+      input.value = '';
+      return;
+    }
+
+    showFilePreview(file);
+  }
+
+  function showFilePreview(file) {
+    const preview = document.getElementById('evidencePreview');
+    const fileName = document.getElementById('fileName');
+    const fileSize = document.getElementById('fileSize');
+
+    if (fileName) fileName.textContent = file.name;
+    if (fileSize) fileSize.textContent = formatFileSize(file.size);
+    if (preview) preview.style.display = 'block';
+  }
+
+  function removeEvidence() {
+    const fileInput = document.getElementById('reportEvidence');
+    const preview = document.getElementById('evidencePreview');
+
+    if (fileInput) fileInput.value = '';
+    if (preview) preview.style.display = 'none';
+  }
+
+  function formatFileSize(bytes) {
+    if (bytes === 0) return '0 Bytes';
+    const k = 1024;
+    const sizes = ['Bytes', 'KB', 'MB'];
+    const i = Math.floor(Math.log(bytes) / Math.log(k));
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+  }
+
+  function updateCharCounter() {
+    const textarea = document.getElementById('reportReason');
+    const counter = document.getElementById('charCounter');
+
+    if (!textarea || !counter) return;
+
+    const currentLength = textarea.value.length;
+    const maxLength = 2000;
+
+    counter.textContent = `${currentLength}/${maxLength} caracteres`;
+
+    textarea.classList.remove('invalid', 'valid');
+    counter.style.color = '#666';
+
+    if (currentLength < 20 && currentLength > 0) {
+      textarea.classList.add('invalid');
+      counter.style.color = '#dc3545';
+    } else if (currentLength >= 20) {
+      textarea.classList.add('valid');
+      counter.style.color = '#28a745';
+    }
+  }
+
+  function initReportForm() {
+    const reportForm = document.getElementById('reportForm');
+    if (!reportForm) return;
+
+    // Remove event listener anterior
+    reportForm.replaceWith(reportForm.cloneNode(true));
+    const newReportForm = document.getElementById('reportForm');
+
+    newReportForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const assunto = document.getElementById('reportSubject')?.value;
+      const motivo = document.getElementById('reportReason')?.value?.trim() || '';
+
+      if (!assunto) {
+        showToast('Por favor, selecione o assunto do report', 'warning');
+        return;
+      }
+
+      if (motivo.length < 20) {
+        showToast('A descrição deve ter pelo menos 20 caracteres', 'warning');
+        return;
+      }
+
+      const confirmBtn = document.getElementById('confirmReportBtn');
+      if (confirmBtn) {
+        confirmBtn.disabled = true;
+        confirmBtn.innerHTML = '<i class="bi bi-hourglass-split"></i> Enviando...';
+      }
+
+      const formData = new FormData(this);
+      formData.append('vagaId', currentReportVagaId);
+
+      if (currentRating > 0) {
+        formData.append('avaliacao', currentRating);
+      }
+
+      fetch('/inscricao/reportar', {
+        method: 'POST',
+        body: formData
+      })
+              .then(response => response.text())
+              .then(data => {
+                if (data === 'ok') {
+                  showToast('Report enviado com sucesso! Nossa equipe irá analisar em até 48 horas.', 'success');
+                  closeReportModal();
+                  updateReportButton(currentReportVagaId);
+                } else {
+                  const errorMessage = data.startsWith('erro: ') ? data.substring(6) : data;
+                  showToast(errorMessage, 'error');
+                }
+              })
+              .catch(error => {
+                console.error('Erro:', error);
+                showToast('Erro ao enviar report. Tente novamente.', 'error');
+              })
+              .finally(() => {
+                if (confirmBtn) {
+                  confirmBtn.disabled = false;
+                  confirmBtn.innerHTML = '<i class="bi bi-flag"></i> Enviar Report';
+                }
+              });
+    });
+
+    // Adiciona listener para o contador de caracteres
+    const reportReason = document.getElementById('reportReason');
+    if (reportReason) {
+      reportReason.addEventListener('input', updateCharCounter);
+    }
+  }
+
+  function updateReportButton(vagaId) {
+    const reportButton = document.querySelector(`[data-vaga-id="${vagaId}"].btn-report`);
+    if (reportButton) {
+      reportButton.disabled = true;
+      reportButton.innerHTML = '<i class="bi bi-check-circle"></i> Reportado';
+      reportButton.style.background = '#6c757d';
+      reportButton.style.cursor = 'not-allowed';
+    }
+  }
+
+  // === MODAL DO PERFIL DA ONG ===
+  function showOngProfileModal(element) {
+    if (!element) return;
+
+    const ongId = element.dataset.ongId;
+    if (!ongId) {
+      showToast('Erro: ID da ONG não encontrado', 'error');
+      return;
+    }
+
+    showModalElement('ongProfileModal');
+    showLoadingState();
+
+    fetch(`/api/ong/perfil/${ongId}`)
+            .then(response => {
+              if (!response.ok) {
+                throw new Error('ONG não encontrada');
+              }
+              return response.json();
+            })
+            .then(ong => {
+              populateOngModal(ong);
+              showContentState();
+            })
+            .catch(error => {
+              console.error('Erro ao carregar perfil da ONG:', error);
+              showErrorState();
+            });
+  }
+
+  function showLoadingState() {
+    const loading = document.getElementById('ongProfileLoading');
+    const content = document.getElementById('ongProfileContent');
+
+    if (loading) loading.style.display = 'block';
+    if (content) content.style.display = 'none';
+  }
+
+  function showContentState() {
+    const loading = document.getElementById('ongProfileLoading');
+    const content = document.getElementById('ongProfileContent');
+
+    if (loading) loading.style.display = 'none';
+    if (content) content.style.display = 'block';
+  }
+
+  function showErrorState() {
+    const loading = document.getElementById('ongProfileLoading');
+    if (loading) {
+      loading.innerHTML = `
+      <div style="text-align: center; padding: 50px;">
+        <i class="bi bi-exclamation-triangle" style="font-size: 48px; color: #dc3545; margin-bottom: 15px;"></i>
+        <h4 style="color: #dc3545; margin-bottom: 10px;">Erro ao Carregar</h4>
+        <p style="color: #666;">Não foi possível carregar o perfil desta ONG.</p>
+        <button onclick="closeOngProfileModal()" style="margin-top: 15px; padding: 10px 20px; background: #dc3545; color: white; border: none; border-radius: 8px; cursor: pointer;">
+          Fechar
+        </button>
+      </div>
+    `;
+    }
+  }
+
+  function populateOngModal(ong) {
+    // Popula informações básicas
+    safeSetTextContent('ongModalNome', ong.nome || 'Nome não informado');
+    safeSetTextContent('ongModalCnpj', `CNPJ: ${formatCnpj(ong.cnpj) || 'Não informado'}`);
+    safeSetTextContent('ongTotalVagas', ong.totalVagas || '0');
+    safeSetTextContent('ongVagasAtivas', ong.vagasAtivas || '0');
+    safeSetTextContent('ongModalEmail', ong.email || 'Não informado');
+    safeSetTextContent('ongModalTelefone', formatTelefone(ong.telefone) || 'Não informado');
+
+    // Logo
+    populateOngLogo(ong.logoUrl);
+
+    // Descrição
+    const descricao = ong.descricao && ong.descricao.trim() !== '' ? ong.descricao : 'Esta ONG ainda não adicionou uma descrição.';
+    safeSetTextContent('ongModalDescricao', descricao);
+
+    // Site
+    populateOngSite(ong.site);
+
+    // Endereço
+    const endereco = formatEndereco(ong);
+    safeSetTextContent('ongModalEndereco', endereco);
+
+    // Redes sociais
+    populateOngSociais(ong);
+  }
+
+  function safeSetTextContent(elementId, content) {
+    const element = document.getElementById(elementId);
+    if (element) {
+      element.textContent = content;
+    }
+  }
+
+  function populateOngLogo(logoUrl) {
+    const logoContainer = document.getElementById('ongLogoContainer');
+    if (!logoContainer) return;
+
+    if (logoUrl && logoUrl.trim() !== '') {
+      logoContainer.innerHTML = `<img src="${logoUrl}" alt="Logo da ONG" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.style.display='none'; this.parentElement.innerHTML='<div style=\\"color: #ccc; font-size: 48px;\\"><i class=\\"bi bi-building\\"></i></div>';">`;
+    } else {
+      logoContainer.innerHTML = '<div style="color: #ccc; font-size: 48px;"><i class="bi bi-building"></i></div>';
+    }
+  }
+
+  function populateOngSite(site) {
+    const siteContainer = document.getElementById('ongModalSiteContainer');
+    const siteElement = document.getElementById('ongModalSite');
+
+    if (!siteContainer || !siteElement) return;
+
+    if (site && site.trim() !== '') {
+      siteElement.innerHTML = `<a href="${site}" target="_blank" rel="noopener noreferrer" style="color: #00A8FF; text-decoration: none;">${site}</a>`;
+      siteContainer.style.display = 'block';
+    } else {
+      siteContainer.style.display = 'none';
+    }
+  }
+
+  function populateOngSociais(ong) {
+    const sociaisContainer = document.getElementById('ongModalSociais');
+    const noSociaisElement = document.getElementById('ongModalNoSociais');
+
+    if (!sociaisContainer || !noSociaisElement) return;
+
+    let temRedesSociais = false;
+    let sociaisHtml = '';
+
+    // Facebook
+    if (ong.facebook && ong.facebook.trim() !== '') {
+      const facebookUrl = ong.facebook.startsWith('http') ? ong.facebook : `https://facebook.com/${ong.facebook}`;
+      sociaisHtml += createSocialLink(facebookUrl, 'facebook', '#4267B2');
+      temRedesSociais = true;
+    }
+
+    // Instagram
+    if (ong.instagram && ong.instagram.trim() !== '') {
+      const instagramUrl = ong.instagram.startsWith('http') ? ong.instagram : `https://instagram.com/${ong.instagram}`;
+      sociaisHtml += createSocialLink(instagramUrl, 'instagram', 'linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%)');
+      temRedesSociais = true;
+    }
+
+    // Site
+    if (ong.site && ong.site.trim() !== '') {
+      sociaisHtml += createSocialLink(ong.site, 'globe', '#28a745');
+      temRedesSociais = true;
+    }
+
+    if (temRedesSociais) {
+      sociaisContainer.innerHTML = sociaisHtml;
+      sociaisContainer.style.display = 'flex';
+      noSociaisElement.style.display = 'none';
+    } else {
+      sociaisContainer.style.display = 'none';
+      noSociaisElement.style.display = 'block';
+    }
+  }
+
+  function createSocialLink(url, icon, background) {
+    return `
+    <a href="${url}" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; justify-content: center; width: 45px; height: 45px; background: ${background}; color: white; border-radius: 10px; text-decoration: none; transition: transform 0.3s ease;" onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform='translateY(0)'">
+      <i class="bi bi-${icon}" style="font-size: 20px;"></i>
+    </a>
+  `;
+  }
+
+  function closeOngProfileModal() {
+    hideModalElement('ongProfileModal');
+  }
+
+  // === FUNÇÕES DE FORMATAÇÃO ===
+  function formatCnpj(cnpj) {
+    if (!cnpj) return null;
+    const cleaned = cnpj.replace(/\D/g, '');
+    if (cleaned.length === 14) {
+      return cleaned.replace(/(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/, '$1.$2.$3/$4-$5');
+    }
+    return cnpj;
+  }
+
+  function formatTelefone(telefone) {
+    if (!telefone) return null;
+    const cleaned = telefone.replace(/\D/g, '');
+    if (cleaned.length === 11) {
+      return cleaned.replace(/(\d{2})(\d{5})(\d{4})/, '($1) $2-$3');
+    } else if (cleaned.length === 10) {
+      return cleaned.replace(/(\d{2})(\d{4})(\d{4})/, '($1) $2-$3');
+    }
+    return telefone;
+  }
+
+  function formatEndereco(ong) {
+    const partes = [];
+
+    if (ong.logradouro) partes.push(ong.logradouro);
+    if (ong.numero) partes.push(ong.numero);
+    if (ong.complemento) partes.push(`- ${ong.complemento}`);
+    if (ong.bairro) partes.push(ong.bairro);
+    if (ong.cidade) partes.push(ong.cidade);
+    if (ong.estado) partes.push(ong.estado);
+    if (ong.cep) {
+      const cepFormatado = ong.cep.replace(/(\d{5})(\d{3})/, '$1-$2');
+      partes.push(`CEP: ${cepFormatado}`);
+    }
+
+    return partes.length > 0 ? partes.join(', ') : 'Endereço não informado';
+  }
+
+  // === SISTEMA DE FILTROS ===
   function filterVagas() {
-    const categoriaFilter = document.getElementById('categoriaFilter').value;
-    const searchFilter = document.getElementById('searchFilter').value.toLowerCase();
-    const sortFilter = document.getElementById('sortFilter').value;
+    const categoriaFilter = document.getElementById('categoriaFilter')?.value || '';
+    const searchFilter = document.getElementById('searchFilter')?.value?.toLowerCase() || '';
+    const sortFilter = document.getElementById('sortFilter')?.value || 'data';
     const cards = Array.from(document.querySelectorAll('.vaga-card'));
     let visibleCount = 0;
 
-    // Filtrar cards
     cards.forEach(card => {
-      const categoria = card.dataset.categoria;
-      const nome = card.dataset.nome.toLowerCase();
-      const ong = card.querySelector('.vaga-ong span').textContent.toLowerCase();
+      const categoria = card.dataset.categoria || '';
+      const nome = (card.dataset.nome || '').toLowerCase();
+      const ongElement = card.querySelector('.vaga-ong span');
+      const ong = ongElement ? ongElement.textContent.toLowerCase() : '';
 
-      // Verificar filtros
       const categoriaMatch = !categoriaFilter || categoria === categoriaFilter ||
               (categoriaFilter === 'semana' && isThisWeek(card.dataset.data));
       const searchMatch = !searchFilter ||
@@ -1220,57 +2864,73 @@
       }
     });
 
-    // Ordenar cards visíveis
     const visibleCards = cards.filter(card => card.style.display !== 'none');
     sortCards(visibleCards, sortFilter);
 
-    // Atualizar estado vazio
     checkEmptyState(visibleCount, categoriaFilter, searchFilter);
   }
 
-  // Função para verificar se a data é desta semana
   function isThisWeek(dateString) {
-    const date = new Date(dateString);
-    const today = new Date();
-    const weekStart = new Date(today.setDate(today.getDate() - today.getDay()));
-    const weekEnd = new Date(today.setDate(today.getDate() - today.getDay() + 6));
-    return date >= weekStart && date <= weekEnd;
+    if (!dateString) return false;
+
+    try {
+      const date = new Date(dateString);
+      const today = new Date();
+      const weekStart = new Date(today);
+      weekStart.setDate(today.getDate() - today.getDay());
+      weekStart.setHours(0, 0, 0, 0);
+
+      const weekEnd = new Date(weekStart);
+      weekEnd.setDate(weekStart.getDate() + 6);
+      weekEnd.setHours(23, 59, 59, 999);
+
+      return date >= weekStart && date <= weekEnd;
+    } catch (error) {
+      console.error('Erro ao verificar data da semana:', error);
+      return false;
+    }
   }
 
-  // Ordenar cards
   function sortCards(cards, sortBy) {
     const container = document.getElementById('vagasGrid');
+    if (!container) return;
 
     cards.sort((a, b) => {
       switch (sortBy) {
         case 'nome':
-          return a.dataset.nome.localeCompare(b.dataset.nome);
+          return (a.dataset.nome || '').localeCompare(b.dataset.nome || '');
         case 'vagas':
-          return parseInt(b.dataset.vagas) - parseInt(a.dataset.vagas);
+          return parseInt(b.dataset.vagas || 0) - parseInt(a.dataset.vagas || 0);
         case 'data':
         default:
-          return new Date(a.dataset.data) - new Date(b.dataset.data);
+          const dateA = new Date(a.dataset.data || 0);
+          const dateB = new Date(b.dataset.data || 0);
+          return dateA - dateB;
       }
     });
 
-    // Reordenar no DOM
     cards.forEach(card => container.appendChild(card));
   }
 
-  // Limpar filtros
   function clearFilters() {
-    document.getElementById('categoriaFilter').value = '';
-    document.getElementById('searchFilter').value = '';
-    document.getElementById('sortFilter').value = 'data';
+    const categoriaFilter = document.getElementById('categoriaFilter');
+    const searchFilter = document.getElementById('searchFilter');
+    const sortFilter = document.getElementById('sortFilter');
+
+    if (categoriaFilter) categoriaFilter.value = '';
+    if (searchFilter) searchFilter.value = '';
+    if (sortFilter) sortFilter.value = 'data';
+
     filterVagas();
   }
 
-  // Verificar estado vazio
   function checkEmptyState(visibleCount, categoriaFilter = '', searchFilter = '') {
     const cards = document.querySelectorAll('.vaga-card');
     const emptyState = document.getElementById('emptyState');
     const vagasGrid = document.getElementById('vagasGrid');
     const emptyMessage = document.getElementById('emptyMessage');
+
+    if (!emptyState || !vagasGrid || !emptyMessage) return;
 
     if (cards.length === 0) {
       emptyMessage.textContent = 'Não há vagas disponíveis no momento.';
@@ -1290,15 +2950,15 @@
     }
   }
 
-  // Atualizar estatísticas
+  // === FUNÇÕES DE ESTATÍSTICAS ===
   function updateStats() {
     const cards = document.querySelectorAll('.vaga-card');
     let urgentes = 0;
     let hoje = 0;
 
     cards.forEach(card => {
-      const categoria = card.dataset.categoria;
-      const vagas = parseInt(card.dataset.vagas);
+      const categoria = card.dataset.categoria || '';
+      const vagas = parseInt(card.dataset.vagas || 0);
 
       if (categoria === 'hoje') {
         hoje++;
@@ -1307,11 +2967,14 @@
       }
     });
 
-    document.getElementById('vagasUrgenteCount').textContent = urgentes;
-    document.getElementById('vagasHojeCount').textContent = hoje;
+    const urgenteElement = document.getElementById('vagasUrgenteCount');
+    const hojeElement = document.getElementById('vagasHojeCount');
+
+    if (urgenteElement) urgenteElement.textContent = urgentes;
+    if (hojeElement) hojeElement.textContent = hoje;
   }
 
-  // Mostrar toast
+  // === SISTEMA DE TOAST ===
   function showToast(message, type = 'success') {
     // Remove toast existente
     const existingToast = document.querySelector('.toast');
@@ -1326,45 +2989,108 @@
             type === 'error' ? 'x-circle' : 'exclamation-triangle';
 
     toast.innerHTML = `
-        <i class="bi bi-${icon}"></i>
-        <span>${message}</span>
-    `;
+    <i class="bi bi-${icon}"></i>
+    <span>${message}</span>
+  `;
 
     document.body.appendChild(toast);
 
-    // Auto remove após 5 segundos
+    // Remove automaticamente após 5 segundos
     setTimeout(() => {
-      toast.style.animation = 'slideOutToast 0.3s ease';
-      setTimeout(() => toast.remove(), 300);
+      if (toast.parentNode) {
+        toast.style.animation = 'slideOutToast 0.3s ease';
+        setTimeout(() => {
+          if (toast.parentNode) {
+            toast.remove();
+          }
+        }, 300);
+      }
     }, 5000);
   }
 
-  // Event listeners
-  document.addEventListener('DOMContentLoaded', function() {
-    // Configurar filtros
-    document.getElementById('categoriaFilter').addEventListener('change', filterVagas);
-    document.getElementById('searchFilter').addEventListener('input', filterVagas);
-    document.getElementById('sortFilter').addEventListener('change', filterVagas);
+  // === VERIFICAÇÕES DE ESTADO ===
+  function checkUserInscriptions() {
+    const buttons = document.querySelectorAll('.btn-inscrever');
 
-    // Atualizar estatísticas iniciais
-    updateStats();
+    buttons.forEach(button => {
+      const vagaId = button.dataset.vagaId;
+      if (!vagaId) return;
 
-    // Verificar estado vazio inicial
-    checkEmptyState();
-
-    // Verificar se o usuário já está inscrito em alguma vaga
-    checkUserInscriptions();
-
-    // Fechar modais ao clicar fora
-    window.addEventListener('click', function(event) {
-      const logoutModal = document.getElementById('logoutModal');
-
-      if (event.target === logoutModal) {
-        hideLogoutModal();
-      }
+      fetch(`/inscricao/verificar/${vagaId}`)
+              .then(response => response.json())
+              .then(data => {
+                if (data.inscrito) {
+                  updateButtonToInscrito(button);
+                }
+              })
+              .catch(error => {
+                console.error('Erro ao verificar inscrição:', error);
+              });
     });
+  }
 
-    // Adicionar animação aos cards
+  // Função para verificar uma inscrição específica (usada após resposta inesperada)
+  function checkSpecificInscription(vagaId, button) {
+    fetch(`/inscricao/verificar/${vagaId}`)
+            .then(response => response.json())
+            .then(data => {
+              if (data.inscrito) {
+                showToast('Inscrição confirmada!', 'success');
+                updateButtonToInscrito(button);
+                updateVagasCount(button);
+                updateStats();
+              } else {
+                showToast('Erro: Inscrição não foi processada corretamente', 'error');
+                resetButton(button, 'Inscrever-se');
+              }
+            })
+            .catch(error => {
+              console.error('Erro ao verificar inscrição específica:', error);
+              showToast('Erro ao verificar status da inscrição', 'error');
+              resetButton(button, 'Inscrever-se');
+            });
+  }
+
+  function checkReportButtons() {
+    const reportButtons = document.querySelectorAll('.btn-report');
+
+    reportButtons.forEach(button => {
+      const vagaId = button.dataset.vagaId;
+      if (!vagaId) return;
+
+      fetch(`/inscricao/podeReportar/${vagaId}`)
+              .then(response => response.json())
+              .then(data => {
+                if (!data.podeReportar && data.motivo === "Já reportado") {
+                  button.disabled = true;
+                  button.innerHTML = '<i class="bi bi-check-circle"></i> Reportado';
+                  button.style.background = '#6c757d';
+                  button.style.cursor = 'not-allowed';
+                }
+              })
+              .catch(error => {
+                console.error('Erro ao verificar status do report:', error);
+              });
+    });
+  }
+
+  // === FUNÇÕES AUXILIARES ===
+  function showModalElement(modalId) {
+    const modal = document.getElementById(modalId);
+    if (modal) {
+      modal.style.display = 'block';
+    }
+  }
+
+  function hideModalElement(modalId) {
+    const modal = document.getElementById(modalId);
+    if (modal) {
+      modal.style.display = 'none';
+    }
+  }
+
+  // === ANIMAÇÕES DE ENTRADA ===
+  function initCardAnimations() {
     const cards = document.querySelectorAll('.vaga-card');
     cards.forEach((card, index) => {
       card.style.opacity = '0';
@@ -1376,33 +3102,89 @@
         card.style.transform = 'translateY(0)';
       }, index * 100);
     });
-  });
+  }
 
-  // Verificar inscrições do usuário
-  function checkUserInscriptions() {
-    const buttons = document.querySelectorAll('.btn-inscrever');
+  // === INICIALIZAÇÃO ===
+  function initEventListeners() {
+    // Filtros
+    const categoriaFilter = document.getElementById('categoriaFilter');
+    const searchFilter = document.getElementById('searchFilter');
+    const sortFilter = document.getElementById('sortFilter');
 
-    buttons.forEach(button => {
-      const vagaId = button.dataset.vagaId;
+    if (categoriaFilter) categoriaFilter.addEventListener('change', filterVagas);
+    if (searchFilter) searchFilter.addEventListener('input', debounce(filterVagas, 300));
+    if (sortFilter) sortFilter.addEventListener('change', filterVagas);
 
-      fetch(`/inscricao/verificar/${vagaId}`)
-              .then(response => response.json())
-              .then(data => {
-                if (data.inscrito) {
-                  button.innerHTML = '<i class="bi bi-check-circle"></i> Já Inscrito';
-                  button.className = 'btn-inscrever btn-ja-inscrito';
-                  button.disabled = true;
-                }
-              })
-              .catch(error => {
-                console.error('Erro ao verificar inscrição:', error);
-              });
+    // Modal click handlers
+    window.addEventListener('click', function(event) {
+      const logoutModal = document.getElementById('logoutModal');
+      const reportModal = document.getElementById('reportModal');
+      const ongProfileModal = document.getElementById('ongProfileModal');
+
+      if (event.target === logoutModal) {
+        hideLogoutModal();
+      } else if (event.target === reportModal) {
+        closeReportModal();
+      } else if (event.target === ongProfileModal) {
+        closeOngProfileModal();
+      }
+    });
+
+    // Tecla ESC para fechar modais
+    document.addEventListener('keydown', function(event) {
+      if (event.key === 'Escape') {
+        hideLogoutModal();
+        closeReportModal();
+        closeOngProfileModal();
+      }
     });
   }
 
-  // Adicionar estilos de animação
-  const style = document.createElement('style');
-  style.textContent = `
+  // Função debounce para otimizar a busca
+  function debounce(func, wait) {
+    let timeout;
+    return function executedFunction(...args) {
+      const later = () => {
+        clearTimeout(timeout);
+        func(...args);
+      };
+      clearTimeout(timeout);
+      timeout = setTimeout(later, wait);
+    };
+  }
+
+  // === INICIALIZAÇÃO PRINCIPAL ===
+  document.addEventListener('DOMContentLoaded', function() {
+    try {
+      // Inicializa componentes
+      initEventListeners();
+      initStarRating();
+      initFileUpload();
+      initReportForm();
+
+      // Atualiza contadores e estados
+      updateCharCounter();
+      updateStats();
+      checkEmptyState();
+
+      // Verifica estados do usuário
+      checkUserInscriptions();
+      checkReportButtons();
+
+      // Inicia animações
+      initCardAnimations();
+
+      console.log('Sistema de vagas inicializado com sucesso');
+    } catch (error) {
+      console.error('Erro na inicialização:', error);
+      showToast('Erro ao inicializar o sistema. Recarregue a página.', 'error');
+    }
+  });
+
+  // === ESTILOS DINÂMICOS ===
+  function addDynamicStyles() {
+    const style = document.createElement('style');
+    style.textContent = `
     @keyframes slideOutToast {
         from {
             transform: translateX(0);
@@ -1414,16 +3196,44 @@
         }
     }
 
+    /* Estilos dos botões de inscrição */
+    .btn-inscrever {
+      transition: all 0.3s ease;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-weight: 500;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
     .btn-inscrever.btn-ja-inscrito {
         background: linear-gradient(135deg, #ffc107 0%, #fd7e14 100%) !important;
         color: #212529 !important;
+        cursor: default !important;
+        border: 2px solid #ffc107 !important;
+    }
+
+    .btn-inscrever.btn-ja-inscrito:hover {
+        background: linear-gradient(135deg, #ffc107 0%, #fd7e14 100%) !important;
+        transform: none !important;
     }
 
     .btn-inscrever.btn-esgotada {
         background: #6c757d !important;
         color: white !important;
+        cursor: not-allowed !important;
+        border: 2px solid #6c757d !important;
     }
 
+    .btn-inscrever:disabled {
+        opacity: 0.7;
+    }
+
+    /* Estilos das vagas por categoria */
     .vaga-card[data-categoria="urgente"] {
         border-left: 4px solid #ffc107;
     }
@@ -1444,8 +3254,235 @@
             box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
         }
     }
-`;
-  document.head.appendChild(style);
+
+    /* Spinner de carregamento */
+    .spinner-border {
+        display: inline-block;
+        width: 1rem;
+        height: 1rem;
+        vertical-align: text-bottom;
+        border: .15em solid currentColor;
+        border-right-color: transparent;
+        border-radius: 50%;
+        animation: spinner-border .75s linear infinite;
+    }
+
+    .spinner-border-sm {
+        width: 0.8rem;
+        height: 0.8rem;
+        border-width: .1em;
+    }
+
+    @keyframes spinner-border {
+        to { transform: rotate(360deg); }
+    }
+
+    .mr-2 {
+        margin-right: 0.5rem;
+    }
+
+    /* Estados de validação */
+    .invalid {
+        border-color: #dc3545 !important;
+        box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25) !important;
+    }
+
+    .valid {
+        border-color: #28a745 !important;
+        box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25) !important;
+    }
+
+    /* Sistema de Avaliação por Estrelas */
+    .star-rating {
+        display: flex;
+        gap: 5px;
+        justify-content: center;
+        margin: 15px 0;
+    }
+
+    .star {
+        cursor: pointer;
+        font-size: 24px;
+        color: #ddd;
+        transition: all 0.2s ease;
+        user-select: none;
+        padding: 5px;
+        border-radius: 50%;
+    }
+
+    .star:hover {
+        transform: scale(1.1);
+        background: rgba(255, 193, 7, 0.1);
+    }
+
+    .star.active {
+        color: #ffc107;
+    }
+
+    .star.hover {
+        color: #ffb300;
+    }
+
+    /* Área de Upload */
+    #uploadArea {
+        cursor: pointer;
+        transition: all 0.3s ease;
+        border: 2px dashed #ccc;
+        border-radius: 8px;
+        padding: 20px;
+        text-align: center;
+        background: #fafafa;
+    }
+
+    #uploadArea:hover {
+        border-color: #00A8FF;
+        background: #f0f8ff;
+        transform: translateY(-2px);
+    }
+
+    #uploadArea.dragover {
+        border-color: #00A8FF;
+        background: #e3f2fd;
+        transform: scale(1.02);
+        box-shadow: 0 5px 15px rgba(0, 168, 255, 0.3);
+    }
+
+    /* Preview de evidência */
+    #evidencePreview {
+        border: 2px solid #28a745;
+        background: #f8fff8;
+        border-radius: 8px;
+        padding: 15px;
+        margin-top: 10px;
+    }
+
+    /* Toast notifications */
+    .toast {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        padding: 15px 20px;
+        border-radius: 8px;
+        color: white;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        z-index: 9999;
+        min-width: 300px;
+        animation: slideInToast 0.3s ease;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .toast.success {
+        background: linear-gradient(135deg, #28a745, #20c997);
+    }
+
+    .toast.error {
+        background: linear-gradient(135deg, #dc3545, #e74c3c);
+    }
+
+    .toast.warning {
+        background: linear-gradient(135deg, #ffc107, #fd7e14);
+        color: #212529;
+    }
+
+    @keyframes slideInToast {
+        from {
+            transform: translateX(100%);
+            opacity: 0;
+        }
+        to {
+            transform: translateX(0);
+            opacity: 1;
+        }
+    }
+
+    /* Modal improvements */
+    .modal {
+        backdrop-filter: blur(5px);
+    }
+
+    .modal-content {
+        border: none;
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Responsive improvements */
+    @media (max-width: 768px) {
+        .toast {
+            right: 10px;
+            left: 10px;
+            min-width: auto;
+        }
+
+        .star {
+            font-size: 20px;
+            padding: 3px;
+        }
+
+        #uploadArea {
+            padding: 15px;
+        }
+    }
+
+    /* Loading states */
+    .loading {
+        opacity: 0.6;
+        pointer-events: none;
+    }
+
+    .btn-loading {
+        position: relative;
+    }
+
+    .btn-loading::after {
+        content: '';
+        position: absolute;
+        width: 16px;
+        height: 16px;
+        margin: auto;
+        border: 2px solid transparent;
+        border-top-color: currentColor;
+        border-radius: 50%;
+        animation: spinner-border 0.75s linear infinite;
+    }
+
+    /* Accessibility improvements */
+    .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+    }
+
+    /* Focus states */
+    button:focus,
+    input:focus,
+    select:focus,
+    textarea:focus {
+        outline: 2px solid #00A8FF;
+        outline-offset: 2px;
+    }
+  `;
+
+    if (!document.head.querySelector('#dynamic-styles')) {
+      style.id = 'dynamic-styles';
+      document.head.appendChild(style);
+    }
+  }
+
+  // Adiciona os estilos quando o DOM carrega
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', addDynamicStyles);
+  } else {
+    addDynamicStyles();
+  }
 </script>
 </body>
 </html>

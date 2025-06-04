@@ -49,7 +49,7 @@ public class VagasController {
             return null;
         }
         String userEmail = (String) session.getAttribute("userEmail");
-        return ongRepository.findByEmail(userEmail);
+        return ongRepository.findOngByEmail(userEmail);
     }
 
     // Método utilitário para verificar se uma string é válida
@@ -557,7 +557,7 @@ public class VagasController {
             if (isValidString(email)) {
                 // Verificar se o novo email já existe no banco
                 String trimmedEmail = email.trim().toLowerCase();
-                Ong existingOng = ongRepository.findByEmail(trimmedEmail);
+                Ong existingOng = ongRepository.findOngByEmail(trimmedEmail);
 
                 if (existingOng != null && !existingOng.getId().equals(ong.getId())) {
                     return ResponseEntity.badRequest().body("Este email já está cadastrado para outra ONG.");
@@ -744,7 +744,7 @@ public class VagasController {
 
             if (isValidString(email)) {
                 String trimmedEmail = email.trim().toLowerCase();
-                Ong existingOng = ongRepository.findByEmail(trimmedEmail);
+                Ong existingOng = ongRepository.findOngByEmail(trimmedEmail);
 
                 if (existingOng != null && !existingOng.getId().equals(ong.getId())) {
                     return ResponseEntity.badRequest().body("Este email já está cadastrado para outra ONG.");

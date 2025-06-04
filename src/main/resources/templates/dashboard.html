@@ -1,0 +1,1436 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Admin - Blue Wave</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="/css/admin-dashboard.css">
+</head>
+<style>
+    /* Dashboard Admin - CSS Simples */
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Arial, sans-serif;
+    }
+
+    body {
+        background: #f8fafc;
+        color: #1e293b;
+        line-height: 1.6;
+    }
+
+    /* Header */
+    .header {
+        background: #1e40af;
+        color: white;
+        padding: 1rem 2rem;
+        box-shadow: 0 2px 10px rgba(30, 64, 175, 0.1);
+    }
+
+    .header-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .header h1 {
+        font-size: 1.8rem;
+        font-weight: 700;
+    }
+
+    .user-info {
+        font-size: 0.9rem;
+        opacity: 0.9;
+    }
+
+    .logout-btn {
+        margin-left: 1rem;
+    }
+
+    /* Container */
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 2rem;
+    }
+
+    /* Alert Messages */
+    .alert {
+        padding: 1rem;
+        border-radius: 6px;
+        margin-bottom: 1rem;
+        border-left: 4px solid;
+    }
+
+    .alert-danger {
+        background: rgba(220, 38, 38, 0.1);
+        border-color: #dc2626;
+        color: #b91c1c;
+    }
+
+    .alert-info {
+        background: rgba(30, 64, 175, 0.1);
+        border-color: #1e40af;
+        color: #1e40af;
+    }
+
+    /* Stats Grid */
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1.5rem;
+        margin-bottom: 2rem;
+    }
+
+    .stat-card {
+        background: white;
+        border-radius: 12px;
+        padding: 1.5rem;
+        border: 1px solid #e2e8f0;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .stat-card.banned {
+        border-color: #dc2626;
+    }
+
+    .stat-card .icon {
+        width: 48px;
+        height: 48px;
+        background: #dbeafe;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 24px;
+        color: #1e40af;
+        margin-bottom: 1rem;
+    }
+
+    .stat-card.banned .icon {
+        background: rgba(220, 38, 38, 0.1);
+        color: #dc2626;
+    }
+
+    .stat-card .value {
+        font-size: 2rem;
+        font-weight: 700;
+        color: #1e293b;
+        margin-bottom: 0.5rem;
+    }
+
+    .stat-card .label {
+        color: #64748b;
+        font-size: 0.9rem;
+    }
+
+    /* Quick Actions */
+    .quick-actions {
+        background: white;
+        border-radius: 12px;
+        padding: 2rem;
+        border: 1px solid #e2e8f0;
+        margin-bottom: 2rem;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .quick-actions h2 {
+        margin-bottom: 1rem;
+        color: #1e293b;
+    }
+
+    .actions-grid {
+        display: flex;
+        gap: 1rem;
+        flex-wrap: wrap;
+    }
+
+    /* Reports Section */
+    .reports-section {
+        background: white;
+        border-radius: 12px;
+        padding: 2rem;
+        border: 1px solid #e2e8f0;
+        margin-bottom: 2rem;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .section-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1.5rem;
+        padding-bottom: 1rem;
+        border-bottom: 1px solid #e2e8f0;
+    }
+
+    .section-title {
+        font-size: 1.3rem;
+        font-weight: 600;
+        color: #1e293b;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .section-title i {
+        color: #1e40af;
+    }
+
+    /* Report Item */
+    .report-item {
+        border: 1px solid #e2e8f0;
+        border-radius: 8px;
+        padding: 1rem;
+        margin-bottom: 1rem;
+    }
+
+    .report-item.urgent {
+        border-left: 4px solid #dc2626;
+        background: linear-gradient(90deg, rgba(220, 38, 38, 0.02), transparent);
+    }
+
+    .report-item.normal {
+        border-left: 4px solid #f59e0b;
+        background: linear-gradient(90deg, rgba(245, 158, 11, 0.02), transparent);
+    }
+
+    .report-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 0.5rem;
+    }
+
+    .report-title {
+        font-weight: 600;
+        color: #1e293b;
+    }
+
+    .report-status {
+        padding: 0.25rem 0.75rem;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        font-weight: 600;
+        text-transform: uppercase;
+    }
+
+    .report-status.pending {
+        background: rgba(245, 158, 11, 0.1);
+        color: #f59e0b;
+    }
+
+    .report-status.resolved {
+        background: rgba(22, 163, 74, 0.1);
+        color: #16a34a;
+    }
+
+    .report-description {
+        color: #64748b;
+        margin-bottom: 1rem;
+        font-size: 0.9rem;
+    }
+
+    .report-meta {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1rem;
+        font-size: 0.8rem;
+        color: #64748b;
+    }
+
+    .report-actions {
+        display: flex;
+        gap: 0.5rem;
+        flex-wrap: wrap;
+    }
+
+    /* Banned User Item */
+    .banned-item {
+        border: 1px solid #e2e8f0;
+        border-radius: 8px;
+        padding: 1rem;
+        margin-bottom: 1rem;
+        border-left: 4px solid #dc2626;
+        background: linear-gradient(90deg, rgba(220, 38, 38, 0.02), transparent);
+    }
+
+    .banned-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 0.5rem;
+    }
+
+    .banned-user {
+        font-weight: 600;
+        color: #1e293b;
+    }
+
+    .banned-type {
+        padding: 0.25rem 0.75rem;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        background: rgba(220, 38, 38, 0.1);
+        color: #dc2626;
+    }
+
+    .banned-reason {
+        color: #64748b;
+        margin-bottom: 1rem;
+        font-size: 0.9rem;
+    }
+
+    .banned-meta {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1rem;
+        font-size: 0.8rem;
+        color: #64748b;
+    }
+
+    .banned-actions {
+        display: flex;
+        gap: 0.5rem;
+        flex-wrap: wrap;
+    }
+
+    /* Buttons */
+    .btn {
+        padding: 0.5rem 1rem;
+        border: none;
+        border-radius: 6px;
+        font-size: 0.9rem;
+        font-weight: 600;
+        cursor: pointer;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        transition: background-color 0.2s;
+    }
+
+    .btn-primary {
+        background: #1e40af;
+        color: white;
+    }
+
+    .btn-primary:hover {
+        background: #1e3a8a;
+    }
+
+    .btn-success {
+        background: #16a34a;
+        color: white;
+    }
+
+    .btn-success:hover {
+        background: #15803d;
+    }
+
+    .btn-warning {
+        background: #f59e0b;
+        color: white;
+    }
+
+    .btn-warning:hover {
+        background: #d97706;
+    }
+
+    .btn-danger {
+        background: #dc2626;
+        color: white;
+    }
+
+    .btn-danger:hover {
+        background: #b91c1c;
+    }
+
+    .btn-sm {
+        padding: 0.375rem 0.75rem;
+        font-size: 0.8rem;
+    }
+
+    /* Modal */
+    .modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 1000;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .modal.active {
+        display: flex;
+    }
+
+    .modal-content {
+        background: white;
+        border-radius: 12px;
+        padding: 2rem;
+        max-width: 500px;
+        width: 90%;
+        max-height: 90vh;
+        overflow-y: auto;
+    }
+
+    .modal-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1.5rem;
+        padding-bottom: 1rem;
+        border-bottom: 1px solid #e2e8f0;
+    }
+
+    .modal-title {
+        font-size: 1.2rem;
+        font-weight: 600;
+    }
+
+    .close-btn {
+        background: none;
+        border: none;
+        font-size: 1.5rem;
+        cursor: pointer;
+        color: #64748b;
+        padding: 0.25rem;
+    }
+
+    .close-btn:hover {
+        color: #1e293b;
+    }
+
+    .modal-footer {
+        display: flex;
+        gap: 0.5rem;
+        justify-content: flex-end;
+        margin-top: 1.5rem;
+    }
+
+    /* Form Elements */
+    .form-group {
+        margin-bottom: 1rem;
+    }
+
+    .form-label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: 600;
+        color: #1e293b;
+    }
+
+    .form-control {
+        width: 100%;
+        padding: 0.75rem;
+        border: 1px solid #e2e8f0;
+        border-radius: 6px;
+        font-size: 0.9rem;
+    }
+
+    .form-control:focus {
+        outline: none;
+        border-color: #1e40af;
+        box-shadow: 0 0 0 3px rgba(30, 64, 175, 0.1);
+    }
+
+    .form-control.textarea {
+        resize: vertical;
+        min-height: 100px;
+    }
+
+    /* Loading States */
+    .loading {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 2rem;
+        color: #64748b;
+    }
+
+    .spinner {
+        width: 24px;
+        height: 24px;
+        border: 2px solid #e2e8f0;
+        border-top: 2px solid #1e40af;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+        margin-right: 0.5rem;
+    }
+
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+
+    /* Empty State */
+    .empty-state {
+        text-align: center;
+        padding: 2rem;
+        color: #64748b;
+    }
+
+    .empty-state i {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+        opacity: 0.5;
+    }
+
+    /* Notifications */
+    .notification {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        padding: 1rem;
+        border-radius: 6px;
+        color: white;
+        font-weight: 600;
+        z-index: 1001;
+        transform: translateX(400px);
+        transition: transform 0.3s ease;
+    }
+
+    .notification.show {
+        transform: translateX(0);
+    }
+
+    .notification.success {
+        background: #16a34a;
+    }
+
+    .notification.error {
+        background: #dc2626;
+    }
+
+    .notification.info {
+        background: #1e40af;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+        .container {
+            padding: 1rem;
+        }
+
+        .stats-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .report-actions,
+        .banned-actions {
+            flex-direction: column;
+        }
+
+        .modal-content {
+            margin: 1rem;
+            padding: 1.5rem;
+        }
+
+        .header-content {
+            flex-direction: column;
+            gap: 1rem;
+            text-align: center;
+        }
+
+        .section-header {
+            flex-direction: column;
+            gap: 1rem;
+            align-items: flex-start;
+        }
+
+        .report-meta,
+        .banned-meta {
+            flex-direction: column;
+            gap: 0.5rem;
+            align-items: flex-start;
+        }
+
+        .actions-grid {
+            flex-direction: column;
+        }
+    }
+
+</style>
+<body>
+<!-- Header -->
+<header class="header">
+    <div class="header-content">
+        <div>
+            <h1><i class="bi bi-water"></i> Blue Wave Admin</h1>
+            <div class="user-info">Dashboard Administrativo</div>
+        </div>
+        <div>
+            <span th:text="${admin != null ? 'Bem-vindo, ' + admin.nome : 'Bem-vindo, Admin'}">Bem-vindo, Admin</span>
+            <a href="/admin/logout" class="btn btn-primary btn-sm logout-btn">
+                <i class="bi bi-box-arrow-right"></i> Sair
+            </a>
+        </div>
+    </div>
+</header>
+
+<!-- Main Container -->
+<div class="container">
+    <!-- Error Message -->
+    <div th:if="${erro}" class="alert alert-danger">
+        <strong>Erro:</strong> <span th:text="${erro}"></span>
+    </div>
+
+    <!-- Success Message -->
+    <div th:if="${sucesso}" class="alert alert-info">
+        <strong>Sucesso:</strong> <span th:text="${sucesso}"></span>
+    </div>
+
+    <!-- Statistics Cards -->
+    <div class="stats-grid">
+        <div class="stat-card">
+            <div class="icon">
+                <i class="bi bi-building"></i>
+            </div>
+            <div class="value" th:text="${stats != null ? stats.totalOngs : 0}">0</div>
+            <div class="label">ONGs Cadastradas</div>
+        </div>
+
+        <div class="stat-card">
+            <div class="icon">
+                <i class="bi bi-people"></i>
+            </div>
+            <div class="value" th:text="${stats != null ? stats.totalVoluntarios : 0}">0</div>
+            <div class="label">Voluntários Cadastrados</div>
+        </div>
+
+        <div class="stat-card">
+            <div class="icon">
+                <i class="bi bi-briefcase"></i>
+            </div>
+            <div class="value" th:text="${stats != null ? stats.vagasAtivas : 0}">0</div>
+            <div class="label">Vagas Ativas</div>
+        </div>
+
+        <div class="stat-card">
+            <div class="icon">
+                <i class="bi bi-flag"></i>
+            </div>
+            <div class="value" th:text="${stats != null ? stats.totalReportsPendentes : 0}">0</div>
+            <div class="label">Denúncias Pendentes</div>
+        </div>
+
+        <div class="stat-card banned">
+            <div class="icon">
+                <i class="bi bi-ban"></i>
+            </div>
+            <div class="value" th:text="${stats != null ? stats.usuariosBanidos : 0}">0</div>
+            <div class="label">Usuários Banidos</div>
+        </div>
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="quick-actions">
+        <h2>Ações Rápidas</h2>
+        <div class="actions-grid">
+            <button class="btn btn-primary" onclick="verificarBanimentosExpirados()">
+                <i class="bi bi-clock-history"></i> Verificar Banimentos Expirados
+            </button>
+            <button class="btn btn-primary" onclick="showModal('userManagementModal')">
+                <i class="bi bi-person-gear"></i> Gerenciar Usuários
+            </button>
+        </div>
+    </div>
+
+    <!-- Reports Section -->
+    <div class="reports-section">
+        <div class="section-header">
+            <h2 class="section-title">
+                <i class="bi bi-flag"></i>
+                Denúncias de Vagas
+            </h2>
+            <button class="btn btn-primary btn-sm" onclick="refreshReports()">
+                <i class="bi bi-arrow-clockwise"></i> Atualizar
+            </button>
+        </div>
+
+        <div id="reportsList">
+            <div class="loading">
+                <div class="spinner"></div>
+                Carregando denúncias...
+            </div>
+        </div>
+    </div>
+
+    <!-- User Reports Section -->
+    <div class="reports-section">
+        <div class="section-header">
+            <h2 class="section-title">
+                <i class="bi bi-person-exclamation"></i>
+                Denúncias de Voluntários
+            </h2>
+            <button class="btn btn-primary btn-sm" onclick="refreshUserReports()">
+                <i class="bi bi-arrow-clockwise"></i> Atualizar
+            </button>
+        </div>
+
+        <div id="userReportsList">
+            <div class="loading">
+                <div class="spinner"></div>
+                Carregando denúncias de usuários...
+            </div>
+        </div>
+    </div>
+
+    <!-- Banned Users Section -->
+    <div class="reports-section">
+        <div class="section-header">
+            <h2 class="section-title">
+                <i class="bi bi-ban"></i>
+                Usuários Banidos
+            </h2>
+            <button class="btn btn-primary btn-sm" onclick="refreshBannedUsers()">
+                <i class="bi bi-arrow-clockwise"></i> Atualizar
+            </button>
+        </div>
+
+        <div id="bannedUsersList">
+            <div class="loading">
+                <div class="spinner"></div>
+                Carregando usuários banidos...
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Ban Modal -->
+<div id="banModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3 class="modal-title">Banir Usuário</h3>
+            <button class="close-btn" onclick="closeModal('banModal')">
+                <i class="bi bi-x"></i>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div class="alert alert-danger">
+                <strong>⚠️ Atenção:</strong> Esta ação irá banir o usuário da plataforma.
+            </div>
+            <div class="form-group">
+                <label class="form-label">Tipo de Banimento</label>
+                <select class="form-control" id="banType">
+                    <option value="temporary">Temporário - 7 dias</option>
+                    <option value="permanent">Permanente</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Motivo do Banimento</label>
+                <textarea class="form-control textarea" id="banReason" placeholder="Descreva o motivo do banimento..."></textarea>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" onclick="closeModal('banModal')">Cancelar</button>
+            <button class="btn btn-danger" onclick="confirmBan()">
+                <i class="bi bi-ban"></i> Confirmar Banimento
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Resolve Modal -->
+<div id="resolveModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3 class="modal-title">Resolver Denúncia</h3>
+            <button class="close-btn" onclick="closeModal('resolveModal')">
+                <i class="bi bi-x"></i>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div class="form-group">
+                <label class="form-label">Comentário da Resolução</label>
+                <textarea class="form-control textarea" id="resolveComment" placeholder="Explique como foi resolvida a denúncia..."></textarea>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" onclick="closeModal('resolveModal')">Cancelar</button>
+            <button class="btn btn-success" onclick="confirmResolve()">
+                <i class="bi bi-check"></i> Resolver Denúncia
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Unban Modal -->
+<div id="unbanModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3 class="modal-title">Desbanir Usuário</h3>
+            <button class="close-btn" onclick="closeModal('unbanModal')">
+                <i class="bi bi-x"></i>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div class="alert alert-info">
+                <strong>ℹ️ Informação:</strong> Esta ação irá reativar o usuário na plataforma.
+            </div>
+            <div class="form-group">
+                <label class="form-label">Motivo do Desbanimento</label>
+                <textarea class="form-control textarea" id="unbanReason" placeholder="Explique o motivo do desbanimento..."></textarea>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" onclick="closeModal('unbanModal')">Cancelar</button>
+            <button class="btn btn-success" onclick="confirmUnban()">
+                <i class="bi bi-check-circle"></i> Confirmar Desbanimento
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- User Management Modal -->
+<div id="userManagementModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3 class="modal-title">Gerenciar Usuários</h3>
+            <button class="close-btn" onclick="closeModal('userManagementModal')">
+                <i class="bi bi-x"></i>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div class="form-group">
+                <label class="form-label">Buscar por ID do Usuário</label>
+                <input type="number" class="form-control" id="userSearchId" placeholder="Digite o ID do usuário...">
+            </div>
+            <div class="form-group">
+                <label class="form-label">Tipo de Usuário</label>
+                <select class="form-control" id="userSearchType">
+                    <option value="ong">ONG</option>
+                    <option value="voluntario">Voluntário</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Ação</label>
+                <select class="form-control" id="userAction">
+                    <option value="warn">Enviar Advertência</option>
+                    <option value="ban">Banir Usuário</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Motivo/Mensagem</label>
+                <textarea class="form-control textarea" id="userActionReason" placeholder="Descreva o motivo da ação..."></textarea>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" onclick="closeModal('userManagementModal')">Cancelar</button>
+            <button class="btn btn-warning" onclick="executeUserAction()">
+                <i class="bi bi-gear"></i> Executar Ação
+            </button>
+        </div>
+    </div>
+</div>
+
+
+</body>
+
+<script>
+    // Dashboard Admin - JavaScript
+
+    // Global variables
+    let currentReportId = null;
+    let currentReportType = null;
+    let currentUserId = null;
+    let currentUserType = null;
+
+    // Initialize dashboard
+    document.addEventListener('DOMContentLoaded', function() {
+        console.log('🌊 Blue Wave Dashboard carregado');
+        loadDashboardData();
+
+        // Auto refresh every 30 seconds
+        setInterval(loadDashboardData, 30000);
+    });
+
+    // ===== MAIN LOADING FUNCTIONS =====
+
+    async function loadDashboardData() {
+        try {
+            await Promise.all([
+                loadStatistics(),
+                loadReports(),
+                loadUserReports(),
+                loadBannedUsers()
+            ]);
+        } catch (error) {
+            console.error('Erro ao carregar dados:', error);
+            showNotification('Erro ao carregar dados do dashboard', 'error');
+        }
+    }
+
+    async function loadStatistics() {
+        try {
+            const response = await fetch('/admin/api/estatisticas');
+            if (response.ok) {
+                const stats = await response.json();
+                updateStatistics(stats);
+            } else {
+                console.warn('Erro ao carregar estatísticas');
+            }
+        } catch (error) {
+            console.error('Erro ao carregar estatísticas:', error);
+        }
+    }
+
+    function updateStatistics(stats) {
+        const elements = {
+            totalOngs: document.querySelector('.stats-grid .stat-card:nth-child(1) .value'),
+            totalVoluntarios: document.querySelector('.stats-grid .stat-card:nth-child(2) .value'),
+            vagasAtivas: document.querySelector('.stats-grid .stat-card:nth-child(3) .value'),
+            totalReports: document.querySelector('.stats-grid .stat-card:nth-child(4) .value'),
+            usuariosBanidos: document.querySelector('.stats-grid .stat-card:nth-child(5) .value')
+        };
+
+        if (elements.totalOngs) elements.totalOngs.textContent = stats.totalOngs || 0;
+        if (elements.totalVoluntarios) elements.totalVoluntarios.textContent = stats.totalVoluntarios || 0;
+        if (elements.vagasAtivas) elements.vagasAtivas.textContent = stats.vagasAtivas || 0;
+        if (elements.totalReports) elements.totalReports.textContent = stats.totalReportsPendentes || 0;
+        if (elements.usuariosBanidos) elements.usuariosBanidos.textContent = stats.usuariosBanidos || 0;
+    }
+
+    // ===== REPORTS MANAGEMENT =====
+
+    async function loadReports() {
+        try {
+            const response = await fetch('/admin/api/reports?status=PENDENTE');
+            const reportsList = document.getElementById('reportsList');
+
+            if (response.ok) {
+                const reports = await response.json();
+                renderReports(reports, reportsList);
+            } else {
+                throw new Error('Erro ao carregar denúncias');
+            }
+        } catch (error) {
+            console.error('Erro ao carregar denúncias:', error);
+            document.getElementById('reportsList').innerHTML = `
+            <div class="empty-state">
+                <i class="bi bi-exclamation-circle"></i>
+                <div>Erro ao carregar denúncias. Tente novamente.</div>
+            </div>
+        `;
+        }
+    }
+
+    function renderReports(reports, container) {
+        if (reports.length === 0) {
+            container.innerHTML = `
+            <div class="empty-state">
+                <i class="bi bi-check-circle"></i>
+                <div>Nenhuma denúncia pendente</div>
+            </div>
+        `;
+            return;
+        }
+
+        container.innerHTML = reports.map(report => `
+        <div class="report-item normal">
+            <div class="report-header">
+                <div class="report-title">${escapeHtml(report.assunto || 'Denúncia')}</div>
+                <div class="report-status pending">Pendente</div>
+            </div>
+            <div class="report-description">
+                ${escapeHtml(report.motivo || report.descricao || 'Sem descrição')}
+            </div>
+            <div class="report-meta">
+                <span><i class="bi bi-person"></i> Por: ${escapeHtml(report.reportadoPor || 'Usuário')}</span>
+                <span><i class="bi bi-building"></i> ONG: ${escapeHtml(report.ong || 'N/A')}</span>
+            </div>
+            <div class="report-actions">
+                <button class="btn btn-success btn-sm" onclick="resolveReport(${report.id}, 'job')">
+                    <i class="bi bi-check"></i> Resolver
+                </button>
+                <button class="btn btn-warning btn-sm" onclick="warnFromReport(${report.id}, 'job')">
+                    <i class="bi bi-exclamation-triangle"></i> Advertir
+                </button>
+                <button class="btn btn-danger btn-sm" onclick="banFromReport(${report.id}, 'job')">
+                    <i class="bi bi-ban"></i> Banir ONG
+                </button>
+            </div>
+        </div>
+    `).join('');
+    }
+
+    async function loadUserReports() {
+        try {
+            const response = await fetch('/admin/api/reports-voluntarios?status=PENDENTE');
+            const userReportsList = document.getElementById('userReportsList');
+
+            if (response.ok) {
+                const reports = await response.json();
+                renderUserReports(reports, userReportsList);
+            } else {
+                userReportsList.innerHTML = `
+                <div class="empty-state">
+                    <i class="bi bi-info-circle"></i>
+                    <div>Sistema de denúncias de usuários em desenvolvimento</div>
+                </div>
+            `;
+            }
+        } catch (error) {
+            console.error('Erro ao carregar denúncias de usuário:', error);
+            document.getElementById('userReportsList').innerHTML = `
+            <div class="empty-state">
+                <i class="bi bi-info-circle"></i>
+                <div>Sistema de denúncias de usuários em desenvolvimento</div>
+            </div>
+        `;
+        }
+    }
+
+    function renderUserReports(reports, container) {
+        if (reports.length === 0) {
+            container.innerHTML = `
+            <div class="empty-state">
+                <i class="bi bi-check-circle"></i>
+                <div>Nenhuma denúncia de usuário pendente</div>
+            </div>
+        `;
+            return;
+        }
+
+        container.innerHTML = reports.map(report => `
+        <div class="report-item normal">
+            <div class="report-header">
+                <div class="report-title">${escapeHtml(report.assunto || 'Denúncia de Usuário')}</div>
+                <div class="report-status pending">Pendente</div>
+            </div>
+            <div class="report-description">
+                ${escapeHtml(report.motivo || report.descricao || 'Sem descrição')}
+            </div>
+            <div class="report-meta">
+                <span><i class="bi bi-person"></i> Usuário: ${escapeHtml(report.voluntario || 'N/A')}</span>
+                <span><i class="bi bi-building"></i> Reportado por: ${escapeHtml(report.ong || 'N/A')}</span>
+            </div>
+            <div class="report-actions">
+                <button class="btn btn-success btn-sm" onclick="resolveReport(${report.id}, 'user')">
+                    <i class="bi bi-check"></i> Resolver
+                </button>
+                <button class="btn btn-warning btn-sm" onclick="warnFromReport(${report.id}, 'user')">
+                    <i class="bi bi-exclamation-triangle"></i> Advertir
+                </button>
+                <button class="btn btn-danger btn-sm" onclick="banFromReport(${report.id}, 'user')">
+                    <i class="bi bi-ban"></i> Banir Usuário
+                </button>
+            </div>
+        </div>
+    `).join('');
+    }
+
+    // ===== BANNED USERS MANAGEMENT =====
+
+    async function loadBannedUsers() {
+        try {
+            const response = await fetch('/admin/api/usuarios-banidos');
+            const bannedUsersList = document.getElementById('bannedUsersList');
+
+            if (response.ok) {
+                const data = await response.json();
+                renderBannedUsers(data.usuarios, bannedUsersList);
+            } else {
+                throw new Error('Erro ao carregar usuários banidos');
+            }
+        } catch (error) {
+            console.error('Erro ao carregar usuários banidos:', error);
+            document.getElementById('bannedUsersList').innerHTML = `
+            <div class="empty-state">
+                <i class="bi bi-exclamation-circle"></i>
+                <div>Erro ao carregar usuários banidos. Tente novamente.</div>
+            </div>
+        `;
+        }
+    }
+
+    function renderBannedUsers(users, container) {
+        if (users.length === 0) {
+            container.innerHTML = `
+            <div class="empty-state">
+                <i class="bi bi-check-circle"></i>
+                <div>Nenhum usuário banido</div>
+            </div>
+        `;
+            return;
+        }
+
+        container.innerHTML = users.map(user => `
+        <div class="banned-item">
+            <div class="banned-header">
+                <div class="banned-user">${escapeHtml(user.nome)} (${user.tipo})</div>
+                <div class="banned-type">${user.tipoBanimento}</div>
+            </div>
+            <div class="banned-reason">
+                <strong>Motivo:</strong> ${escapeHtml(user.motivoBanimento || 'Não informado')}
+            </div>
+            <div class="banned-meta">
+                <span><i class="bi bi-calendar"></i> Banido em: ${formatDate(user.dataBanimento)}</span>
+                <span><i class="bi bi-person-gear"></i> Por: ${escapeHtml(user.adminResponsavel || 'Sistema')}</span>
+                ${user.dataFimBanimento ? `<span><i class="bi bi-clock"></i> Expira em: ${formatDate(user.dataFimBanimento)}</span>` : ''}
+            </div>
+            <div class="banned-actions">
+                ${user.banidoAtualmente ? `
+                    <button class="btn btn-success btn-sm" onclick="unbanUser(${user.id}, '${user.tipo.toLowerCase()}')">
+                        <i class="bi bi-check-circle"></i> Desbanir
+                    </button>
+                ` : `
+                    <span class="btn btn-primary btn-sm" style="opacity: 0.6;">
+                        <i class="bi bi-info-circle"></i> Banimento Expirado
+                    </span>
+                `}
+            </div>
+        </div>
+    `).join('');
+    }
+
+    // ===== REPORT ACTIONS =====
+
+    function resolveReport(reportId, type) {
+        currentReportId = reportId;
+        currentReportType = type;
+        showModal('resolveModal');
+    }
+
+    function warnFromReport(reportId, type) {
+        // Implementar advertência específica do report se necessário
+        showNotification('Função de advertência em desenvolvimento', 'info');
+    }
+
+    function banFromReport(reportId, type) {
+        currentReportId = reportId;
+        currentReportType = type;
+        showModal('banModal');
+    }
+
+    async function confirmResolve() {
+        const comment = document.getElementById('resolveComment').value.trim();
+
+        if (!comment) {
+            showNotification('Por favor, adicione um comentário', 'error');
+            return;
+        }
+
+        try {
+            const endpoint = currentReportType === 'user'
+                ? `/admin/api/report-voluntario/${currentReportId}/action`
+                : `/admin/api/report/${currentReportId}/action`;
+
+            const response = await fetch(endpoint, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: new URLSearchParams({
+                    action: 'resolve',
+                    comment: comment
+                })
+            });
+
+            if (response.ok) {
+                showNotification('Denúncia resolvida com sucesso!', 'success');
+                closeModal('resolveModal');
+                document.getElementById('resolveComment').value = '';
+                await loadDashboardData();
+            } else {
+                throw new Error('Erro ao resolver denúncia');
+            }
+        } catch (error) {
+            console.error('Erro ao resolver denúncia:', error);
+            showNotification('Erro ao resolver denúncia', 'error');
+        }
+    }
+
+    async function confirmBan() {
+        const banType = document.getElementById('banType').value;
+        const reason = document.getElementById('banReason').value.trim();
+
+        if (!reason) {
+            showNotification('Por favor, adicione o motivo do banimento', 'error');
+            return;
+        }
+
+        try {
+            const endpoint = currentReportType === 'user'
+                ? `/admin/api/report-voluntario/${currentReportId}/action`
+                : `/admin/api/report/${currentReportId}/action`;
+
+            const response = await fetch(endpoint, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: new URLSearchParams({
+                    action: 'ban',
+                    banType: banType,
+                    banReason: reason,
+                    comment: `Usuário banido: ${reason}`
+                })
+            });
+
+            if (response.ok) {
+                showNotification('Usuário banido com sucesso!', 'success');
+                closeModal('banModal');
+                document.getElementById('banReason').value = '';
+                await loadDashboardData();
+            } else {
+                throw new Error('Erro ao banir usuário');
+            }
+        } catch (error) {
+            console.error('Erro ao banir usuário:', error);
+            showNotification('Erro ao banir usuário', 'error');
+        }
+    }
+
+    // ===== USER MANAGEMENT =====
+
+    function unbanUser(userId, userType) {
+        currentUserId = userId;
+        currentUserType = userType;
+        showModal('unbanModal');
+    }
+
+    async function confirmUnban() {
+        const reason = document.getElementById('unbanReason').value.trim();
+
+        if (!reason) {
+            showNotification('Por favor, adicione o motivo do desbanimento', 'error');
+            return;
+        }
+
+        try {
+            const response = await fetch(`/admin/api/usuario/${currentUserId}/desbanir`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: new URLSearchParams({
+                    userType: currentUserType,
+                    motivo: reason
+                })
+            });
+
+            if (response.ok) {
+                const result = await response.json();
+                showNotification(result.message, 'success');
+                closeModal('unbanModal');
+                document.getElementById('unbanReason').value = '';
+                await loadDashboardData();
+            } else {
+                const error = await response.json();
+                throw new Error(error.error || 'Erro ao desbanir usuário');
+            }
+        } catch (error) {
+            console.error('Erro ao desbanir usuário:', error);
+            showNotification('Erro ao desbanir usuário', 'error');
+        }
+    }
+
+    async function executeUserAction() {
+        const userId = document.getElementById('userSearchId').value;
+        const userType = document.getElementById('userSearchType').value;
+        const action = document.getElementById('userAction').value;
+        const reason = document.getElementById('userActionReason').value.trim();
+
+        if (!userId || !reason) {
+            showNotification('Por favor, preencha todos os campos', 'error');
+            return;
+        }
+
+        try {
+            let endpoint, body;
+
+            if (action === 'warn') {
+                endpoint = `/admin/api/usuario/${userId}/warn`;
+                body = new URLSearchParams({
+                    userType: userType,
+                    reason: reason,
+                    message: reason
+                });
+            } else if (action === 'ban') {
+                endpoint = `/admin/api/usuario/${userId}/ban`;
+                body = new URLSearchParams({
+                    userType: userType,
+                    banType: 'permanent',
+                    reason: reason,
+                    details: reason,
+                    notifyUser: 'true'
+                });
+            }
+
+            const response = await fetch(endpoint, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: body
+            });
+
+            if (response.ok) {
+                const result = await response.json();
+                showNotification(result.message, 'success');
+                closeModal('userManagementModal');
+                clearUserManagementForm();
+                await loadDashboardData();
+            } else {
+                const error = await response.json();
+                throw new Error(error.error || 'Erro ao executar ação');
+            }
+        } catch (error) {
+            console.error('Erro ao executar ação:', error);
+            showNotification('Erro ao executar ação', 'error');
+        }
+    }
+
+    function clearUserManagementForm() {
+        document.getElementById('userSearchId').value = '';
+        document.getElementById('userActionReason').value = '';
+    }
+
+    // ===== UTILITY FUNCTIONS =====
+
+    async function verificarBanimentosExpirados() {
+        try {
+            showNotification('Verificando banimentos expirados...', 'info');
+
+            const response = await fetch('/admin/api/verificar-banimentos-temporarios', {
+                method: 'POST'
+            });
+
+            if (response.ok) {
+                const result = await response.json();
+                showNotification(result.message, 'success');
+                await loadDashboardData();
+            } else {
+                throw new Error('Erro ao verificar banimentos');
+            }
+        } catch (error) {
+            console.error('Erro ao verificar banimentos:', error);
+            showNotification('Erro ao verificar banimentos expirados', 'error');
+        }
+    }
+
+    // ===== REFRESH FUNCTIONS =====
+
+    async function refreshReports() {
+        showNotification('Atualizando denúncias...', 'info');
+        await loadReports();
+        showNotification('Denúncias atualizadas!', 'success');
+    }
+
+    async function refreshUserReports() {
+        showNotification('Atualizando denúncias de usuários...', 'info');
+        await loadUserReports();
+        showNotification('Denúncias de usuários atualizadas!', 'success');
+    }
+
+    async function refreshBannedUsers() {
+        showNotification('Atualizando usuários banidos...', 'info');
+        await loadBannedUsers();
+        showNotification('Lista de banidos atualizada!', 'success');
+    }
+
+    // ===== MODAL FUNCTIONS =====
+
+    function showModal(modalId) {
+        document.getElementById(modalId).classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal(modalId) {
+        document.getElementById(modalId).classList.remove('active');
+        document.body.style.overflow = 'auto';
+    }
+
+    // ===== NOTIFICATION SYSTEM =====
+
+    function showNotification(message, type = 'info') {
+        const notification = document.createElement('div');
+        notification.className = `notification ${type}`;
+        notification.innerHTML = `
+        <i class="bi bi-${getNotificationIcon(type)}"></i>
+        ${message}
+    `;
+
+        document.body.appendChild(notification);
+
+        setTimeout(() => notification.classList.add('show'), 100);
+
+        setTimeout(() => {
+            notification.classList.remove('show');
+            setTimeout(() => notification.remove(), 300);
+        }, 4000);
+    }
+
+    function getNotificationIcon(type) {
+        switch (type) {
+            case 'success': return 'check-circle';
+            case 'error': return 'x-circle';
+            case 'warning': return 'exclamation-triangle';
+            case 'info': return 'info-circle';
+            default: return 'bell';
+        }
+    }
+
+    // ===== UTILITY FUNCTIONS =====
+
+    function escapeHtml(text) {
+        if (!text) return '';
+        const map = {
+            '&': '&amp;',
+            '<': '&lt;',
+            '>': '&gt;',
+            '"': '&quot;',
+            "'": '&#039;'
+        };
+        return text.replace(/[&<>"']/g, function(m) { return map[m]; });
+    }
+
+    function formatDate(dateString) {
+        if (!dateString) return 'N/A';
+        try {
+            const date = new Date(dateString);
+            return date.toLocaleDateString('pt-BR') + ' ' + date.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
+        } catch (e) {
+            return 'Data inválida';
+        }
+    }
+
+    // ===== EVENT LISTENERS =====
+
+    // Close modals with ESC key
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            const activeModal = document.querySelector('.modal.active');
+            if (activeModal) {
+                activeModal.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+        }
+    });
+
+    // Close modals by clicking outside
+    document.addEventListener('click', function(e) {
+        if (e.target.classList.contains('modal')) {
+            e.target.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+    });
+
+    console.log('🌊 Blue Wave Dashboard JavaScript carregado com sucesso!');
+
+</script>
+</html>

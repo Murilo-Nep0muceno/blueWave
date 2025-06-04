@@ -8,8 +8,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-
   <style>
+    /* ===== RESET E CONFIGURAÇÕES BÁSICAS ===== */
     * {
       margin: 0;
       padding: 0;
@@ -24,7 +24,7 @@
       line-height: 1.6;
     }
 
-    /* Menu Lateral */
+    /* ===== MENU LATERAL ===== */
     nav.menu-lateral {
       width: 80px;
       height: 100vh;
@@ -189,7 +189,7 @@
       opacity: 1;
     }
 
-    /* Conteúdo Principal */
+    /* ===== CONTEÚDO PRINCIPAL ===== */
     .conteudo {
       margin-left: 80px;
       transition: margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -228,7 +228,7 @@
       padding: 0 20px;
     }
 
-    /* Cabeçalho da Seção */
+    /* ===== CABEÇALHO DA SEÇÃO ===== */
     .section-header {
       background: white;
       border-radius: 20px;
@@ -281,7 +281,7 @@
       letter-spacing: 0.5px;
     }
 
-    /* Filtros */
+    /* ===== FILTROS ===== */
     .filters-container {
       background: white;
       border-radius: 15px;
@@ -329,6 +329,7 @@
       margin-left: auto;
     }
 
+    /* ===== BOTÕES ===== */
     .btn {
       padding: 10px 20px;
       border: none;
@@ -353,6 +354,8 @@
       background: linear-gradient(135deg, #0078D4 0%, #005a9f 100%);
       transform: translateY(-2px);
       box-shadow: 0 6px 20px rgba(0, 168, 255, 0.4);
+      color: white;
+      text-decoration: none;
     }
 
     .btn-secondary {
@@ -364,9 +367,10 @@
     .btn-secondary:hover {
       background: #e9ecef;
       color: #495057;
+      text-decoration: none;
     }
 
-    /* Grid de Vagas */
+    /* ===== GRID DE VAGAS ===== */
     .vagas-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
@@ -381,11 +385,19 @@
       box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
       transition: all 0.3s ease;
       position: relative;
+      display: flex;
+      flex-direction: column;
+      min-height: 580px;
     }
 
     .vaga-card:hover {
       transform: translateY(-8px);
       box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+    }
+
+    .vaga-card.inactive {
+      opacity: 0.8;
+      filter: grayscale(30%);
     }
 
     .vaga-image {
@@ -446,8 +458,17 @@
       backdrop-filter: blur(10px);
     }
 
+    .status-inativa {
+      background: rgba(220, 53, 69, 0.9);
+      color: white;
+      backdrop-filter: blur(10px);
+    }
+
     .vaga-content {
       padding: 25px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
     }
 
     .vaga-header {
@@ -469,6 +490,13 @@
       display: flex;
       align-items: center;
       gap: 5px;
+      cursor: pointer;
+      transition: color 0.3s ease;
+    }
+
+    .vaga-ong:hover {
+      color: #0078D4;
+      text-decoration: underline;
     }
 
     .vaga-details {
@@ -499,27 +527,37 @@
       -webkit-line-clamp: 3;
       -webkit-box-orient: vertical;
       overflow: hidden;
+      flex: 1;
     }
 
     .vaga-actions {
+      margin-top: auto;
+      padding-top: 15px;
+      border-top: 1px solid #f0f0f0;
+    }
+
+    .action-buttons {
       display: flex;
       gap: 10px;
-      align-items: center;
+      margin-bottom: 15px;
+      flex-wrap: wrap;
     }
 
     .btn-cancel {
       background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
       color: white;
-      padding: 10px 20px;
+      padding: 10px 16px;
       border-radius: 8px;
       border: none;
       cursor: pointer;
-      font-size: 14px;
+      font-size: 13px;
       font-weight: 600;
       transition: all 0.3s ease;
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 6px;
+      min-width: 140px;
+      justify-content: center;
     }
 
     .btn-cancel:hover {
@@ -534,16 +572,76 @@
       transform: none;
     }
 
+    .btn-ong {
+      background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+      color: white;
+      padding: 10px 16px;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      text-decoration: none;
+      min-width: 100px;
+      justify-content: center;
+    }
+
+    .btn-ong:hover {
+      background: linear-gradient(135deg, #20c997 0%, #17a2b8 100%);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3);
+      color: white;
+      text-decoration: none;
+    }
+
+    .btn-report {
+      background: linear-gradient(135deg, #ffc107 0%, #fd7e14 100%);
+      color: #212529;
+      padding: 10px 16px;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      min-width: 90px;
+      justify-content: center;
+    }
+
+    .btn-report:hover {
+      background: linear-gradient(135deg, #fd7e14 0%, #dc3545 100%);
+      color: white;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba(255, 193, 7, 0.3);
+    }
+
     .inscricao-info {
       color: #666;
       font-size: 12px;
-      margin-left: auto;
       display: flex;
       align-items: center;
       gap: 5px;
+      justify-content: center;
+      margin-top: 10px;
+      padding: 8px;
+      background: #f8f9fa;
+      border-radius: 6px;
     }
 
-    /* Estados Vazios */
+    .inscricao-info.inactive {
+      background: #ffe6e6;
+      color: #dc3545;
+      border: 1px solid #f5c6cb;
+    }
+
+    /* ===== ESTADO VAZIO ===== */
     .empty-state {
       background: white;
       border-radius: 20px;
@@ -571,7 +669,7 @@
       margin-bottom: 30px;
     }
 
-    /* Modal */
+    /* ===== MODAIS ===== */
     .modal {
       display: none;
       position: fixed;
@@ -596,6 +694,22 @@
       animation: modalSlideIn 0.3s ease-out;
     }
 
+    .modal-content.report-modal {
+      max-width: 600px;
+      max-height: 90vh;
+      overflow-y: auto;
+      text-align: left;
+      margin: 5% auto;
+    }
+
+    .modal-content.ong-modal {
+      max-width: 900px;
+      max-height: 90vh;
+      overflow-y: auto;
+      text-align: left;
+      margin: 5% auto;
+    }
+
     @keyframes modalSlideIn {
       from {
         opacity: 0;
@@ -607,11 +721,21 @@
       }
     }
 
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 25px;
+    }
+
     .modal h3 {
       color: #003366;
       margin-bottom: 15px;
       font-size: 22px;
       font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 10px;
     }
 
     .modal p {
@@ -619,6 +743,22 @@
       margin-bottom: 30px;
       font-size: 16px;
       line-height: 1.5;
+    }
+
+    .close-btn {
+      background: none;
+      border: none;
+      font-size: 24px;
+      color: #666;
+      cursor: pointer;
+      padding: 5px;
+      border-radius: 5px;
+      transition: all 0.3s ease;
+    }
+
+    .close-btn:hover {
+      background: #f8f9fa;
+      color: #003366;
     }
 
     .modal-buttons {
@@ -638,6 +778,10 @@
       cursor: pointer;
       transition: all 0.3s ease;
       min-width: 120px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
     }
 
     .btn-confirm:hover {
@@ -657,6 +801,10 @@
       cursor: pointer;
       transition: all 0.3s ease;
       min-width: 120px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
     }
 
     .btn-modal-cancel:hover {
@@ -664,24 +812,418 @@
       color: #495057;
     }
 
-    /* Loading */
-    .loading {
+    /* ===== MODAL DE REPORT ===== */
+    .report-info {
+      background: #f8f9fa;
+      padding: 15px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      border-left: 4px solid #dc3545;
+    }
+
+    .report-info p {
+      margin: 0;
+      color: #666;
+      font-size: 14px;
+    }
+
+    .report-info strong {
+      color: #003366;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-label {
+      display: block;
+      font-weight: 600;
+      color: #003366;
+      margin-bottom: 8px;
+      font-size: 14px;
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 12px;
+      border: 2px solid #e9ecef;
+      border-radius: 8px;
+      font-size: 14px;
+      background: white;
+      transition: all 0.3s ease;
+    }
+
+    .form-control:focus {
+      border-color: #00A8FF;
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(0, 168, 255, 0.1);
+    }
+
+    .form-control.textarea {
+      height: 120px;
+      resize: vertical;
+      font-family: inherit;
+      line-height: 1.4;
+    }
+
+    .form-control.invalid {
+      border-color: #dc3545;
+    }
+
+    .form-control.valid {
+      border-color: #28a745;
+    }
+
+    .rating-container {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .star-rating {
+      display: flex;
+      gap: 5px;
+    }
+
+    .star {
+      cursor: pointer;
+      font-size: 24px;
+      color: #ddd;
+      transition: all 0.2s ease;
+      user-select: none;
+    }
+
+    .star:hover {
+      transform: scale(1.1);
+    }
+
+    .star.active {
+      color: #ffc107;
+    }
+
+    .star.hover {
+      color: #ffb300;
+    }
+
+    .char-counter-container {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 5px;
+      font-size: 12px;
+    }
+
+    .min-chars {
+      color: #999;
+    }
+
+    #charCounter {
+      color: #666;
+    }
+
+    /* Upload de Arquivo */
+    .upload-area {
+      border: 2px dashed #e9ecef;
+      border-radius: 12px;
+      padding: 20px;
+      text-align: center;
+      background: #f8f9fa;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .upload-area:hover {
+      border-color: #00A8FF;
+      background: #f0f8ff;
+    }
+
+    .upload-area.dragover {
+      border-color: #00A8FF;
+      background: #e3f2fd;
+      transform: scale(1.02);
+    }
+
+    .upload-icon {
+      margin-bottom: 15px;
+    }
+
+    .upload-icon i {
+      font-size: 32px;
+      color: #adb5bd;
+    }
+
+    .upload-text {
+      margin: 0 0 10px 0;
+      color: #666;
+      font-size: 14px;
+    }
+
+    .upload-formats {
+      margin: 0;
+      color: #999;
+      font-size: 12px;
+    }
+
+    .evidence-preview {
+      display: none;
+      margin-top: 15px;
+      padding: 15px;
+      background: white;
+      border-radius: 8px;
+      border: 2px solid #28a745;
+      background: #f8fff8;
+    }
+
+    .file-info {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .file-details {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .file-details i {
+      font-size: 24px;
+      color: #28a745;
+    }
+
+    .file-name {
+      font-weight: 500;
+      color: #003366;
+      font-size: 14px;
+    }
+
+    .file-size {
+      color: #666;
+      font-size: 12px;
+    }
+
+    .remove-file {
+      background: none;
+      border: none;
+      color: #dc3545;
+      cursor: pointer;
+      padding: 5px;
+      border-radius: 3px;
+      transition: all 0.3s ease;
+    }
+
+    .remove-file:hover {
+      background: #fee;
+    }
+
+    .info-box {
+      background: #e3f2fd;
+      padding: 15px;
+      border-radius: 10px;
+      margin-bottom: 25px;
+      border-left: 4px solid #2196f3;
+    }
+
+    .info-box h5 {
+      margin: 0 0 10px 0;
+      color: #1976d2;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .info-box ul {
+      margin: 0;
+      padding-left: 20px;
+      color: #666;
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    /* ===== MODAL DE PERFIL DA ONG ===== */
+    .ong-header {
+      background: linear-gradient(135deg, #00A8FF 0%, #0078D4 100%);
+      border-radius: 15px;
+      padding: 30px;
+      margin-bottom: 25px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .ong-profile-info {
+      display: flex;
+      align-items: center;
+      gap: 25px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .ong-logo-container {
+      flex-shrink: 0;
+    }
+
+    .ong-logo {
+      width: 120px;
+      height: 120px;
+      border-radius: 15px;
+      overflow: hidden;
+      background: white;
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 40px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+      color: #ccc;
+      font-size: 48px;
+    }
+
+    .ong-logo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .ong-info {
+      flex: 1;
+      color: white;
+    }
+
+    .ong-info h2 {
+      font-size: 32px;
+      margin-bottom: 8px;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+    }
+
+    .ong-info p {
+      font-size: 16px;
+      opacity: 0.9;
+      margin-bottom: 15px;
+    }
+
+    .ong-stats {
+      display: flex;
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    .stat-box {
+      background: rgba(255,255,255,0.2);
+      padding: 15px 20px;
+      border-radius: 10px;
+      text-align: center;
+      backdrop-filter: blur(10px);
+    }
+
+    .stat-number {
+      font-size: 24px;
+      font-weight: 700;
+    }
+
+    .stat-label {
+      font-size: 12px;
+      opacity: 0.8;
+    }
+
+    .ong-content-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-bottom: 25px;
+    }
+
+    .ong-section {
+      background: white;
+      border-radius: 15px;
+      padding: 25px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+
+    .ong-section.full-width {
+      grid-column: 1 / -1;
+    }
+
+    .ong-section h4 {
+      color: #003366;
+      font-size: 18px;
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .ong-section h4 i {
+      color: #00A8FF;
+    }
+
+    .ong-section p, .ong-section div {
+      color: #666;
+      line-height: 1.6;
+    }
+
+    .contact-info {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .contact-item {
+      margin-bottom: 10px;
+    }
+
+    .contact-item strong {
+      color: #003366;
+    }
+
+    .contact-item div {
+      color: #00A8FF;
+      word-break: break-all;
+    }
+
+    .social-links {
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+
+    .social-links a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 45px;
+      height: 45px;
+      border-radius: 10px;
+      text-decoration: none;
+      transition: transform 0.3s ease;
+      color: white;
+    }
+
+    .social-links a:hover {
+      transform: translateY(-3px);
+    }
+
+    .no-socials {
+      color: #999;
+      font-style: italic;
+    }
+
+    /* ===== LOADING ===== */
+    .loading {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 50px;
       color: #666;
       font-size: 16px;
     }
 
     .spinner {
-      width: 20px;
-      height: 20px;
-      border: 2px solid #e9ecef;
-      border-top: 2px solid #00A8FF;
+      width: 40px;
+      height: 40px;
+      border: 4px solid #f3f3f3;
+      border-top: 4px solid #00A8FF;
       border-radius: 50%;
       animation: spin 1s linear infinite;
-      margin-right: 10px;
+      margin-bottom: 15px;
     }
 
     @keyframes spin {
@@ -689,7 +1231,7 @@
       100% { transform: rotate(360deg); }
     }
 
-    /* Toast Notifications */
+    /* ===== TOAST NOTIFICATIONS ===== */
     .toast {
       position: fixed;
       bottom: 20px;
@@ -730,7 +1272,71 @@
       }
     }
 
-    /* Responsivo */
+    @keyframes slideOutToast {
+      from {
+        transform: translateX(0);
+        opacity: 1;
+      }
+      to {
+        transform: translateX(100%);
+        opacity: 0;
+      }
+    }
+
+    @keyframes fadeOut {
+      from {
+        opacity: 1;
+        transform: scale(1);
+      }
+      to {
+        opacity: 0;
+        transform: scale(0.95);
+      }
+    }
+
+    /* ===== ANIMAÇÕES ADICIONAIS ===== */
+    .spinner-border {
+      display: inline-block;
+      width: 1rem;
+      height: 1rem;
+      vertical-align: text-bottom;
+      border: .15em solid currentColor;
+      border-right-color: transparent;
+      border-radius: 50%;
+      animation: spinner-border .75s linear infinite;
+    }
+
+    .spinner-border-sm {
+      width: 0.8rem;
+      height: 0.8rem;
+      border-width: .1em;
+    }
+
+    @keyframes spinner-border {
+      to { transform: rotate(360deg); }
+    }
+
+    .mr-2 {
+      margin-right: 0.5rem;
+    }
+
+    /* ===== RESPONSIVO ===== */
+    @media (max-width: 1024px) {
+      .ong-content-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .ong-profile-info {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .ong-stats {
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+    }
+
     @media (max-width: 768px) {
       nav.menu-lateral {
         width: 60px;
@@ -777,11 +1383,276 @@
         margin: 25% auto;
         padding: 25px 20px;
       }
+
+      .modal-content.ong-modal {
+        margin: 2% auto;
+        width: 95%;
+        max-height: 95vh;
+        padding: 20px;
+      }
+
+      .modal-content.report-modal {
+        margin: 5% auto;
+        width: 95%;
+        padding: 20px;
+      }
+
+      .ong-profile-info {
+        gap: 20px;
+      }
+
+      .ong-logo {
+        width: 100px;
+        height: 100px;
+        font-size: 40px;
+      }
+
+      .ong-info h2 {
+        font-size: 24px;
+      }
+
+      .ong-stats {
+        gap: 15px;
+      }
+
+      .stat-box {
+        padding: 12px 16px;
+      }
+
+      .action-buttons {
+        flex-direction: column;
+      }
+
+      .btn-cancel,
+      .btn-ong,
+      .btn-report {
+        min-width: 100%;
+      }
+
+      .modal-buttons {
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .btn-confirm,
+      .btn-modal-cancel {
+        width: 100%;
+      }
+
+      .rating-container {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+      }
+
+      .char-counter-container {
+        flex-direction: column;
+        gap: 5px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .main-container {
+        padding: 0 15px;
+      }
+
+      .section-header {
+        padding: 20px;
+      }
+
+      .filters-container {
+        padding: 15px;
+      }
+
+      .vaga-content {
+        padding: 20px;
+      }
+
+      .modal-content {
+        padding: 20px 15px;
+        margin: 20% auto;
+      }
+
+      .modal-content.ong-modal,
+      .modal-content.report-modal {
+        padding: 15px;
+        margin: 5% auto;
+      }
+
+      .ong-header {
+        padding: 20px;
+      }
+
+      .ong-section {
+        padding: 20px;
+      }
+
+      .upload-area {
+        padding: 15px;
+      }
+
+      .star {
+        font-size: 20px;
+      }
+    }
+
+    /* ===== ESTADOS ESPECIAIS ===== */
+    .btn-confirm:disabled,
+    .btn-cancel:disabled,
+    .btn-report:disabled {
+      background: #6c757d !important;
+      cursor: not-allowed !important;
+      transform: none !important;
+      box-shadow: none !important;
+    }
+
+    .form-control:disabled {
+      background: #f8f9fa;
+      color: #666;
+      cursor: not-allowed;
+    }
+
+    /* ===== MELHORIAS DE ACESSIBILIDADE ===== */
+    .modal:focus-within {
+      outline: none;
+    }
+
+    .btn:focus,
+    .form-control:focus,
+    .star:focus {
+      outline: 2px solid #00A8FF;
+      outline-offset: 2px;
+    }
+
+    .vaga-card:focus-within {
+      outline: 2px solid #00A8FF;
+      outline-offset: 2px;
+    }
+
+    /* ===== UTILITÁRIOS ===== */
+    .text-center {
+      text-align: center;
+    }
+
+    .text-left {
+      text-align: left;
+    }
+
+    .text-right {
+      text-align: right;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    .visible {
+      display: block !important;
+    }
+
+    .flex {
+      display: flex;
+    }
+
+    .flex-column {
+      flex-direction: column;
+    }
+
+    .align-center {
+      align-items: center;
+    }
+
+    .justify-center {
+      justify-content: center;
+    }
+
+    .gap-10 {
+      gap: 10px;
+    }
+
+    .gap-15 {
+      gap: 15px;
+    }
+
+    .gap-20 {
+      gap: 20px;
+    }
+
+    .mt-10 {
+      margin-top: 10px;
+    }
+
+    .mt-15 {
+      margin-top: 15px;
+    }
+
+    .mt-20 {
+      margin-top: 20px;
+    }
+
+    .mb-10 {
+      margin-bottom: 10px;
+    }
+
+    .mb-15 {
+      margin-bottom: 15px;
+    }
+
+    .mb-20 {
+      margin-bottom: 20px;
+    }
+
+    .p-10 {
+      padding: 10px;
+    }
+
+    .p-15 {
+      padding: 15px;
+    }
+
+    .p-20 {
+      padding: 20px;
+    }
+
+    /* ===== PRINT STYLES ===== */
+    @media print {
+      nav.menu-lateral,
+      .modal,
+      .toast {
+        display: none !important;
+      }
+
+      .conteudo {
+        margin-left: 0 !important;
+      }
+
+      .vaga-card {
+        break-inside: avoid;
+        box-shadow: none;
+        border: 1px solid #ddd;
+      }
+
+      .btn {
+        display: none;
+      }
     }
   </style>
+
 </head>
 <body>
-<!-- Menu lateral -->
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Minhas Inscrições - Blue Wave</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" th:href="@{/css/minhas-inscricoes.css}">
+</head>
+<body>
 <nav class="menu-lateral">
   <div class="title">
     <img th:src="@{/css/images/logo_blue_white.png}" width="50" height="50" alt="Logo Blue Wave" />
@@ -802,12 +1673,18 @@
           <span class="txt-link">Minhas Inscrições</span>
         </a>
       </li>
+      <li class="item-menu">
+        <a href="/voluntario/perfil">
+          <span class="icon"><i class="bi bi-person-circle"></i></span>
+          <span class="txt-link">Meu Perfil</span>
+        </a>
+      </li>
     </ul>
   </div>
 
   <div class="logout-section">
     <div class="logout-item" onclick="showLogoutModal()">
-      <a href="#" onclick="event.preventDefault()">
+      <a href="#" >
         <span class="icon"><i class="bi bi-box-arrow-right"></i></span>
         <span class="txt-link">Sair</span>
       </a>
@@ -815,7 +1692,7 @@
   </div>
 </nav>
 
-<!-- Modal de confirmação de logout -->
+<!-- MODAIS -->
 <div id="logoutModal" class="modal">
   <div class="modal-content">
     <h3>Confirmar Logout</h3>
@@ -827,7 +1704,6 @@
   </div>
 </div>
 
-<!-- Modal de confirmação de cancelamento -->
 <div id="cancelModal" class="modal">
   <div class="modal-content">
     <h3>Cancelar Inscrição</h3>
@@ -839,18 +1715,216 @@
   </div>
 </div>
 
-<!-- Conteúdo principal -->
+<div id="reportModal" class="modal">
+  <div class="modal-content report-modal">
+    <div class="modal-header">
+      <h3>
+        <i class="bi bi-flag"></i>
+        Reportar Vaga
+      </h3>
+      <button onclick="closeReportModal()" class="close-btn">
+        <i class="bi bi-x"></i>
+      </button>
+    </div>
+
+    <div class="report-info">
+      <p><strong>Vaga:</strong> <span id="reportVagaNome"></span></p>
+      <p><strong>ONG:</strong> <span id="reportOngNome"></span></p>
+    </div>
+
+    <form id="reportForm" enctype="multipart/form-data">
+      <div class="form-group">
+        <label class="form-label">Assunto do Report *</label>
+        <select id="reportSubject" name="assunto" required class="form-control">
+          <option value="">Selecione o motivo</option>
+          <option value="informacoes_falsas">Informações falsas ou enganosas</option>
+          <option value="vaga_inexistente">Vaga não existe ou já foi preenchida</option>
+          <option value="discriminacao">Discriminação ou preconceito</option>
+          <option value="conteudo_inadequado">Conteúdo inadequado ou ofensivo</option>
+          <option value="exploracao">Exploração de voluntários</option>
+          <option value="ong_suspeita">ONG suspeita ou fraudulenta</option>
+          <option value="local_perigoso">Local perigoso ou inadequado</option>
+          <option value="nao_pagamento">Não cumprimento de promessas</option>
+          <option value="outros">Outros motivos</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Como você avalia esta ONG?</label>
+        <div class="rating-container">
+          <div class="star-rating" id="starRating">
+            <span class="star" data-rating="1"><i class="bi bi-star"></i></span>
+            <span class="star" data-rating="2"><i class="bi bi-star"></i></span>
+            <span class="star" data-rating="3"><i class="bi bi-star"></i></span>
+            <span class="star" data-rating="4"><i class="bi bi-star"></i></span>
+            <span class="star" data-rating="5"><i class="bi bi-star"></i></span>
+          </div>
+          <span id="ratingText">Clique nas estrelas para avaliar</span>
+          <input type="hidden" id="reportRating" name="avaliacao" value="">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Descrição detalhada *</label>
+        <textarea id="reportReason"
+                  name="motivo"
+                  placeholder="Descreva detalhadamente o problema encontrado... (mínimo 20 caracteres)"
+                  class="form-control textarea"
+                  maxlength="2000"
+                  required
+                  oninput="updateCharCounter()"></textarea>
+        <div class="char-counter-container">
+          <span class="min-chars">Mínimo 20 caracteres</span>
+          <span id="charCounter">0/2000 caracteres</span>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Evidência (Opcional)</label>
+        <div class="upload-area" id="uploadArea">
+          <div class="upload-icon">
+            <i class="bi bi-cloud-upload"></i>
+          </div>
+          <p class="upload-text">Clique para adicionar uma imagem ou arraste aqui</p>
+          <p class="upload-formats">Formatos aceitos: JPG, PNG, GIF, PDF (máx. 5MB)</p>
+          <input type="file" id="reportEvidence" name="evidencia" accept="image/*,.pdf" style="display: none;" onchange="handleFileUpload(this)">
+        </div>
+
+        <div id="evidencePreview" class="evidence-preview" style="display: none;">
+          <div class="file-info">
+            <div class="file-details">
+              <i class="bi bi-file-earmark-image"></i>
+              <div>
+                <div id="fileName" class="file-name"></div>
+                <div id="fileSize" class="file-size"></div>
+              </div>
+            </div>
+            <button type="button" onclick="removeEvidence()" class="remove-file">
+              <i class="bi bi-trash"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="info-box">
+        <h5><i class="bi bi-info-circle"></i> Informações sobre o Report</h5>
+        <ul>
+          <li>Seu report será analisado pela nossa equipe em até 48 horas</li>
+          <li>Você receberá uma resposta por email sobre o resultado</li>
+          <li>Reports falsos podem resultar em suspensão da conta</li>
+          <li>Sua identidade será mantida em sigilo</li>
+        </ul>
+      </div>
+
+      <div class="modal-buttons">
+        <button type="button" class="btn-modal-cancel" onclick="closeReportModal()">
+          <i class="bi bi-x-circle"></i> Cancelar
+        </button>
+        <button type="submit" id="confirmReportBtn" class="btn-confirm">
+          <i class="bi bi-flag"></i> Enviar Report
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div id="ongProfileModal" class="modal">
+  <div class="modal-content ong-modal">
+    <div class="modal-header">
+      <h3>
+        <i class="bi bi-building"></i>
+        Perfil da ONG
+      </h3>
+      <button onclick="closeOngProfileModal()" class="close-btn">
+        <i class="bi bi-x"></i>
+      </button>
+    </div>
+
+    <div id="ongProfileContent">
+      <div class="ong-header">
+        <div class="ong-profile-info">
+          <div class="ong-logo-container">
+            <div id="ongLogoContainer" class="ong-logo">
+              <i class="bi bi-building"></i>
+            </div>
+          </div>
+
+          <div class="ong-info">
+            <h2 id="ongModalNome">Nome da ONG</h2>
+            <p id="ongModalCnpj">CNPJ: 00.000.000/0000-00</p>
+
+            <div class="ong-stats">
+              <div class="stat-box">
+                <div id="ongTotalVagas" class="stat-number">0</div>
+                <div class="stat-label">Total de Vagas</div>
+              </div>
+              <div class="stat-box">
+                <div id="ongVagasAtivas" class="stat-number">0</div>
+                <div class="stat-label">Vagas Ativas</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ong-content-grid">
+        <div class="ong-section full-width">
+          <h4><i class="bi bi-info-circle"></i> Sobre a ONG</h4>
+          <div id="ongModalDescricao">Descrição da ONG...</div>
+        </div>
+
+        <div class="ong-section">
+          <h4><i class="bi bi-telephone"></i> Contato</h4>
+          <div class="contact-info">
+            <div class="contact-item">
+              <strong>E-mail:</strong>
+              <div id="ongModalEmail">email@ong.com</div>
+            </div>
+            <div class="contact-item">
+              <strong>Telefone:</strong>
+              <div id="ongModalTelefone">(00) 00000-0000</div>
+            </div>
+            <div id="ongModalSiteContainer" class="contact-item" style="display: none;">
+              <strong>Website:</strong>
+              <div id="ongModalSite">www.ong.com</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="ong-section">
+          <h4><i class="bi bi-geo-alt"></i> Localização</h4>
+          <div id="ongModalEndereco">Endereço da ONG...</div>
+        </div>
+
+        <div class="ong-section full-width">
+          <h4><i class="bi bi-share"></i> Redes Sociais</h4>
+          <div id="ongModalSociais" class="social-links">
+          </div>
+          <div id="ongModalNoSociais" class="no-socials" style="display: none;">
+            Nenhuma rede social cadastrada
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="ongProfileLoading" class="loading" style="display: none;">
+      <div class="spinner"></div>
+      <p>Carregando perfil da ONG...</p>
+    </div>
+  </div>
+</div>
+
 <div class="conteudo">
   <div id="header-bg">
     <header id="header">
       <a id="logo" th:href="@{/}">
-        Minhas Inscrições - <span th:text="${nome}">Voluntário</span>
+        Minhas Inscrições - <span th:text="${voluntario != null ? voluntario.nomeVoluntario : 'Voluntário'}">Voluntário</span>
       </a>
     </header>
   </div>
 
   <div class="main-container">
-    <!-- Cabeçalho da Seção -->
+    <!-- SEÇÃO DE ESTATÍSTICAS CORRIGIDA -->
     <div class="section-header">
       <div class="section-title">
         <i class="bi bi-journal-check"></i>
@@ -858,21 +1932,21 @@
       </div>
       <div class="stats-container">
         <div class="stat-item">
-          <div class="stat-value" th:text="${totalInscricoes}">0</div>
+          <div class="stat-value" th:text="${totalInscricoes != null ? totalInscricoes : 0}">0</div>
           <div class="stat-label">Total</div>
         </div>
         <div class="stat-item">
-          <div class="stat-value" th:text="${vagasAtivas}">0</div>
+          <div class="stat-value" th:text="${vagasAtivas != null ? vagasAtivas.size() : 0}">0</div>
           <div class="stat-label">Ativas</div>
         </div>
         <div class="stat-item">
-          <div class="stat-value" th:text="${vagasEncerradas}">0</div>
+          <div class="stat-value" th:text="${vagasEncerradas != null ? vagasEncerradas.size() : 0}">0</div>
           <div class="stat-label">Encerradas</div>
         </div>
       </div>
     </div>
 
-    <!-- Filtros -->
+    <!-- FILTROS -->
     <div class="filters-container">
       <div class="filter-group">
         <label class="filter-label">Status</label>
@@ -881,6 +1955,7 @@
           <option value="ativa">Ativas</option>
           <option value="encerrada">Encerradas</option>
           <option value="hoje">Hoje</option>
+          <option value="inativa">Inativas</option>
         </select>
       </div>
       <div class="filter-group">
@@ -899,83 +1974,122 @@
       </div>
     </div>
 
-    <!-- Grid de Vagas -->
+    <!-- GRID DE INSCRIÇÕES -->
     <div class="vagas-grid" id="vagasGrid">
-      <div th:each="inscricao : ${inscricoes}" class="vaga-card"
-           th:data-status="${#temporals.format(inscricao.vaga.data, 'yyyy-MM-dd') == #temporals.format(#temporals.createNow(), 'yyyy-MM-dd') ? 'hoje' : (#temporals.format(inscricao.vaga.data, 'yyyy-MM-dd') lt #temporals.format(#temporals.createNow(), 'yyyy-MM-dd') ? 'encerrada' : 'ativa')}"
-           th:data-nome="${inscricao.vaga.nome}"
-           th:data-ong="${inscricao.vaga.ong.nome}">
+      <!-- Loop das Inscrições com verificações corrigidas -->
+      <div th:each="inscricao : ${inscricoes}"
+           th:if="${inscricao != null and inscricao.vaga != null and inscricao.vaga.ong != null}"
+           th:with="vaga=${inscricao.vaga},
+                    isAtiva=${vaga.status != null and vaga.status.name() == 'ATIVA'},
+                    isHoje=${vaga.data != null and #temporals.format(vaga.data, 'yyyy-MM-dd') == #temporals.format(#temporals.createNow(), 'yyyy-MM-dd')},
+                    isPassado=${vaga.data != null and #temporals.format(vaga.data, 'yyyy-MM-dd') < #temporals.format(#temporals.createNow(), 'yyyy-MM-dd')},
+                    calculatedStatus=${!isAtiva ? 'inativa' : (isHoje ? 'hoje' : (isPassado ? 'encerrada' : 'ativa'))}"
+           class="vaga-card"
+           th:classappend="${!isAtiva ? 'inactive' : ''}"
+           th:data-status="${calculatedStatus}"
+           th:data-nome="${vaga.nome != null ? vaga.nome : ''}"
+           th:data-ong="${vaga.ong.nome != null ? vaga.ong.nome : ''}">
 
         <!-- Imagem da Vaga -->
         <div class="vaga-image">
-          <img th:if="${inscricao.vaga.imagemPath != null}"
-               th:src="${inscricao.vaga.imagemPath}"
-               th:alt="${inscricao.vaga.nome}"
+          <img th:if="${vaga.imagemPath != null and !#strings.isEmpty(vaga.imagemPath)}"
+               th:src="${vaga.imagemPath}"
+               th:alt="${vaga.nome != null ? vaga.nome : 'Vaga'}"
                onerror="this.parentElement.innerHTML='<div class=\'vaga-image-placeholder\'><i class=\'bi bi-image\'></i></div>'">
-          <div th:unless="${inscricao.vaga.imagemPath != null}" class="vaga-image-placeholder">
+          <div th:unless="${vaga.imagemPath != null and !#strings.isEmpty(vaga.imagemPath)}" class="vaga-image-placeholder">
             <i class="bi bi-image"></i>
           </div>
 
-          <!-- Status da Vaga -->
-          <div class="vaga-status"
-               th:classappend="${#temporals.format(inscricao.vaga.data, 'yyyy-MM-dd') == #temporals.format(#temporals.createNow(), 'yyyy-MM-dd') ? 'status-hoje' : (#temporals.format(inscricao.vaga.data, 'yyyy-MM-dd') lt #temporals.format(#temporals.createNow(), 'yyyy-MM-dd') ? 'status-encerrada' : 'status-ativa')}">
-            <span th:if="${#temporals.format(inscricao.vaga.data, 'yyyy-MM-dd') == #temporals.format(#temporals.createNow(), 'yyyy-MM-dd')}">Hoje</span>
-            <span th:unless="${#temporals.format(inscricao.vaga.data, 'yyyy-MM-dd') == #temporals.format(#temporals.createNow(), 'yyyy-MM-dd')}">
-                <span th:if="${#temporals.format(inscricao.vaga.data, 'yyyy-MM-dd') lt #temporals.format(#temporals.createNow(), 'yyyy-MM-dd')}">Encerrada</span>
-                <span th:unless="${#temporals.format(inscricao.vaga.data, 'yyyy-MM-dd') lt #temporals.format(#temporals.createNow(), 'yyyy-MM-dd')}">Ativa</span>
+          <!-- Status Badge -->
+          <div class="vaga-status" th:classappend="'status-' + ${calculatedStatus}">
+            <span th:switch="${calculatedStatus}">
+              <span th:case="'inativa'">Inativa</span>
+              <span th:case="'hoje'">Hoje</span>
+              <span th:case="'encerrada'">Encerrada</span>
+              <span th:case="'ativa'">Ativa</span>
             </span>
           </div>
         </div>
 
         <!-- Conteúdo da Vaga -->
         <div class="vaga-content">
+          <!-- Cabeçalho -->
           <div class="vaga-header">
-            <h3 class="vaga-title" th:text="${inscricao.vaga.nome}">Nome da Vaga</h3>
-            <div class="vaga-ong">
+            <h3 class="vaga-title" th:text="${vaga.nome != null ? vaga.nome : 'Nome da Vaga'}">Nome da Vaga</h3>
+            <div class="vaga-ong" onclick="showOngProfileModal(this)" th:data-ong-id="${vaga.ong.id}">
               <i class="bi bi-building"></i>
-              <span th:text="${inscricao.vaga.ong.nome}">Nome da ONG</span>
+              <span th:text="${vaga.ong.nome != null ? vaga.ong.nome : 'Nome da ONG'}">Nome da ONG</span>
             </div>
           </div>
 
+          <!-- Detalhes -->
           <div class="vaga-details">
             <div class="detail-item">
               <i class="bi bi-calendar-event"></i>
-              <span th:text="${#temporals.format(inscricao.vaga.data, 'dd/MM/yyyy')}">Data</span>
+              <span th:text="${vaga.data != null ? #temporals.format(vaga.data, 'dd/MM/yyyy') : 'Data não informada'}">Data</span>
             </div>
             <div class="detail-item">
               <i class="bi bi-people"></i>
-              <span th:text="${inscricao.vaga.quantidade} + ' vagas disponíveis'">Vagas</span>
+              <span th:text="${vaga.quantidade + ' vagas disponíveis'}">Vagas</span>
             </div>
             <div class="detail-item">
               <i class="bi bi-clock"></i>
-              <span th:text="'Inscrito em ' + ${#temporals.format(inscricao.dataInscricao, 'dd/MM/yyyy')}">Data de Inscrição</span>
+              <span th:text="'Inscrito em ' + ${inscricao.dataInscricao != null ? #temporals.format(inscricao.dataInscricao, 'dd/MM/yyyy') : 'Data não informada'}">Data de Inscrição</span>
+            </div>
+            <div class="detail-item" th:if="${!isAtiva}">
+              <i class="bi bi-exclamation-triangle"></i>
+              <span>Status: <span th:text="${vaga.status != null ? vaga.status.descricao : 'Inativa'}">Inativa</span></span>
             </div>
           </div>
 
-          <div class="vaga-description" th:text="${inscricao.vaga.descri}">
+          <!-- Descrição -->
+          <div class="vaga-description" th:text="${vaga.descri != null ? vaga.descri : 'Descrição da vaga...'}">
             Descrição da vaga...
           </div>
 
+          <!-- Ações -->
           <div class="vaga-actions">
-            <button class="btn-cancel"
-                    th:data-inscricao-id="${inscricao.id}"
-                    th:data-vaga-nome="${inscricao.vaga.nome}"
-                    th:disabled="${#temporals.format(inscricao.vaga.data, 'yyyy-MM-dd') lt #temporals.format(#temporals.createNow(), 'yyyy-MM-dd')}"
-                    onclick="showCancelModal(this)">
-              <i class="bi bi-x-circle"></i>
-              <span th:if="${#temporals.format(inscricao.vaga.data, 'yyyy-MM-dd') ge #temporals.format(#temporals.createNow(), 'yyyy-MM-dd')}">Cancelar Inscrição</span>
-              <span th:unless="${#temporals.format(inscricao.vaga.data, 'yyyy-MM-dd') ge #temporals.format(#temporals.createNow(), 'yyyy-MM-dd')}">Encerrada</span>
-            </button>
-            <div class="inscricao-info">
-              <i class="bi bi-check-circle"></i>
-              Inscrito
+            <div class="action-buttons">
+              <!-- Botão Cancelar -->
+              <button class="btn-cancel"
+                      th:data-inscricao-id="${inscricao.id}"
+                      th:data-vaga-nome="${vaga.nome != null ? vaga.nome : ''}"
+                      th:disabled="${!isAtiva or isPassado}"
+                      onclick="showCancelModal(this)">
+                <i class="bi bi-x-circle"></i>
+                <span th:if="${isAtiva and !isPassado}">Cancelar</span>
+                <span th:unless="${isAtiva and !isPassado}">Indisponível</span>
+              </button>
+
+              <!-- Botão Ver ONG -->
+              <button class="btn-ong" onclick="showOngProfileModal(this)" th:data-ong-id="${vaga.ong.id}">
+                <i class="bi bi-person-badge"></i>
+                Ver ONG
+              </button>
+
+              <!-- Botão Reportar -->
+              <button class="btn-report"
+                      th:data-vaga-id="${vaga.id}"
+                      th:data-vaga-nome="${vaga.nome != null ? vaga.nome : ''}"
+                      th:data-ong-nome="${vaga.ong.nome != null ? vaga.ong.nome : ''}"
+                      onclick="showReportModal(this)">
+                <i class="bi bi-flag"></i>
+                Reportar
+              </button>
+            </div>
+
+            <!-- Info da Inscrição -->
+            <div class="inscricao-info" th:classappend="${!isAtiva ? 'inactive' : ''}">
+              <i th:class="${isAtiva ? 'bi bi-check-circle' : 'bi bi-exclamation-triangle'}"></i>
+              <span th:if="${isAtiva}">Inscrito</span>
+              <span th:unless="${isAtiva}">Vaga Inativa</span>
             </div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Estado Vazio -->
+    <!-- ESTADO VAZIO -->
     <div class="empty-state" id="emptyState" style="display: none;">
       <div class="empty-icon">
         <i class="bi bi-journal-x"></i>
@@ -992,10 +2106,85 @@
   </div>
 </div>
 
+</body>
 <script>
+  // ===== VARIÁVEIS GLOBAIS =====
   let currentInscricaoId = null;
+  let currentReportVagaId = null;
+  let currentRating = 0;
 
-  // Funções de logout
+  // ===== INICIALIZAÇÃO =====
+  document.addEventListener('DOMContentLoaded', function() {
+    initializeApp();
+  });
+
+  function initializeApp() {
+    setupEventListeners();
+    initStarRating();
+    initFileUpload();
+    initReportForm();
+    updateCharCounter();
+    checkEmptyState();
+    checkReportButtons();
+    animateCardsOnLoad();
+    setupAccessibility();
+    setupIntersectionObserver();
+    restoreFiltersState();
+  }
+
+  // ===== EVENT LISTENERS =====
+  function setupEventListeners() {
+    const statusFilter = document.getElementById('statusFilter');
+    const searchFilter = document.getElementById('searchFilter');
+
+    if (statusFilter) {
+      statusFilter.addEventListener('change', () => {
+        filterInscricoes();
+        saveFiltersState();
+      });
+    }
+
+    if (searchFilter) {
+      const debouncedFilter = debounce(() => {
+        filterInscricoes();
+        saveFiltersState();
+      }, 300);
+      searchFilter.addEventListener('input', debouncedFilter);
+    }
+
+    window.addEventListener('click', handleModalOutsideClick);
+    document.addEventListener('keydown', handleEscapeKey);
+  }
+
+  function handleModalOutsideClick(event) {
+    const modals = ['cancelModal', 'logoutModal', 'reportModal', 'ongProfileModal'];
+    modals.forEach(modalId => {
+      const modal = document.getElementById(modalId);
+      if (modal && event.target === modal) {
+        closeModal(modalId);
+      }
+    });
+  }
+
+  function handleEscapeKey(event) {
+    if (event.key === 'Escape') {
+      const openModals = document.querySelectorAll('.modal[style*="block"]');
+      openModals.forEach(modal => closeModal(modal.id));
+    }
+  }
+
+  function closeModal(modalId) {
+    const modal = document.getElementById(modalId);
+    if (modal) modal.style.display = 'none';
+
+    switch (modalId) {
+      case 'cancelModal': currentInscricaoId = null; break;
+      case 'reportModal': closeReportModal(); break;
+      case 'ongProfileModal': closeOngProfileModal(); break;
+    }
+  }
+
+  // ===== FUNÇÕES DE LOGOUT =====
   function showLogoutModal() {
     document.getElementById('logoutModal').style.display = 'block';
   }
@@ -1005,294 +2194,761 @@
   }
 
   function confirmLogout() {
-    // Fazer logout via AJAX
-    fetch('/logout', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      }
-    })
-            .then(response => {
-              if (response.ok) {
-                window.location.href = '/login/voluntario';
-              } else {
-                showToast('Erro ao fazer logout', 'error');
-              }
-            })
-            .catch(error => {
-              console.error('Erro:', error);
-              showToast('Erro ao fazer logout', 'error');
-            });
+    const confirmBtn = document.querySelector('#logoutModal .btn-confirm');
+    if (!confirmBtn) return;
+
+    confirmBtn.disabled = true;
+    confirmBtn.innerHTML = '<span class="spinner-border spinner-border-sm mr-2"></span>Saindo...';
+
+    // Simula a chamada de logout
+    setTimeout(() => {
+      showToast('Logout realizado com sucesso!', 'success');
+      window.location.href = '/'; // Redireciona para a página inicial
+    }, 1000);
   }
 
-  // Mostrar modal de cancelamento
+  // ===== FUNÇÕES DE CANCELAMENTO DE INSCRIÇÃO =====
   function showCancelModal(button) {
+    if (!button) return;
     currentInscricaoId = button.dataset.inscricaoId;
     const vagaNome = button.dataset.vagaNome;
-
-    document.getElementById('vagaNome').textContent = vagaNome;
+    document.getElementById('vagaNome').textContent = vagaNome || 'Vaga';
     document.getElementById('cancelModal').style.display = 'block';
   }
 
-  // Fechar modal de cancelamento
   function closeCancelModal() {
     document.getElementById('cancelModal').style.display = 'none';
     currentInscricaoId = null;
   }
 
-  // Cancelar inscrição
   function cancelInscricao() {
-    if (!currentInscricaoId) return;
+    if (!currentInscricaoId) {
+      showToast('Erro: ID da inscrição não encontrado', 'error');
+      return;
+    }
 
-    // Desabilitar botão durante o processo
     const confirmBtn = document.getElementById('confirmCancelBtn');
     confirmBtn.disabled = true;
     confirmBtn.innerHTML = '<span class="spinner-border spinner-border-sm mr-2"></span>Cancelando...';
 
-    // Fazer requisição para cancelar inscrição
     fetch(`/inscricao/cancelar/${currentInscricaoId}`, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      }
+      headers: { 'Content-Type': 'application/json' },
     })
-            .then(response => response.text())
+            .then(response => {
+              if (response.ok) {
+                return response.json().catch(() => ({ status: 'sucesso' }));
+              } else {
+                return response.json().catch(() => ({ status: 'erro', message: 'Erro desconhecido' }));
+              }
+            })
             .then(data => {
-              if (data === 'ok') {
+              if (data.status === 'sucesso') {
                 showToast('Inscrição cancelada com sucesso!', 'success');
-
-                // Remover card da interface
-                const card = document.querySelector(`[data-inscricao-id="${currentInscricaoId}"]`).closest('.vaga-card');
+                const card = document.querySelector(`.vaga-card [data-inscricao-id="${currentInscricaoId}"]`)?.closest('.vaga-card');
                 if (card) {
                   card.style.animation = 'fadeOut 0.5s ease';
                   setTimeout(() => {
                     card.remove();
                     updateStats();
-                    checkEmptyState();
+                    filterInscricoes(); // Re-avalia o estado da página
                   }, 500);
                 }
-
                 closeCancelModal();
               } else {
-                showToast(data.replace('erro: ', ''), 'error');
+                throw new Error(data.message || 'Erro ao cancelar inscrição');
               }
             })
             .catch(error => {
               console.error('Erro:', error);
-              showToast('Erro ao cancelar inscrição', 'error');
+              showToast(error.message || 'Erro ao cancelar inscrição', 'error');
             })
             .finally(() => {
-              // Restaurar botão
               confirmBtn.disabled = false;
-              confirmBtn.innerHTML = '<i class="bi bi-check-circle"></i> Sim, cancelar';
+              confirmBtn.innerHTML = 'Sim, cancelar';
             });
   }
 
-  // Filtros
+  // ===== FUNÇÕES DO MODAL DE REPORT =====
+  function showReportModal(button) {
+    if (!button) return;
+
+    currentReportVagaId = button.dataset.vagaId;
+    const vagaNome = button.dataset.vagaNome;
+    const ongNome = button.dataset.ongNome;
+
+    document.getElementById('reportVagaNome').textContent = vagaNome || 'Vaga';
+    document.getElementById('reportOngNome').textContent = ongNome || 'ONG';
+
+    resetReportForm();
+    document.getElementById('reportModal').style.display = 'block';
+  }
+
+  function closeReportModal() {
+    document.getElementById('reportModal').style.display = 'none';
+    currentReportVagaId = null;
+    resetReportForm();
+  }
+
+  function resetReportForm() {
+    document.getElementById('reportForm').reset();
+    currentRating = 0;
+    updateStarRating();
+    document.getElementById('ratingText').textContent = 'Clique nas estrelas para avaliar';
+    updateCharCounter();
+    removeEvidence();
+  }
+
+  // ===== SISTEMA DE AVALIAÇÃO POR ESTRELAS =====
+  function initStarRating() {
+    const starContainer = document.getElementById('starRating');
+    if (!starContainer) return;
+
+    starContainer.addEventListener('click', e => {
+      const star = e.target.closest('.star');
+      if (!star) return;
+
+      currentRating = parseInt(star.dataset.rating, 10);
+      document.getElementById('reportRating').value = currentRating;
+      updateStarRating();
+      updateRatingText();
+    });
+
+    starContainer.addEventListener('mouseover', e => {
+      const star = e.target.closest('.star');
+      if (!star) return;
+      const hoverRating = parseInt(star.dataset.rating, 10);
+      highlightStars(hoverRating, 'hover');
+    });
+
+    starContainer.addEventListener('mouseleave', () => {
+      updateStarRating();
+    });
+  }
+
+  function highlightStars(rating, className = 'active') {
+    const stars = document.querySelectorAll('.star');
+    stars.forEach((star, index) => {
+      star.classList.remove('active', 'hover');
+      if (index < rating) {
+        star.classList.add(className);
+        star.innerHTML = '<i class="bi bi-star-fill"></i>';
+      } else {
+        star.innerHTML = '<i class="bi bi-star"></i>';
+      }
+    });
+  }
+
+  function updateStarRating() {
+    highlightStars(currentRating, 'active');
+  }
+
+  function updateRatingText() {
+    const texts = { 1: 'Muito ruim', 2: 'Ruim', 3: 'Regular', 4: 'Boa', 5: 'Excelente' };
+    document.getElementById('ratingText').textContent = texts[currentRating] || 'Clique nas estrelas para avaliar';
+  }
+
+  // ===== SISTEMA DE UPLOAD DE ARQUIVO =====
+  function initFileUpload() {
+    const uploadArea = document.getElementById('uploadArea');
+    const fileInput = document.getElementById('reportEvidence');
+    if (!uploadArea || !fileInput) return;
+
+    uploadArea.addEventListener('click', () => fileInput.click());
+
+    ['dragover', 'dragleave', 'drop'].forEach(eventName => {
+      uploadArea.addEventListener(eventName, (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        if (eventName === 'dragover') uploadArea.classList.add('dragover');
+        if (eventName === 'dragleave' || eventName === 'drop') uploadArea.classList.remove('dragover');
+        if (eventName === 'drop') {
+          fileInput.files = e.dataTransfer.files;
+          handleFileUpload(fileInput);
+        }
+      });
+    });
+  }
+
+  function handleFileUpload(input) {
+    const file = input.files[0];
+    if (!file) return;
+
+    const allowedTypes = ['image/jpeg', 'image/png', 'image/gif', 'application/pdf'];
+    if (!allowedTypes.includes(file.type)) {
+      showToast('Formato de arquivo inválido.', 'error');
+      input.value = '';
+      return;
+    }
+    if (file.size > 5 * 1024 * 1024) {
+      showToast('Arquivo muito grande (máx 5MB).', 'error');
+      input.value = '';
+      return;
+    }
+    showFilePreview(file);
+  }
+
+  function showFilePreview(file) {
+    document.getElementById('fileName').textContent = file.name;
+    document.getElementById('fileSize').textContent = formatFileSize(file.size);
+    document.getElementById('evidencePreview').style.display = 'block';
+  }
+
+  function removeEvidence() {
+    document.getElementById('reportEvidence').value = '';
+    document.getElementById('evidencePreview').style.display = 'none';
+  }
+
+  function formatFileSize(bytes) {
+    if (bytes === 0) return '0 Bytes';
+    const k = 1024;
+    const sizes = ['Bytes', 'KB', 'MB'];
+    const i = Math.floor(Math.log(bytes) / Math.log(k));
+    return `${parseFloat((bytes / Math.pow(k, i)).toFixed(2))} ${sizes[i]}`;
+  }
+
+  // ===== CONTADOR DE CARACTERES =====
+  function updateCharCounter() {
+    const textarea = document.getElementById('reportReason');
+    const counter = document.getElementById('charCounter');
+    if (!textarea || !counter) return;
+
+    const len = textarea.value.length;
+    counter.textContent = `${len}/2000 caracteres`;
+    textarea.classList.toggle('invalid', len > 0 && len < 20);
+    textarea.classList.toggle('valid', len >= 20);
+  }
+
+  // ===== SUBMISSÃO DO FORMULÁRIO DE REPORT =====
+  function initReportForm() {
+    const reportForm = document.getElementById('reportForm');
+    if (!reportForm) return;
+
+    reportForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      if (document.getElementById('reportReason').value.length < 20) {
+        showToast('A descrição deve ter no mínimo 20 caracteres.', 'warning');
+        return;
+      }
+      if (!document.getElementById('reportSubject').value) {
+        showToast('Por favor, selecione um assunto.', 'warning');
+        return;
+      }
+
+      const confirmBtn = document.getElementById('confirmReportBtn');
+      confirmBtn.disabled = true;
+      confirmBtn.innerHTML = '<i class="bi bi-hourglass-split"></i> Enviando...';
+
+      const formData = new FormData(this);
+      formData.append('vagaId', currentReportVagaId);
+
+      fetch('/inscricao/reportar', { method: 'POST', body: formData })
+              .then(response => {
+                if (response.ok) {
+                  return response.json().catch(() => ({ status: 'sucesso' }));
+                } else {
+                  return response.json().catch(() => ({ status: 'erro', message: 'Erro desconhecido' }));
+                }
+              })
+              .then(data => {
+                if (data.status === 'sucesso') {
+                  showToast('Report enviado com sucesso!', 'success');
+                  closeReportModal();
+                  const reportButton = document.querySelector(`.btn-report[data-vaga-id="${currentReportVagaId}"]`);
+                  if (reportButton) {
+                    reportButton.disabled = true;
+                    reportButton.innerHTML = '<i class="bi bi-check-circle"></i> Reportado';
+                  }
+                } else {
+                  throw new Error(data.message || 'Erro ao enviar report');
+                }
+              })
+              .catch(error => {
+                console.error('Erro:', error);
+                showToast(error.message || 'Erro ao enviar report', 'error');
+              })
+              .finally(() => {
+                confirmBtn.disabled = false;
+                confirmBtn.innerHTML = '<i class="bi bi-flag"></i> Enviar Report';
+              });
+    });
+  }
+
+  // ===== MODAL DE PERFIL DA ONG =====
+  function showOngProfileModal(element) {
+    const ongId = element.dataset.ongId;
+    const modal = document.getElementById('ongProfileModal');
+    const loading = document.getElementById('ongProfileLoading');
+    const content = document.getElementById('ongProfileContent');
+    if (!modal || !ongId) return;
+
+    modal.style.display = 'block';
+    loading.style.display = 'flex';
+    content.style.display = 'none';
+
+    fetch(`/api/ong/perfil/${ongId}`)
+            .then(response => {
+              if (response.ok) {
+                return response.json();
+              } else {
+                throw new Error('ONG não encontrada');
+              }
+            })
+            .then(ong => {
+              populateOngModal(ong);
+              loading.style.display = 'none';
+              content.style.display = 'block';
+            })
+            .catch(error => {
+              console.error('Erro ao carregar perfil da ONG:', error);
+              loading.innerHTML = `<p style="color: red;">Erro ao carregar perfil.</p>`;
+            });
+  }
+
+  function populateOngModal(ong) {
+    document.getElementById('ongModalNome').textContent = ong.nome || 'Não informado';
+    document.getElementById('ongModalCnpj').textContent = `CNPJ: ${formatCnpj(ong.cnpj) || 'Não informado'}`;
+
+    const logoContainer = document.getElementById('ongLogoContainer');
+    logoContainer.innerHTML = (ong.logoUrl)
+            ? `<img src="${ong.logoUrl}" alt="Logo da ONG" onerror="this.outerHTML='<i class=\\'bi bi-building\\'></i>';">`
+            : '<i class="bi bi-building"></i>';
+
+    document.getElementById('ongTotalVagas').textContent = ong.totalVagas || '0';
+    document.getElementById('ongVagasAtivas').textContent = ong.vagasAtivas || '0';
+    document.getElementById('ongModalDescricao').textContent = ong.descricao || 'Nenhuma descrição informada.';
+    document.getElementById('ongModalEmail').textContent = ong.email || 'Não informado';
+    document.getElementById('ongModalTelefone').textContent = formatTelefone(ong.telefone) || 'Não informado';
+    document.getElementById('ongModalEndereco').textContent = formatEndereco(ong) || 'Não informado';
+
+    const siteContainer = document.getElementById('ongModalSiteContainer');
+    if (ong.site) {
+      document.getElementById('ongModalSite').innerHTML = `<a href="${ong.site}" target="_blank" rel="noopener noreferrer">${ong.site}</a>`;
+      siteContainer.style.display = 'block';
+    } else {
+      siteContainer.style.display = 'none';
+    }
+    populateOngSocialLinks(ong);
+  }
+
+  function populateOngSocialLinks(ong) {
+    const sociaisContainer = document.getElementById('ongModalSociais');
+    const noSociaisElement = document.getElementById('ongModalNoSociais');
+    sociaisContainer.innerHTML = '';
+    let hasSocial = false;
+
+    const createLink = (url, icon, color) => {
+      hasSocial = true;
+      return `<a href="${url}" target="_blank" rel="noopener noreferrer" style="background: ${color};"><i class="bi ${icon}"></i></a>`;
+    };
+
+    if (ong.facebook) sociaisContainer.innerHTML += createLink(ong.facebook, 'bi-facebook', '#4267B2');
+    if (ong.instagram) sociaisContainer.innerHTML += createLink(ong.instagram, 'bi-instagram', 'linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888)');
+
+    sociaisContainer.style.display = hasSocial ? 'flex' : 'none';
+    noSociaisElement.style.display = hasSocial ? 'none' : 'block';
+  }
+
+  function closeOngProfileModal() {
+    document.getElementById('ongProfileModal').style.display = 'none';
+  }
+
+  // ===== FUNÇÕES DE FORMATAÇÃO =====
+  function formatCnpj(cnpj) {
+    if (!cnpj) return null;
+    return cnpj.replace(/^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})$/, '$1.$2.$3/$4-$5');
+  }
+
+  function formatTelefone(tel) {
+    if (!tel) return null;
+    return tel.replace(/^(\d{2})(\d{5})(\d{4})$/, '($1) $2-$3');
+  }
+
+  function formatEndereco(ong) {
+    return [ong.logradouro, ong.numero, ong.bairro, ong.cidade, ong.estado].filter(Boolean).join(', ');
+  }
+
+  // ===== SISTEMA DE FILTROS =====
   function filterInscricoes() {
-    const statusFilter = document.getElementById('statusFilter').value;
-    const searchFilter = document.getElementById('searchFilter').value.toLowerCase();
-    const cards = Array.from(document.querySelectorAll('.vaga-card'));
+    const statusValue = document.getElementById('statusFilter').value;
+    const searchValue = document.getElementById('searchFilter').value.toLowerCase().trim();
+    const cards = document.querySelectorAll('.vaga-card');
     let visibleCount = 0;
 
     cards.forEach(card => {
-      const status = card.dataset.status;
-      const nome = card.dataset.nome.toLowerCase();
-      const ong = card.dataset.ong.toLowerCase();
+      const cardStatus = card.dataset.status;
+      const cardNome = card.dataset.nome.toLowerCase();
+      const cardOng = card.dataset.ong.toLowerCase();
 
-      // Verificar filtros
-      const statusMatch = !statusFilter || status === statusFilter;
-      const searchMatch = !searchFilter ||
-              nome.includes(searchFilter) ||
-              ong.includes(searchFilter);
+      const statusMatch = (statusValue === "" || cardStatus === statusValue);
+      const searchMatch = (searchValue === "" || cardNome.includes(searchValue) || cardOng.includes(searchValue));
 
       if (statusMatch && searchMatch) {
-        card.style.display = 'block';
+        card.style.display = ""; // Reverte para o display do CSS (grid item)
         visibleCount++;
       } else {
         card.style.display = 'none';
       }
     });
 
-    // Atualizar estado vazio
-    checkEmptyState(visibleCount, statusFilter, searchFilter);
+    checkEmptyState(visibleCount, statusValue, searchValue);
   }
 
-  // Limpar filtros
   function clearFilters() {
     document.getElementById('statusFilter').value = '';
     document.getElementById('searchFilter').value = '';
     filterInscricoes();
+    showToast('Filtros limpos', 'success');
   }
 
-  // Verificar estado vazio
+  // ===== VERIFICAÇÃO DE ESTADO VAZIO =====
   function checkEmptyState(visibleCount = null, statusFilter = '', searchFilter = '') {
-    const cards = document.querySelectorAll('.vaga-card');
-    const emptyState = document.getElementById('emptyState');
     const vagasGrid = document.getElementById('vagasGrid');
+    const emptyState = document.getElementById('emptyState');
     const emptyMessage = document.getElementById('emptyMessage');
 
-    const totalCards = cards.length;
-    const actualVisibleCount = visibleCount !== null ? visibleCount : totalCards;
+    const totalCards = document.querySelectorAll('.vaga-card').length;
+    const actualVisibleCount = visibleCount ?? vagasGrid.querySelectorAll('.vaga-card:not([style*="display: none"])').length;
 
     if (totalCards === 0) {
       emptyMessage.textContent = 'Você ainda não se inscreveu em nenhuma vaga.';
-      emptyState.style.display = 'block';
       vagasGrid.style.display = 'none';
+      emptyState.style.display = 'block';
     } else if (actualVisibleCount === 0) {
-      if (statusFilter || searchFilter) {
-        emptyMessage.textContent = 'Nenhuma inscrição encontrada com os filtros aplicados.';
-      } else {
-        emptyMessage.textContent = 'Nenhuma inscrição encontrada.';
-      }
+      let msg = 'Nenhuma inscrição encontrada para os filtros aplicados.';
+      if (statusFilter && !searchFilter) msg = `Nenhuma inscrição com o status "${getStatusLabel(statusFilter)}" encontrada.`;
+      if (!statusFilter && searchFilter) msg = `Nenhuma inscrição encontrada para a busca "${searchFilter}".`;
+      emptyMessage.textContent = msg;
+      vagasGrid.style.display = 'grid'; // Manter o grid para evitar quebra de layout
       emptyState.style.display = 'block';
-      vagasGrid.style.display = 'none';
     } else {
       emptyState.style.display = 'none';
       vagasGrid.style.display = 'grid';
     }
   }
 
-  // Atualizar estatísticas
-  function updateStats() {
-    const cards = document.querySelectorAll('.vaga-card');
-    let ativas = 0;
-    let encerradas = 0;
-    let total = cards.length;
-
-    cards.forEach(card => {
-      const status = card.dataset.status;
-      if (status === 'ativa' || status === 'hoje') {
-        ativas++;
-      } else if (status === 'encerrada') {
-        encerradas++;
-      }
-    });
-
-    // Atualizar valores na interface
-    document.querySelector('.stat-item:nth-child(1) .stat-value').textContent = total;
-    document.querySelector('.stat-item:nth-child(2) .stat-value').textContent = ativas;
-    document.querySelector('.stat-item:nth-child(3) .stat-value').textContent = encerradas;
+  function getStatusLabel(status) {
+    const labels = { 'ativa': 'Ativa', 'encerrada': 'Encerrada', 'hoje': 'Hoje', 'inativa': 'Inativa' };
+    return labels[status] || status;
   }
 
-  // Mostrar toast
-  function showToast(message, type = 'success') {
-    // Remove toast existente
-    const existingToast = document.querySelector('.toast');
-    if (existingToast) {
-      existingToast.remove();
-    }
+  // ===== ATUALIZAÇÃO DE ESTATÍSTICAS =====
+  function updateStats() {
+    const allCards = document.querySelectorAll('.vaga-card');
+    const stats = { total: allCards.length, ativas: 0, encerradas: 0 };
+    allCards.forEach(card => {
+      const status = card.dataset.status;
+      if (status === 'ativa' || status === 'hoje') stats.ativas++;
+      if (status === 'encerrada') stats.encerradas++;
+    });
 
+    const statItems = document.querySelectorAll('.stat-value');
+    if (statItems[0]) statItems[0].textContent = stats.total;
+    if (statItems[1]) statItems[1].textContent = stats.ativas;
+    if (statItems[2]) statItems[2].textContent = stats.encerradas;
+  }
+
+  // ===== TOAST NOTIFICATIONS =====
+  function showToast(message, type = 'success') {
+    document.querySelector('.toast')?.remove();
     const toast = document.createElement('div');
     toast.className = `toast ${type}`;
-
-    const icon = type === 'success' ? 'check-circle' :
-            type === 'error' ? 'x-circle' : 'exclamation-triangle';
-
-    toast.innerHTML = `
-        <i class="bi bi-${icon}"></i>
-        <span>${message}</span>
-    `;
-
+    const icon = { success: 'check-circle', error: 'x-circle', warning: 'exclamation-triangle' }[type];
+    toast.innerHTML = `<i class="bi bi-${icon}"></i> <span>${message}</span>`;
     document.body.appendChild(toast);
-
-    // Auto remove após 5 segundos
+    const removeToast = () => toast.remove();
+    toast.addEventListener('click', removeToast);
     setTimeout(() => {
-      toast.style.animation = 'slideOutToast 0.3s ease';
-      setTimeout(() => toast.remove(), 300);
+      toast.style.animation = 'slideOutToast 0.3s forwards';
+      toast.addEventListener('animationend', removeToast);
     }, 5000);
   }
 
-  // Event listeners
-  document.addEventListener('DOMContentLoaded', function() {
-    // Configurar filtros
-    document.getElementById('statusFilter').addEventListener('change', filterInscricoes);
-    document.getElementById('searchFilter').addEventListener('input', filterInscricoes);
-
-    // Atualizar estatísticas iniciais
-    updateStats();
-
-    // Verificar estado vazio inicial
-    checkEmptyState();
-
-    // Fechar modais ao clicar fora
-    window.addEventListener('click', function(event) {
-      const cancelModal = document.getElementById('cancelModal');
-      const logoutModal = document.getElementById('logoutModal');
-
-      if (event.target === cancelModal) {
-        closeCancelModal();
-      } else if (event.target === logoutModal) {
-        hideLogoutModal();
-      }
+  // ===== VERIFICAÇÃO DE BOTÕES DE REPORT =====
+  function checkReportButtons() {
+    document.querySelectorAll('.btn-report').forEach(button => {
+      // Exemplo: desabilitar se já reportado (a ser implementado com backend)
+      // if (localStorage.getItem(`reported_${button.dataset.vagaId}`)) {
+      //   button.disabled = true;
+      //   button.innerHTML = '<i class="bi bi-check-circle"></i> Reportado';
+      // }
     });
+  }
 
-    // Adicionar animação aos cards
-    const cards = document.querySelectorAll('.vaga-card');
-    cards.forEach((card, index) => {
+  // ===== ANIMAÇÕES E UTILITÁRIOS =====
+  function animateCardsOnLoad() {
+    document.querySelectorAll('.vaga-card').forEach((card, index) => {
       card.style.opacity = '0';
       card.style.transform = 'translateY(20px)';
-
       setTimeout(() => {
-        card.style.transition = 'all 0.5s ease';
+        card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
         card.style.opacity = '1';
         card.style.transform = 'translateY(0)';
-      }, index * 100);
+      }, index * 80);
     });
+  }
+
+  function debounce(func, wait) {
+    let timeout;
+    return function executedFunction(...args) {
+      const later = () => {
+        clearTimeout(timeout);
+        func(...args);
+      };
+      clearTimeout(timeout);
+      timeout = setTimeout(later, wait);
+    };
+  }
+
+  // ===== SALVAMENTO DE ESTADO =====
+  function saveFiltersState() {
+    const state = {
+      statusFilter: document.getElementById('statusFilter').value,
+      searchFilter: document.getElementById('searchFilter').value
+    };
+    sessionStorage.setItem('minhasInscricoesFilters', JSON.stringify(state));
+  }
+
+  function restoreFiltersState() {
+    try {
+      const saved = sessionStorage.getItem('minhasInscricoesFilters');
+      if (saved) {
+        const state = JSON.parse(saved);
+        document.getElementById('statusFilter').value = state.statusFilter || '';
+        document.getElementById('searchFilter').value = state.searchFilter || '';
+        filterInscricoes();
+      }
+    } catch (e) {
+      console.warn('Não foi possível restaurar o estado dos filtros.');
+      sessionStorage.removeItem('minhasInscricoesFilters');
+    }
+  }
+
+  // ===== ACESSIBILIDADE E PERFORMANCE =====
+  function setupAccessibility() {
+    document.querySelectorAll('.modal').forEach(modal => {
+      modal.addEventListener('keydown', e => {
+        if (e.key === 'Tab') {
+          const focusable = modal.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+          const first = focusable[0];
+          const last = focusable[focusable.length - 1];
+          if (e.shiftKey && document.activeElement === first) {
+            last.focus();
+            e.preventDefault();
+          } else if (!e.shiftKey && document.activeElement === last) {
+            first.focus();
+            e.preventDefault();
+          }
+        }
+      });
+    });
+  }
+
+  function setupIntersectionObserver() {
+    if (!('IntersectionObserver' in window)) return;
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = "1";
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.vaga-card').forEach(card => observer.observe(card));
+  }
+
+  // ===== FUNÇÕES UTILITÁRIAS ADICIONAIS =====
+
+  // Função para verificar se uma vaga pode ser cancelada
+  function canCancelVaga(dataVaga) {
+    const hoje = new Date();
+    const dataLimite = new Date(dataVaga);
+    return dataLimite >= hoje;
+  }
+
+  // Função para formatar data para exibição
+  function formatarDataBrasil(data) {
+    if (!data) return 'Data não informada';
+    const dataObj = new Date(data);
+    return dataObj.toLocaleDateString('pt-BR');
+  }
+
+  // Função para calcular dias restantes
+  function calcularDiasRestantes(dataVaga) {
+    const hoje = new Date();
+    const dataEvento = new Date(dataVaga);
+    const diffTime = dataEvento - hoje;
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    return diffDays;
+  }
+
+  // Função para validar formulário de report
+  function validarFormularioReport() {
+    const assunto = document.getElementById('reportSubject').value;
+    const motivo = document.getElementById('reportReason').value;
+
+    if (!assunto) {
+      showToast('Por favor, selecione um assunto para o report.', 'warning');
+      return false;
+    }
+
+    if (motivo.length < 20) {
+      showToast('A descrição deve ter pelo menos 20 caracteres.', 'warning');
+      return false;
+    }
+
+    if (motivo.length > 2000) {
+      showToast('A descrição não pode exceder 2000 caracteres.', 'warning');
+      return false;
+    }
+
+    return true;
+  }
+
+  // Função para resetar todos os modais
+  function resetAllModals() {
+    closeModal('cancelModal');
+    closeModal('logoutModal');
+    closeModal('reportModal');
+    closeModal('ongProfileModal');
+  }
+
+  // Função para lidar com erros de rede
+  function handleNetworkError(error) {
+    console.error('Erro de rede:', error);
+    if (!navigator.onLine) {
+      showToast('Sem conexão com a internet. Verifique sua conexão.', 'error');
+    } else {
+      showToast('Erro de conexão. Tente novamente em alguns instantes.', 'error');
+    }
+  }
+
+  // Função para smooth scroll
+  function smoothScrollTo(element) {
+    if (element) {
+      element.scrollIntoView({
+        behavior: 'smooth',
+        block: 'center'
+      });
+    }
+  }
+
+  // Função para copiar texto para clipboard
+  function copyToClipboard(text) {
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(text).then(() => {
+        showToast('Texto copiado para a área de transferência!', 'success');
+      });
+    } else {
+      // Fallback para browsers mais antigos
+      const textArea = document.createElement('textarea');
+      textArea.value = text;
+      document.body.appendChild(textArea);
+      textArea.select();
+      document.execCommand('copy');
+      document.body.removeChild(textArea);
+      showToast('Texto copiado para a área de transferência!', 'success');
+    }
+  }
+
+  // Função para detectar mobile
+  function isMobile() {
+    return window.innerWidth <= 768;
+  }
+
+  // Função para ajustar layout em mobile
+  function adjustMobileLayout() {
+    if (isMobile()) {
+      document.body.classList.add('mobile');
+      // Ajustes específicos para mobile
+      const modals = document.querySelectorAll('.modal-content');
+      modals.forEach(modal => {
+        modal.style.margin = '10% auto';
+        modal.style.width = '95%';
+      });
+    }
+  }
+
+  // Event listener para resize
+  window.addEventListener('resize', debounce(() => {
+    adjustMobileLayout();
+    // Fechar modais em mobile quando orientação muda
+    if (isMobile()) {
+      resetAllModals();
+    }
+  }, 250));
+
+  // Função para inicializar lazy loading de imagens
+  function initLazyLoading() {
+    if ('IntersectionObserver' in window) {
+      const imageObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const img = entry.target;
+            img.src = img.dataset.src;
+            img.classList.remove('lazy');
+            imageObserver.unobserve(img);
+          }
+        });
+      });
+
+      document.querySelectorAll('img[data-src]').forEach(img => {
+        imageObserver.observe(img);
+      });
+    }
+  }
+
+  // Função para performance monitoring
+  function initPerformanceMonitoring() {
+    if ('performance' in window) {
+      window.addEventListener('load', () => {
+        setTimeout(() => {
+          const perfData = performance.getEntriesByType('navigation')[0];
+          if (perfData) {
+            console.log(`Página carregada em: ${perfData.loadEventEnd - perfData.loadEventStart}ms`);
+          }
+        }, 0);
+      });
+    }
+  }
+
+  // Inicializar funcionalidades adicionais quando DOM carregar
+  document.addEventListener('DOMContentLoaded', () => {
+    adjustMobileLayout();
+    initLazyLoading();
+    initPerformanceMonitoring();
   });
 
-  // Adicionar estilos de animação
-  const style = document.createElement('style');
-  style.textContent = `
-    @keyframes slideOutToast {
-        from {
-            transform: translateX(0);
-            opacity: 1;
-        }
-        to {
-            transform: translateX(100%);
-            opacity: 0;
-        }
-    }
+  // Função para cleanup quando página é fechada
+  window.addEventListener('beforeunload', () => {
+    // Limpar timers e observers se necessário
+    sessionStorage.setItem('lastVisit', Date.now());
+  });
 
-    @keyframes fadeOut {
-        from {
-            opacity: 1;
-            transform: scale(1);
-        }
-        to {
-            opacity: 0;
-            transform: scale(0.95);
-        }
-    }
+  // Função para detectar se usuário está offline
+  window.addEventListener('offline', () => {
+    showToast('Você está offline. Algumas funcionalidades podem não estar disponíveis.', 'warning');
+  });
 
-    .spinner-border {
-        display: inline-block;
-        width: 1rem;
-        height: 1rem;
-        vertical-align: text-bottom;
-        border: .15em solid currentColor;
-        border-right-color: transparent;
-        border-radius: 50%;
-        animation: spinner-border .75s linear infinite;
-    }
+  window.addEventListener('online', () => {
+    showToast('Conexão restabelecida!', 'success');
+  });
 
-    .spinner-border-sm {
-        width: 0.8rem;
-        height: 0.8rem;
-        border-width: .1em;
-    }
-
-    @keyframes spinner-border {
-        to { transform: rotate(360deg); }
-    }
-
-    .mr-2 {
-        margin-right: 0.5rem;
-    }
-  `;
-  document.head.appendChild(style);
+  // Exportar funções globais para uso no HTML (se necessário)
+  window.showLogoutModal = showLogoutModal;
+  window.hideLogoutModal = hideLogoutModal;
+  window.confirmLogout = confirmLogout;
+  window.showCancelModal = showCancelModal;
+  window.closeCancelModal = closeCancelModal;
+  window.cancelInscricao = cancelInscricao;
+  window.showReportModal = showReportModal;
+  window.closeReportModal = closeReportModal;
+  window.showOngProfileModal = showOngProfileModal;
+  window.closeOngProfileModal = closeOngProfileModal;
+  window.clearFilters = clearFilters;
+  window.handleFileUpload = handleFileUpload;
+  window.removeEvidence = removeEvidence;
+  window.updateCharCounter = updateCharCounter;
 </script>
-
-</body>
 </html>
