@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blue Wave - Redefinir Senha</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 3rem;
+            max-width: 450px;
+            width: 100%;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #0ea5e9;
+            margin-bottom: 1rem;
+            letter-spacing: 1px;
+        }
+
+        .header {
+            margin-bottom: 2rem;
+        }
+
+        .header h1 {
+            color: #1e293b;
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .header p {
+            color: #64748b;
+            line-height: 1.6;
+        }
+
+        .user-info {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 2rem;
+            text-align: left;
+        }
+
+        .user-info strong {
+            color: #1e293b;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            color: #374151;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 2px solid #e5e7eb;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #0ea5e9;
+            box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.1);
+        }
+
+        .form-group input.error {
+            border-color: #dc2626;
+            box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.1);
+        }
+
+        .password-strength {
+            margin-top: 0.5rem;
+            font-size: 0.8rem;
+            color: #64748b;
+        }
+
+        .strength-bar {
+            height: 4px;
+            background: #e5e7eb;
+            border-radius: 2px;
+            margin-top: 0.25rem;
+            overflow: hidden;
+        }
+
+        .strength-fill {
+            height: 100%;
+            transition: all 0.3s ease;
+            border-radius: 2px;
+        }
+
+        .strength-weak { background: #dc2626; width: 25%; }
+        .strength-fair { background: #f59e0b; width: 50%; }
+        .strength-good { background: #059669; width: 75%; }
+        .strength-strong { background: #047857; width: 100%; }
+
+        .btn {
+            width: 100%;
+            padding: 0.75rem;
+            background: linear-gradient(135deg, #0ea5e9, #0284c7);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 1rem;
+        }
+
+        .btn:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(14, 165, 233, 0.3);
+        }
+
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .back-link {
+            color: #0ea5e9;
+            text-decoration: none;
+            font-size: 0.9rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: color 0.3s ease;
+        }
+
+        .back-link:hover {
+            color: #0284c7;
+            text-decoration: underline;
+        }
+
+        .alert {
+            padding: 0.75rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            font-size: 0.9rem;
+        }
+
+        .alert-error {
+            background: #fee2e2;
+            color: #dc2626;
+            border: 1px solid #fca5a5;
+        }
+
+        .alert-success {
+            background: #d1fae5;
+            color: #065f46;
+            border: 1px solid #a7f3d0;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            color: #64748b;
+            margin-top: 1rem;
+        }
+
+        .spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #0ea5e9;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-right: 0.5rem;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .requirements {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+            text-align: left;
+            font-size: 0.9rem;
+        }
+
+        .requirements h4 {
+            color: #1e293b;
+            margin-bottom: 0.5rem;
+        }
+
+        .requirements ul {
+            color: #64748b;
+            padding-left: 1.5rem;
+        }
+
+        .requirements li {
+            margin-bottom: 0.25rem;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 1rem;
+            }
+
+            .container {
+                padding: 2rem 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="logo">BLUE WAVE</div>
+
+    <div class="header">
+        <h1>Redefinir Senha</h1>
+        <p>Crie uma nova senha segura para sua conta</p>
+    </div>
+
+    <div class="user-info">
+        <strong>Email:</strong> <span th:text="${email}"></span><br>
+        <strong>Tipo:</strong> <span th:text="${userType == 'voluntario' ? 'Voluntário' : 'ONG'}"></span>
+    </div>
+
+    <!-- Mensagem de erro AJAX -->
+    <div id="errorMessage" class="alert alert-error" style="display: none;"></div>
+
+    <!-- Mensagem de sucesso AJAX -->
+    <div id="successMessage" class="alert alert-success" style="display: none;"></div>
+
+    <div class="requirements">
+        <h4>Requisitos da senha:</h4>
+        <ul>
+            <li>Pelo menos 8 caracteres</li>
+            <li>Misture letras maiúsculas e minúsculas</li>
+            <li>Inclua números e símbolos</li>
+            <li>Evite informações pessoais</li>
+        </ul>
+    </div>
+
+    <form id="redefinirSenhaForm">
+        <input type="hidden" id="token" name="token" th:value="${token}">
+
+        <div class="form-group">
+            <label for="novaSenha">Nova Senha</label>
+            <input type="password" id="novaSenha" name="novaSenha" required
+                   placeholder="Digite sua nova senha">
+            <div class="password-strength">
+                <div class="strength-bar">
+                    <div class="strength-fill" id="strengthFill"></div>
+                </div>
+                <span id="strengthText">Digite uma senha</span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="confirmarSenha">Confirmar Nova Senha</label>
+            <input type="password" id="confirmarSenha" name="confirmarSenha" required
+                   placeholder="Digite novamente sua nova senha">
+        </div>
+
+        <button type="submit" class="btn" id="submitBtn">
+            Redefinir Senha
+        </button>
+
+        <div class="loading" id="loading">
+            <span class="spinner"></span>
+            Alterando senha...
+        </div>
+    </form>
+
+    <a href="/login" class="back-link">
+        ← Voltar ao Login
+    </a>
+</div>
+
+<script>
+    const novaSenhaInput = document.getElementById('novaSenha');
+    const confirmarSenhaInput = document.getElementById('confirmarSenha');
+    const strengthFill = document.getElementById('strengthFill');
+    const strengthText = document.getElementById('strengthText');
+
+    // Verificador de força da senha
+    novaSenhaInput.addEventListener('input', function() {
+        const password = this.value;
+        const strength = calculatePasswordStrength(password);
+        updatePasswordStrength(strength);
+    });
+
+    // Verificação de senhas iguais
+    confirmarSenhaInput.addEventListener('input', function() {
+        const novaSenha = novaSenhaInput.value;
+        const confirmarSenha = this.value;
+
+        if (confirmarSenha && novaSenha !== confirmarSenha) {
+            this.classList.add('error');
+        } else {
+            this.classList.remove('error');
+        }
+    });
+
+    function calculatePasswordStrength(password) {
+        let score = 0;
+
+        if (password.length >= 8) score++;
+        if (password.length >= 12) score++;
+        if (/[a-z]/.test(password)) score++;
+        if (/[A-Z]/.test(password)) score++;
+        if (/[0-9]/.test(password)) score++;
+        if (/[^A-Za-z0-9]/.test(password)) score++;
+
+        return Math.min(score, 4);
+    }
+
+    function updatePasswordStrength(strength) {
+        strengthFill.className = 'strength-fill';
+
+        switch(strength) {
+            case 0:
+            case 1:
+                strengthFill.classList.add('strength-weak');
+                strengthText.textContent = 'Senha fraca';
+                break;
+            case 2:
+                strengthFill.classList.add('strength-fair');
+                strengthText.textContent = 'Senha razoável';
+                break;
+            case 3:
+                strengthFill.classList.add('strength-good');
+                strengthText.textContent = 'Senha boa';
+                break;
+            case 4:
+                strengthFill.classList.add('strength-strong');
+                strengthText.textContent = 'Senha forte';
+                break;
+        }
+    }
+
+    document.getElementById('redefinirSenhaForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        const token = document.getElementById('token').value;
+        const novaSenha = document.getElementById('novaSenha').value;
+        const confirmarSenha = document.getElementById('confirmarSenha').value;
+        const submitBtn = document.getElementById('submitBtn');
+        const loading = document.getElementById('loading');
+
+        // Validações
+        if (!novaSenha || !confirmarSenha) {
+            showError('Todos os campos são obrigatórios.');
+            return;
+        }
+
+        if (novaSenha.length < 8) {
+            showError('A senha deve ter pelo menos 8 caracteres.');
+            return;
+        }
+
+        if (novaSenha !== confirmarSenha) {
+            showError('As senhas não coincidem.');
+            return;
+        }
+
+        // Mostrar loading
+        submitBtn.disabled = true;
+        loading.style.display = 'block';
+        hideMessages();
+
+        // Enviar requisição
+        const formData = new FormData();
+        formData.append('token', token);
+        formData.append('novaSenha', novaSenha);
+        formData.append('confirmarSenha', confirmarSenha);
+
+        fetch('/recuperar-senha/redefinir', {
+            method: 'POST',
+            body: formData
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    showSuccess(data.message);
+                    setTimeout(() => {
+                        window.location.href = '/login';
+                    }, 3000);
+                } else {
+                    showError(data.message || 'Erro ao redefinir senha.');
+                }
+            })
+            .catch(error => {
+                console.error('Erro:', error);
+                showError('Erro de conexão. Tente novamente mais tarde.');
+            })
+            .finally(() => {
+                submitBtn.disabled = false;
+                loading.style.display = 'none';
+            });
+    });
+
+    function showError(message) {
+        const errorDiv = document.getElementById('errorMessage');
+        errorDiv.textContent = message;
+        errorDiv.style.display = 'block';
+        document.getElementById('successMessage').style.display = 'none';
+    }
+
+    function showSuccess(message) {
+        const successDiv = document.getElementById('successMessage');
+        successDiv.textContent = message;
+        successDiv.style.display = 'block';
+        document.getElementById('errorMessage').style.display = 'none';
+    }
+
+    function hideMessages() {
+        document.getElementById('successMessage').style.display = 'none';
+        document.getElementById('errorMessage').style.display = 'none';
+    }
+</script>
+</body>
+</html>
