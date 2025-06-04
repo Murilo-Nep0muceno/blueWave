@@ -96,4 +96,5 @@ public class VoluntarioController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(error);
         }
     }
+
 }

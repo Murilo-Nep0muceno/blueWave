@@ -292,6 +292,30 @@
             margin-bottom: 1rem;
             text-align: center;
             font-size: 0.9rem;
+            border: 1px solid #fca5a5;
+            animation: shake 0.5s ease-in-out;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+
+        .form-group input.error {
+            border-color: #dc2626;
+            box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.1);
+        }
+
+        .success-message {
+            background: #d1fae5;
+            color: #065f46;
+            padding: 0.75rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            text-align: center;
+            font-size: 0.9rem;
+            border: 1px solid #a7f3d0;
         }
 
         /* Responsivo */
@@ -377,7 +401,7 @@
         </div>
 
         <div class="forgot-password">
-            <a href="/submitForm">Esqueceu a senha?</a>
+            <a href="/recuperar-senha">Esqueceu a senha?</a>
         </div>
 
         <button type="submit" class="btn-login">Entrar como ONG</button>
@@ -406,7 +430,7 @@
         </div>
 
         <div class="forgot-password">
-            <a href="/submitForm">Esqueceu a senha?</a>
+            <a href="/recuperar-senha">Esqueceu a senha?</a>
         </div>
 
         <button type="submit" class="btn-login">Entrar como Voluntário</button>
@@ -430,6 +454,32 @@
         document.getElementById('loginSelection').style.display = 'flex';
         document.getElementById('ongForm').classList.remove('active');
         document.getElementById('voluntarioForm').classList.remove('active');
+
+        // Limpar mensagens de erro
+        const errorElements = document.querySelectorAll('.error-message');
+        errorElements.forEach(el => el.style.display = 'none');
+
+        // Remover classes de erro dos inputs
+        const inputs = document.querySelectorAll('.form-group input');
+        inputs.forEach(input => input.classList.remove('error'));
+    }
+
+    // Função para adicionar feedback visual de erro nos campos
+    function addErrorFeedback(formType) {
+        const emailInput = document.getElementById(formType + 'Email');
+        const senhaInput = document.getElementById(formType + 'Senha');
+
+        if (emailInput) emailInput.classList.add('error');
+        if (senhaInput) senhaInput.classList.add('error');
+
+        // Remover erro quando usuário começar a digitar
+        [emailInput, senhaInput].forEach(input => {
+            if (input) {
+                input.addEventListener('input', function() {
+                    this.classList.remove('error');
+                }, { once: true });
+            }
+        });
     }
 
     // Menu mobile
@@ -443,10 +493,34 @@
         const urlParams = new URLSearchParams(window.location.search);
         const error = urlParams.get('error');
         const type = urlParams.get('type');
+        const message = urlParams.get('message');
 
-        if (error && type) {
+        if (error === 'true' && type) {
             showLoginForm(type);
-            document.getElementById(type + 'Error').style.display = 'block';
+
+            // Determinar mensagem de erro
+            let errorMessage = 'Email ou senha incorretos';
+            if (message === 'campos_obrigatorios') {
+                errorMessage = 'Email e senha são obrigatórios';
+            } else if (message === 'erro_interno') {
+                errorMessage = 'Erro interno do servidor. Tente novamente.';
+            }
+
+            // Mostrar erro específico
+            const errorElement = document.getElementById(type + 'Error');
+            if (errorElement) {
+                errorElement.textContent = errorMessage;
+                errorElement.style.display = 'block';
+
+                // Adicionar feedback visual nos campos
+                addErrorFeedback(type);
+            }
+        }
+
+        // Limpar parâmetros da URL após mostrar erro
+        if (error || type || message) {
+            const newUrl = window.location.pathname;
+            window.history.replaceState({}, document.title, newUrl);
         }
     });
 </script>
