@@ -8,588 +8,944 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<style>
+    /* Reset e Base */
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Inter', 'Roboto', sans-serif;
+    }
 
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Inter', 'Roboto', sans-serif;
+    body {
+        min-height: 100vh;
+        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        font-size: 14px;
+        line-height: 1.6;
+    }
+
+    /* Menu Lateral */
+    nav.menu-lateral {
+        width: 80px;
+        height: 100vh;
+        background: linear-gradient(180deg, #00A8FF 0%, #0078D4 100%);
+        padding: 20px 0;
+        box-shadow: 0 0 30px rgba(0, 168, 255, 0.3);
+        position: fixed;
+        top: 0;
+        left: 0;
+        overflow: hidden;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        z-index: 1000;
+        display: flex;
+        flex-direction: column;
+    }
+
+    nav.menu-lateral:hover {
+        width: 280px;
+        box-shadow: 0 0 40px rgba(0, 168, 255, 0.4);
+    }
+
+    .title {
+        display: flex;
+        align-items: center;
+        padding: 0 20px;
+        margin-bottom: 30px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        padding-bottom: 20px;
+    }
+
+    .title h1 {
+        display: none;
+        margin-left: 15px;
+        color: white;
+        font-size: 20px;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+    }
+
+    nav.menu-lateral:hover .title h1 {
+        display: block;
+        animation: fadeInSlide 0.3s ease-out;
+    }
+
+    @keyframes fadeInSlide {
+        from {
+            opacity: 0;
+            transform: translateX(-10px);
         }
-
-        body {
-            min-height: 100vh;
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            font-size: 14px;
-            line-height: 1.6;
+        to {
+            opacity: 1;
+            transform: translateX(0);
         }
+    }
 
+    .menu-items {
+        flex: 1;
+    }
+
+    ul {
+        list-style: none;
+        padding: 0 10px;
+    }
+
+    ul li.item-menu {
+        margin-bottom: 8px;
+        border-radius: 12px;
+        overflow: hidden;
+        transition: all 0.3s ease;
+    }
+
+    ul li.item-menu:hover {
+        background: rgba(255, 255, 255, 0.15);
+        transform: translateX(5px);
+    }
+
+    ul li.item-menu a {
+        color: white;
+        text-decoration: none;
+        font-size: 16px;
+        padding: 16px 20px;
+        display: flex;
+        align-items: center;
+        transition: all 0.3s ease;
+        border-radius: 12px;
+    }
+
+    ul li.item-menu a .icon > i {
+        font-size: 24px;
+        width: 24px;
+        text-align: center;
+    }
+
+    ul li.item-menu a .txt-link {
+        margin-left: 20px;
+        white-space: nowrap;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        font-weight: 500;
+    }
+
+    nav.menu-lateral:hover .txt-link {
+        opacity: 1;
+    }
+
+    .logout-section {
+        padding: 0 10px;
+        margin-top: auto;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        padding-top: 20px;
+    }
+
+    .logout-item {
+        margin-bottom: 8px;
+        border-radius: 12px;
+        overflow: hidden;
+        transition: all 0.3s ease;
+        cursor: pointer;
+    }
+
+    .logout-item:hover {
+        background: rgba(255, 76, 76, 0.2);
+        transform: translateX(5px);
+    }
+
+    .logout-item a {
+        color: white;
+        text-decoration: none;
+        font-size: 16px;
+        padding: 16px 20px;
+        display: flex;
+        align-items: center;
+        transition: all 0.3s ease;
+        border-radius: 12px;
+    }
+
+    .logout-item a:hover {
+        color: #ffcccc;
+    }
+
+    .logout-item a .icon > i {
+        font-size: 24px;
+        width: 24px;
+        text-align: center;
+    }
+
+    .logout-item a .txt-link {
+        margin-left: 20px;
+        white-space: nowrap;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        font-weight: 500;
+    }
+
+    nav.menu-lateral:hover .logout-item .txt-link {
+        opacity: 1;
+    }
+
+    /* Item ativo */
+    .item-menu.active a {
+        background: rgba(255, 255, 255, 0.2) !important;
+        border-left: 4px solid white;
+        box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.1);
+    }
+
+    .item-menu.active a .icon > i {
+        color: #ffffff;
+        text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+    }
+
+    .item-menu.active a .txt-link {
+        font-weight: 700;
+        color: #ffffff;
+    }
+
+    /* Conteúdo Principal */
+    .conteudo {
+        margin-left: 80px;
+        transition: margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        min-height: 100vh;
+        padding-bottom: 40px;
+    }
+
+    nav.menu-lateral:hover ~ .conteudo {
+        margin-left: 280px;
+    }
+
+    /* Header */
+    #header-bg {
+        background: linear-gradient(135deg, #003366 0%, #004080 100%);
+        padding: 20px 30px;
+        box-shadow: 0 2px 20px rgba(0, 51, 102, 0.3);
+    }
+
+    #header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        color: white;
+    }
+
+    #logo {
+        font-size: 24px;
+        color: white;
+        text-decoration: none;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+    }
+
+    /* Container do Formulário */
+    .form-container {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 40px 20px;
+    }
+
+    .form-header {
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.9) 100%);
+        border-radius: 20px 20px 0 0;
+        padding: 30px 40px;
+        border-bottom: 3px solid #00A8FF;
+        backdrop-filter: blur(20px);
+        box-shadow: 0 5px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    .form-header-content {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+    }
+
+    .header-icon {
+        background: linear-gradient(135deg, #00A8FF 0%, #0078D4 100%);
+        color: white;
+        width: 70px;
+        height: 70px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 28px;
+        box-shadow: 0 8px 25px rgba(0, 168, 255, 0.3);
+    }
+
+    .header-text h1 {
+        font-size: 28px;
+        font-weight: 700;
+        color: #003366;
+        margin-bottom: 5px;
+    }
+
+    .header-text p {
+        font-size: 16px;
+        color: #666;
+        margin: 0;
+    }
+
+    /* Formulário */
+    form {
+        background: rgba(255, 255, 255, 0.95);
+        padding: 0;
+        border-radius: 0 0 20px 20px;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+        position: relative;
+        backdrop-filter: blur(20px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-top: none;
+    }
+
+    .form-section {
+        padding: 40px;
+        border-bottom: 1px solid #e8ecf0;
+    }
+
+    .form-section:last-child {
+        border-bottom: none;
+    }
+
+    .section-header {
+        margin-bottom: 30px;
+    }
+
+    .section-title {
+        font-size: 20px;
+        font-weight: 600;
+        color: #003366;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 10px;
+    }
+
+    .section-title i {
+        color: #00A8FF;
+        font-size: 22px;
+    }
+
+    .section-divider {
+        height: 3px;
+        background: linear-gradient(90deg, #00A8FF 0%, #0078D4 50%, transparent 100%);
+        border-radius: 2px;
+        width: 100px;
+    }
+
+    /* Grupos de Input */
+    .input-group {
+        margin-bottom: 25px;
+    }
+
+    .input-group label {
+        font-weight: 600;
+        display: block;
+        margin-bottom: 8px;
+        color: #003366;
+        font-size: 15px;
+        position: relative;
+    }
+
+    .input-group label.required::after {
+        content: " *";
+        color: #e74c3c;
+        font-weight: 700;
+    }
+
+    /* Inputs com ícones */
+    .input-with-icon {
+        position: relative;
+    }
+
+    .input-with-icon i {
+        position: absolute;
+        left: 16px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #00A8FF;
+        font-size: 16px;
+        z-index: 1;
+    }
+
+    .input-with-icon input {
+        padding-left: 48px !important;
+    }
+
+    /* Inputs básicos */
+    input[type="text"],
+    input[type="number"],
+    input[type="email"],
+    textarea,
+    select {
+        width: 100%;
+        padding: 16px 18px;
+        border: 2px solid #e1e5e9;
+        border-radius: 12px;
+        font-size: 14px;
+        transition: all 0.3s ease;
+        background: #fafbfc;
+        font-family: inherit;
+        outline: none;
+    }
+
+    input:focus, textarea:focus, select:focus {
+        border-color: #00A8FF;
+        background: white;
+        box-shadow: 0 0 0 4px rgba(0, 168, 255, 0.1);
+        transform: translateY(-1px);
+    }
+
+    input:disabled, textarea:disabled, select:disabled {
+        background: #f1f3f4;
+        color: #6c757d;
+        border-color: #dee2e6;
+        cursor: not-allowed;
+    }
+
+    /* Upload de arquivo melhorado */
+    .file-upload-container {
+        position: relative;
+        border: 2px dashed #00A8FF;
+        border-radius: 12px;
+        background: rgba(0, 168, 255, 0.05);
+        transition: all 0.3s ease;
+        overflow: hidden;
+    }
+
+    .file-upload-container:hover {
+        background: rgba(0, 168, 255, 0.1);
+        border-color: #0078D4;
+    }
+
+    .file-input {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        cursor: pointer;
+        z-index: 2;
+    }
+
+    .file-upload-label {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 30px 20px;
+        color: #00A8FF;
+        text-align: center;
+        cursor: pointer;
+    }
+
+    .file-upload-label i {
+        font-size: 32px;
+        margin-bottom: 10px;
+    }
+
+    .file-upload-label span {
+        font-size: 14px;
+        font-weight: 500;
+    }
+
+    /* Preview de imagem */
+    .preview-container {
+        margin: 20px 0;
+        text-align: center;
+    }
+
+    .preview-image {
+        display: none;
+        max-width: 300px;
+        max-height: 200px;
+        border-radius: 12px;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        border: 3px solid #00A8FF;
+        transition: all 0.3s ease;
+    }
+
+    .preview-image:hover {
+        transform: scale(1.05);
+    }
+
+    /* Checkbox personalizado */
+    .checkbox-group-enhanced {
+        margin-bottom: 25px;
+    }
+
+    .checkbox-wrapper {
+        position: relative;
+        margin-bottom: 15px;
+    }
+
+    .checkbox-wrapper input[type="checkbox"] {
+        position: absolute;
+        opacity: 0;
+        width: 0;
+        height: 0;
+    }
+
+    .checkbox-label {
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        font-weight: 500;
+        color: #003366;
+        transition: all 0.3s ease;
+        padding: 12px 16px;
+        border-radius: 10px;
+        background: rgba(0, 168, 255, 0.05);
+        border: 1px solid transparent;
+    }
+
+    .checkbox-label:hover {
+        background: rgba(0, 168, 255, 0.1);
+        border-color: rgba(0, 168, 255, 0.2);
+    }
+
+    .checkbox-custom {
+        width: 20px;
+        height: 20px;
+        border: 2px solid #00A8FF;
+        border-radius: 4px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 12px;
+        transition: all 0.3s ease;
+        background: white;
+    }
+
+    .checkbox-custom i {
+        font-size: 12px;
+        color: white;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+
+    input[type="checkbox"]:checked + .checkbox-label .checkbox-custom {
+        background: #00A8FF;
+        border-color: #00A8FF;
+    }
+
+    input[type="checkbox"]:checked + .checkbox-label .checkbox-custom i {
+        opacity: 1;
+    }
+
+    input[type="checkbox"]:disabled + .checkbox-label {
+        opacity: 0.6;
+        cursor: not-allowed;
+        background: #f8f9fa;
+    }
+
+    input[type="checkbox"]:disabled + .checkbox-label .checkbox-custom {
+        background: #e9ecef;
+        border-color: #dee2e6;
+    }
+
+    .checkbox-label.disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+        background: #f8f9fa;
+        color: #6c757d;
+    }
+
+    .help-text-box {
+        background: rgba(0, 168, 255, 0.1);
+        border: 1px solid rgba(0, 168, 255, 0.2);
+        border-radius: 8px;
+        padding: 12px 16px;
+        margin-top: 10px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 13px;
+        color: #0078D4;
+        transition: all 0.3s ease;
+    }
+
+    .help-text-box i {
+        color: #00A8FF;
+        flex-shrink: 0;
+    }
+
+    /* Layout de colunas */
+    .form-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+    }
+
+    .form-row-3 {
+        display: grid;
+        grid-template-columns: 2fr 1fr 1fr;
+        gap: 20px;
+    }
+
+    .form-col {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .form-col.full-width {
+        grid-column: 1 / -1;
+    }
+
+    /* Textarea */
+    textarea {
+        height: 120px;
+        resize: vertical;
+        min-height: 80px;
+        max-height: 200px;
+        font-family: inherit;
+        line-height: 1.5;
+    }
+
+    /* Contador de caracteres */
+    .char-counter {
+        text-align: right;
+        margin-top: 5px;
+        font-size: 12px;
+        color: #666;
+    }
+
+    .char-counter span {
+        font-weight: 600;
+        color: #00A8FF;
+    }
+
+    /* Informações e textos auxiliares */
+    .file-info, .help-text {
+        font-size: 12px;
+        color: #666;
+        margin-top: 5px;
+        font-style: italic;
+    }
+
+    /* Estados de mensagem */
+    .error {
+        display: none;
+        color: #e74c3c;
+        font-size: 13px;
+        margin-top: 8px;
+        padding: 8px 12px;
+        background: rgba(231, 76, 60, 0.1);
+        border-radius: 8px;
+        border-left: 4px solid #e74c3c;
+    }
+
+    .success {
+        display: none;
+        color: #27ae60;
+        font-size: 14px;
+        margin: 20px 40px;
+        padding: 16px 20px;
+        background: rgba(39, 174, 96, 0.1);
+        border-radius: 12px;
+        border-left: 4px solid #27ae60;
+        font-weight: 500;
+    }
+
+    .loading {
+        display: none;
+        text-align: center;
+        color: #00A8FF;
+        font-weight: 500;
+        margin-top: 20px;
+        padding: 16px;
+        background: rgba(0, 168, 255, 0.1);
+        border-radius: 12px;
+        border: 1px solid rgba(0, 168, 255, 0.2);
+    }
+
+    .loading-spinner {
+        width: 20px;
+        height: 20px;
+        border: 2px solid rgba(0, 168, 255, 0.3);
+        border-top: 2px solid #00A8FF;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+        margin: 0 auto 10px;
+    }
+
+    /* Loading específico para CEP */
+    .loading-cep {
+        display: none;
+        color: #00A8FF;
+        font-size: 12px;
+        margin-top: 8px;
+        padding: 8px 12px;
+        background: rgba(0, 168, 255, 0.1);
+        border-radius: 8px;
+        border-left: 4px solid #00A8FF;
+    }
+
+    /* Animações */
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+
+    .spin {
+        animation: spin 1s linear infinite;
+    }
+
+    @keyframes pulse {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0.7; }
+    }
+
+    /* Ações do formulário */
+    .form-actions {
+        padding: 30px 40px 40px;
+        text-align: center;
+        background: rgba(248, 250, 252, 0.8);
+        border-top: 1px solid #e8ecf0;
+    }
+
+    .btn-primary {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 16px 32px;
+        background: linear-gradient(135deg, #00A8FF 0%, #0078D4 100%);
+        color: white;
+        border: none;
+        border-radius: 12px;
+        cursor: pointer;
+        font-size: 16px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(0, 168, 255, 0.3);
+        min-width: 200px;
+        text-decoration: none;
+    }
+
+    .btn-primary:hover {
+        background: linear-gradient(135deg, #0078D4 0%, #005a9f 100%);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(0, 168, 255, 0.4);
+    }
+
+    .btn-primary:active {
+        transform: translateY(0);
+    }
+
+    .btn-primary:disabled {
+        opacity: 0.7;
+        cursor: not-allowed;
+        transform: none;
+        background: #95a5a6;
+    }
+
+    .btn-primary i {
+        font-size: 18px;
+    }
+
+    /* Modal */
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 2000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        backdrop-filter: blur(5px);
+    }
+
+    .modal-content {
+        background-color: white;
+        margin: 15% auto;
+        padding: 30px;
+        border-radius: 20px;
+        width: 90%;
+        max-width: 400px;
+        text-align: center;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        animation: modalSlideIn 0.3s ease-out;
+    }
+
+    @keyframes modalSlideIn {
+        from {
+            opacity: 0;
+            transform: translateY(-50px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .modal h3 {
+        color: #003366;
+        margin-bottom: 15px;
+        font-size: 20px;
+    }
+
+    .modal p {
+        color: #666;
+        margin-bottom: 30px;
+        font-size: 16px;
+    }
+
+    .modal-buttons {
+        display: flex;
+        gap: 15px;
+        justify-content: center;
+    }
+
+    .btn-confirm, .btn-cancel {
+        padding: 12px 24px;
+        border: none;
+        border-radius: 12px;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        min-width: 100px;
+    }
+
+    .btn-confirm {
+        background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+        color: white;
+        box-shadow: 0 4px 15px rgba(231, 76, 60, 0.3);
+    }
+
+    .btn-confirm:hover {
+        background: linear-gradient(135deg, #c0392b 0%, #a93226 100%);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(231, 76, 60, 0.4);
+    }
+
+    .btn-cancel {
+        background: #ecf0f1;
+        color: #7f8c8d;
+        border: 2px solid #bdc3c7;
+    }
+
+    .btn-cancel:hover {
+        background: #d5dbdb;
+        border-color: #95a5a6;
+        color: #5d6d7e;
+    }
+
+    /* Responsividade */
+    @media (max-width: 768px) {
         nav.menu-lateral {
-            width: 80px;
-            height: 100vh;
-            background: linear-gradient(180deg, #00A8FF 0%, #0078D4 100%);
-            padding: 20px 0;
-            box-shadow: 0 0 30px rgba(0, 168, 255, 0.3);
-            position: fixed;
-            top: 0;
-            left: 0;
-            overflow: hidden;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            z-index: 1000;
-            display: flex;
-            flex-direction: column;
+            width: 60px;
         }
 
         nav.menu-lateral:hover {
-            width: 280px;
-            box-shadow: 0 0 40px rgba(0, 168, 255, 0.4);
-        }
-
-        .title {
-            display: flex;
-            align-items: center;
-            padding: 0 20px;
-            margin-bottom: 30px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            padding-bottom: 20px;
-        }
-
-        .title h1 {
-            display: none;
-            margin-left: 15px;
-            color: white;
-            font-size: 20px;
-            font-weight: 600;
-            letter-spacing: 0.5px;
-        }
-
-        nav.menu-lateral:hover .title h1 {
-            display: block;
-            animation: fadeInSlide 0.3s ease-out;
-        }
-
-        @keyframes fadeInSlide {
-            from {
-                opacity: 0;
-                transform: translateX(-10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        .menu-items {
-            flex: 1;
-        }
-
-        ul {
-            list-style: none;
-            padding: 0 10px;
-        }
-
-        ul li.item-menu {
-            margin-bottom: 8px;
-            border-radius: 12px;
-            overflow: hidden;
-            transition: all 0.3s ease;
-        }
-
-        ul li.item-menu:hover {
-            background: rgba(255, 255, 255, 0.15);
-            transform: translateX(5px);
-        }
-
-        ul li.item-menu a {
-            color: white;
-            text-decoration: none;
-            font-size: 16px;
-            padding: 16px 20px;
-            display: flex;
-            align-items: center;
-            transition: all 0.3s ease;
-            border-radius: 12px;
-        }
-
-        ul li.item-menu a .icon > i {
-            font-size: 24px;
-            width: 24px;
-            text-align: center;
-        }
-
-        ul li.item-menu a .txt-link {
-            margin-left: 20px;
-            white-space: nowrap;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            font-weight: 500;
-        }
-
-        nav.menu-lateral:hover .txt-link {
-            opacity: 1;
-        }
-
-        .logout-section {
-            padding: 0 10px;
-            margin-top: auto;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            padding-top: 20px;
-        }
-
-        .logout-item {
-            margin-bottom: 8px;
-            border-radius: 12px;
-            overflow: hidden;
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-
-        .logout-item:hover {
-            background: rgba(255, 76, 76, 0.2);
-            transform: translateX(5px);
-        }
-
-        .logout-item a {
-            color: white;
-            text-decoration: none;
-            font-size: 16px;
-            padding: 16px 20px;
-            display: flex;
-            align-items: center;
-            transition: all 0.3s ease;
-            border-radius: 12px;
-        }
-
-        .logout-item a:hover {
-            color: #ffcccc;
-        }
-
-        .logout-item a .icon > i {
-            font-size: 24px;
-            width: 24px;
-            text-align: center;
-        }
-
-        .logout-item a .txt-link {
-            margin-left: 20px;
-            white-space: nowrap;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            font-weight: 500;
-        }
-
-        nav.menu-lateral:hover .logout-item .txt-link {
-            opacity: 1;
+            width: 250px;
         }
 
         .conteudo {
-            margin-left: 80px;
-            transition: margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            min-height: 100vh;
-            padding-bottom: 40px;
+            margin-left: 60px;
         }
 
         nav.menu-lateral:hover ~ .conteudo {
-            margin-left: 280px;
+            margin-left: 250px;
         }
 
-        #header-bg {
-            background: linear-gradient(135deg, #003366 0%, #004080 100%);
-            padding: 20px 30px;
-            box-shadow: 0 2px 20px rgba(0, 51, 102, 0.3);
+        .form-container {
+            padding: 20px 10px;
         }
 
-        #header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            color: white;
+        .form-header {
+            padding: 20px 25px;
         }
 
-        #logo {
+        .form-header-content {
+            flex-direction: column;
+            text-align: center;
+            gap: 15px;
+        }
+
+        .header-icon {
+            width: 60px;
+            height: 60px;
             font-size: 24px;
-            color: white;
-            text-decoration: none;
-            font-weight: 700;
-            letter-spacing: 0.5px;
         }
 
-        form {
-            margin: 40px auto;
-            background: white;
-            padding: 40px;
-            max-width: 800px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
-            border-radius: 20px;
-            position: relative;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+        .header-text h1 {
+            font-size: 24px;
+        }
+
+        .header-text p {
+            font-size: 14px;
         }
 
         .form-section {
-            margin-bottom: 30px;
-            padding-bottom: 30px;
-            border-bottom: 1px solid #e1e5e9;
+            padding: 30px 25px;
         }
 
-        .form-section:last-child {
-            border-bottom: none;
+        .form-actions {
+            padding: 25px 25px 30px;
+        }
+
+        .form-row, .form-row-3 {
+            grid-template-columns: 1fr;
+            gap: 15px;
+        }
+
+        #header-bg {
+            padding: 15px 20px;
+        }
+
+        #logo {
+            font-size: 18px;
+        }
+
+        .modal-content {
+            margin: 25% auto;
+            padding: 25px 20px;
+        }
+
+        .checkbox-group-enhanced {
+            margin-bottom: 20px;
+        }
+
+        .checkbox-label {
+            padding: 10px 14px;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .form-container {
+            padding: 15px 5px;
+        }
+
+        .form-header {
+            border-radius: 15px 15px 0 0;
+            padding: 20px;
+        }
+
+        form {
+            border-radius: 0 0 15px 15px;
+        }
+
+        .form-section {
+            padding: 25px 20px;
+        }
+
+        .form-actions {
+            padding: 20px;
+        }
+
+        .btn-primary {
+            width: 100%;
+            padding: 14px 20px;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
         }
 
         .section-title {
             font-size: 18px;
-            font-weight: 600;
-            color: #003366;
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
         }
-
-        .section-title i {
-            color: #00A8FF;
-        }
-
-        form label {
-            font-weight: 600;
-            display: block;
-            margin-bottom: 8px;
-            color: #003366;
-            font-size: 15px;
-        }
-
-        form input, textarea, select {
-            width: 100%;
-            padding: 14px 16px;
-            margin-bottom: 20px;
-            border: 2px solid #e1e5e9;
-            border-radius: 12px;
-            font-size: 14px;
-            transition: all 0.3s ease;
-            background: #fafbfc;
-            font-family: inherit;
-        }
-
-        form input:focus, textarea:focus, select:focus {
-            outline: none;
-            border-color: #00A8FF;
-            background: white;
-            box-shadow: 0 0 0 3px rgba(0, 168, 255, 0.1);
-            transform: translateY(-1px);
-        }
-
-        .form-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-        }
-
-        .form-row-3 {
-            display: grid;
-            grid-template-columns: 2fr 1fr 1fr;
-            gap: 20px;
-        }
-
-        .form-col {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .form-col.full-width {
-            grid-column: 1 / -1;
-        }
-
-        form input[type="file"] {
-            padding: 12px;
-            background: white;
-            border: 2px dashed #00A8FF;
-            cursor: pointer;
-        }
-
-        form input[type="file"]:hover {
-            background: rgba(0, 168, 255, 0.05);
-        }
-
-        .checkbox-group {
-            display: flex;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-
-        .checkbox-group input[type="checkbox"] {
-            width: auto;
-            margin-right: 10px;
-            margin-bottom: 0;
-        }
-
-        .checkbox-group label {
-            margin-bottom: 0;
-            font-weight: 500;
-        }
-
-        form button {
-            display: block;
-            margin: 30px auto 0;
-            padding: 16px 32px;
-            background: linear-gradient(135deg, #00A8FF 0%, #0078D4 100%);
-            color: white;
-            border: none;
-            border-radius: 12px;
-            cursor: pointer;
-            font-size: 16px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(0, 168, 255, 0.3);
-            min-width: 200px;
-        }
-
-        form button:hover {
-            background: linear-gradient(135deg, #0078D4 0%, #005a9f 100%);
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(0, 168, 255, 0.4);
-        }
-
-        form button:active {
-            transform: translateY(0);
-        }
-
-        form button:disabled {
-            opacity: 0.7;
-            cursor: not-allowed;
-            transform: none;
-        }
-
-        textarea {
-            margin: 15px 0;
-            height: 120px;
-            resize: vertical;
-            min-height: 80px;
-            max-height: 200px;
-        }
-
-        .file-info {
-            font-size: 12px;
-            color: #666;
-            margin-top: -15px;
-            margin-bottom: 20px;
-            font-style: italic;
-        }
-
-        .preview-container {
-            margin: 20px 0;
-            text-align: center;
-        }
-
-        .preview-image {
-            display: none;
-            max-width: 300px;
-            max-height: 200px;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-            border: 3px solid #f0f0f0;
-        }
-
-        .error {
-            display: none;
-            color: #e74c3c;
-            font-size: 13px;
-            margin-top: -15px;
-            margin-bottom: 15px;
-            padding: 8px 12px;
-            background: rgba(231, 76, 60, 0.1);
-            border-radius: 8px;
-            border-left: 4px solid #e74c3c;
-        }
-
-        .success {
-            display: none;
-            color: #27ae60;
-            font-size: 14px;
-            margin-bottom: 20px;
-            padding: 12px 16px;
-            background: rgba(39, 174, 96, 0.1);
-            border-radius: 8px;
-            border-left: 4px solid #27ae60;
-            font-weight: 500;
-        }
-
-        .loading {
-            display: none;
-            text-align: center;
-            color: #00A8FF;
-            font-weight: 500;
-            margin-top: 20px;
-            padding: 12px;
-            background: rgba(0, 168, 255, 0.1);
-            border-radius: 8px;
-            animation: pulse 1.5s infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.7; }
-        }
-
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 2000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(5px);
-        }
-
-        .modal-content {
-            background-color: white;
-            margin: 15% auto;
-            padding: 30px;
-            border-radius: 20px;
-            width: 90%;
-            max-width: 400px;
-            text-align: center;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-            animation: modalSlideIn 0.3s ease-out;
-        }
-
-        @keyframes modalSlideIn {
-            from {
-                opacity: 0;
-                transform: translateY(-50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .modal h3 {
-            color: #003366;
-            margin-bottom: 15px;
-            font-size: 20px;
-        }
-
-        .modal p {
-            color: #666;
-            margin-bottom: 30px;
-            font-size: 16px;
-        }
-
-        .modal-buttons {
-            display: flex;
-            gap: 15px;
-            justify-content: center;
-        }
-
-        .btn-confirm, .btn-cancel {
-            padding: 12px 24px;
-            border: none;
-            border-radius: 12px;
-            font-size: 14px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            min-width: 100px;
-        }
-
-        .btn-confirm {
-            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
-            color: white;
-            box-shadow: 0 4px 15px rgba(231, 76, 60, 0.3);
-        }
-
-        .btn-confirm:hover {
-            background: linear-gradient(135deg, #c0392b 0%, #a93226 100%);
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(231, 76, 60, 0.4);
-        }
-
-        .btn-cancel {
-            background: #ecf0f1;
-            color: #7f8c8d;
-            border: 2px solid #bdc3c7;
-        }
-
-        .btn-cancel:hover {
-            background: #d5dbdb;
-            border-color: #95a5a6;
-            color: #5d6d7e;
-        }
-
-        @media (max-width: 768px) {
-            nav.menu-lateral {
-                width: 60px;
-            }
-
-            nav.menu-lateral:hover {
-                width: 250px;
-            }
-
-            .conteudo {
-                margin-left: 60px;
-            }
-
-            nav.menu-lateral:hover ~ .conteudo {
-                margin-left: 250px;
-            }
-
-            form {
-                margin: 20px;
-                padding: 30px 20px;
-                max-width: none;
-            }
-
-            .form-row, .form-row-3 {
-                grid-template-columns: 1fr;
-            }
-
-            #header-bg {
-                padding: 15px 20px;
-            }
-
-            #logo {
-                font-size: 18px;
-            }
-
-            .modal-content {
-                margin: 25% auto;
-                padding: 25px 20px;
-            }
-        }
-
-        .item-menu.active a {
-            background: rgba(255, 255, 255, 0.2) !important;
-            border-left: 4px solid white;
-            box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.1);
-        }
-
-        .item-menu.active a .icon > i {
-            color: #ffffff;
-            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
-        }
-
-        .item-menu.active a .txt-link {
-            font-weight: 700;
-            color: #ffffff;
-        }
-
-        form {
-            backdrop-filter: blur(20px);
-            background: rgba(255, 255, 255, 0.95);
-        }
-
-        .help-text {
-            font-size: 12px;
-            color: #666;
-            margin-top: -15px;
-            margin-bottom: 15px;
-            font-style: italic;
-        }
-    </style>
-</head>
-
+    }
+</style>
 <body>
 <nav class="menu-lateral">
     <div class="title">
@@ -667,225 +1023,652 @@
         </header>
     </div>
 
-    <form onsubmit="vaga(event)">
-        <div class="success" id="successMessage"></div>
-
-        <!-- Seção: Informações Básicas -->
-        <div class="form-section">
-            <h3 class="section-title">
-                <i class="bi bi-info-circle"></i>
-                Informações Básicas
-            </h3>
-
-            <label for="imagem">Imagem da Vaga *</label>
-            <input type="file" id="imagem" name="imagem" accept="image/*" required onchange="previewImage(this)">
-            <div class="file-info">Formatos aceitos: JPG, PNG, GIF. Tamanho máximo: 5MB</div>
-            <div class="error" id="imagemError"></div>
-
-            <div class="preview-container">
-                <img id="imagePreview" class="preview-image" alt="Preview da imagem">
-            </div>
-
-            <label for="nome">Nome da Vaga *</label>
-            <input type="text" id="nome" placeholder="Nome da vaga" required maxlength="100">
-            <div class="error" id="nomeError"></div>
-
-            <div class="form-row">
-                <div class="form-col">
-                    <label for="quantidade">Quantidade de Vagas *</label>
-                    <input type="number" id="quantidade" placeholder="Quantidade" required min="1" max="1000">
-                    <div class="error" id="quantidadeError"></div>
+    <div class="form-container">
+        <div class="form-header">
+            <div class="form-header-content">
+                <div class="header-icon">
+                    <i class="bi bi-plus-circle"></i>
                 </div>
-                <div class="form-col">
-                    <label for="dataBrasil">Data da Vaga *</label>
-                    <input type="text" id="dataBrasil" placeholder="dd/mm/aaaa" required maxlength="10">
-                    <div class="error" id="dataError"></div>
-                </div>
-            </div>
-
-            <label for="desc">Descrição da Vaga</label>
-            <textarea id="desc" placeholder="Descrição detalhada da vaga..." maxlength="1000"></textarea>
-            <div class="error" id="descError"></div>
-        </div>
-
-        <!-- Seção: Local da Vaga -->
-        <div class="form-section">
-            <h3 class="section-title">
-                <i class="bi bi-geo-alt"></i>
-                Local da Vaga
-            </h3>
-
-            <div class="checkbox-group">
-                <input type="checkbox" id="usarEnderecoOng" name="usarEnderecoOng">
-                <label for="usarEnderecoOng">Usar o endereço da ONG</label>
-            </div>
-
-            <label for="localReferencia">Local de Referência</label>
-            <input type="text" id="localReferencia" placeholder="Ex: Sede da ONG, Parque Municipal, Centro Comunitário..." maxlength="100">
-            <div class="help-text">Nome do local onde a atividade será realizada</div>
-
-            <label for="cep">CEP</label>
-            <input type="text" id="cep" placeholder="00000-000" maxlength="9">
-            <div class="error" id="cepError"></div>
-
-            <div class="form-row">
-                <div class="form-col">
-                    <label for="logradouro">Logradouro</label>
-                    <input type="text" id="logradouro" placeholder="Rua, Avenida, etc." maxlength="100">
-                </div>
-                <div class="form-col">
-                    <label for="numero">Número</label>
-                    <input type="text" id="numero" placeholder="123" maxlength="10">
-                </div>
-            </div>
-
-            <label for="complemento">Complemento</label>
-            <input type="text" id="complemento" placeholder="Apartamento, Sala, etc." maxlength="50">
-
-            <label for="bairro">Bairro</label>
-            <input type="text" id="bairro" placeholder="Nome do bairro" maxlength="50">
-
-            <div class="form-row">
-                <div class="form-col">
-                    <label for="cidade">Cidade</label>
-                    <input type="text" id="cidade" placeholder="Nome da cidade" maxlength="50">
-                </div>
-                <div class="form-col">
-                    <label for="estado">Estado</label>
-                    <select id="estado" name="estado">
-                        <option value="">Selecione o estado</option>
-                        <option value="AC">Acre</option>
-                        <option value="AL">Alagoas</option>
-                        <option value="AP">Amapá</option>
-                        <option value="AM">Amazonas</option>
-                        <option value="BA">Bahia</option>
-                        <option value="CE">Ceará</option>
-                        <option value="DF">Distrito Federal</option>
-                        <option value="ES">Espírito Santo</option>
-                        <option value="GO">Goiás</option>
-                        <option value="MA">Maranhão</option>
-                        <option value="MT">Mato Grosso</option>
-                        <option value="MS">Mato Grosso do Sul</option>
-                        <option value="MG">Minas Gerais</option>
-                        <option value="PA">Pará</option>
-                        <option value="PB">Paraíba</option>
-                        <option value="PR">Paraná</option>
-                        <option value="PE">Pernambuco</option>
-                        <option value="PI">Piauí</option>
-                        <option value="RJ">Rio de Janeiro</option>
-                        <option value="RN">Rio Grande do Norte</option>
-                        <option value="RS">Rio Grande do Sul</option>
-                        <option value="RO">Rondônia</option>
-                        <option value="RR">Roraima</option>
-                        <option value="SC">Santa Catarina</option>
-                        <option value="SP">São Paulo</option>
-                        <option value="SE">Sergipe</option>
-                        <option value="TO">Tocantins</option>
-                    </select>
+                <div class="header-text">
+                    <h1>Cadastrar Nova Vaga</h1>
+                    <p>Preencha as informações para criar uma nova oportunidade de voluntariado</p>
                 </div>
             </div>
         </div>
 
-        <div class="loading" id="loading">Cadastrando vaga, aguarde...</div>
-        <button type="submit" id="submitBtn">Cadastrar Vaga</button>
-    </form>
+        <form onsubmit="vaga(event)" id="formCadastroVaga">
+            <div class="success" id="successMessage"></div>
+
+            <!-- Seção: Informações Básicas -->
+            <div class="form-section">
+                <div class="section-header">
+                    <h3 class="section-title">
+                        <i class="bi bi-info-circle"></i>
+                        Informações Básicas
+                    </h3>
+                    <div class="section-divider"></div>
+                </div>
+
+                <div class="input-group">
+                    <label for="imagem" class="required">Imagem da Vaga</label>
+                    <div class="file-upload-container">
+                        <input type="file" id="imagem" name="imagem" accept="image/*" required onchange="previewImage(this)" class="file-input">
+                        <div class="file-upload-label">
+                            <i class="bi bi-cloud-upload"></i>
+                            <span>Clique para selecionar ou arraste a imagem aqui</span>
+                        </div>
+                    </div>
+                    <div class="file-info">Formatos aceitos: JPG, PNG, GIF. Tamanho máximo: 5MB</div>
+                    <div class="error" id="imagemError"></div>
+
+                    <div class="preview-container">
+                        <img id="imagePreview" class="preview-image" alt="Preview da imagem">
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label for="nome" class="required">Nome da Vaga</label>
+                    <input type="text" id="nome" placeholder="Ex: Doação de Alimentos, Limpeza de Parque, etc." required maxlength="100">
+                    <div class="error" id="nomeError"></div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-col">
+                        <div class="input-group">
+                            <label for="quantidade" class="required">Quantidade de Vagas</label>
+                            <div class="input-with-icon">
+                                <i class="bi bi-people"></i>
+                                <input type="number" id="quantidade" placeholder="0" required min="1" max="1000">
+                            </div>
+                            <div class="error" id="quantidadeError"></div>
+                        </div>
+                    </div>
+                    <div class="form-col">
+                        <div class="input-group">
+                            <label for="dataBrasil" class="required">Data da Vaga</label>
+                            <div class="input-with-icon">
+                                <i class="bi bi-calendar"></i>
+                                <input type="text" id="dataBrasil" placeholder="dd/mm/aaaa" required maxlength="10">
+                            </div>
+                            <div class="error" id="dataError"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label for="desc">Descrição da Vaga</label>
+                    <textarea id="desc" placeholder="Descreva detalhadamente a atividade, objetivos, requisitos e informações importantes para os voluntários..." maxlength="1000"></textarea>
+                    <div class="char-counter">
+                        <span id="descCharCount">0</span>/1000 caracteres
+                    </div>
+                    <div class="error" id="descError"></div>
+                </div>
+            </div>
+
+            <!-- Seção: Local da Vaga -->
+            <div class="form-section">
+                <div class="section-header">
+                    <h3 class="section-title">
+                        <i class="bi bi-geo-alt"></i>
+                        Local da Vaga
+                    </h3>
+                    <div class="section-divider"></div>
+                </div>
+
+                <div class="checkbox-group-enhanced">
+                    <div class="checkbox-wrapper">
+                        <input type="checkbox" id="usarEnderecoOng" name="usarEnderecoOng">
+                        <label for="usarEnderecoOng" class="checkbox-label" id="labelUsarEnderecoOng">
+                            <span class="checkbox-custom">
+                                <i class="bi bi-check"></i>
+                            </span>
+                            <span class="checkbox-text">Usar o endereço da ONG</span>
+                        </label>
+                    </div>
+                    <div class="help-text-box" id="enderecoOngInfo" style="display: none;">
+                        <i class="bi bi-info-circle"></i>
+                        <span id="enderecoOngInfoText"></span>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label for="localReferencia">Local de Referência</label>
+                    <div class="input-with-icon">
+                        <i class="bi bi-pin-map"></i>
+                        <input type="text" id="localReferencia" placeholder="Ex: Sede da ONG, Parque Municipal, Centro Comunitário..." maxlength="100">
+                    </div>
+                    <div class="help-text">Nome do local onde a atividade será realizada</div>
+                </div>
+
+                <div class="input-group">
+                    <label for="cep">CEP</label>
+                    <div class="input-with-icon">
+                        <i class="bi bi-mailbox"></i>
+                        <input type="text" id="cep" placeholder="00000-000" maxlength="9" onblur="buscarCEP()">
+                    </div>
+                    <div class="error" id="cepError"></div>
+                    <div class="loading-cep" id="loadingCep" style="display: none;">
+                        <i class="bi bi-arrow-clockwise spin"></i>
+                        Buscando endereço...
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-col">
+                        <div class="input-group">
+                            <label for="logradouro">Logradouro</label>
+                            <input type="text" id="logradouro" placeholder="Rua, Avenida, etc." maxlength="100">
+                        </div>
+                    </div>
+                    <div class="form-col">
+                        <div class="input-group">
+                            <label for="numero">Número</label>
+                            <input type="text" id="numero" placeholder="123" maxlength="10">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label for="complemento">Complemento</label>
+                    <input type="text" id="complemento" placeholder="Apartamento, Sala, Bloco, etc." maxlength="50">
+                </div>
+
+                <div class="input-group">
+                    <label for="bairro">Bairro</label>
+                    <input type="text" id="bairro" placeholder="Nome do bairro" maxlength="50">
+                </div>
+
+                <div class="form-row">
+                    <div class="form-col">
+                        <div class="input-group">
+                            <label for="cidade">Cidade</label>
+                            <input type="text" id="cidade" placeholder="Nome da cidade" maxlength="50">
+                        </div>
+                    </div>
+                    <div class="form-col">
+                        <div class="input-group">
+                            <label for="estado">Estado</label>
+                            <select id="estado" name="estado">
+                                <option value="">Selecione o estado</option>
+                                <option value="AC">Acre</option>
+                                <option value="AL">Alagoas</option>
+                                <option value="AP">Amapá</option>
+                                <option value="AM">Amazonas</option>
+                                <option value="BA">Bahia</option>
+                                <option value="CE">Ceará</option>
+                                <option value="DF">Distrito Federal</option>
+                                <option value="ES">Espírito Santo</option>
+                                <option value="GO">Goiás</option>
+                                <option value="MA">Maranhão</option>
+                                <option value="MT">Mato Grosso</option>
+                                <option value="MS">Mato Grosso do Sul</option>
+                                <option value="MG">Minas Gerais</option>
+                                <option value="PA">Pará</option>
+                                <option value="PB">Paraíba</option>
+                                <option value="PR">Paraná</option>
+                                <option value="PE">Pernambuco</option>
+                                <option value="PI">Piauí</option>
+                                <option value="RJ">Rio de Janeiro</option>
+                                <option value="RN">Rio Grande do Norte</option>
+                                <option value="RS">Rio Grande do Sul</option>
+                                <option value="RO">Rondônia</option>
+                                <option value="RR">Roraima</option>
+                                <option value="SC">Santa Catarina</option>
+                                <option value="SP">São Paulo</option>
+                                <option value="SE">Sergipe</option>
+                                <option value="TO">Tocantins</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-actions">
+                <div class="loading" id="loading">
+                    <div class="loading-spinner"></div>
+                    Cadastrando vaga, aguarde...
+                </div>
+                <button type="submit" id="submitBtn" class="btn-primary">
+                    <i class="bi bi-check-circle"></i>
+                    Cadastrar Vaga
+                </button>
+            </div>
+        </form>
+    </div>
 </div>
 
+</body>
 <script>
-    // Dados da ONG (serão preenchidos pelo Thymeleaf)
+    // Dados da ONG (serão preenchidos pelo Thymeleaf no template real)
     const ongData = {
-        logradouro: /*[[${ong?.logradouro}]]*/ '',
-        numero: /*[[${ong?.numero}]]*/ '',
-        complemento: /*[[${ong?.complemento}]]*/ '',
-        bairro: /*[[${ong?.bairro}]]*/ '',
-        cidade: /*[[${ong?.cidade}]]*/ '',
-        estado: /*[[${ong?.estado}]]*/ '',
-        cep: /*[[${ong?.cep}]]*/ ''
+        logradouro: /*[[${ong?.logradouro}]]*/ 'Rua das Flores, 123',
+        numero: /*[[${ong?.numero}]]*/ '123',
+        complemento: /*[[${ong?.complemento}]]*/ 'Sala 1',
+        bairro: /*[[${ong?.bairro}]]*/ 'Centro',
+        cidade: /*[[${ong?.cidade}]]*/ 'São Paulo',
+        estado: /*[[${ong?.estado}]]*/ 'SP',
+        cep: /*[[${ong?.cep}]]*/ '01234567',
+        cadastroFinalizado: /*[[${ong?.cadastroFinalizado}]]*/ true // Para demonstração
     };
 
-    // Funções de logout
-    function showLogoutModal() {
-        document.getElementById('logoutModal').style.display = 'block';
+    // Variáveis globais
+    let buscandoCEP = false;
+
+    // ===== INICIALIZAÇÃO =====
+    document.addEventListener('DOMContentLoaded', function() {
+        inicializarFormulario();
+        configurarEventListeners();
+        verificarEnderecoOng();
+        setPlaceholderDate();
+        configurarContadorCaracteres();
+    });
+
+    // ===== FUNÇÕES DE INICIALIZAÇÃO =====
+    function inicializarFormulario() {
+        // Configurar validações em tempo real
+        setupRealTimeValidation();
+
+        // Prevenir envio com Enter em campos específicos
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Enter' && event.target.type !== 'submit' && event.target.tagName !== 'TEXTAREA') {
+                event.preventDefault();
+            }
+        });
+
+        // Configurar drag and drop para upload de imagem
+        setupImageDragAndDrop();
     }
 
-    function hideLogoutModal() {
-        document.getElementById('logoutModal').style.display = 'none';
+    function configurarEventListeners() {
+        // Campo de data brasileira
+        const dataBrasil = document.getElementById('dataBrasil');
+        dataBrasil.addEventListener('input', function() {
+            formatDateBR(this);
+        });
+        dataBrasil.addEventListener('blur', function() {
+            validateBRDate(this.value.trim());
+        });
+
+        // Campo de CEP
+        const cep = document.getElementById('cep');
+        cep.addEventListener('input', function() {
+            formatCEP(this);
+        });
+
+        // Checkbox usar endereço da ONG
+        const usarEnderecoOng = document.getElementById('usarEnderecoOng');
+        usarEnderecoOng.addEventListener('change', function() {
+            toggleEnderecoOng(this.checked);
+        });
+
+        // Configurar eventos de foco para inputs
+        setupInputFocusEffects();
     }
 
-    function confirmLogout() {
-        window.location.href = '/login/logout';
-    }
+    function configurarContadorCaracteres() {
+        const textarea = document.getElementById('desc');
+        const counter = document.getElementById('descCharCount');
 
-    // Fecha o modal se clicar fora dele
-    window.onclick = function(event) {
-        const modal = document.getElementById('logoutModal');
-        if (event.target === modal) {
-            hideLogoutModal();
+        if (textarea && counter) {
+            textarea.addEventListener('input', function() {
+                const length = this.value.length;
+                counter.textContent = length;
+
+                // Mudar cor baseado no limite
+                if (length > 900) {
+                    counter.style.color = '#e74c3c';
+                } else if (length > 700) {
+                    counter.style.color = '#f39c12';
+                } else {
+                    counter.style.color = '#00A8FF';
+                }
+            });
         }
     }
 
-    // Função para preview da imagem
-    function previewImage(input) {
-        const preview = document.getElementById('imagePreview');
-        const errorDiv = document.getElementById('imagemError');
+    function setupImageDragAndDrop() {
+        const container = document.querySelector('.file-upload-container');
+        const input = document.getElementById('imagem');
 
-        if (input.files && input.files[0]) {
-            const file = input.files[0];
+        if (!container || !input) return;
 
-            // Validações
-            if (!file.type.startsWith('image/')) {
-                showError('imagemError', 'Por favor, selecione apenas arquivos de imagem.');
-                input.value = '';
-                preview.style.display = 'none';
-                return;
+        // Prevenir comportamento padrão do browser
+        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+            container.addEventListener(eventName, preventDefaults, false);
+            document.body.addEventListener(eventName, preventDefaults, false);
+        });
+
+        // Destacar área de drop
+        ['dragenter', 'dragover'].forEach(eventName => {
+            container.addEventListener(eventName, highlight, false);
+        });
+
+        ['dragleave', 'drop'].forEach(eventName => {
+            container.addEventListener(eventName, unhighlight, false);
+        });
+
+        // Lidar com drop
+        container.addEventListener('drop', handleDrop, false);
+
+        function preventDefaults(e) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+
+        function highlight() {
+            container.style.borderColor = '#0078D4';
+            container.style.background = 'rgba(0, 168, 255, 0.15)';
+        }
+
+        function unhighlight() {
+            container.style.borderColor = '#00A8FF';
+            container.style.background = 'rgba(0, 168, 255, 0.05)';
+        }
+
+        function handleDrop(e) {
+            const dt = e.dataTransfer;
+            const files = dt.files;
+
+            if (files.length > 0) {
+                input.files = files;
+                previewImage(input);
+            }
+        }
+    }
+
+    function setupInputFocusEffects() {
+        const inputs = document.querySelectorAll('input, textarea, select');
+
+        inputs.forEach(input => {
+            input.addEventListener('focus', function() {
+                this.parentElement.style.transform = 'translateY(-1px)';
+            });
+
+            input.addEventListener('blur', function() {
+                this.parentElement.style.transform = 'translateY(0)';
+            });
+        });
+    }
+
+    function verificarEnderecoOng() {
+        const checkbox = document.getElementById('usarEnderecoOng');
+        const label = document.getElementById('labelUsarEnderecoOng');
+        const info = document.getElementById('enderecoOngInfo');
+        const infoText = document.getElementById('enderecoOngInfoText');
+
+        // Verificar se a ONG tem cadastro finalizado e endereço completo
+        const temCadastroFinalizado = ongData.cadastroFinalizado === true;
+        const temEnderecoCompleto = isValidString(ongData.logradouro) &&
+            isValidString(ongData.cidade) &&
+            isValidString(ongData.estado);
+
+        if (temCadastroFinalizado && temEnderecoCompleto) {
+            // Habilitar checkbox e mostrar informações
+            checkbox.disabled = false;
+            label.classList.remove('disabled');
+
+            // Mostrar preview do endereço da ONG
+            const enderecoPreview = montarEnderecoCompleto(ongData);
+            infoText.textContent = `Endereço: ${enderecoPreview}`;
+            info.style.display = 'block';
+            info.style.background = 'rgba(39, 174, 96, 0.1)';
+            info.style.borderColor = 'rgba(39, 174, 96, 0.2)';
+            info.style.color = '#27ae60';
+
+            // Atualizar ícone
+            const icon = info.querySelector('i');
+            if (icon) {
+                icon.className = 'bi bi-check-circle';
+                icon.style.color = '#27ae60';
             }
 
-            if (file.size > 5 * 1024 * 1024) { // 5MB
-                showError('imagemError', 'A imagem deve ter no máximo 5MB.');
-                input.value = '';
-                preview.style.display = 'none';
-                return;
-            }
-
-            hideError('imagemError');
-
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                preview.src = e.target.result;
-                preview.style.display = 'block';
-            };
-            reader.readAsDataURL(file);
         } else {
-            preview.style.display = 'none';
+            // Desabilitar checkbox
+            checkbox.disabled = true;
+            checkbox.checked = false;
+            label.classList.add('disabled');
+
+            // Atualizar texto do label
+            const textSpan = label.querySelector('.checkbox-text');
+            if (textSpan) {
+                textSpan.textContent = 'Usar o endereço da ONG (não disponível)';
+            }
+
+            // Mostrar mensagem de erro
+            if (!temCadastroFinalizado) {
+                infoText.textContent = 'Complete o cadastro da ONG para usar esta opção';
+            } else {
+                infoText.textContent = 'Endereço da ONG incompleto. Finalize o cadastro primeiro.';
+            }
+
+            info.style.display = 'block';
+            info.style.background = 'rgba(231, 76, 60, 0.1)';
+            info.style.borderColor = 'rgba(231, 76, 60, 0.2)';
+            info.style.color = '#e74c3c';
+
+            // Atualizar ícone
+            const icon = info.querySelector('i');
+            if (icon) {
+                icon.className = 'bi bi-exclamation-triangle';
+                icon.style.color = '#e74c3c';
+            }
         }
     }
 
-    // Função para mostrar erro
-    function showError(elementId, message) {
-        const errorDiv = document.getElementById(elementId);
-        errorDiv.textContent = message;
-        errorDiv.style.display = 'block';
+    // ===== FUNÇÕES DE ENDEREÇO =====
+    function toggleEnderecoOng(usar) {
+        const campos = ['logradouro', 'numero', 'complemento', 'bairro', 'cidade', 'estado', 'cep'];
+
+        if (usar) {
+            // Preencher campos com dados da ONG
+            preencherCamposEndereco(ongData);
+
+            // Desabilitar campos com animação
+            campos.forEach((campo, index) => {
+                const elemento = document.getElementById(campo);
+                if (elemento) {
+                    setTimeout(() => {
+                        elemento.disabled = true;
+                        elemento.style.background = '#f1f3f4';
+                        elemento.style.borderColor = '#dee2e6';
+                        elemento.style.color = '#6c757d';
+
+                        // Adicionar efeito visual
+                        elemento.style.transition = 'all 0.3s ease';
+                        elemento.style.transform = 'scale(0.98)';
+                        setTimeout(() => {
+                            elemento.style.transform = 'scale(1)';
+                        }, 150);
+                    }, index * 50);
+                }
+            });
+
+            // Mostrar feedback positivo
+            showTemporaryMessage('Endereço da ONG aplicado com sucesso!', 'success');
+
+        } else {
+            // Limpar e habilitar campos com animação
+            campos.forEach((campo, index) => {
+                const elemento = document.getElementById(campo);
+                if (elemento) {
+                    setTimeout(() => {
+                        elemento.value = '';
+                        elemento.disabled = false;
+                        elemento.style.background = '';
+                        elemento.style.borderColor = '';
+                        elemento.style.color = '';
+
+                        // Adicionar efeito visual
+                        elemento.style.transition = 'all 0.3s ease';
+                        elemento.style.transform = 'scale(1.02)';
+                        setTimeout(() => {
+                            elemento.style.transform = 'scale(1)';
+                        }, 150);
+                    }, index * 50);
+                }
+            });
+
+            // Limpar erros
+            hideError('cepError');
+        }
     }
 
-    // Função para esconder erro
-    function hideError(elementId) {
-        const errorDiv = document.getElementById(elementId);
-        errorDiv.style.display = 'none';
+    function preencherCamposEndereco(dados) {
+        const mapeamento = {
+            'logradouro': dados.logradouro,
+            'numero': dados.numero,
+            'complemento': dados.complemento,
+            'bairro': dados.bairro,
+            'cidade': dados.cidade,
+            'estado': dados.estado,
+            'cep': formatCEPValue(dados.cep)
+        };
+
+        Object.entries(mapeamento).forEach(([campo, valor]) => {
+            const elemento = document.getElementById(campo);
+            if (elemento && valor) {
+                elemento.value = valor;
+
+                // Efeito visual de preenchimento
+                elemento.style.background = '#e8f5e8';
+                setTimeout(() => {
+                    elemento.style.background = '#f1f3f4';
+                }, 1000);
+            }
+        });
     }
 
-    // Função para mostrar sucesso
-    function showSuccess(message) {
-        const successDiv = document.getElementById('successMessage');
-        successDiv.textContent = message;
-        successDiv.style.display = 'block';
-        setTimeout(() => {
-            successDiv.style.display = 'none';
-        }, 5000);
+    function montarEnderecoCompleto(dados) {
+        const partes = [];
+
+        if (isValidString(dados.logradouro)) {
+            let endereco = dados.logradouro;
+            if (isValidString(dados.numero)) {
+                endereco += `, ${dados.numero}`;
+            }
+            partes.push(endereco);
+        }
+
+        if (isValidString(dados.bairro)) {
+            partes.push(dados.bairro);
+        }
+
+        if (isValidString(dados.cidade)) {
+            let cidadeEstado = dados.cidade;
+            if (isValidString(dados.estado)) {
+                cidadeEstado += ` - ${dados.estado}`;
+            }
+            partes.push(cidadeEstado);
+        }
+
+        if (isValidString(dados.cep)) {
+            partes.push(`CEP: ${formatCEPValue(dados.cep)}`);
+        }
+
+        return partes.join(', ');
     }
 
-    // Função para formatar data brasileira (dd/mm/aaaa)
+    // ===== BUSCA DE CEP =====
+    async function buscarCEP() {
+        const cepInput = document.getElementById('cep');
+        const cep = cepInput.value.replace(/\D/g, '');
+        const loadingElement = document.getElementById('loadingCep');
+
+        // Não buscar se estiver usando endereço da ONG
+        if (document.getElementById('usarEnderecoOng').checked) {
+            return;
+        }
+
+        // Validar CEP
+        if (cep.length !== 8) {
+            if (cep.length > 0) {
+                showError('cepError', 'CEP deve ter 8 dígitos.');
+            }
+            return;
+        }
+
+        // Evitar múltiplas buscas simultâneas
+        if (buscandoCEP) {
+            return;
+        }
+
+        buscandoCEP = true;
+        loadingElement.style.display = 'block';
+        hideError('cepError');
+
+        try {
+            const response = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
+
+            if (!response.ok) {
+                throw new Error('Erro na consulta do CEP');
+            }
+
+            const data = await response.json();
+
+            if (data.erro) {
+                showError('cepError', 'CEP não encontrado. Verifique o número digitado.');
+                return;
+            }
+
+            // Preencher campos automaticamente
+            preencherDadosCEP(data);
+
+            // Feedback visual de sucesso
+            loadingElement.innerHTML = '<i class="bi bi-check-circle"></i> Endereço encontrado!';
+            loadingElement.style.color = '#27ae60';
+            loadingElement.style.borderLeftColor = '#27ae60';
+            loadingElement.style.background = 'rgba(39, 174, 96, 0.1)';
+
+            setTimeout(() => {
+                loadingElement.style.display = 'none';
+                loadingElement.innerHTML = '<i class="bi bi-arrow-clockwise spin"></i> Buscando endereço...';
+                loadingElement.style.color = '#00A8FF';
+                loadingElement.style.borderLeftColor = '#00A8FF';
+                loadingElement.style.background = 'rgba(0, 168, 255, 0.1)';
+            }, 2500);
+
+        } catch (error) {
+            console.error('Erro ao buscar CEP:', error);
+            showError('cepError', 'Erro ao buscar CEP. Tente novamente ou preencha manualmente.');
+
+        } finally {
+            buscandoCEP = false;
+            if (loadingElement.style.color !== 'rgb(39, 174, 96)') {
+                loadingElement.style.display = 'none';
+            }
+        }
+    }
+
+    function preencherDadosCEP(data) {
+        const mapeamento = {
+            'logradouro': data.logradouro || '',
+            'bairro': data.bairro || '',
+            'cidade': data.localidade || '',
+            'estado': data.uf || ''
+        };
+
+        Object.entries(mapeamento).forEach(([campo, valor]) => {
+            const elemento = document.getElementById(campo);
+            if (elemento && valor && !elemento.disabled) {
+                elemento.value = valor;
+
+                // Animação visual para destacar o campo preenchido
+                elemento.style.background = '#e8f5e8';
+                elemento.style.borderColor = '#27ae60';
+                elemento.style.transform = 'scale(1.02)';
+
+                setTimeout(() => {
+                    elemento.style.background = '';
+                    elemento.style.borderColor = '';
+                    elemento.style.transform = 'scale(1)';
+                }, 1500);
+            }
+        });
+    }
+
+    // ===== FORMATAÇÃO E VALIDAÇÃO =====
     function formatDateBR(input) {
-        let value = input.value.replace(/\D/g, ''); // Remove caracteres não numéricos
+        let value = input.value.replace(/\D/g, '');
 
         if (value.length >= 2) {
             value = value.substring(0, 2) + '/' + value.substring(2);
@@ -897,7 +1680,6 @@
         input.value = value;
     }
 
-    // Função para formatar CEP
     function formatCEP(input) {
         let value = input.value.replace(/\D/g, '');
         if (value.length > 5) {
@@ -906,7 +1688,74 @@
         input.value = value;
     }
 
-    // Função para converter data brasileira (dd/mm/aaaa) para formato ISO (aaaa-mm-dd)
+    function formatCEPValue(cep) {
+        if (!cep) return '';
+        const cleaned = cep.replace(/\D/g, '');
+        if (cleaned.length === 8) {
+            return cleaned.substring(0, 5) + '-' + cleaned.substring(5);
+        }
+        return cep;
+    }
+
+    function validateBRDate(dateBR) {
+        if (!dateBR || dateBR.length !== 10) {
+            if (dateBR.length > 0) {
+                showError('dataError', 'Data deve estar no formato dd/mm/aaaa.');
+            }
+            return false;
+        }
+
+        if (!isValidBRDate(dateBR)) {
+            showError('dataError', 'Data inválida. Verifique o formato dd/mm/aaaa.');
+            return false;
+        }
+
+        if (!isValidFutureDate(dateBR)) {
+            showError('dataError', 'A data da vaga deve ser no futuro.');
+            document.getElementById('dataBrasil').value = '';
+            return false;
+        }
+
+        hideError('dataError');
+        return true;
+    }
+
+    function isValidBRDate(dateBR) {
+        const regex = /^(\d{2})\/(\d{2})\/(\d{4})$/;
+        const match = dateBR.match(regex);
+
+        if (!match) return false;
+
+        const day = parseInt(match[1], 10);
+        const month = parseInt(match[2], 10);
+        const year = parseInt(match[3], 10);
+
+        if (month < 1 || month > 12) return false;
+        if (day < 1 || day > 31) return false;
+        if (year < 2024 || year > 2030) return false;
+
+        const date = new Date(year, month - 1, day);
+        return date.getFullYear() === year &&
+            date.getMonth() === (month - 1) &&
+            date.getDate() === day;
+    }
+
+    function isValidFutureDate(dateBR) {
+        if (!isValidBRDate(dateBR)) return false;
+
+        const dateISO = convertToISO(dateBR);
+        if (!dateISO) return false;
+
+        const selectedDate = new Date(dateISO + 'T00:00:00-03:00');
+        const today = new Date();
+        const todayBrazil = new Date(today.toLocaleString("en-US", {timeZone: "America/Sao_Paulo"}));
+
+        selectedDate.setHours(0, 0, 0, 0);
+        todayBrazil.setHours(0, 0, 0, 0);
+
+        return selectedDate > todayBrazil;
+    }
+
     function convertToISO(dateBR) {
         const parts = dateBR.split('/');
         if (parts.length === 3) {
@@ -918,147 +1767,6 @@
         return null;
     }
 
-    // Função para validar data brasileira
-    function isValidBRDate(dateBR) {
-        const regex = /^(\d{2})\/(\d{2})\/(\d{4})$/;
-        const match = dateBR.match(regex);
-
-        if (!match) return false;
-
-        const day = parseInt(match[1], 10);
-        const month = parseInt(match[2], 10);
-        const year = parseInt(match[3], 10);
-
-        // Verifica se os valores são válidos
-        if (month < 1 || month > 12) return false;
-        if (day < 1 || day > 31) return false;
-        if (year < 2024 || year > 2030) return false; // Limite razoável
-
-        // Verifica se a data existe
-        const date = new Date(year, month - 1, day);
-        return date.getFullYear() === year &&
-            date.getMonth() === (month - 1) &&
-            date.getDate() === day;
-    }
-
-    // Função para validar se a data é futura (não permite hoje nem passado)
-    function isValidFutureDate(dateBR) {
-        if (!isValidBRDate(dateBR)) return false;
-
-        const dateISO = convertToISO(dateBR);
-        if (!dateISO) return false;
-
-        const selectedDate = new Date(dateISO + 'T00:00:00-03:00');
-        const today = new Date();
-
-        const todayBrazil = new Date(today.toLocaleString("en-US", {timeZone: "America/Sao_Paulo"}));
-
-        selectedDate.setHours(0, 0, 0, 0);
-        todayBrazil.setHours(0, 0, 0, 0);
-
-        return selectedDate > todayBrazil;
-    }
-
-    // Configuração do campo de data brasileiro
-    document.getElementById('dataBrasil').addEventListener('input', function() {
-        formatDateBR(this);
-    });
-
-    document.getElementById('dataBrasil').addEventListener('blur', function() {
-        const dateBR = this.value.trim();
-
-        if (dateBR && dateBR.length === 10) {
-            if (!isValidBRDate(dateBR)) {
-                showError('dataError', 'Data inválida. Use o formato dd/mm/aaaa.');
-                return;
-            }
-
-            if (!isValidFutureDate(dateBR)) {
-                showError('dataError', 'A data da vaga deve ser no futuro.');
-                this.value = '';
-                return;
-            }
-
-            hideError('dataError');
-        }
-    });
-
-    // Configuração do campo de CEP
-    document.getElementById('cep').addEventListener('input', function() {
-        formatCEP(this);
-    });
-
-    document.getElementById('cep').addEventListener('blur', function() {
-        const cep = this.value.replace(/\D/g, '');
-        if (cep.length === 8) {
-            fetch(`https://viacep.com.br/ws/${cep}/json/`)
-                .then(response => response.json())
-                .then(data => {
-                    if (!data.erro) {
-                        document.getElementById('logradouro').value = data.logradouro || '';
-                        document.getElementById('bairro').value = data.bairro || '';
-                        document.getElementById('cidade').value = data.localidade || '';
-                        document.getElementById('estado').value = data.uf || '';
-                    } else {
-                        showError('cepError', 'CEP não encontrado');
-                    }
-                })
-                .catch(error => {
-                    console.error('Erro ao buscar CEP:', error);
-                });
-        }
-    });
-
-    // Checkbox para usar endereço da ONG
-    document.getElementById('usarEnderecoOng').addEventListener('change', function() {
-        if (this.checked) {
-            // Preenche os campos com os dados da ONG
-            document.getElementById('logradouro').value = ongData.logradouro || '';
-            document.getElementById('numero').value = ongData.numero || '';
-            document.getElementById('complemento').value = ongData.complemento || '';
-            document.getElementById('bairro').value = ongData.bairro || '';
-            document.getElementById('cidade').value = ongData.cidade || '';
-            document.getElementById('estado').value = ongData.estado || '';
-            document.getElementById('cep').value = ongData.cep ? formatCEPValue(ongData.cep) : '';
-
-            // Desabilita os campos
-            document.getElementById('logradouro').disabled = true;
-            document.getElementById('numero').disabled = true;
-            document.getElementById('complemento').disabled = true;
-            document.getElementById('bairro').disabled = true;
-            document.getElementById('cidade').disabled = true;
-            document.getElementById('estado').disabled = true;
-            document.getElementById('cep').disabled = true;
-        } else {
-            // Limpa e habilita os campos
-            document.getElementById('logradouro').value = '';
-            document.getElementById('numero').value = '';
-            document.getElementById('complemento').value = '';
-            document.getElementById('bairro').value = '';
-            document.getElementById('cidade').value = '';
-            document.getElementById('estado').value = '';
-            document.getElementById('cep').value = '';
-
-            document.getElementById('logradouro').disabled = false;
-            document.getElementById('numero').disabled = false;
-            document.getElementById('complemento').disabled = false;
-            document.getElementById('bairro').disabled = false;
-            document.getElementById('cidade').disabled = false;
-            document.getElementById('estado').disabled = false;
-            document.getElementById('cep').disabled = false;
-        }
-    });
-
-    function formatCEPValue(cep) {
-        if (!cep) return '';
-        const cleaned = cep.replace(/\D/g, '');
-        if (cleaned.length === 8) {
-            return cleaned.substring(0, 5) + '-' + cleaned.substring(5);
-        }
-        return cep;
-    }
-
-    // Define a data mínima como amanhã no placeholder
     function setPlaceholderDate() {
         const today = new Date();
         const todayBrazil = new Date(today.toLocaleString("en-US", {timeZone: "America/Sao_Paulo"}));
@@ -1072,114 +1780,305 @@
         document.getElementById('dataBrasil').placeholder = `Ex: ${day}/${month}/${year}`;
     }
 
-    // Chama a função ao carregar a página
-    setPlaceholderDate();
+    // ===== PREVIEW DE IMAGEM =====
+    function previewImage(input) {
+        const preview = document.getElementById('imagePreview');
+        const errorDiv = document.getElementById('imagemError');
+        const uploadLabel = document.querySelector('.file-upload-label span');
 
-    // Função principal para cadastrar vaga
+        if (input.files && input.files[0]) {
+            const file = input.files[0];
+
+            // Validações
+            if (!file.type.startsWith('image/')) {
+                showError('imagemError', 'Por favor, selecione apenas arquivos de imagem.');
+                input.value = '';
+                preview.style.display = 'none';
+                uploadLabel.textContent = 'Clique para selecionar ou arraste a imagem aqui';
+                return;
+            }
+
+            if (file.size > 5 * 1024 * 1024) { // 5MB
+                showError('imagemError', 'A imagem deve ter no máximo 5MB.');
+                input.value = '';
+                preview.style.display = 'none';
+                uploadLabel.textContent = 'Clique para selecionar ou arraste a imagem aqui';
+                return;
+            }
+
+            hideError('imagemError');
+
+            // Atualizar texto do upload
+            uploadLabel.textContent = `Imagem selecionada: ${file.name}`;
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                preview.src = e.target.result;
+                preview.style.display = 'block';
+
+                // Animação de fade in
+                preview.style.opacity = '0';
+                setTimeout(() => {
+                    preview.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                    preview.style.opacity = '1';
+                    preview.style.transform = 'scale(1)';
+                }, 100);
+            };
+            reader.readAsDataURL(file);
+        } else {
+            preview.style.display = 'none';
+            uploadLabel.textContent = 'Clique para selecionar ou arraste a imagem aqui';
+        }
+    }
+
+    // ===== VALIDAÇÃO EM TEMPO REAL =====
+    function setupRealTimeValidation() {
+        const nome = document.getElementById('nome');
+        const quantidade = document.getElementById('quantidade');
+
+        nome.addEventListener('input', function() {
+            if (this.value.trim().length >= 3) {
+                hideError('nomeError');
+                this.style.borderColor = '#27ae60';
+            } else {
+                this.style.borderColor = '';
+            }
+        });
+
+        quantidade.addEventListener('input', function() {
+            const value = parseInt(this.value, 10);
+            if (value >= 1 && value <= 1000) {
+                hideError('quantidadeError');
+                this.style.borderColor = '#27ae60';
+            } else {
+                this.style.borderColor = '';
+            }
+        });
+
+        // Validação em tempo real para CEP
+        const cep = document.getElementById('cep');
+        cep.addEventListener('input', function() {
+            const cleaned = this.value.replace(/\D/g, '');
+            if (cleaned.length === 8) {
+                this.style.borderColor = '#27ae60';
+            } else {
+                this.style.borderColor = '';
+            }
+        });
+    }
+
+    // ===== GERENCIAMENTO DE MENSAGENS =====
+    function showError(elementId, message) {
+        const errorDiv = document.getElementById(elementId);
+        if (errorDiv) {
+            errorDiv.textContent = message;
+            errorDiv.style.display = 'block';
+
+            // Animação de slide down
+            errorDiv.style.opacity = '0';
+            errorDiv.style.transform = 'translateY(-10px)';
+            setTimeout(() => {
+                errorDiv.style.transition = 'all 0.3s ease';
+                errorDiv.style.opacity = '1';
+                errorDiv.style.transform = 'translateY(0)';
+            }, 50);
+
+            // Scroll suave para o erro
+            setTimeout(() => {
+                errorDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }, 100);
+        }
+    }
+
+    function hideError(elementId) {
+        const errorDiv = document.getElementById(elementId);
+        if (errorDiv) {
+            errorDiv.style.transition = 'all 0.3s ease';
+            errorDiv.style.opacity = '0';
+            errorDiv.style.transform = 'translateY(-10px)';
+            setTimeout(() => {
+                errorDiv.style.display = 'none';
+            }, 300);
+        }
+    }
+
+    function showSuccess(message) {
+        const successDiv = document.getElementById('successMessage');
+        if (successDiv) {
+            successDiv.textContent = message;
+            successDiv.style.display = 'block';
+
+            // Animação de slide down
+            successDiv.style.opacity = '0';
+            successDiv.style.transform = 'translateY(-20px)';
+            setTimeout(() => {
+                successDiv.style.transition = 'all 0.5s ease';
+                successDiv.style.opacity = '1';
+                successDiv.style.transform = 'translateY(0)';
+            }, 50);
+
+            // Scroll para o topo
+            successDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+            setTimeout(() => {
+                successDiv.style.opacity = '0';
+                setTimeout(() => {
+                    successDiv.style.display = 'none';
+                }, 300);
+            }, 5000);
+        }
+    }
+
+    function showTemporaryMessage(message, type = 'info', duration = 3000) {
+        // Criar elemento de mensagem temporária
+        const messageDiv = document.createElement('div');
+        messageDiv.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        z-index: 9999;
+        padding: 15px 20px;
+        border-radius: 12px;
+        font-weight: 500;
+        box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        transform: translateX(100%);
+        transition: all 0.3s ease;
+        max-width: 300px;
+    `;
+
+        // Configurar cores baseado no tipo
+        if (type === 'success') {
+            messageDiv.style.background = 'rgba(39, 174, 96, 0.9)';
+            messageDiv.style.color = 'white';
+            messageDiv.style.border = '2px solid #27ae60';
+        } else if (type === 'error') {
+            messageDiv.style.background = 'rgba(231, 76, 60, 0.9)';
+            messageDiv.style.color = 'white';
+            messageDiv.style.border = '2px solid #e74c3c';
+        } else {
+            messageDiv.style.background = 'rgba(0, 168, 255, 0.9)';
+            messageDiv.style.color = 'white';
+            messageDiv.style.border = '2px solid #00A8FF';
+        }
+
+        messageDiv.textContent = message;
+        document.body.appendChild(messageDiv);
+
+        // Animar entrada
+        setTimeout(() => {
+            messageDiv.style.transform = 'translateX(0)';
+        }, 100);
+
+        // Remover após duração
+        setTimeout(() => {
+            messageDiv.style.transform = 'translateX(100%)';
+            setTimeout(() => {
+                document.body.removeChild(messageDiv);
+            }, 300);
+        }, duration);
+    }
+
+    // ===== UTILITÁRIOS =====
+    function isValidString(str) {
+        return str != null && str.trim() !== '' && str.trim().toLowerCase() !== 'null';
+    }
+
+    // ===== MODAL DE LOGOUT =====
+    function showLogoutModal() {
+        const modal = document.getElementById('logoutModal');
+        modal.style.display = 'block';
+
+        // Animar entrada
+        const content = modal.querySelector('.modal-content');
+        content.style.transform = 'scale(0.7) translateY(-50px)';
+        content.style.opacity = '0';
+
+        setTimeout(() => {
+            content.style.transition = 'all 0.3s ease';
+            content.style.transform = 'scale(1) translateY(0)';
+            content.style.opacity = '1';
+        }, 50);
+    }
+
+    function hideLogoutModal() {
+        const modal = document.getElementById('logoutModal');
+        const content = modal.querySelector('.modal-content');
+
+        content.style.transition = 'all 0.3s ease';
+        content.style.transform = 'scale(0.7) translateY(-50px)';
+        content.style.opacity = '0';
+
+        setTimeout(() => {
+            modal.style.display = 'none';
+        }, 300);
+    }
+
+    function confirmLogout() {
+        showTemporaryMessage('Desconectando...', 'info', 2000);
+        setTimeout(() => {
+            window.location.href = '/login/logout';
+        }, 1000);
+    }
+
+    // Fechar modal clicando fora
+    window.onclick = function(event) {
+        const modal = document.getElementById('logoutModal');
+        if (event.target === modal) {
+            hideLogoutModal();
+        }
+    }
+
+    // ===== SUBMISSÃO DO FORMULÁRIO =====
     async function vaga(event) {
         event.preventDefault();
 
-        // Limpa mensagens anteriores
+        // Limpar mensagens anteriores
         ['nomeError', 'quantidadeError', 'descError', 'dataError', 'imagemError', 'cepError'].forEach(hideError);
 
-        const nome = document.getElementById("nome").value.trim();
-        const quantidade = parseInt(document.getElementById("quantidade").value, 10);
-        const descricao = document.getElementById("desc").value.trim();
-        const dataBR = document.getElementById("dataBrasil").value.trim();
-        const imagemFile = document.getElementById("imagem").files[0];
+        // Desabilitar botão de submit
+        const submitBtn = document.getElementById('submitBtn');
+        const originalText = submitBtn.innerHTML;
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<div class="loading-spinner"></div> Processando...';
 
-        // Dados do local
-        const localReferencia = document.getElementById("localReferencia").value.trim();
-        const cep = document.getElementById("cep").value.replace(/\D/g, '');
-        const logradouro = document.getElementById("logradouro").value.trim();
-        const numero = document.getElementById("numero").value.trim();
-        const complemento = document.getElementById("complemento").value.trim();
-        const bairro = document.getElementById("bairro").value.trim();
-        const cidade = document.getElementById("cidade").value.trim();
-        const estado = document.getElementById("estado").value;
+        // Coletar dados do formulário
+        const formData = coletarDadosFormulario();
 
-        let hasError = false;
-
-        // Validações
-        if (!nome) {
-            showError('nomeError', 'Nome da vaga é obrigatório.');
-            hasError = true;
-        } else if (nome.length < 3) {
-            showError('nomeError', 'Nome da vaga deve ter pelo menos 3 caracteres.');
-            hasError = true;
-        }
-
-        if (!quantidade || quantidade < 1 || quantidade > 1000) {
-            showError('quantidadeError', 'Quantidade deve ser entre 1 e 1000.');
-            hasError = true;
-        }
-
-        if (!dataBR) {
-            showError('dataError', 'Data da vaga é obrigatória.');
-            hasError = true;
-        } else if (!isValidBRDate(dataBR)) {
-            showError('dataError', 'Data inválida. Use o formato dd/mm/aaaa.');
-            hasError = true;
-        } else if (!isValidFutureDate(dataBR)) {
-            showError('dataError', 'A data da vaga deve ser no futuro.');
-            hasError = true;
-        }
-
-        if (!imagemFile) {
-            showError('imagemError', 'Imagem da vaga é obrigatória.');
-            hasError = true;
-        }
-
-        if (hasError) {
+        // Validar dados
+        if (!validarFormulario(formData)) {
+            // Reabilitar botão
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = originalText;
             return;
         }
 
-        // Mostra loading
+        // Mostrar loading
         document.getElementById('loading').style.display = 'block';
-        document.getElementById('submitBtn').disabled = true;
 
         try {
-            // Converte a data para formato ISO
-            const dataISO = convertToISO(dataBR);
+            // Criar FormData para envio
+            const submitData = criarFormDataParaEnvio(formData);
 
-            // Cria FormData para enviar arquivo
-            const formData = new FormData();
-            formData.append('nome', nome);
-            formData.append('quantidade', quantidade);
-            formData.append('descri', descricao);
-            formData.append('data', dataISO);
-            formData.append('imagem', imagemFile);
-
-            // Adiciona dados do local
-            formData.append('localReferencia', localReferencia);
-            formData.append('cep', cep);
-            formData.append('logradouro', logradouro);
-            formData.append('numero', numero);
-            formData.append('complemento', complemento);
-            formData.append('bairro', bairro);
-            formData.append('cidade', cidade);
-            formData.append('estado', estado);
-
-            // Envia a requisição para a rota correta do Spring Boot
+            // Enviar requisição
             const response = await fetch('/vagas/homeOng', {
                 method: 'POST',
-                body: formData
+                body: submitData
             });
 
             if (response.ok) {
                 const result = await response.text();
 
-                // Limpa o formulário
-                document.querySelector('form').reset();
-                document.getElementById('imagePreview').style.display = 'none';
+                // Limpar formulário
+                limparFormulario();
 
-                // Mostra mensagem de sucesso
+                // Mostrar sucesso
                 showSuccess(result || 'Vaga cadastrada com sucesso!');
+                showTemporaryMessage('Vaga cadastrada com sucesso!', 'success', 4000);
 
-                // Redireciona após 2 segundos
+                // Redirecionar após delay
                 setTimeout(() => {
                     window.location.href = '/vagas/listaVaga';
-                }, 2000);
+                }, 2500);
 
             } else {
                 const errorMessage = await response.text();
@@ -1188,46 +2087,145 @@
 
         } catch (error) {
             console.error('Erro:', error);
-
-            // Mostra mensagem de erro
-            if (error.message.includes('Acesso não autorizado')) {
-                showError('nomeError', 'Sessão expirada. Faça login novamente.');
-                setTimeout(() => {
-                    window.location.href = '/login/ong';
-                }, 2000);
-            } else if (error.message.includes('fetch')) {
-                showError('nomeError', 'Erro de conexão. Verifique sua internet e tente novamente.');
-            } else {
-                showError('nomeError', error.message || 'Erro ao cadastrar vaga. Tente novamente.');
-            }
+            tratarErroSubmissao(error);
 
         } finally {
-            // Esconde loading e reabilita botão
             document.getElementById('loading').style.display = 'none';
-            document.getElementById('submitBtn').disabled = false;
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = originalText;
         }
     }
 
-    // Adiciona validação em tempo real nos campos
-    document.getElementById('nome').addEventListener('input', function() {
-        if (this.value.trim().length >= 3) {
-            hideError('nomeError');
-        }
-    });
+    function coletarDadosFormulario() {
+        return {
+            nome: document.getElementById("nome").value.trim(),
+            quantidade: parseInt(document.getElementById("quantidade").value, 10),
+            descricao: document.getElementById("desc").value.trim(),
+            dataBR: document.getElementById("dataBrasil").value.trim(),
+            imagemFile: document.getElementById("imagem").files[0],
+            localReferencia: document.getElementById("localReferencia").value.trim(),
+            cep: document.getElementById("cep").value.replace(/\D/g, ''),
+            logradouro: document.getElementById("logradouro").value.trim(),
+            numero: document.getElementById("numero").value.trim(),
+            complemento: document.getElementById("complemento").value.trim(),
+            bairro: document.getElementById("bairro").value.trim(),
+            cidade: document.getElementById("cidade").value.trim(),
+            estado: document.getElementById("estado").value
+        };
+    }
 
-    document.getElementById('quantidade').addEventListener('input', function() {
-        const value = parseInt(this.value, 10);
-        if (value >= 1 && value <= 1000) {
-            hideError('quantidadeError');
-        }
-    });
+    function validarFormulario(data) {
+        let hasError = false;
 
-    // Previne envio do formulário com Enter em campos específicos
-    document.addEventListener('keydown', function(event) {
-        if (event.key === 'Enter' && event.target.type !== 'submit' && event.target.tagName !== 'TEXTAREA') {
-            event.preventDefault();
+        // Validar nome
+        if (!data.nome) {
+            showError('nomeError', 'Nome da vaga é obrigatório.');
+            hasError = true;
+        } else if (data.nome.length < 3) {
+            showError('nomeError', 'Nome da vaga deve ter pelo menos 3 caracteres.');
+            hasError = true;
         }
-    });
+
+        // Validar quantidade
+        if (!data.quantidade || data.quantidade < 1 || data.quantidade > 1000) {
+            showError('quantidadeError', 'Quantidade deve ser entre 1 e 1000.');
+            hasError = true;
+        }
+
+        // Validar data
+        if (!data.dataBR) {
+            showError('dataError', 'Data da vaga é obrigatória.');
+            hasError = true;
+        } else if (!validateBRDate(data.dataBR)) {
+            hasError = true; // Erro já mostrado na função validateBRDate
+        }
+
+        // Validar imagem
+        if (!data.imagemFile) {
+            showError('imagemError', 'Imagem da vaga é obrigatória.');
+            hasError = true;
+        }
+
+        // Mostrar resumo dos erros se houver
+        if (hasError) {
+            showTemporaryMessage('Por favor, corrija os erros no formulário.', 'error', 4000);
+        }
+
+        return !hasError;
+    }
+
+    function criarFormDataParaEnvio(data) {
+        const formData = new FormData();
+
+        // Dados obrigatórios
+        formData.append('nome', data.nome);
+        formData.append('quantidade', data.quantidade);
+        formData.append('descri', data.descricao);
+        formData.append('data', convertToISO(data.dataBR));
+        formData.append('imagem', data.imagemFile);
+
+        // Dados de localização
+        if (data.localReferencia) formData.append('localReferencia', data.localReferencia);
+        if (data.cep) formData.append('cep', data.cep);
+        if (data.logradouro) formData.append('logradouro', data.logradouro);
+        if (data.numero) formData.append('numero', data.numero);
+        if (data.complemento) formData.append('complemento', data.complemento);
+        if (data.bairro) formData.append('bairro', data.bairro);
+        if (data.cidade) formData.append('cidade', data.cidade);
+        if (data.estado) formData.append('estado', data.estado);
+
+        return formData;
+    }
+
+    function limparFormulario() {
+        const form = document.querySelector('form');
+        form.reset();
+
+        // Limpar preview de imagem
+        document.getElementById('imagePreview').style.display = 'none';
+
+        // Resetar texto do upload
+        const uploadLabel = document.querySelector('.file-upload-label span');
+        if (uploadLabel) {
+            uploadLabel.textContent = 'Clique para selecionar ou arraste a imagem aqui';
+        }
+
+        // Resetar contador de caracteres
+        const counter = document.getElementById('descCharCount');
+        if (counter) {
+            counter.textContent = '0';
+            counter.style.color = '#00A8FF';
+        }
+
+        // Se estava usando endereço da ONG, manter marcado
+        const usarEnderecoOng = document.getElementById('usarEnderecoOng');
+        if (usarEnderecoOng.checked) {
+            setTimeout(() => {
+                toggleEnderecoOng(true);
+            }, 100);
+        }
+
+        // Limpar estilos de validação
+        const inputs = form.querySelectorAll('input, textarea, select');
+        inputs.forEach(input => {
+            input.style.borderColor = '';
+        });
+    }
+
+    function tratarErroSubmissao(error) {
+        if (error.message.includes('Acesso não autorizado')) {
+            showError('nomeError', 'Sessão expirada. Faça login novamente.');
+            showTemporaryMessage('Sessão expirada. Redirecionando...', 'error', 3000);
+            setTimeout(() => {
+                window.location.href = '/login/ong';
+            }, 2000);
+        } else if (error.message.includes('fetch')) {
+            showError('nomeError', 'Erro de conexão. Verifique sua internet e tente novamente.');
+            showTemporaryMessage('Erro de conexão. Tente novamente.', 'error', 4000);
+        } else {
+            showError('nomeError', error.message || 'Erro ao cadastrar vaga. Tente novamente.');
+            showTemporaryMessage('Erro ao cadastrar vaga.', 'error', 4000);
+        }
+    }
 </script>
-</body>
 </html>
